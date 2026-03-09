@@ -240,41 +240,6 @@ namespace ET.Server
 			return monsterPosition.NextID;
 		}
 		
-		/// <summary>
-		/// 宝宝类型  0普通 1  宝宝  2 变异宝宝  3普通怪物[生成宠物的时候用到]
-		/// </summary>
-		/// <param name="monsterId"></param>
-		/// <returns></returns>
-		public static int GetBabyType(int sceneType, int babyNumber, MonsterConfig monsterConfig)
-		{
-			if (babyNumber >= GlobalValueConfigCategory.Instance.BabyRefreshMaxNum)
-			{
-				return 0;	
-			}
-
-			if (sceneType != MapTypeEnum.LocalDungeon)
-			{
-				return 0;	
-			}
-
-			if (monsterConfig.MonsterType != MonsterTypeEnum.Normal)
-			{
-				return 0;
-			}
-
-			float rvalue = RandomHelper.RandFloat01();
-			if (rvalue< GlobalValueConfigCategory.Instance.BabyBianYiRefreshChance)
-			{
-				return 2;
-			}
-			if (rvalue < GlobalValueConfigCategory.Instance.BabyRefreshChance)
-			{
-				return 1;
-			}
-
-			return 0;
-		}
-
 		public static void CreateMonsterList(Scene scene, string createMonster)
 		{
 			if (CommonHelp.IfNull(createMonster))
@@ -286,9 +251,7 @@ namespace ET.Server
 			int sceneType = mapComponent.MapType;
 			string[] monsters = createMonster.Split('@');
 			//1;37.65,0,3.2;70005005;1@138.43,0,0.06;70005010;1
-
-			int babyNumber = 0;
-
+			
 			List<KeyValuePairInt> randomMonsterList = new List<KeyValuePairInt>();
 
 			for (int i = 0; i < monsters.Length; i++)
@@ -350,13 +313,7 @@ namespace ET.Server
 					{
 						float3 vector3 = new float3(float.Parse(position[0]), float.Parse(position[1]), float.Parse(position[2]));
 						
-						int babyType  = GetBabyType(sceneType, babyNumber, monsterConfig);
-						if (babyType > 0)
-						{
-							babyNumber++;
-						}
-
-						UnitFactory.CreateMonster(scene, monsterid, vector3, new CreateMonsterInfo() { Camp = monsterConfig.MonsterCamp ,BaByType = babyType});
+						UnitFactory.CreateMonster(scene, monsterid, vector3, new CreateMonsterInfo() { Camp = monsterConfig.MonsterCamp ,BaByType = 0});
 					}
 				}
 
@@ -374,13 +331,8 @@ namespace ET.Server
 						float range = float.Parse(mcount[1]);
 						float3 vector3 = new float3(float.Parse(position[0]) + RandomHelper.RandomNumberFloat(-1 * range, range),
 							float.Parse(position[1]), float.Parse(position[2]) + RandomHelper.RandomNumberFloat(-1 * range, range));
-						
-						int babyType  = GetBabyType(sceneType, babyNumber, monsterConfig);
-						if (babyType > 0)
-						{
-							babyNumber++;
-						}
-						UnitFactory.CreateMonster(scene, monsterid, vector3, new CreateMonsterInfo() { Camp = monsterConfig.MonsterCamp, BaByType = babyType});
+					
+						UnitFactory.CreateMonster(scene, monsterid, vector3, new CreateMonsterInfo() { Camp = monsterConfig.MonsterCamp, BaByType = 0});
 					}
 				}
 

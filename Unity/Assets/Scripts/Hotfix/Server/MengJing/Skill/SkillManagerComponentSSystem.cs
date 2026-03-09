@@ -32,7 +32,7 @@ namespace ET.Server
             self.Skills.Clear();
             self.DelaySkillList.Clear();
             self.SkillCDs.Clear();
-            self.FangunSkillId = GlobalValueConfigCategory.Instance.FangunSkillId;
+            self.FangunSkillId = 0;
             self.SelfUnitComponent = self.Scene().GetComponent<UnitComponent>();
             self.SelfUnit = self.GetParent<Unit>();
         }

@@ -88,7 +88,7 @@ namespace ET.Client
 
         public static int GetMaxPiLao(this Unit self)
         {
-            return self.IsYueKaStates() ? GlobalValueConfigCategory.Instance.MaxPiLaoYuKaUser : GlobalValueConfigCategory.Instance.MaxPiLao;
+            return 0;
         }
 
         public static bool IsYueKaStates(this Unit self)

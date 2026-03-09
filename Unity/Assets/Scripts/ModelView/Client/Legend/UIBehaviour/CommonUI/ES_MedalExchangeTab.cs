@@ -7,7 +7,8 @@ namespace ET.Client
 	[EnableMethod]
 	public  class ES_MedalExchangeTab : Entity,ET.IAwake<UnityEngine.Transform>,IDestroy , IUILogic
 	{
-		
+
+		public int MedalId;
 		public UITypeViewComponent UITypeViewComponent { get; set; }
 		
 		public UnityEngine.RectTransform EG_TypeListNodeRectTransform

@@ -11,6 +11,22 @@ namespace ET.Server
                 return;
             }
 
+            if (!MedalExchangeConfigCategory.Instance.Contain((request.MedalId)))
+            {
+                response.Error = ErrorCode.ERR_ModifyData;
+                return;
+            }
+
+            
+            
+            MedalExchangeConfig medalExchangeConfig = MedalExchangeConfigCategory.Instance.Get(request.MedalId);
+            BagComponentS bagComponents = unit.GetComponent<BagComponentS>();
+
+            if (!string.IsNullOrEmpty(medalExchangeConfig.CostItems))
+            {
+                bagComponents.OnCostItemData(medalExchangeConfig.CostItems);
+            }
+
             await ETTask.CompletedTask;
         }
     }

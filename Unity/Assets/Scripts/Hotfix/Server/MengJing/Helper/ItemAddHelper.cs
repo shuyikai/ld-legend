@@ -42,12 +42,7 @@ namespace ET.Server
         /// <param name="getType">1购买</param>
         public static void JianDingFuItem(ItemInfo bagInf0, int shulianValue, int getType)
         {
-            if (ItemHelper.IsBuyItem(getType))
-            {
-                bagInf0.ItemPar = GlobalValueConfigCategory.Instance.JianDingFuQulity.ToString();
-                return;
-            }
-
+            
             //万能鉴定符固定为60
             if (bagInf0.ItemID == 1140000)
             {

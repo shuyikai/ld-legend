@@ -118,12 +118,7 @@ namespace ET
         public static int GetMaxHuoLi(this Unit self, int skillNumber)
         {
             //开启双职业活力恢复增强
-            if (skillNumber >= 2)
-            {
-                return (int)(GlobalValueConfigCategory.Instance.MaxHuoLi * 1.5f);
-            }
-
-            return GlobalValueConfigCategory.Instance.MaxHuoLi;
+            return 0;
         }
   
         //传入子值返回母值

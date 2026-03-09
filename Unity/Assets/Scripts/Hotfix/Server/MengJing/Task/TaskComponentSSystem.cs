@@ -27,7 +27,7 @@ namespace ET.Server
 
         private static void CheckInitTask(this TaskComponentS self)
         {
-            int initTask = GlobalValueConfigCategory.Instance.InitTaskId;
+            
             /*if (!self.IsHaveTask(initTask))
             {
                 TaskConfig taskConfig = TaskConfigCategory.Instance.Get(initTask);

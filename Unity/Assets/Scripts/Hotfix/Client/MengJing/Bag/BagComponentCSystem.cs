@@ -387,20 +387,11 @@ namespace ET.Client
 
         public static int GetBagTotalCell(this BagComponentC self, int hourseId)
         {
-            int storeCapacity = GlobalValueConfigCategory.Instance.HourseInitCapacity; //仓库
-            if (hourseId == (int)ItemLocType.GemWareHouse1)
-            {
-                storeCapacity = GlobalValueConfigCategory.Instance.GemStoreInitCapacity; //宝石仓库
-            }
+            int storeCapacity = GlobalValueConfigCategory.Instance.BagInitCapacity;
 
             if (hourseId == (int)ItemLocType.ItemLocBag)
             {
                 storeCapacity = GlobalValueConfigCategory.Instance.BagInitCapacity; //背包
-            }
-
-            if (hourseId == (int)ItemLocType.ItemPetHeXinBag)
-            {
-                storeCapacity = GlobalValueConfigCategory.Instance.PetHeXinMax; //宠物之核背包
             }
 
             return storeCapacity + self.BagBuyCellNumber[hourseId] + self.BagAddCellNumber[hourseId];
@@ -410,10 +401,10 @@ namespace ET.Client
         {
             if (houseId == ItemLocType.ItemLocBag)
             {
-                return self.BagAddCellNumber[0] + GlobalValueConfigCategory.Instance.BagInitCapacity + GlobalValueConfigCategory.Instance.BuyBagCellMaxNum;
+                return self.BagAddCellNumber[0] + GlobalValueConfigCategory.Instance.BagInitCapacity + 0;
             }
 
-            return self.BagAddCellNumber[houseId] + GlobalValueConfigCategory.Instance.HourseInitCapacity + GlobalValueConfigCategory.Instance.BuyHourseCellMaxNum;
+            return self.BagAddCellNumber[houseId] + GlobalValueConfigCategory.Instance.BagInitCapacity + 0;
         }
 
         public static List<ItemInfo> GetCanJianDing(this BagComponentC self)

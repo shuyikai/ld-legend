@@ -97,7 +97,7 @@ namespace ET.Client
                     break;
             }
 
-            int maxCount = GlobalValueConfigCategory.Instance.BagMaxCapacity;
+            int maxCount = GlobalValueConfigCategory.Instance.BagInitCapacity;
             self.ShowBagInfos.AddRange(bagComponentC.GetItemsByType(itemTypeEnum));
             self.AddUIScrollItems(ref self.ScrollItemCommonItems, maxCount);
             self.E_BagItemsLoopVerticalScrollRect.SetVisible(true, maxCount);

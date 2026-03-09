@@ -22,31 +22,7 @@ namespace ET.Server
                 return;
             }
 
-            //unit获取
-            Unit unit = aiComponent.GetParent<Unit>();
-            List<Unit> units = UnitHelper.GetUnitList( aiComponent.Scene(), unit.Position, UnitType.Player, 3f );
-
-            int dropid = GlobalValueConfigCategory.Instance.TurtleDropId;
-
-            List<string> rewardName = new List<string>();   
-            for (int i = 0; i < units.Count; i++)
-            {
-                //每个人获得道具的概率是20%
-                if (RandomHelper.RandFloat01() <= 0.2f)
-                {
-
-                    List<RewardItem> droplist = new List<RewardItem>();
-                    DropHelper.DropIDToDropItem_2(dropid, droplist);
-
-                    bool sucess = units[i].GetComponent<BagComponentS>().OnAddItemData(droplist, string.Empty, $"{ItemGetWay.Turtle}_{TimeHelper.ServerNow()}");
-                    if (!sucess)
-                    {
-                        units[i].GetComponent<UserInfoComponentS>().UpdateRoleData(UserDataType.Message, "背包已满！");
-                    }
-                    rewardName.Add(units[i].GetComponent<UserInfoComponentS>().UserInfo.Name);
-                }
-            }
-
+           
         }
 
         public async ETTask TurtleReport(AIComponent aiComponent)

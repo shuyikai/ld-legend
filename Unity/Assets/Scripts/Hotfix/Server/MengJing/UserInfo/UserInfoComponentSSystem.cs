@@ -389,12 +389,7 @@ namespace ET.Server
             //Log.Warning($"[增加疲劳] {unit.DomainZone()}  {unit.Id}   {0}  {recoverPiLao}");
 
         }
-
-        public static int GetMaxPiLao(this Unit self)
-        {
-            return self.IsYueKaStates() ? GlobalValueConfigCategory.Instance.MaxPiLaoYuKaUser : GlobalValueConfigCategory.Instance.MaxPiLao;
-        }
-
+        
         public static bool IsYueKaStates(this Unit self)
         {
             return false;

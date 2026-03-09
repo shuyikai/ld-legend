@@ -14,6 +14,7 @@ namespace ET.Client
 		{
 			self.uiTransform = transform;
 			
+			self.E_Button_ExchangeButton.AddListenerAsync(self.OnExchangeButton);
 		}
 
 		[EntitySystem]
@@ -70,11 +71,34 @@ namespace ET.Client
 		    return typeButtonInfos;
 		}
 
+		private static async ETTask OnExchangeButton(this ES_MedalExchangeTab self)
+		{
+			if (self.MedalId == 0)
+			{
+				return;
+			}
+
+			MedalExchangeConfig medalExchangeConfig = MedalExchangeConfigCategory.Instance.Get(self.MedalId);
+			BagComponentC bagComponentC = self.Root().GetComponent<BagComponentC>();
+
+			if (!bagComponentC.CheckNeedItem(medalExchangeConfig.CostItems))
+			{
+				FlyTipComponent.Instance.ShowFlyTip(ErrorViewData.ErrorHints[ErrorCode.ERR_ItemNotEnoughError]);
+				return;
+			}
+
+			long instanceid = self.InstanceId;
+			M2C_MedalExchangeResponse response = await BagClientNetHelper.RequestMedalExchange(self.Root(), self.MedalId);
+			if (instanceid != self.InstanceId)
+			{
+				return;
+			}
+		}
 
 		public static void OnClickTypeItem(this ES_MedalExchangeTab self, int typeid, int medalid)
 		{
 			Log.Debug(($"OnClickTypeItem:  {typeid}  {medalid}"));
-
+			self.MedalId = medalid;
 			MedalExchangeConfig medalExchangeConfig = MedalExchangeConfigCategory.Instance.Get(medalid);
 			if (string.IsNullOrEmpty(medalExchangeConfig.CostItems))
 			{

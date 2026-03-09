@@ -31,7 +31,7 @@ namespace ET.Client
             self.Skills.Clear();
             self.SkillCDs.Clear();
             self.SkillPublicCDTime = 0;
-            self.FangunSkillId = GlobalValueConfigCategory.Instance.FangunSkillId;
+            self.FangunSkillId = 0;
 
             Unit unit = self.GetParent<Unit>();
             NumericComponentC numericComponentC = unit.GetComponent<NumericComponentC>();

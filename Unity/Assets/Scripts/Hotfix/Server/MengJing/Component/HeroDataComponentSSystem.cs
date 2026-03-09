@@ -37,8 +37,6 @@ namespace ET.Server
              Unit unit = self.GetParent<Unit>();
              NumericComponentS numericComponentS = unit.GetComponent<NumericComponentS>();
 
-             int initTimes = GlobalValueConfigCategory.Instance.SingleHappyInitTimes;
-           
          }
 
 
@@ -64,7 +62,7 @@ namespace ET.Server
          public static void OnInit(this HeroDataComponentS self)
          {
              Unit unit = self.GetParent<Unit>();
-             int inittimes = GlobalValueConfigCategory.Instance.SingleHappyInitTimes;
+           
          }
 
          /// <summary>

@@ -166,5 +166,13 @@ namespace ET.Client
             return response;
         }
 
+        public static async ETTask<M2C_MedalExchangeResponse> RequestMedalExchange(Scene root, int medalid)
+        {
+            C2M_MedalExchangeRequest request = C2M_MedalExchangeRequest.Create();
+            request.MedalId = medalid;
+
+            M2C_MedalExchangeResponse response = (M2C_MedalExchangeResponse)await root.GetComponent<ClientSenderCompnent>().Call(request);
+            return response;
+        }
     }
 }

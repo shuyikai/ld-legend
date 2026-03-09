@@ -427,63 +427,7 @@ namespace  ET
             }
             return proValue;
         }
-
         
-        public static int GetZhuPuType2_GaiLv(int monsterid, int babytype, int itemid, int jiacheng)
-        {
-            if (monsterid == 0)
-            {
-                return 0;
-            }
-
-            int gailv = GlobalValueConfigCategory.Instance.ZhuaByGaiLvInit[babytype]; 
-            if (itemid > 0)
-            {
-                int add = int.Parse(ItemConfigCategory.Instance.Get(itemid).ItemUsePar);
-                gailv += add;
-
-            }
-            //触点加成
-            if (jiacheng == 2)
-            {
-                gailv += 50;
-            }
-            return gailv;
-        }
-
-        public static int GetZhuPuType1_GaiLv(int monsterid, int itemid, int jiacheng)
-        {
-            if (monsterid == 0)
-            {
-                return 0;
-            }
-            MonsterConfig monsterConfig = MonsterConfigCategory.Instance.Get(monsterid);
-            int[] Parameter = monsterConfig.Parameter;
-            if (Parameter == null)
-            {
-                return 0;
-            }
-            int gailv = Parameter[0];
-            if (itemid > 0)
-            {
-                int add = GlobalValueConfigCategory.Instance.ZhuaPuItem[itemid];
-
-                //抓捕怪物加成
-                if (monsterConfig.MonsterSonType == MonsterSonTypeEnum.Type_58) {
-                    add = add * 2;
-                }
-
-                gailv += add;
-
-            }
-            //触点加成
-            if (jiacheng == 2)
-            {
-                gailv += 50;
-            }
-            return gailv;
-        }
-
         public static int GetJiaYuanPetExp(int petLv, int xinqingValue) {
 
             ExpConfig expCof = ExpConfigCategory.Instance.Get(petLv);

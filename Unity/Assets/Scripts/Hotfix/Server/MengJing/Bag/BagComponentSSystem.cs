@@ -442,20 +442,13 @@ namespace ET.Server
 
         public static int GetBagTotalCell(this BagComponentS self, int hourseId)
         {
-            int storeCapacity = GlobalValueConfigCategory.Instance.HourseInitCapacity;  //仓库
-            if (hourseId == (int)ItemLocType.GemWareHouse1)
-            {
-                storeCapacity = GlobalValueConfigCategory.Instance.GemStoreInitCapacity; //宝石仓库
-            }
+            int storeCapacity = GlobalValueConfigCategory.Instance.BagInitCapacity;  //背包
+
             if (hourseId == (int)ItemLocType.ItemLocBag)
             {
                 storeCapacity = GlobalValueConfigCategory.Instance.BagInitCapacity; //背包
             }
-            if (hourseId == (int)ItemLocType.ItemPetHeXinBag)
-            {
-                storeCapacity = GlobalValueConfigCategory.Instance.PetHeXinMax; //宠物之核背包
-            }
-
+        
             return storeCapacity + self.BagBuyCellNumber[hourseId] + self.BagAddCellNumber[hourseId];
         }
 
@@ -984,20 +977,6 @@ namespace ET.Server
             {
                 return true;
             }
-
-            if (getType != ItemGetWay.GemHeCheng) //宝石合成在对应的协议有判断
-            {
-                //宠物之核都是通过ItemLocType.ItemLocBag进入背包的
-                if (petHeXinNumber > 0 && (petHeXinNumber + self.GetItemByLoc(ItemLocType.ItemPetHeXinBag).Count > GlobalValueConfigCategory.Instance.PetHeXinMax) &&
-                    UseLocType == ItemLocType.ItemLocBag)
-                {
-                    return false;
-                }
-                if (needCellNumber > self.GetBagLeftCell(ItemLocType.ItemLocBag) && UseLocType == ItemLocType.ItemLocBag)
-                {
-                    return false;
-                }
-            }
             
             //通知客户端背包刷新
             M2C_RoleBagUpdate m2c_bagUpdate = M2C_RoleBagUpdate.Create();
@@ -1185,7 +1164,7 @@ namespace ET.Server
             return true;
         }
 
-        public static bool CheckCostItem(this BagComponentS self, string rewardItems)
+        public static bool CheckNeedItem(this BagComponentS self, string rewardItems)
         {
             string[] needList = rewardItems.Split('@');
             for (int i = 0; i < needList.Length; i++)
@@ -1224,6 +1203,11 @@ namespace ET.Server
         //字符串删除道具
         public static bool OnCostItemData(this BagComponentS self, string rewardItems, int itemLocType = ItemLocType.ItemLocBag)
         {
+            if (string.IsNullOrEmpty(rewardItems))
+            {
+                return true;
+            }
+
             List<RewardItem> costItems = new List<RewardItem>();
             string[] needList = rewardItems.Split('@');
             for (int i = 0; i < needList.Length; i++)

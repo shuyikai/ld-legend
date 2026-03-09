@@ -480,15 +480,7 @@ namespace ET.Server
             }
 
             int monsterNumber = UnitHelper.GetUnitListByCamp(self.GetParent<Scene>(), UnitType.Monster, monsterConfig.MonsterCamp).Count;
-            if (mapComponent.MapType == MapTypeEnum.Battle)
-            {
-                if (monsterConfig.MonsterSonType != 55 && monsterConfig.MonsterSonType != 56
-                    && monsterNumber >= GlobalValueConfigCategory.Instance.BattlefieldMonsterLimit)
-                {
-                    return;
-                }
-            }
-            else if (mapComponent.MapType == MapTypeEnum.BaoZang)
+            if (mapComponent.MapType == MapTypeEnum.BaoZang)
             {
                 if (monsterNumber >= int.Parse( GlobalValueConfigCategory.Instance.Get(78).Value))
                 {

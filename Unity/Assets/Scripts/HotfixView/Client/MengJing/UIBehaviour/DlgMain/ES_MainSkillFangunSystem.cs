@@ -12,7 +12,7 @@ namespace ET.Client
         {
             self.uiTransform = transform;
             
-            self.SkillId = GlobalValueConfigCategory.Instance.FangunSkillId;
+            self.SkillId = 0;
             transform.GetComponent<Button>().onClick.AddListener(   self.OnUseFangunSkill  );
         }
         
