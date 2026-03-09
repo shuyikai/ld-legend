@@ -288,42 +288,6 @@ namespace ET.Server
                 {
                     bagInfos[i].ItemNum = 1;
                 }
-
-                ItemConfig itemConfig = ItemConfigCategory.Instance.Get(bagInfos[i].ItemID);
-                if (itemConfig.EquipType != 101 && itemConfig.ItemType == ItemTypeEnum.Equipment && bagInfos[i].InheritSkills.Count == 0 &&
-                    itemConfig.ItemQuality >= 5 && itemConfig.UseLv >= 60)
-                {
-                    int skillid = 0; //XiLianHelper.XiLianChuanChengJianDing(itemConfig, occ, occTwo);
-                    if (skillid != 0)
-                    {
-                        bagInfos[i].InheritSkills.Add(skillid);
-                    }
-                }
-
-                if (itemConfig.ItemType == ItemTypeEnum.Equipment && itemConfig.ItemQuality <= 4)
-                {
-                    bagInfos[i].InheritSkills.Clear();
-                }
-
-                if (itemConfig.ItemType == ItemTypeEnum.Equipment && itemConfig.ItemQuality >= 5 && itemConfig.UseLv < 60)
-                {
-                    bagInfos[i].InheritSkills.Clear();
-                }
-
-                if (itemConfig.EquipType == 101 && bagInfos[i].HideProLists != null)
-                {
-                    bagInfos[i].HideProLists.Clear();
-                }
-
-                if (itemConfig.EquipType == 101 && bagInfos[i].InheritSkills != null)
-                {
-                    bagInfos[i].InheritSkills.Clear();
-                }
-
-                if ((itemConfig.EquipType == 113 || itemConfig.EquipType == 127) && string.IsNullOrEmpty((bagInfos[i].ItemPar)))
-                {
-                    ItemAddHelper.TreasureItem(unit, bagInfos[i]);
-                }
             }
         }
 
@@ -551,11 +515,6 @@ namespace ET.Server
                 {
                     return true;
                 }
-
-                if (self.GetItemByLoc(ItemLocType.ItemLocEquip)[i].InheritSkills.Contains(skillId))
-                {
-                    return true;
-                }
             }
 
             return false;
@@ -585,33 +544,6 @@ namespace ET.Server
             }
         }
         
-        public static List<ItemInfo> GetCurJingHeList(this BagComponentS self)
-        {
-            List<ItemInfo> bagInfos = new List<ItemInfo>();
-            for (int i = 0; i < self.GetItemByLoc(ItemLocType.SeasonJingHe).Count; i++)
-            {
-                if (self.GetItemByLoc(ItemLocType.SeasonJingHe)[i].EquipPlan == self.SeasonJingHePlan)
-                {
-                    bagInfos.Add(self.GetItemByLoc(ItemLocType.SeasonJingHe)[i]);
-                }
-            }
-
-            return bagInfos;
-        }
-
-        public static bool IsEquipJingHe(this BagComponentS self, int itemId)
-        {
-            List<ItemInfo> bagInfos = self.GetCurJingHeList();
-            for (int i = 0; i < bagInfos.Count; i++)
-            {
-                if (bagInfos[i].ItemID == itemId)
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
 
         public static List<int> GetEquipTianFuIds(this BagComponentS self)
         {
@@ -647,19 +579,6 @@ namespace ET.Server
             return equiptianfuids;
         }
         
-        public static ItemInfo GetJingHeByWeiZhi(this BagComponentS self, int subType)
-        {
-            List<ItemInfo> bagInfos = self.GetCurJingHeList();
-            for (int i = 0; i < bagInfos.Count; i++)
-            {
-                if (bagInfos[i].EquipIndex == subType)
-                {
-                    return bagInfos[i];
-                }
-            }
-
-            return null;
-        }
 
         public static List<ItemInfo> GetEquipListByWeizhi(this BagComponentS self, int equipIndex, int position)
         {
@@ -1192,58 +1111,7 @@ namespace ET.Server
                     //if (!ItemHelper.IsBuyItem(getType) && itemCof.ItemType == 3)
                     if (itemCof.ItemType == 3)
                     {
-                        if (itemCof.ItemQuality >= 4)
-                        {
-                            useBagInfo.IfJianDing = true;
-                        }
-                        else
-                        {
-                            //白色和绿色品质都是100% 紫色概率出鉴定
-                            float jianDingPro = 0f;
-
-                            if (itemCof.ItemQuality == 1)
-                            {
-                                jianDingPro = 0f;
-                            }
-
-                            if (itemCof.ItemQuality == 2)
-                            {
-                                jianDingPro = 0f;
-                            }
-
-                            if (itemCof.ItemQuality == 3)
-                            {
-                                jianDingPro = 0f;
-                            }
-
-                            if (itemCof.ItemQuality == 4)
-                            {
-                                jianDingPro = 0.75f;
-                            }
-
-                            if (RandomHelper.RandFloat() <= jianDingPro)
-                            {
-                                useBagInfo.IfJianDing = true;
-                            }
-                        }
-
-                        //特殊处理不坚定
-                        if (useBagInfo.ItemID == 14100021 || useBagInfo.ItemID == 14100022 || useBagInfo.ItemID == 14100121 ||
-                            useBagInfo.ItemID == 14100122 || useBagInfo.ItemID == 14100221 || useBagInfo.ItemID == 14060006)
-                        {
-                            useBagInfo.IfJianDing = false;
-                        }
-
-                        int equipId = itemCof.ItemEquipID;
-                        if (equipId != 0 && EquipConfigCategory.Instance.Get(equipId).AppraisalItem == 0)
-                        {
-                            useBagInfo.IfJianDing = false;
-                        }
-
-                        if (itemCof.EquipType == 101)
-                        {
-                            useBagInfo.IfJianDing = itemCof.ItemQuality >= 5;
-                        }
+                        
                     }
                     
                     if (ItemGetWay.ItemGetBing.Contains(getType))
@@ -1258,11 +1126,7 @@ namespace ET.Server
                     {
                         useBagInfo.isBinging = true;
                     }
-
-                    if (getType == ItemGetWay.System)
-                    {
-                        useBagInfo.IfJianDing = false;
-                    }
+                    
 
                     //藏宝图
                     if (itemCof.ItemSubType == 113 || itemCof.ItemSubType == 127)
@@ -1566,9 +1430,6 @@ namespace ET.Server
             M2C_RoleBagUpdate m2c_bagUpdate = M2C_RoleBagUpdate.Create();
             m2c_bagUpdate.BagInfoUpdate.Add(bagInfos[index].ToMessage());
 
-            //9@200103; 0.03; 0.03
-            bagInfos[index].FumoProLists.Clear();
-            bagInfos[index].FumoProLists.AddRange(hideProLists);
             //bagInfos[index].FumoProLists.AddRange( ItemHelper.GetItemFumoPro(itemid) );
 
             //通知客户端背包道具发生改变

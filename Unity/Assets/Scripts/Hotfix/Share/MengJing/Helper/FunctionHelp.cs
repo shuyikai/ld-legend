@@ -279,11 +279,7 @@ namespace ET
         public static int CheckTreasure(int taskConfigId, int nowNum, int playerLv)
         {
             TaskConfig taskConfig = TaskConfigCategory.Instance.Get(taskConfigId);
-            if (nowNum >= GlobalValueConfigCategory.Instance.TreasureTaskLimit)
-            {
-                return ErrorCode.ERR_TaskLimited;
-            }
-
+           
             if (taskConfig.TaskLv > playerLv || taskConfig.TaskMaxLv < playerLv)
             {
                 return ErrorCode.ERR_Error;

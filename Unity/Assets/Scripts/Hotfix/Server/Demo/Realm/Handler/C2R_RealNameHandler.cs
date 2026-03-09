@@ -13,7 +13,7 @@ namespace ET.Server
             int zone = session.Root().Zone();
             if (request.AccountId == 0 ||  string.IsNullOrEmpty(request.IdCardNO) || string.IsNullOrEmpty(request.Name))
             {
-                response.Error = ErrorCode.ERR_RealNameFail;
+                //response.Error = ErrorCode.ERR_RealNameFail;
                 return;
             }
 
@@ -22,7 +22,7 @@ namespace ET.Server
             {
                 if (instanceid != session.InstanceId)
                 {
-                    response.Error = ErrorCode.ERR_RealNameFail;
+                    //response.Error = ErrorCode.ERR_RealNameFail;
                     return;
                 }
 
@@ -30,7 +30,7 @@ namespace ET.Server
                         (DBCenterAccountInfo)await UnitCacheHelper.GetComponent<DBCenterAccountInfo>(session.Root(), request.AccountId);
                 if (dbCenterAccountInfo == null)
                 {
-                    response.Error = ErrorCode.ERR_RealNameFail;
+                    //response.Error = ErrorCode.ERR_RealNameFail;
                     return;
                 }
 
@@ -64,7 +64,7 @@ namespace ET.Server
                 
                 if (result_check == null || result_check.data == null || result_check.data.result == null)
                 {
-                    response.Error = ErrorCode.ERR_RealNameFail;
+                    //response.Error = ErrorCode.ERR_RealNameFail;
                     return;
                 }
                 

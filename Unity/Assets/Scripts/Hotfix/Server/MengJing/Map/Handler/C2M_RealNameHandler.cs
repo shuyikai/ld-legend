@@ -10,7 +10,7 @@ namespace ET.Server
             
             if (request.AccountId == 0 ||  string.IsNullOrEmpty(request.IdCardNO) || string.IsNullOrEmpty(request.Name))
             {
-                response.Error = ErrorCode.ERR_RealNameFail;
+                //response.Error = ErrorCode.ERR_RealNameFail;
                 return;
             }
 
@@ -19,7 +19,7 @@ namespace ET.Server
                         (DBCenterAccountInfo)await UnitCacheHelper.GetComponent<DBCenterAccountInfo>(unit.Root(), request.AccountId, dbzone);
                 if (dbCenterAccountInfo == null)
                 {
-                    response.Error = ErrorCode.ERR_RealNameFail;
+                    //response.Error = ErrorCode.ERR_RealNameFail;
                     return;
                 }
 
@@ -53,7 +53,7 @@ namespace ET.Server
                 
                 if (result_check == null || result_check.data == null || result_check.data.result == null)
                 {
-                    response.Error = ErrorCode.ERR_RealNameFail;
+                    //response.Error = ErrorCode.ERR_RealNameFail;
                     return;
                 }
                 

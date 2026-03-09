@@ -22,7 +22,7 @@ namespace ET.Server
                 ActivityComponentS activityComponent = unit.GetComponent<ActivityComponentS>();
                 if (!ActivityHelper.HaveReceiveTimes(activityComponent.ActivityReceiveIds, request.ActivityId))
                 {
-                    response.Error = ErrorCode.ERR_AlreadyReceived;
+                    //response.Error = ErrorCode.ERR_AlreadyReceived;
                     return;
                 }
                 ServerLogHelper.LogWarning($"C2M_ActivityReceive:  {unit.Id} {request.ActivityId} {request.ReceiveIndex} {TimeHelper.ServerNow().ToString()}", true);
@@ -75,12 +75,7 @@ namespace ET.Server
                             response.Error = ErrorCode.ERR_ModifyData;
                             return;
                         }
-
-                        if (activityComponent.ActivityReceiveIds.Contains(activityConfig.Id))
-                        {
-                            response.Error = ErrorCode.ERR_AlreadyReceived;
-                            return;
-                        }
+                        
                         
                         string[] rewarditems = activityConfig.Par_2.Split('@');
                         if (rewarditems.Length > unit.GetComponent<BagComponentS>().GetBagLeftCell(ItemLocType.ItemLocBag))

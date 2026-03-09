@@ -350,55 +350,11 @@ namespace ET.Client
             List<ItemInfo> equipInfos = bagComponent.GetItemsByType(ItemTypeEnum.Equipment);
 
             equips.Clear();
-            for (int i = 0; i < equipInfos.Count; i++)
-            {
-                if (equipInfos[i].IfJianDing)
-                {
-                    continue;
-                }
-
-                ItemConfig itemConfig = ItemConfigCategory.Instance.Get(equipInfos[i].ItemID);
-                if (itemConfig.EquipType == 101)
-                {
-                    continue;
-                }
-
-                if (itemConfig.UseLv < 60 && itemConfig.ItemQuality <= 5)
-                {
-                    continue;
-                }
-
-                //饰品不显示
-                if (itemConfig.ItemSubType == 5)
-                {
-                    continue;
-                }
-
-                equips.Add(equipInfos[i]);
-            }
-
+       
             if (equips.Count == 0)
             {
                 return;
             }
-
-            random = RandomHelper.RandomNumber(0, equips.Count);
-
-            int maxInheritTimes =int.Parse( GlobalValueConfigCategory.Instance.Get(117).Value);
-            if (equips[random].InheritTimes >= maxInheritTimes)
-            {
-                // 该装备不可再进行传承鉴定！
-                return;
-            }
-
-            string costitem = ItemHelper.GetInheritCost(equips[random].InheritTimes);
-            if (!bagComponent.CheckNeedItem(costitem))
-            {
-                // 材料不足！
-                return;
-            }
-
-         
         }
         
         public static async ETTask ChouKa(Scene root)

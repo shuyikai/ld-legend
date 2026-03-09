@@ -35,10 +35,7 @@ namespace ET.Client
 
         public static async ETTask<int> RequestSellItem(Scene root, ItemInfo bagInfo, string parinfo)
         {
-            if (bagInfo.IsProtect)
-            {
-                return ErrorCode.ERR_Error;
-            }
+           
 
             C2M_ItemOperateRequest request = C2M_ItemOperateRequest.Create();
             request.OperateType = 2;
@@ -55,14 +52,8 @@ namespace ET.Client
             UserInfoComponentC infoComponent = root.GetComponent<UserInfoComponentC>();
 
             ItemConfig itemConfig = ItemConfigCategory.Instance.Get(bagInfo.ItemID);
-            int occ = 1;
-            if (itemConfig.UseOcc != 0 && itemConfig.UseOcc != occ)
-            {
-                M2C_ItemOperateResponse response_0 = M2C_ItemOperateResponse.Create();
-                response_0.Error = ErrorCode.ERR_ItemOnlyUseOcc;
-                return response_0;
-            }
-
+     
+   
             C2M_ItemOperateRequest request = C2M_ItemOperateRequest.Create();
             request.OperateType = 1;
             request.OperateBagID = bagInfo.BagInfoID;

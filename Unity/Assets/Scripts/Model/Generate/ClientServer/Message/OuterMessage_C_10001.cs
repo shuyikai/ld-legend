@@ -8611,9 +8611,6 @@ namespace ET
         [MemoryPackOrder(7)]
         public int Loc { get; set; }
 
-        [MemoryPackOrder(8)]
-        public bool IfJianDing { get; set; }
-
         /// <summary>
         /// 鉴定属性
         /// </summary>
@@ -8633,12 +8630,6 @@ namespace ET
         public bool isBinging { get; set; }
 
         /// <summary>
-        /// 洗练特殊属性
-        /// </summary>
-        [MemoryPackOrder(13)]
-        public List<HideProList> XiLianHideTeShuProLists { get; set; } = new();
-
-        /// <summary>
         /// 来源方式
         /// </summary>
         [MemoryPackOrder(15)]
@@ -8656,48 +8647,6 @@ namespace ET
         [MemoryPackOrder(17)]
         public string MakePlayer { get; set; }
 
-        /// <summary>
-        /// 附魔属性
-        /// </summary>
-        [MemoryPackOrder(19)]
-        public List<HideProList> FumoProLists { get; set; } = new();
-
-        [MemoryPackOrder(20)]
-        public int InheritTimes { get; set; }
-
-        [MemoryPackOrder(21)]
-        public List<int> InheritSkills { get; set; } = new();
-
-        /// <summary>
-        /// /装备锁 宠物锁 功能 npc打开
-        /// </summary>
-        [MemoryPackOrder(22)]
-        public bool IsProtect { get; set; }
-
-        /// <summary>
-        /// 增幅属性
-        /// </summary>
-        [MemoryPackOrder(23)]
-        public List<HideProList> IncreaseProLists { get; set; } = new();
-
-        /// <summary>
-        /// 增幅技能
-        /// </summary>
-        [MemoryPackOrder(24)]
-        public List<int> IncreaseSkillLists { get; set; } = new();
-
-        [MemoryPackOrder(25)]
-        public int EquipPlan { get; set; }
-
-        [MemoryPackOrder(26)]
-        public int EquipIndex { get; set; }
-
-        /// <summary>
-        /// 0未附灵 1附灵
-        /// </summary>
-        [MemoryPackOrder(27)]
-        public int FuLing { get; set; }
-
         public override void Dispose()
         {
             if (!this.IsFromPool)
@@ -8712,55 +8661,36 @@ namespace ET
             this.HideID = default;
             this.GemHole = default;
             this.Loc = default;
-            this.IfJianDing = default;
             this.HideProLists.Clear();
             this.XiLianHideProLists.Clear();
             this.HideSkillLists.Clear();
             this.isBinging = default;
-            this.XiLianHideTeShuProLists.Clear();
             this.GetWay = default;
             this.GemIDNew = default;
             this.MakePlayer = default;
-            this.FumoProLists.Clear();
-            this.InheritTimes = default;
-            this.InheritSkills.Clear();
-            this.IsProtect = default;
-            this.IncreaseProLists.Clear();
-            this.IncreaseSkillLists.Clear();
-            this.EquipPlan = default;
-            this.EquipIndex = default;
-            this.FuLing = default;
 
             ObjectPool.Instance.Recycle(this);
         }
     }
 
+    // 处理框架自带的协议 上面用到的协议都移到下面来
+    // Legend--------------------------------------------------------------------------------------------
+    // 勋章兑换
     [MemoryPackable]
-    [Message(OuterMessage.DamageValueInfo)]
-    public partial class DamageValueInfo : MessageObject
+    [Message(OuterMessage.C2M_MedalExchangeRequest)]
+    [ResponseType(nameof(M2C_MedalExchangeResponse))]
+    public partial class C2M_MedalExchangeRequest : MessageObject, ILocationRequest
     {
-        public static DamageValueInfo Create(bool isFromPool = false)
+        public static C2M_MedalExchangeRequest Create(bool isFromPool = false)
         {
-            return ObjectPool.Instance.Fetch(typeof(DamageValueInfo), isFromPool) as DamageValueInfo;
+            return ObjectPool.Instance.Fetch(typeof(C2M_MedalExchangeRequest), isFromPool) as C2M_MedalExchangeRequest;
         }
 
+        [MemoryPackOrder(89)]
+        public int RpcId { get; set; }
+
         [MemoryPackOrder(0)]
-        public int UnitType { get; set; }
-
-        [MemoryPackOrder(1)]
-        public int ConfigId { get; set; }
-
-        [MemoryPackOrder(2)]
-        public string UnitName { get; set; }
-
-        [MemoryPackOrder(3)]
-        public int SkillId { get; set; }
-
-        [MemoryPackOrder(4)]
-        public long DamageValue { get; set; }
-
-        [MemoryPackOrder(5)]
-        public long Time { get; set; }
+        public int MedalId { get; set; }
 
         public override void Dispose()
         {
@@ -8769,12 +8699,41 @@ namespace ET
                 return;
             }
 
-            this.UnitType = default;
-            this.ConfigId = default;
-            this.UnitName = default;
-            this.SkillId = default;
-            this.DamageValue = default;
-            this.Time = default;
+            this.RpcId = default;
+            this.MedalId = default;
+
+            ObjectPool.Instance.Recycle(this);
+        }
+    }
+
+    [MemoryPackable]
+    [Message(OuterMessage.M2C_MedalExchangeResponse)]
+    public partial class M2C_MedalExchangeResponse : MessageObject, ILocationResponse
+    {
+        public static M2C_MedalExchangeResponse Create(bool isFromPool = false)
+        {
+            return ObjectPool.Instance.Fetch(typeof(M2C_MedalExchangeResponse), isFromPool) as M2C_MedalExchangeResponse;
+        }
+
+        [MemoryPackOrder(89)]
+        public int RpcId { get; set; }
+
+        [MemoryPackOrder(90)]
+        public int Error { get; set; }
+
+        [MemoryPackOrder(91)]
+        public string Message { get; set; }
+
+        public override void Dispose()
+        {
+            if (!this.IsFromPool)
+            {
+                return;
+            }
+
+            this.RpcId = default;
+            this.Error = default;
+            this.Message = default;
 
             ObjectPool.Instance.Recycle(this);
         }
@@ -9001,6 +8960,7 @@ namespace ET
         public const ushort M2C_HorseFightResponse = 10218;
         public const ushort TestServerInfoProto = 10219;
         public const ushort ItemInfoProto = 10220;
-        public const ushort DamageValueInfo = 10221;
+        public const ushort C2M_MedalExchangeRequest = 10221;
+        public const ushort M2C_MedalExchangeResponse = 10222;
     }
 }

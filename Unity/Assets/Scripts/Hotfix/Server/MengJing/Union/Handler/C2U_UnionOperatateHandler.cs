@@ -9,7 +9,7 @@
             DBUnionInfo dBUnionInfo = await unionSceneComponent.GetDBUnionInfo(request.UnionId);
             if (dBUnionInfo == null)
             {
-                response.Error = ErrorCode.ERR_Union_Not_Exist;
+                
                 return;
             }
 
@@ -35,29 +35,9 @@
                         int position    = int.Parse(operatevalue[1]);
 
                         UnionPlayerInfo unionPlayerInfo_1 = UnionHelper.GetUnionPlayerInfo(dBUnionInfo.UnionInfo.UnionPlayerList, request.UnitId);
-                        if (unionPlayerInfo_1 == null)
-                        {
-                            response.Error = ErrorCode.ERR_Union_NoPlayer;
-                            return;
-                        }
-                        ///1会长 2副会长  ///3长老
-                        if (unionPlayerInfo_1.Position == 0 || (unionPlayerInfo_1.Position >= position && position != 0 ))
-                        {
-                            response.Error = ErrorCode.ERR_Union_NoLimits;
-                            return;
-                        }
-
+                      
                         UnionPlayerInfo unionPlayerInfo_2 = UnionHelper.GetUnionPlayerInfo(dBUnionInfo.UnionInfo.UnionPlayerList, operateid);
-                        if (unionPlayerInfo_2 == null)
-                        {
-                            response.Error = ErrorCode.ERR_Union_NoPlayer;
-                            return;
-                        }
-                        if (unionPlayerInfo_2.Position != 0 && unionPlayerInfo_2.Position <= unionPlayerInfo_1.Position)
-                        {
-                            response.Error = ErrorCode.ERR_Union_NoLimits;
-                            return;
-                        }
+                       
 
                         unionPlayerInfo_2.Position = position;
                         break;

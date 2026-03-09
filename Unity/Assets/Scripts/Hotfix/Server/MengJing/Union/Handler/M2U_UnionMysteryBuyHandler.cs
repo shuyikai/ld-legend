@@ -9,11 +9,11 @@ namespace ET.Server
         {
 
             DBUnionInfo dBUnionInfo = await scene.GetComponent<UnionSceneComponent>().GetDBUnionInfo(request.UnionId);
-            if (dBUnionInfo == null)
+            /*if (dBUnionInfo == null)
             {
                 response.Error = ErrorCode.ERR_Union_Not_Exist;
                 return;
-            }
+            }*/
 
             bool haveItem = false;
             List<MysteryItemInfo> mysteryItemInfos = dBUnionInfo.MysteryItemInfos;

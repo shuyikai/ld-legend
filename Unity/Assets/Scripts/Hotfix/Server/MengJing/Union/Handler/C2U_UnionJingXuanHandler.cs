@@ -6,7 +6,7 @@
         protected override async ETTask Run(Scene scene, C2U_UnionJingXuanRequest request, U2C_UnionJingXuanResponse response)
         {
             DBUnionInfo dBUnionInfo = await UnitCacheHelper.GetComponent<DBUnionInfo>(scene.Root(), request.UnionId);
-            if (dBUnionInfo == null)
+            /*if (dBUnionInfo == null)
             {
                 response.Error = ErrorCode.ERR_Union_Not_Exist;
                 return;
@@ -15,7 +15,7 @@
             {
                 response.Error = ErrorCode.ERR_AlreadyFinish;
                 return;
-            }
+            }*/
 
             if (request.OperateType == 0 && dBUnionInfo.UnionInfo.JingXuanList.Contains(request.UnitId))
             {

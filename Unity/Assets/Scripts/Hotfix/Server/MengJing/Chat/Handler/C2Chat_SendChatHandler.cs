@@ -16,20 +16,14 @@
                     return;
                 }
 
-                long serverTime = TimeHelper.ServerNow();
-                if (serverTime - chatInfoUnit.LastSendChat < TimeHelper.Second * 10)
-                {
-                    response.Error = ErrorCode.ERR_WordChat;
-                    return;
-                }
+
 
                 // if (!CommonHelp.IsBanHaoZone(chatInfoUnit.Zone()) && chatInfoUnit.Level < 20)
                 // {
                 //     response.Error = ErrorCode.ERR_LevelIsNot;
                 //     return;
                 // }
-
-                chatInfoUnit.LastSendChat = serverTime;
+                
                 M2C_SyncChatInfo m2C_SyncChatInfo = M2C_SyncChatInfo.Create();
                 request.ChatInfo.Time = TimeHelper.ServerNow();
                 request.ChatInfo.PlayerName = chatInfoUnit.Name;
@@ -44,11 +38,7 @@
                         {
                             BeReportedInfo bePortedNumber = null;
                             chatInfoUnitsComponent.BeReportedNumber.TryGetValue(request.ChatInfo.UserId, out bePortedNumber);
-                            if (bePortedNumber != null && bePortedNumber.JinYanTime > TimeHelper.ServerNow())
-                            {
-                                response.Error = ErrorCode.ERR_Chat_JinYan;
-                                return;
-                            }
+                           
                             if (bePortedNumber != null && bePortedNumber.JinYanTime != 0 && bePortedNumber.JinYanTime <= TimeHelper.ServerNow())
                             {
                                 chatInfoUnitsComponent.BeReportedNumber.Remove(request.ChatInfo.UserId);

@@ -276,11 +276,7 @@ namespace ET.Client
 
         public static async ETTask<int> MoveToNpc(Scene root, int npcid)
         {
-            if (!TaskHelper.HaveNpc(root, npcid))
-            {
-                return ErrorCode.ERR_NotFindNpc;
-            }
-
+           
             Vector3 targetPos;
             NpcConfig npcConfig = NpcConfigCategory.Instance.Get(npcid);
             targetPos = new Vector3(npcConfig.Position[0] * 0.01f, npcConfig.Position[1] * 0.01f, npcConfig.Position[2] * 0.01f);

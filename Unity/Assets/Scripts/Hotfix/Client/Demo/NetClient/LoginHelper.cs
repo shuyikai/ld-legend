@@ -51,11 +51,11 @@ namespace ET.Client
             int errCode =  await clientSenderCompnent.LoginAsync(account, password, reLink, versionmode);
             
             Log.Debug($"LoginAsync->{errCode}");
-            if (errCode == ErrorCode.ERR_NotRealName)
+            /*if (errCode == ErrorCode.ERR_NotRealName)
             {
                 EventSystem.Instance.Publish(root, new NotRealName() {   });
                 return errCode;
-            }
+            }*/
 
             if (errCode != ErrorCode.ERR_Success)
             {

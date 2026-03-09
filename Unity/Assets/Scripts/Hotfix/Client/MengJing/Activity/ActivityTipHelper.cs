@@ -14,13 +14,6 @@
             }
 
             Unit unit = UnitHelper.GetMyUnitFromClientScene(root);
-           
-
-            if (!FunctionHelp.IsInTime(1031))
-            {
-                HintHelp.ShowHint(root, "不在活动时间内！");
-                return ErrorCode.ERR_AlreadyFinish;
-            }
 
             int errorCode = await EnterMapHelper.RequestTransfer(root, sceneType, sceneId);
             return errorCode;

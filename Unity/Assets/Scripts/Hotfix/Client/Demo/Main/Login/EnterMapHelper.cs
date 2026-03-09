@@ -16,18 +16,7 @@ namespace ET.Client
             }
 
             mapComponent.LastQuitTime = TimeHelper.ServerNow();
-            if (!SceneConfigHelper.CanTransfer(mapComponent.MapType, newsceneType))
-            {
-                HintHelp.ShowHint(root, "请先退出副本！");
-                return ErrorCode.ERR_RequestExitFuben;
-            }
-
-            Unit unit = UnitHelper.GetMyUnitFromClientScene(root);
-            if (unit.GetComponent<NumericComponentC>().GetAsLong(NumericType.Now_Stall) > 0)
-            {
-                HintHelp.ShowHint(root, "请先退出摆摊！");
-                return ErrorCode.ERR_RequestExitFuben;
-            }
+            
 
             UserInfoComponentC userInfoComponent = root.GetComponent<UserInfoComponentC>();
             if (SceneConfigHelper.UseSceneConfig(newsceneType) && sceneId > 0)

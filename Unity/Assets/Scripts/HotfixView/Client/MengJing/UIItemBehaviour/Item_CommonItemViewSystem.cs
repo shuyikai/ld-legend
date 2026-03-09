@@ -255,7 +255,6 @@ namespace ET.Client
                 }
 
                 self.E_BindingImage.gameObject.SetActive(bagInfo.isBinging);
-                self.E_ProtectImage.gameObject.SetActive(bagInfo.IsProtect);
             }
             else
             {

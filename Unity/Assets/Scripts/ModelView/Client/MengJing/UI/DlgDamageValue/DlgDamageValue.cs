@@ -7,6 +7,6 @@ namespace ET.Client
 	{
 		
 		public Dictionary<int, EntityRef<Scroll_Item_DamageValueItem>> ScrollItemRechargeItems;
-		public List<DamageValueInfo> DamageValueList;
+
 	}
 }

@@ -12,7 +12,7 @@ namespace ET.Server
             //session.RemoveComponent<SessionAcceptTimeoutComponent>();  5秒后自动销毁
             if (session.GetComponent<SessionLockingComponent>() != null)
             {
-                response.Error = ErrorCode.ERR_RequestRepeatedly;
+                //response.Error = ErrorCode.ERR_RequestRepeatedly;
                 session.Disconnect().Coroutine();
                 return;
             }

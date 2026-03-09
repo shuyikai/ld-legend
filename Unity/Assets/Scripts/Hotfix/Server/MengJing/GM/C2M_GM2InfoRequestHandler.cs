@@ -12,7 +12,7 @@ namespace ET.Server
             string account = unit.GetComponent<UserInfoComponentS>().Account;
             if (!GMData.GmAccount.Contains(account))
             {
-                response.Error = ErrorCode.ERR_GMError;
+                response.Error = ErrorCode.ERR_ModifyData;
                 return;
             }
 

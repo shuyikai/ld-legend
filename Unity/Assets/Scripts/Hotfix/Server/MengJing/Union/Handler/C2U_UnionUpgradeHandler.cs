@@ -11,12 +11,7 @@ namespace ET.Server
             using (await scene.Root().GetComponent<CoroutineLockComponent>().Wait(CoroutineLockType.UnionOperate, request.UnionId))
             {
                 DBUnionInfo dBUnionInfo = await unionSceneComponent.GetDBUnionInfo(request.UnionId);
-                if (dBUnionInfo == null)
-                {
-                    response.Error = ErrorCode.ERR_Union_Not_Exist;
-                    return;
-                }
-                
+               
                 int level = dBUnionInfo.UnionInfo.Level;
                 UnionConfig unionConfig = UnionConfigCategory.Instance.Get(level);
                 if (dBUnionInfo.UnionInfo.Exp < unionConfig.Exp)
@@ -31,11 +26,11 @@ namespace ET.Server
                     return;
                 }
                 
-                if ( !UnionConfigCategory.Instance.Contain(level + 1))
+                /*if ( !UnionConfigCategory.Instance.Contain(level + 1))
                 {
                     response.Error = ErrorCode.ERR_UnionLevelMax;
                     return;
-                }
+                }*/
                 
                 dBUnionInfo.UnionInfo.Level++;
                 dBUnionInfo.UnionInfo.Exp -= unionConfig.Exp;

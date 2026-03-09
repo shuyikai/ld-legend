@@ -12,13 +12,13 @@ namespace ET.Server
             {
                 if (unit.IsDisposed)
                 {
-                    return ErrorCode.ERR_RequestRepeatedly;
+                    //return ErrorCode.ERR_RequestRepeatedly;
                 }
                 int oldScene = unit.Scene().GetComponent<MapComponent>().MapType;
                 if (!SceneConfigHelper.CanTransfer(oldScene, request.SceneType))
                 {
                     Log.Debug($"LoginTest1  Actor_Transfer unitId{unit.Id} oldScene:{oldScene}  requestscene{request.SceneType}");
-                    return ErrorCode.ERR_RequestRepeatedly;
+                    //return ErrorCode.ERR_RequestRepeatedly;
                 }
                 UserInfoComponentS userInfoComponent = unit.GetComponent<UserInfoComponentS>();
                 if (SceneConfigHelper.UseSceneConfig(request.SceneType) && request.SceneId > 0)
@@ -32,7 +32,7 @@ namespace ET.Server
                    
                     if (sceneConfig.EnterLv > userInfoComponent.GetUserLv())
                     {
-                        return ErrorCode.ERR_LevelIsNot;
+                        //return ErrorCode.ERR_LevelIsNot;
                     }
 
                 }
@@ -50,7 +50,7 @@ namespace ET.Server
                         long unionid = unit.GetComponent<NumericComponentS>().GetAsLong(NumericType.UnionId_0);
                         if (unionid == 0)
                         {
-                            return ErrorCode.ERR_Union_Not_Exist;
+                            //return ErrorCode.ERR_Union_Not_Exist;
                         }
                         ActorId mapInstanceId = UnitCacheHelper.GetFubenCenterId(unit.Zone());
                         M2F_UnionEnterRequest M2U_UnionEnterRequest = M2F_UnionEnterRequest.Create();
@@ -121,12 +121,7 @@ namespace ET.Server
                     break;
                 }
             }
-            
-            if (tonpc == null)
-            {
-                return ErrorCode.ERR_NotFindNpc;
-            }
-            
+
             unit.Position =  tonpc.Position + math.mul(tonpc.Rotation, math.forward()) * 1f;;
             unit.Stop(-2);
 

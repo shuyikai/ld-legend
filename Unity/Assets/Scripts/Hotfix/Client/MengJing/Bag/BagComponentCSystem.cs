@@ -58,35 +58,7 @@ namespace ET.Client
 
             return self.GetBagLeftCell(ItemLocType.ItemLocBag) >= cellNumber;
         }
-
-        public static List<ItemInfo> GetCurJingHeList(this BagComponentC self)
-        {
-            List<ItemInfo> bagInfos = new List<ItemInfo>();
-            List<ItemInfo> jingheList = self.GetItemsByLoc(ItemLocType.SeasonJingHe);
-            for (int i = 0; i < jingheList.Count; i++)
-            {
-                if (jingheList[i].EquipPlan == self.SeasonJingHePlan)
-                {
-                    bagInfos.Add(jingheList[i]);
-                }
-            }
-
-            return bagInfos;
-        }
-
-        public static ItemInfo GetJingHeByWeiZhi(this BagComponentC self, int subType)
-        {
-            List<ItemInfo> bagInfos = self.GetCurJingHeList();
-            for (int i = 0; i < bagInfos.Count; i++)
-            {
-                if (bagInfos[i].EquipIndex == subType)
-                {
-                    return bagInfos[i];
-                }
-            }
-
-            return null;
-        }
+        
 
         public static void OnRecvItemSort(this BagComponentC self, int itemEquipType)
         {
@@ -456,11 +428,7 @@ namespace ET.Client
                 {
                     continue;
                 }
-
-                if (equipList[i].IfJianDing == false)
-                {
-                    bagInfos.Add(equipList[i]);
-                }
+                
             }
 
             return bagInfos;

@@ -94,47 +94,7 @@ namespace ET.Server
         public static async ETTask<int> OnJoinUinon(this UnionSceneComponent self, long unionid, long unitid, int replyCode)
         {
             DBUnionInfo dBUnionInfo = await self.GetDBUnionInfo(unionid);
-            if (dBUnionInfo == null)
-            {
-                return ErrorCode.ERR_Union_Not_Exist;
-            }
-
-            if (dBUnionInfo.UnionInfo.ApplyList.Contains(unitid))
-            {
-                dBUnionInfo.UnionInfo.ApplyList.Remove(unitid);
-            }
-
-            //判断玩家是否已经有公会了
-            NumericComponentS numericComponent_0 = await UnitCacheHelper.GetComponentCache<NumericComponentS>(self.Root(), unitid);
-            if (numericComponent_0.GetAsLong(NumericType.UnionId_0) > 0)
-            {
-                return ErrorCode.ERR_PlayerHaveUnion;
-            }
-
-            //判断公会人数是否已满
-            //获取公会等级
-            UnionConfig unionCof = UnionConfigCategory.Instance.Get(dBUnionInfo.UnionInfo.Level);
-            //判断公会成员是否已达上限
-            if (replyCode == 1 && dBUnionInfo.UnionInfo.UnionPlayerList.Count >= unionCof.PeopleNum)
-            {
-                return ErrorCode.ERR_Union_PeopleMax;
-            }
-
-            bool exist = false;
-            for (int i = 0; i < dBUnionInfo.UnionInfo.UnionPlayerList.Count; i++)
-            {
-                if (dBUnionInfo.UnionInfo.UnionPlayerList[i].UserID == unitid)
-                {
-                    exist = true;
-                }
-            }
-
-            if (!exist && replyCode == 1)
-            {
-           
-            }
-
-            UnitCacheHelper.SaveComponent(self.Root(), dBUnionInfo.Id, dBUnionInfo).Coroutine();
+            await ETTask.CompletedTask;
             return ErrorCode.ERR_Success;
         }
 

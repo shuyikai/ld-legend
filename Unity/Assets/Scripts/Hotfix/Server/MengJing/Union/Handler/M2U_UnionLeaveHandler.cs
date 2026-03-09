@@ -6,6 +6,7 @@
         protected override async ETTask Run(Scene scene, M2U_UnionLeaveRequest request, U2M_UnionLeaveResponse response)
         {
             DBUnionInfo dBUnionInfo = await scene.GetComponent<UnionSceneComponent>().GetDBUnionInfo(request.UnionId);
+            /*
             if (dBUnionInfo == null)
             {
                 response.Error = ErrorCode.ERR_Union_Not_Exist;
@@ -17,6 +18,7 @@
                 response.Error = ErrorCode.ERR_Union_NotRemove;
                 return;
             }
+            */
 
             UnionPlayerInfo unionPlayerInfo = null;
             for (int i = dBUnionInfo.UnionInfo.UnionPlayerList.Count - 1; i >= 0; i--)

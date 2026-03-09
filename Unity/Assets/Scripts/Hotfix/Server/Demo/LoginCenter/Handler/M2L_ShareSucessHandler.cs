@@ -29,11 +29,7 @@ namespace ET.Server
                     totalTimes++;
                 }
             }
-            if (totalTimes >= 6)
-            {
-                response.Error = ErrorCode.ERR_FenXiangMaxNum;
-                return;
-            }
+
 
             dBAccountInfos.PlayerInfo.ShareTimes.Add(serverNow);
             dbComponent.Save<DBCenterAccountInfo>(scene.Zone(), dBAccountInfos).Coroutine();

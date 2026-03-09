@@ -9,11 +9,7 @@ namespace ET.Server
         protected override async ETTask Run(Unit unit, C2M_GM2CommonRequest request, M2C_GM2CommonResponse response)
         {
             string account = unit.GetComponent<UserInfoComponentS>().Account;
-            if (!GMData.GmAccount.Contains(account))
-            {
-                response.Error = ErrorCode.ERR_GMError;
-                return;
-            }
+         
             string[] infoList = request.Context.Split(" ");
             
             if (infoList[0] == ConsoleMode.ReloadDll)  //R 0 0    R 1 0 /  R 1 ActivityConfig

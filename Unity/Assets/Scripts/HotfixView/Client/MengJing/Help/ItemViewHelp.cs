@@ -516,27 +516,6 @@ namespace ET.Client
                     properShowNum += 1;
                 }
             }
-
-            //显示附魔属性
-            for (int i = 0; i < baginfo.FumoProLists.Count; i++)
-            {
-                HideProList hideProList = baginfo.FumoProLists[i];
-                int showType = NumericHelp.GetNumericValueType(hideProList.HideID);
-                string attribute;
-                if (showType == 2)
-                {
-                    float value = (float)hideProList.HideValue / 100f;
-                    attribute = $"附魔属性: {GetAttributeName(hideProList.HideID)} + " + value.ToString("0.##") + "%";
-                }
-                else
-                {
-                    attribute = $"附魔属性: {GetAttributeName(hideProList.HideID)} + {hideProList.HideValue}";
-                }
-
-                ShowPropertyText(attribute, "1", propertyGO, parentGO);
-                properShowNum += 1;
-            }
-
             // 显示描述
             if (itemConfig.ItemDes != "" && itemConfig.ItemDes != "0" && itemConfig.ItemDes != null)
             {
@@ -558,63 +537,6 @@ namespace ET.Client
 
             //显示传承技能
             string showYanSe = "2";
-            if (baginfo.InheritSkills != null)
-            {
-                for (int i = 0; i < baginfo.InheritSkills.Count; i++)
-                {
-                    int skillID = baginfo.InheritSkills[i];
-                    if (skillID != 0)
-                    {
-                        SkillConfig skillCof = SkillConfigCategory.Instance.Get(skillID);
-                        string proStr = LanguageComponent.Instance.LoadLocalization("传承鉴定") + ":" + skillCof.SkillDescribe;
-
-                        //获取当前穿戴的装备是否有相同的传承属性
-                        bool ifRepeat = false;
-
-                        for (int y = 0; y < equipItemList.Count; y++)
-                        {
-                            //Debug.Log("equipItemList.Count = " + equipItemList.Count);
-                            List<int> inheritSkills = equipItemList[i].InheritSkills;
-                            Debug.Log("inheritSkills.Count = " + inheritSkills.Count);
-
-                            for (int z = 0; z < inheritSkills.Count; z++)
-                            {
-                                if (inheritSkills[z] == skillID && equipItemList[y].BagInfoID != baginfo.BagInfoID)
-                                {
-                                    proStr += "\n(同类传承属性只激活一种)";
-                                    ifRepeat = true;
-                                    showYanSe = "11";
-                                    break;
-                                }
-                            }
-                        }
-
-                        //////防止循环多次
-                        if (ifRepeat)
-                        {
-                            break;
-                        }
-
-                        //ShowPropertyText(proStr, "2", Obj_EquipPropertyText, Obj_EquipBaseSetList);
-
-                        int allLength = proStr.Length;
-                        int addNum = Mathf.CeilToInt(allLength / 18f);
-                        if (ifRepeat && allLength <= 18)
-                        {
-                            addNum += 1;
-                        }
-
-                        for (int a = 0; a < addNum; a++)
-                        {
-                            int leftNum = allLength - a * 18;
-                            leftNum = Math.Min(leftNum, 18);
-                            ShowPropertyText(proStr.Substring(a * 18, leftNum), showYanSe, propertyGO, parentGO);
-                            properShowNum += 1;
-                        }
-                    }
-                }
-            }
-
             return properShowNum;
         }
 

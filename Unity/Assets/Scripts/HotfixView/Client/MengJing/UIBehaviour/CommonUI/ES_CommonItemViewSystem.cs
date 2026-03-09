@@ -246,7 +246,6 @@ namespace ET.Client
                     self.E_ItemNameText.color = FunctionUI.QualityReturnColorDi(itemConfig.ItemQuality);
                 }
                 self.E_BindingImage.gameObject.SetActive(bagInfo.isBinging);
-                self.E_ProtectImage.gameObject.SetActive(bagInfo.IsProtect);
             }
             else
             {

@@ -25,10 +25,5 @@ namespace ET.Server
         /// </summary>
         public Dictionary<long, long> BeAttackPlayerList{ get; set; } = new Dictionary<long, long>();
 
-        /// <summary>
-        /// 伤害列表   被击败的 为列表最后一个 
-        /// </summary>
-        /// <returns></returns>
-        public List<DamageValueInfo> DamageValueList  { get; set; } = new List<DamageValueInfo>(); 
     }
 }

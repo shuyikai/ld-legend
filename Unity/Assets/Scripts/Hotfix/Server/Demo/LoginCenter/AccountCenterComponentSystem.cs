@@ -35,27 +35,7 @@ namespace ET.Server
              }
              return 1;
          }
-
          
-         public static int GetSerialReward(this AccountCenterComponent self, string serial)
-         {
-             DBCenterSerialInfo dBCenterSerialInfo = self.DBCenterSerialInfo;
-             for (int i = dBCenterSerialInfo.SerialList.Count - 1; i >= 0; i--)
-             {
-                 if (dBCenterSerialInfo.SerialList[i].Value != serial)
-                 {
-                     continue;
-                 }
-                 if (dBCenterSerialInfo.SerialList[i].Value2 == "1")
-                 {
-                     return ErrorCode.ERR_AlreadyReceived;
-                 }
-
-                 dBCenterSerialInfo.SerialList[i].Value2 = "1";
-                 return ErrorCode.ERR_Success;
-             }
-             return ErrorCode.ERR_SerialNoExist;
-         }
 
          public static async ETTask InitDBRankInfo(this AccountCenterComponent self)
          {

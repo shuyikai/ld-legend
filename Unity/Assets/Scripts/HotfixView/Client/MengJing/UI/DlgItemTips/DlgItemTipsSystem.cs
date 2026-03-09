@@ -97,13 +97,6 @@ namespace ET.Client
             sprite = resourcesLoaderComponent.LoadAssetSync<Sprite>(ABPathHelper.GetAtlasPath_2(ABAtlasTypes.ItemQualityIcon, ItemQuality));
             self.View.E_ItemQualityImage.sprite = sprite;
 
-            // 宠物蛋附灵
-            if (itemType == 1 && itemSubType == 102 && self.BagInfo.FuLing == 1)
-            {
-                self.View.E_FuLingText.gameObject.SetActive(true);
-                self.View.E_FuLingDesText.gameObject.SetActive(true);
-            }
-
             //显示道具信息
             self.View.E_ItemNameText.text = itemConfig.ItemName;
             self.View.E_ItemNameText.color = FunctionUI.QualityReturnColor(itemConfig.ItemQuality);
@@ -481,19 +474,7 @@ namespace ET.Client
                     dlgCommonReward.OnUpdateUI(response.RewardList);
                 }
             }
-
-            if (response != null && response.Error == ErrorCode.ERR_ItemOnlyUseOcc)
-            {
-                OccupationConfig occupationConfig = OccupationConfigCategory.Instance.Get(itemConfig.UseOcc);
-                string tip;
-                using (zstring.Block())
-                {
-                    tip = zstring.Format(HintHelp.GetErrorHint(ErrorCode.ERR_ItemOnlyUseOcc), occupationConfig.OccupationName);
-                }
-
-                FlyTipComponent.Instance.ShowFlyTip(LanguageComponent.Instance.LoadLocalization(tip));
-            }
-
+            
             //播放音效
             CommonViewHelper.PlayUIMusic("10010");
 

@@ -48,7 +48,7 @@ namespace ET.Server
 
             if (session.GetComponent<SessionLockingComponent>() != null)
             {
-                response.Error = ErrorCode.ERR_RequestRepeatedly;
+                //response.Error = ErrorCode.ERR_RequestRepeatedly;
                 session.Disconnect().Coroutine();
                 return;
             }
@@ -76,7 +76,7 @@ namespace ET.Server
                         
                         if (centerAccountInfo.AccountType == (int)AccountType.BlackList)
                         {
-                            response.Error = ErrorCode.ERR_AccountInBlackListError;
+                            //response.Error = ErrorCode.ERR_AccountInBlackListError;
                             session.Disconnect().Coroutine();
                             centerAccountInfo?.Dispose();
                             return;
@@ -129,7 +129,7 @@ namespace ET.Server
                     bool StopServer = fangChenMiComponentS.StopServer;
                     if (StopServer && !GMHelp.IsGmAccount(request.Account))
                     {
-                        response.Error = ErrorCode.ERR_StopServer;
+                        //response.Error = ErrorCode.ERR_StopServer;
                         session.Disconnect().Coroutine();
                         centerAccountInfo.Dispose();
                         return;
@@ -138,7 +138,7 @@ namespace ET.Server
                     //防沉迷相关
                     if (centerAccountInfo.PlayerInfo.RealName == 0)
                     {
-                        response.Error = ErrorCode.ERR_NotRealName;
+                        //response.Error = ErrorCode.ERR_NotRealName;
                         response.AccountId = centerAccountInfo.Id;
                         response.PlayerInfo = centerAccountInfo.PlayerInfo;
                         session.Disconnect().Coroutine();

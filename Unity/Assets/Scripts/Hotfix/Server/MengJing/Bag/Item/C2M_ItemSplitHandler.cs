@@ -11,7 +11,7 @@ namespace ET.Server
             ItemInfo useBagInfo = unit.GetComponent<BagComponentS>().GetItemByLoc(ItemLocType.ItemLocBag, bagInfoID);
             if (useBagInfo == null)
             {
-                response.Error = ErrorCode.ERR_ItemUseError;
+                response.Error = ErrorCode.ERR_ItemNotExist;
                 return;
             }
 

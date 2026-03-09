@@ -298,17 +298,6 @@ namespace ET.Server
             
             NumericComponentS numericComponent = unit.GetComponent<NumericComponentS>();
             
-            //传承鉴定特殊属性加成
-            int chuanchengProAdd = 0;
-            for (int i = equipList.Count - 1; i >= 0; i--)
-            {
-                if (equipList[i].InheritSkills.Count >= 1)
-                {
-                    chuanchengProAdd += 500;
-                }
-            }
-
-
             //其他战力附加
             int addZhanLi = 0;
 

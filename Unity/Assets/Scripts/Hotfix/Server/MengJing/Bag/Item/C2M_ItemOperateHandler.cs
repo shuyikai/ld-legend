@@ -107,12 +107,6 @@ namespace ET.Server
                 }
 
                 MapComponent mapComponent = unit.Scene().GetComponent<MapComponent>();
-                if (itemConfig.ItemSubType == 110 && mapComponent.SceneId != 2000001) // 领主怪物召唤
-                {
-                    response.Error = ErrorCode.ERR_ItemOnlyUseMiJing;
-                    return;
-                }
-
                 if (itemConfig.ItemSubType == 111 && ConfigData.BatchUseItemList.Contains(itemConfig.Id))
                 {
                     //目前只有111类型支持批量使用
@@ -127,17 +121,7 @@ namespace ET.Server
                 {
                     costNumber = 0;
                 }
-
-                if (itemConfig.ItemSubType == 112) //经验木桩
-                {
-                    int openDay = ServerHelper.GetServeOpenDay( unit.Zone());
-                    if (openDay <= 1)
-                    {
-                        response.Error = ErrorCode.ERR_ItemNoUseTime;
-                        return;
-                    }
-                }
-
+                
                 if (itemConfig.ItemSubType == 127)
                 {
                     if (bagComponent.GetBagLeftCell(ItemLocType.ItemLocBag) < 1)
@@ -333,14 +317,7 @@ namespace ET.Server
                             break;
                         case 136:
                             break;
-                        case 137:
-                            //宠物蛋附灵
-                            long chongwudanId = long.Parse(request.OperatePar);
-                            ItemInfo chongwudan = bagComponent.GetItemByLoc(ItemLocType.ItemLocBag, chongwudanId);
-                            chongwudan.FuLing = 1;
-                            m2c_bagUpdate.BagInfoUpdate.Add(chongwudan.ToMessage());
-                            break;
-                      
+                    
                         case 139:
                             //增加背包格子
                             bagComponent.BagAddCellNumber[ItemLocType.ItemLocBag]++;
@@ -376,18 +353,6 @@ namespace ET.Server
                 //默认出售全部
                 //给与对应金币或货币奖励
                 string[] sellinfo = request.OperatePar.Split('_');
-                if (sellinfo.Length < 2)
-                {
-                    response.Error = ErrorCode.ERR_VersionNoMatch;
-                    return;
-                }
-
-                if (CommonHelp.IfNull(sellinfo[1]))
-                {
-                    response.Error = ErrorCode.ERR_VersionNoMatch;
-                    return;
-                }
-
                 int sellNum = int.Parse(sellinfo[1]);
                 if (sellNum <= 0 || sellNum > useBagInfo.ItemNum)
                 {
