@@ -6,8 +6,9 @@ namespace ET
     public  partial class MedalExchangeConfigCategory
     {
     
-        public Dictionary<int, List<int>> MedalTypeList = new Dictionary<int, List<int>>();
-    
+        public Dictionary<int, Dictionary<int, List<int>>> MedalTypeList = new Dictionary<int, Dictionary<int, List<int>>>();
+        
+        
         public override void EndInit()
         {
             foreach (MedalExchangeConfig exchangeConfig in this.GetAll().Values)
@@ -16,13 +17,14 @@ namespace ET
                 int subtype = exchangeConfig.SubType;
                 if (!MedalTypeList.ContainsKey((bigtype)))
                 {
-                    MedalTypeList.Add(bigtype, new List<int>());
+                    MedalTypeList.Add(bigtype, new Dictionary<int,List<int>>());
                 }
 
-                if (!MedalTypeList[bigtype].Contains((subtype)))
+                if (!MedalTypeList[bigtype].ContainsKey((subtype)))
                 {
-                    MedalTypeList[bigtype].Add(subtype);
+                    MedalTypeList[bigtype].Add(subtype, new List<int>());
                 }
+                MedalTypeList[bigtype][subtype].Add(exchangeConfig.Id);
             }
         
             /*var groupedConfig = this.GetAll().Values

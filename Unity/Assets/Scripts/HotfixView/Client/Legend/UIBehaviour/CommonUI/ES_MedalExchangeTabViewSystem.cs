@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,7 +14,6 @@ namespace ET.Client
 		{
 			self.uiTransform = transform;
 			
-			self.RequestPaiMaiShopData().Coroutine();
 		}
 
 		[EntitySystem]
@@ -22,25 +22,29 @@ namespace ET.Client
 			self.DestroyWidget();
 		}
 
-		private static async ETTask RequestPaiMaiShopData(this ES_MedalExchangeTab self)
+		public static  void InitData(this ES_MedalExchangeTab self, int bigtype)
 		{
-			await ETTask.CompletedTask;
-			
+			if (self.UITypeViewComponent != null)
+			{
+				return;
+			}
+
 			self.UITypeViewComponent = self.AddChild<UITypeViewComponent, GameObject>(self.EG_TypeListNodeRectTransform.gameObject);
 			self.UITypeViewComponent.TypeButtonItemAsset = ABPathHelper.GetUGUIPath("Common/UICommonTypeButonItem");
 			self.UITypeViewComponent.TypeButtonAsset = ABPathHelper.GetUGUIPath("Common/UICommonTypeButon");
 			self.UITypeViewComponent.ClickTypeItemHandler = (itemType, itemSubType) => { self.OnClickTypeItem(itemType, itemSubType); };
 
-			self.UITypeViewComponent.TypeButtonInfos = self.InitTypeButtonInfos();
+			self.UITypeViewComponent.TypeButtonInfos = self.InitTypeButtonInfos(bigtype);
 			self.UITypeViewComponent.OnInitUI().Coroutine();
 			
 		}
 		
-		public static List<TypeButtonInfo> InitTypeButtonInfos(this ES_MedalExchangeTab self)
+		public static List<TypeButtonInfo> InitTypeButtonInfos(this ES_MedalExchangeTab self, int bigtype)
 		{
 			List<TypeButtonInfo> typeButtonInfos = new List<TypeButtonInfo>();
 			
-		    Dictionary<int, List<int>> MedalType=  MedalExchangeConfigCategory.Instance.MedalTypeList;
+		    Dictionary<int, List<int>> MedalType=  MedalExchangeConfigCategory.Instance.MedalTypeList[bigtype];
+		    
 		    foreach ((int key , List<int> typelit) in MedalType)
 		    {
 			    TypeButtonInfo typeButtonInfo = new();
@@ -48,14 +52,15 @@ namespace ET.Client
 			    typeButtonInfo = new TypeButtonInfo();
 			    
 			    typeButtonInfo.TypeId = key;
-			    typeButtonInfo.TypeName = LanguageComponent.Instance.LoadLocalization(MedalData.MedalTypeName[key]);
+			    typeButtonInfo.TypeName = LanguageComponent.Instance.LoadLocalization(MedalData.MedalSubTypeName[key]);
 
 			    for (int i = 0; i < typelit.Count; i++)
 			    {
+				    MedalExchangeConfig config = MedalExchangeConfigCategory.Instance.Get(typelit[i]);
 				    typeButtonInfo.typeButtonItems.Add(new TypeButtonItem()
 				    {
 					    SubTypeId = typelit[i], 
-					    ItemName = LanguageComponent.Instance.LoadLocalization(MedalData.MedalSubTypeName[typelit[i]])
+					    ItemName = LanguageComponent.Instance.LoadLocalization(config.Name)
 				    });
 			    }
 			    
@@ -66,9 +71,20 @@ namespace ET.Client
 		}
 
 
-		public static void OnClickTypeItem(this ES_MedalExchangeTab self, int typeid, int chapterId)
+		public static void OnClickTypeItem(this ES_MedalExchangeTab self, int typeid, int medalid)
 		{
-			Log.Debug(($"OnClickTypeItem:  {typeid}  {chapterId}"));
+			Log.Debug(($"OnClickTypeItem:  {typeid}  {medalid}"));
+
+			MedalExchangeConfig medalExchangeConfig = MedalExchangeConfigCategory.Instance.Get(medalid);
+			if (string.IsNullOrEmpty(medalExchangeConfig.CostItems))
+			{
+				self.ES_RewardList.Refresh(String.Empty);
+			}
+			else
+			{
+				self.ES_RewardList.Refresh(medalExchangeConfig.CostItems);
+			}
+
 			
 		}
 	}

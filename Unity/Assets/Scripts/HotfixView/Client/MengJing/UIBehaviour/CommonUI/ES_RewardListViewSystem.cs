@@ -122,8 +122,13 @@ namespace ET.Client
             self.GetWay = getWay;
 
             self.ShowBagInfos.Clear();
-            if (!CommonHelp.IfNull(rewarfItems))
+            if (CommonHelp.IfNull(rewarfItems))
             {
+                self.uiTransform.gameObject.SetActive(false);
+            }
+            else
+            {
+                self.uiTransform.gameObject.SetActive(true);
                 string[] items = rewarfItems.Split('@');
                 foreach (string item in items)
                 {
@@ -138,7 +143,9 @@ namespace ET.Client
                     bagInfo.ItemNum = int.Parse(it[1]);
                     self.ShowBagInfos.Add(bagInfo);
                 }
+
             }
+
             self.ShowBagInfos = self.ShowBagInfos
                     .OrderByDescending(t => ItemConfigCategory.Instance.Get(t.ItemID).ItemQuality)
                     .ThenBy(t => ItemConfigCategory.Instance.Get(t.ItemID).ItemType == 3 ? 0 : 1)

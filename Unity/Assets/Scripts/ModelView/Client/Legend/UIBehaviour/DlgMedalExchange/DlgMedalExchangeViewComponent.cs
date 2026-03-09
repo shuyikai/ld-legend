@@ -81,11 +81,32 @@ namespace ET.Client
 			}
 		}
 
+		public ES_MedalExchangeTab ES_MedalExchangeTwoTab
+		{
+			get
+			{
+				ES_MedalExchangeTab es = this.m_es_MedalExchangetwoTab;
+				if (es == null)
+				{
+					string path = "Assets/Bundles/UI/Common/ES_MedalExchangeTab.prefab";
+					GameObject prefab = this.Root().GetComponent<ResourcesLoaderComponent>().LoadAssetSync<GameObject>(path);
+					GameObject go = UnityEngine.Object.Instantiate(prefab, this.EG_SubViewRectTransform);
+					go.SetActive(true);
+					this.AssetList.Add(path);
+					this.m_es_MedalExchangetwoTab = this.AddChild<ES_MedalExchangeTab, Transform>(go.transform);
+					go.SetActive(false);
+				}
+
+				return this.m_es_MedalExchangetwoTab;
+			}
+		}
+		
 		public void DestroyWidget()
 		{
 			this.m_EG_SubViewRectTransform = null;
 			this.m_E_FunctionSetBtnToggleGroup = null;
 			this.m_es_MedalExchangeTab = null;
+			this.m_es_MedalExchangetwoTab = null;
 			this.m_E_CloseButton = null;
 			this.uiTransform = null;
 		}
@@ -93,6 +114,7 @@ namespace ET.Client
 		private UnityEngine.RectTransform m_EG_SubViewRectTransform = null;
 		private UnityEngine.UI.ToggleGroup m_E_FunctionSetBtnToggleGroup = null;
 		private EntityRef<ES_MedalExchangeTab> m_es_MedalExchangeTab = null;
+		private EntityRef<ES_MedalExchangeTab> m_es_MedalExchangetwoTab = null;
 		private UnityEngine.UI.Button m_E_CloseButton = null;
 		public Transform uiTransform = null;
 	}

@@ -37,9 +37,11 @@ namespace ET.Client
 			{
 				case 0:
 					self.View.ES_MedalExchangeTab.uiTransform.gameObject.SetActive(true);
+					self.View.ES_MedalExchangeTab.InitData(MedalType.GaoJi);
 					break;
 				case 1:
-					//self.View.ES_PaiMaiBuy.uiTransform.gameObject.SetActive(true);
+					self.View.ES_MedalExchangeTwoTab.uiTransform.gameObject.SetActive(true);
+					self.View.ES_MedalExchangeTwoTab.InitData(MedalType.ShangGu);
 					break;
 				default:
 					break;

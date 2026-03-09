@@ -2,16 +2,15 @@ using System.Collections.Generic;
 
 namespace ET
 {
+    public static class  MedalType
+    {
+        public const int GaoJi = 1;
+        public const int ShangGu = 2;
+    }
     
     public static class MedalData
     {
-    
-        public static class  MedalType
-        {
-            public const int GaoJi = 1;
-            public const int ShangGu = 2;
-        }
-
+        
         [StaticField]
         public static Dictionary<int, string> MedalTypeName = new Dictionary<int, string>()
         {
