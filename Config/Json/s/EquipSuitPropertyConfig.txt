@@ -1,0 +1,3 @@
+{"dict": [
+[110111, {"_t":"EquipSuitPropertyConfig","_id":110111,"EquipSuitName":"迅影套装","EquipSuitDes":"攻击提高20","ifShowSuitNum":0,"Equip_Hp":0,"Equip_MinAct":0,"Equip_MaxAct":20,"Equip_MinMagAct":0,"Equip_MaxMagAct":0,"Equip_MinDef":0,"Equip_MaxDef":0,"Equip_MinAdf":0,"Equip_MaxAdf":0,"Equip_Cri":0,"Equip_Hit":0,"Equip_Dodge":0,"Equip_DamgeAdd":0,"Equip_DamgeSub":0,"Equip_Speed":0,"Equip_Lucky":0,"EquipSuitSkillID":0,"AddPropreListStr":"0"}],
+]}

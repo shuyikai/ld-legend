@@ -1,0 +1,2105 @@
+syntax = "proto3";
+package ET;
+
+message HttpGetRouterResponse
+{
+	repeated string Realms = 1;
+	repeated string Routers = 2;
+}
+
+message RouterSync
+{
+	uint32 ConnectId = 1;
+	string Address = 2;
+}
+
+//ResponseType M2C_TestResponse
+message C2M_TestRequest // ILocationRequest
+{
+	int32 RpcId = 1;
+	string request = 2;
+}
+
+message M2C_TestResponse // IResponse
+{
+	int32 RpcId = 1;
+	int32 Error = 2;
+	string Message = 3;
+	string response = 4;
+}
+
+//ResponseType C2C_SendBroadcastResponse
+message C2C_SendBroadcastRequest // IChatActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+	
+	ChatInfo ChatInfo = 1;
+	int32 ZoneType = 2;    //0 全部区服 1当前服
+}
+
+message C2C_SendBroadcastResponse // IChatActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+//GM邮件
+//ResponseType E2C_GMEMailResponse
+message C2E_GMEMailRequest // IMailActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+	string MailInfo = 2;
+}
+
+message E2C_GMEMailResponse // IMailActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+message C2M_GMCommand // ILocationMessage
+{
+	int32 RpcId = 1;
+	string GMMsg = 2;
+	string Account = 3;
+}
+
+//GM数据
+//ResponseType M2C_GM2InfoResponse
+message C2M_GM2InfoRequest // ILocationRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+	string Account = 1;
+}
+
+message M2C_GM2InfoResponse // ILocationResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	int32 OnLineNumber = 1;
+	int32 OnLineRobot = 2;
+}
+
+//GM后台指令
+//ResponseType M2C_GM2CommonResponse
+message C2M_GM2CommonRequest // ILocationRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+	string Account = 1;
+	string Context = 2;
+}
+
+message M2C_GM2CommonResponse // ILocationResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+//ResponseType G2C_EnterGame
+message C2G_EnterGame // ISessionRequest
+{
+	int32 RpcId = 1;
+	int64 UnitId = 2;
+	int64 AccountId = 3;
+	int32 ReLink = 4;
+}
+
+message G2C_EnterGame // ISessionResponse
+{
+	int32 RpcId = 1;
+	int32 Error = 2;
+	string Message = 3;
+	// 自己unitId
+	int64 MyId = 4;
+}
+
+message MoveInfo
+{
+	repeated Unity.Mathematics.float3 Points = 1;
+	Unity.Mathematics.quaternion Rotation = 2;
+	int32 TurnSpeed = 3;
+}
+
+message UnitInfo
+{
+	int64 UnitId = 1;
+	int32 ConfigId = 2;
+	int32 Type = 3;
+	Unity.Mathematics.float3 Position = 4;
+	Unity.Mathematics.float3 Forward = 5;
+	map<int32, int64> KV = 6;
+	MoveInfo MoveInfo = 7;
+
+	repeated KeyValuePair Buffs = 19;
+	repeated SkillInfo Skills = 20;
+
+	string UnitName = 21;		//自身名字
+	string MasterName = 22;		//主人名字
+	string UnionName = 24;
+	string DemonName = 25;          //
+
+	repeated int32 FashionEquipList = 26;
+}
+
+message M2C_CreateUnits // IMessage
+{
+	repeated UnitInfo Units = 1;
+	int32 UpdateAll = 8;
+}
+
+message M2C_CreateMyUnit // IMessage
+{
+	UnitInfo Unit = 1;
+}
+
+message M2C_StartSceneChange // IMessage
+{
+	int64 SceneInstanceId = 1;
+
+	int32 SceneType = 2;
+	int32 SceneId = 3;
+	int32 Difficulty = 4;
+	string ParamInfo = 5;
+}
+
+message M2C_RemoveUnits // IMessage
+{
+	repeated int64 Units = 1;
+}
+
+message C2M_PathfindingRequest // ILocationMessage
+{
+	int32 RpcId = 1;
+	Unity.Mathematics.float3 Position = 2;
+}
+
+///客户端寻路
+message C2M_PathfindingResult // ILocationMessage
+{
+	int32 RpcId = 1;
+  
+	int32 SpeedRate = 3;
+	int64 ServerTime = 4;   //服务器时间戳
+	repeated	Unity.Mathematics.float3 Position = 5;
+	Unity.Mathematics.float3 Current = 6;   //当前位置
+	int32 Frame = 7;                        //当前帧
+}
+
+message C2M_Stop // ILocationMessage
+{
+	int32 RpcId = 1;
+	bool YaoGan = 4;
+}
+
+message M2C_Stop // IMessage
+{
+	int32 Error = 1;
+	int64 Id = 2;
+	Unity.Mathematics.float3 Position = 3;
+	Unity.Mathematics.quaternion Rotation = 4;
+}
+
+message C2M_StopResult // ILocationMessage
+{
+	int32 RpcId = 1;
+	Unity.Mathematics.float3 Position = 3;
+}
+
+message M2C_StopResult // IMessage
+{
+	int32 Error = 1;
+	int64 Id = 2;
+	Unity.Mathematics.float3 Position = 3;
+	Unity.Mathematics.quaternion Rotation = 4;
+}
+
+message M2C_PathfindingResult // IMessage
+{
+	int64 Id = 1;
+	Unity.Mathematics.float3 Position = 2;
+	repeated Unity.Mathematics.float3 Points = 3;
+	bool YaoGan = 4;
+	int32 SpeedRate = 5;
+}
+
+//ResponseType G2C_Ping
+message C2G_Ping // ISessionRequest
+{
+	int32 RpcId = 1;
+}
+
+message G2C_Ping // ISessionResponse
+{
+	int32 RpcId = 1;
+	int32 Error = 2;
+	string Message = 3;
+	int64 Time = 4;
+}
+
+//ResponseType R2C_Ping
+message C2R_Ping // ISessionRequest
+{
+	int32 RpcId = 1;
+}
+
+message R2C_Ping // ISessionResponse
+{
+	int32 RpcId = 1;
+	int32 Error = 2;
+	string Message = 3;
+	int64 Time = 4;
+}
+
+
+message G2C_Test // ISessionMessage
+{
+}
+
+//ResponseType M2C_Reload
+message C2M_Reload // ISessionRequest
+{
+	int32 RpcId = 1;
+	string Account = 2;
+	string Password = 3;
+}
+
+message M2C_Reload // ISessionResponse
+{
+	int32 RpcId = 1;
+	int32 Error = 2;
+	string Message = 3;
+}
+
+message ServerItem
+{
+	int32 ServerId = 1;
+	string ServerIp = 2;
+	string ServerName = 3;
+	int64 ServerOpenTime = 4;
+	int32 Show = 5;
+	int32 New = 6;
+	repeated int32 PlatformList = 7;   //不配置或者-1全部显示
+	repeated int64 OldServerIds = 8;      //
+}
+
+//ResponseType R2C_DeleteAccountResponse
+message C2R_DeleteAccountRequest // ISessionRequest
+{
+	int32 RpcId = 90;
+	string Account = 1;
+	string Password = 2;
+}
+
+message R2C_DeleteAccountResponse // ISessionResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+
+//ResponseType R2C_ServerList
+message C2R_ServerList // ISessionRequest
+{
+	int32 RpcId = 1;
+	int32 VersionMode = 2;
+}
+
+message R2C_ServerList // ISessionResponse
+{
+	int32 RpcId = 1;
+	string Message = 2;
+	int32 Error = 3;
+	
+	repeated ServerItem ServerItems = 4;		//服务器列表
+	string NoticeVersion = 5;
+	string NoticeText = 6;
+}
+
+//ResponseType R2C_LoginAccount
+message C2R_LoginAccount // ISessionRequest
+{
+	int32 RpcId = 1;
+	string  Account = 2;  // 帐号
+	string  Password = 3;  // 密码
+	string  Token = 4;  
+	string  ThirdLogin = 5;
+	int32 Relink = 6;
+	int32 age_type = 7;
+	int32  ServerId = 8;
+	bool CheckRealName = 9;
+}
+
+message R2C_LoginAccount // ISessionResponse
+{
+	int32 RpcId = 1;
+	int32 Error = 2;
+	string Message = 3;
+	string Address = 4;
+	int64 GateId = 6;
+	string Token = 7;
+	int64 AccountId = 8;
+	int32 QueueNumber = 9;
+	string QueueAddres = 10;
+	PlayerInfo PlayerInfo = 11;
+	repeated CreateRoleInfo RoleLists = 12;
+}
+
+//ResponseType R2C_RealNameResponse
+message C2R_RealNameRequest // ISessionRequest
+{
+	int32 RpcId = 90;
+	string Name = 1;		//姓名
+	string IdCardNO = 2;		//身份证号码
+	int32 AiType = 3;			//1认证 2查询 3上报
+	int64 AccountId	 = 4;	// 帐号Id
+}
+
+message R2C_RealNameResponse // ISessionResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	int32 ErrorCode = 1;		//实名认证返回
+	PlayerInfo PlayerInfo = 11;
+}
+
+//ResponseType M2C_RealNameResponse
+message C2M_RealNameRequest // ILocationRequest
+{
+	int32 RpcId = 90;
+	string Name = 1;		//姓名
+	string IdCardNO = 2;		//身份证号码
+	int32 AiType = 3;			//1认证 2查询 3上报
+	int64 AccountId	 = 4;	// 帐号Id
+}
+
+message M2C_RealNameResponse // ILocationResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	int32 ErrorCode = 1;		//实名认证返回
+	PlayerInfo PlayerInfo = 11;
+}
+
+message RechargeInfo
+{
+	int32 Amount = 1;
+	int64 Time = 2;
+	int64 UnitId = 3;
+	string OrderInfo = 4;
+	int32 PhysicsZone = 5;
+}
+
+message PlayerInfo
+{
+	int32 RealName = 1;
+	string Name = 2;
+	string IdCardNo = 3;
+	int32 RealNameReward = 4;
+	repeated RechargeInfo RechargeInfos = 5;
+	repeated KeyValuePair DeleteUserList = 6;
+	repeated int32 BuChangZone = 7;
+	string PhoneNumber = 8;
+	repeated int64 ShareTimes = 9;
+}
+
+message CreateRoleInfo
+{
+	int64 UnitId = 1;
+	int32 PlayerLv = 2;
+	int32 PlayerOcc = 3;
+	int32 WeaponId = 4;
+	string PlayerName = 5;
+	int32 OccTwo = 6;
+	int32 EquipIndex = 7;
+	int32 RobotId = 8;
+	int32 ServerId = 9;
+	int32 State = 10;
+}
+
+//ResponseType G2C_LoginGameGate
+message C2G_LoginGameGate // ISessionRequest
+{
+	int32 RpcId = 1;
+	int64 Key = 2;  
+	int64 GateId = 3;
+	string  AccountName = 4;
+	int64 RoleId = 5;
+}
+
+message G2C_LoginGameGate // ISessionResponse
+{
+	int32 RpcId = 1;
+	int32 Error = 2;
+	string Message = 3;
+	int64 PlayerId = 4;
+}
+
+//ResponseType R2C_CreateRoleData
+message C2R_CreateRoleData // ISessionRequest
+{
+	int32 RpcId = 90;
+	int32 CreateOcc = 2;
+	string CreateName = 3;
+	int64 AccountId = 4;
+	int32 ServerId = 5;
+}
+
+message R2C_CreateRoleData // ISessionResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	CreateRoleInfo createRoleInfo = 1;
+}
+
+//ResponseType R2C_DeleteRoleData
+message C2R_DeleteRoleData // ISessionRequest
+{
+	int32 RpcId = 90;
+	int64 AccountId = 1;
+	int64 UserId = 2;
+}
+
+message R2C_DeleteRoleData // ISessionResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+//ResponseType Q2C_EnterQueue
+message C2Q_EnterQueue // ISessionRequest
+{
+	int32 RpcId = 90;
+	string Token = 1;
+	string Account = 2;
+	int64 AccountId = 3;
+}
+
+message Q2C_EnterQueue // ISessionResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+//ResponseType R2C_GetRealmKey
+message C2R_GetRealmKey // ISessionRequest
+{
+	int32 RpcId = 1;
+	string Token = 2;
+	string Account = 3;
+	int32 ServerId = 4;
+}
+
+message R2C_GetRealmKey // ISessionResponse
+{
+	int32 RpcId = 1;
+	int32 Error = 2;
+	string Message = 3;
+	string Address = 4;
+	int64 Key = 5;
+	int64 GateId = 6;
+}
+
+message G2C_TestHotfixMessage // ISessionMessage
+{
+	string Info = 1;
+}
+
+//ResponseType M2C_TestRobotCase
+message C2M_TestRobotCase // ILocationRequest
+{
+	int32 RpcId = 1;
+	int32 N = 2;
+}
+
+message M2C_TestRobotCase // ILocationResponse
+{
+	int32 RpcId = 1;
+	int32 Error = 2;
+	string Message = 3;
+	int32 N = 4;
+}
+
+message C2M_TestRobotCase2 // ILocationMessage
+{
+	int32 RpcId = 1;
+	int32 N = 2;
+}
+
+message M2C_TestRobotCase2 // ILocationMessage
+{
+	int32 RpcId = 1;
+	int32 N = 2;
+}
+
+//ResponseType M2C_TransferMap
+message C2M_TransferMap // ILocationRequest
+{
+	int32 RpcId = 1;
+
+	int32 SceneId = 2;
+	int32 SceneType = 3;
+	int32 Difficulty = 5;
+	string paramInfo = 6;
+}
+
+message M2C_TransferMap // ILocationResponse
+{
+	int32 RpcId = 1;
+	int32 Error = 2;
+	string Message = 3;
+}
+
+//ResponseType M2C_FlyToPosition
+message C2M_FlyToPosition // ILocationRequest
+{
+	int32 RpcId = 1;
+
+	int32 SceneId = 2;
+	int32 SceneType = 3;
+	int32 UnitType = 5;
+	int32 ConfigId = 6;
+}
+
+message M2C_FlyToPosition // ILocationResponse
+{
+	int32 RpcId = 1;
+	int32 Error = 2;
+	string Message = 3;
+}
+
+//ResponseType G2C_Benchmark
+message C2G_Benchmark // ISessionRequest
+{
+	int32 RpcId = 1;
+}
+
+message G2C_Benchmark // ISessionResponse
+{
+	int32 RpcId = 1;
+	int32 Error = 2;
+	string Message = 3;
+}
+
+message BagInfo
+{
+	int32 RpcId = 90;
+	string Name = 91;
+	int64 BagInfoID = 1;
+	int32 ItemID = 2;
+	int32 ItemNum = 3;
+	string ItemPar = 4;
+	int32 HideID = 5;
+	string GemHole = 6;	//对应的孔位颜色
+	int32 Loc = 8; //0背包 1装备
+	bool IfJianDing = 9;
+	repeated HideProList HideProLists = 10;					//鉴定属性
+	repeated HideProList XiLianHideProLists = 11;           //洗练属性
+	repeated int32 HideSkillLists = 12;
+	bool isBinging = 13;
+	repeated HideProList XiLianHideTeShuProLists = 14;		//洗练特殊属性
+	string GetWay = 16; //来源方式
+	string GemIDNew = 17;	//对应的宝石ID
+	string MakePlayer = 18;					//制作玩家名字
+	repeated HideProList FumoProLists = 20; //附魔属性
+	int32 InheritTimes = 21;
+	repeated int32 InheritSkills = 22;
+	bool IsProtect = 23;						///装备锁 宠物锁 功能 npc打开
+	repeated HideProList IncreaseProLists = 24; // 增幅属性
+	repeated int32 IncreaseSkillLists = 25; // 增幅技能
+	int32 EquipPlan = 26;
+	int32 EquipIndex = 27; 
+	int32 FuLing = 28;    //0未附灵 1附灵
+}
+
+message MysteryItemInfo
+{
+	int32 MysteryId = 1;
+	int32 ItemID = 3;
+	int32 ItemNumber = 4; 
+	int32 ProductId = 5;
+}
+
+message ChatInfo
+{
+	int64 UserId = 1;
+	string ChatMsg = 3;
+	string PlayerName = 4;
+	int32 ChannelId = 2;
+	int64 ParamId = 5;
+	int64 Time = 6;
+	int32 Occ = 7;
+	int32 PlayerLevel = 8;
+}
+
+message MailInfo
+{
+	int32 Status = 1;	//新增 更新 删除
+	string Context = 3;
+	int64 MailId = 5;
+	string Title = 6;
+	repeated ItemInfoProto ItemList = 7;	
+	ItemInfoProto ItemSell = 8;
+	int64  BuyPlayerId = 9;
+}
+
+message PaiMaiItemInfo
+{
+	int64 Id = 1;
+	int64 UserId = 2;
+	ItemInfoProto BagInfo = 3;			
+	int32 Price = 5;
+	string PlayerName = 6;
+	int64 SellTime = 7;
+	string  Account = 8;
+}
+
+message PaiMaiShopItemInfo
+{
+	int64 Id = 1;
+	int32 ItemNumber = 2; 
+	int32 PriceType = 3;
+	int32 Price = 4;
+	float PricePro = 5;
+	int32 BuyNum = 6;
+}
+
+message PopularizeInfo
+{
+	int64 UnitId = 1;
+	string Nmae = 2;
+	int32 Level = 3;
+	repeated int32 Rewards = 4;
+	int32 Occ = 5;
+	int32 OccTwo = 6;
+}
+
+message RankingInfo
+{
+	int64 UserId = 1;
+	string PlayerName = 2;
+	int32 PlayerLv = 3;
+	int64 Combat  = 4;
+	int32 Occ = 5;
+}
+
+
+message ServerInfo
+{
+	int32 WorldLv = 1;
+	int64 ExChangeGold = 2;
+	RankingInfo RankingInfo = 4;
+	int32 TianQi = 5;
+	bool ShouLieOpen = 6;
+	int32 ChouKaDropId = 7;   //每天随机
+}
+
+message ServerMailItem
+{
+	int32 MailType = 1;		 //1全服邮件     2充值邮件   3等级邮件   4开启格子   5充值区间
+	string ParasmNew = 2;		//(Title == mailInfo[5])//0  充值金额    等级   开启第二个仓库并且格子没有开完的 
+	repeated ItemInfoProto ItemList = 3;
+	int64  EndTime = 4;
+	int32 ServerMailIId = 5;
+	int32 Parasm = 6;   //(作废)
+}
+
+message UnionInfo
+{
+	string UnionName = 1;
+	int64 LeaderId = 2;
+	string LeaderName = 3;
+	int32 LevelLimit = 4;
+	string UnionPurpose = 5;
+	repeated int64 ApplyList = 6;
+	int64 UnionId = 7;
+	int32 Level = 8;
+	int32 Exp = 9;
+	repeated UnionPlayerInfo UnionPlayerList = 10;
+	repeated int64 JingXuanList = 12;
+	int64 JingXuanEndTime = 13;
+	repeated int32 UnionKeJiList = 14;
+	int32 KeJiActitePos = 15;			//当前升级的科技， 当前只能升级一个
+	int64 KeJiActiteTime = 16;			//当前升级时间
+	int64 UnionGold = 17;               //公会金币
+	repeated string ActiveRecord = 18;	//记录 $"{playerName}_{getWay}_{dataType}_{dataValue}
+	int64 UnionWishTime = 19;
+}
+
+message UnionPlayerInfo
+{
+	string PlayerName = 1;
+	int32 PlayerLevel = 2;
+	int32 Position = 3;    ///1族长 2副族长  ///3长老  ///族长认命副族长 副族长可以认命长老 长老和副族长也可以包名公会战
+	int64 UserID = 4;
+	int32 Combat = 5;
+	int32 Occ = 6;
+	int32 OccTwo = 7;
+	int64 LastLoginTime = 8;
+}
+
+message A2C_Disconnect	//IMessage
+{
+	int32 Error = 1;
+}
+
+message G2C_SecondLogin	//IMessage
+{
+	int32 Error = 1;
+	int32 SceneType = 2;
+	int32 SceneId = 3;
+}
+
+//等级 经验 货币 或者不变的数值都放在这。 
+message UserInfoProto
+{
+    int64 AccInfoID = 1;
+    string Name = 2;
+    int64 Gold  = 3;
+    //钻石
+    int64 Diamond = 4;
+
+    // 等级
+    int32 Lv = 5;
+    // 经验
+    int64 Exp = 6;
+    // 疲劳
+    int64 PiLao = 7;
+    //职业
+    int32 Occ = 8;
+
+    //职业
+    int32 OccTwo = 9;
+
+    int32 Combat = 10;
+
+    int32 RobotId = 11;
+
+    int32 Sp = 13;
+
+    int32 Vitality = 14;	//活力
+
+    int64 RongYu = 16;
+
+    string UnionName = 17;
+
+    int64 UserId = 18;
+
+    repeated KeyValuePair GameSettingInfos = 19;
+
+	repeated int32 MakeList = 20;
+
+	repeated int32 CompleteGuideIds = 21;
+
+	repeated KeyValuePairInt DayFubenTimes = 22;
+
+	repeated KeyValuePair MonsterRevives = 23;
+
+	repeated int32 TowerRewardIds = 24;
+
+	repeated int32 ChouKaRewardIds = 25;
+
+	repeated int32 XiuLianRewardIds = 26;
+
+	//购买过的神秘商品
+	repeated KeyValuePairInt  MysteryItems = 27;
+	
+	//已开启的宝箱记录
+	repeated KeyValuePair  OpenChestList = 28;
+
+	repeated KeyValuePairInt  MakeIdList = 29;
+
+	//已通关的副本列表
+    repeated FubenPassInfo FubenPassList = 30;
+
+	//每日道具使用限制
+	repeated KeyValuePairInt DayItemUse = 31;
+
+	repeated int32 HorseIds = 32;
+
+	//剧情副本每日刷新 global79
+	repeated KeyValuePairInt DayMonsters = 33;
+
+	//随机精灵每日刷新 global80
+	repeated int32 DayJingLing = 34;
+
+	int64 JiaYuanFund = 35;
+	int64 JiaYuanExp = 36;
+	int32 JiaYuanLv = 37;
+
+	int32 BaoShiDu = 38;
+
+	repeated KeyValuePair FirstWinSelf = 39;
+
+	int64 UnionZiJin = 40;
+
+	int32 ServerMailIdCur = 41;     //已领取的全服邮件
+
+	repeated int32 DiamondGetWay = 42;
+
+	string DemonName = 43;
+
+	repeated int32 PetMingRewards = 44;   //ini long都放在数值组件
+
+	repeated int32 OpenJingHeIds = 45;
+
+	int32 SeasonLevel = 46;		 //赛季等级
+	int32 SeasonExp = 47;		  //赛季经验
+	int64 SeasonCoin = 48;			//赛季币
+
+	repeated int32 WelfareTaskRewards = 49;
+
+	int64 CreateTime = 50;
+
+	repeated int32  WelfareInvestList = 51; //投资
+
+	repeated int32 RechargeReward = 52;
+
+	repeated int32 UnionKeJiList = 53;  //当前的能力id,客户端根据这个显示即可
+
+	repeated int32 PetExploreRewardIds = 54;
+
+	repeated int32 PetHeXinExploreRewardIds = 55;
+
+	string StallName = 56;
+
+	repeated int32 SingleRechargeIds = 57;
+
+	repeated int32 SingleRewardIds = 58;
+
+	repeated int32 ItemXiLianNumRewardIds = 59;
+
+	repeated int32 DefeatedBossIds = 60;
+	
+	repeated  KeyValuePairInt BuyStoreItems = 61;
+
+	int32 TalentPoints = 62;
+
+	repeated int32 SeasonDonateRewardIds = 63;
+}
+
+message M2C_RoleDataUpdate // IMessage
+{
+	int32 UpdateType = 1;				//UserDataType
+	string UpdateTypeValue = 2;			
+	int64 UpdateValueLong = 3;			
+}
+
+message M2C_RoleDataBroadcast // IMessage
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	int32 UpdateType = 1;				//UserDataType
+	string UpdateTypeValue = 2;			
+	int64 UnitId = 3;
+}
+
+//技能列表
+message SkillPro
+{
+    int32 SkillID = 1;
+    int32 SkillPosition = 2;
+    int32 SkillSetType = 3;	//1技能 2道具 
+    int32 Actived = 4;  //0 未学习  1已学习
+    int32 SkillSource = 5; //1职业技能 2装备技能 3天赋技能 4 精灵技能 5 套装技能
+}
+
+message FubenPassInfo
+{
+	int32 FubenId = 1;
+	int32 Difficulty = 2;			//1 difficulty普通 2 挑战  3困难
+}
+
+//道具[装备]更新
+message M2C_RoleBagUpdate // IMessage
+{
+	repeated ItemInfoProto BagInfoAdd = 1;
+	repeated ItemInfoProto BagInfoUpdate = 2;
+	repeated ItemInfoProto BagInfoDelete = 3;
+}
+
+//ResponseType M2C_BagInitResponse
+message C2M_BagInitRequest // ILocationRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+}
+
+message M2C_BagInitResponse  // ILocationResponse
+{
+	int32 RpcId = 90;
+	string Message = 91;
+	int32 Error = 92;
+	repeated ItemInfoProto BagInfos = 1;
+	repeated int32 QiangHuaLevel = 2;
+	repeated int32 QiangHuaFails = 3;
+	//int32 BagAddedCell = 4;
+	repeated int32 WarehouseAddedCell = 5;
+	repeated int32 FashionActiveIds = 6;
+	repeated int32 FashionEquipList = 7;
+	int32 SeasonJingHePlan = 8;
+	repeated int32 AdditionalCellNum = 9;
+}
+
+
+//拾取道具
+//ResponseType M2C_PickItemResponse
+message C2M_PickItemRequest // ILocationRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+	repeated int64 ItemIds = 1;
+}
+
+message M2C_PickItemResponse // ILocationResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	repeated int64 RemoveIds = 1; //不存在的掉落
+}
+
+//穿戴装备
+//ResponseType M2C_ItemOperateResponse
+message C2M_ItemOperateRequest // ILocationRequest
+{
+	int32 RpcId = 90;
+	int32 OperateType = 1;				//操作类型 1 背包使用  2 背包丢弃  3装备穿戴
+	int64 OperateBagID = 2;
+	string OperatePar = 3;				// 类型参数[穿戴饰品需要传位置]
+}
+
+message M2C_ItemOperateResponse // ILocationResponse
+{
+	int32 RpcId = 90;
+	string Message = 91;
+	int32 Error = 92;
+	string OperatePar = 1;
+	repeated RewardItem RewardList = 2;
+}
+
+//物品排序[通知服务器排序，暂时不需要返回]
+message C2M_ItemSortRequest // ILocationMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+}
+
+//ResponseType M2C_ItemSplitResponse
+message C2M_ItemSplitRequest // ILocationRequest
+{
+	int32 RpcId = 90;
+	int32 OperateType = 1;
+	int64 OperateBagID = 2;
+	string OperatePar = 3;			//拆分数量
+}
+
+message M2C_ItemSplitResponse // ILocationResponse
+{
+	int32 RpcId = 90;
+	string Message = 91;
+	int32 Error = 92;
+	string OperatePar = 1;
+}
+
+message SkillInfo
+{
+	int64 TargetID = 2;
+	int32 TargetAngle = 3;
+	int32 WeaponSkillID = 5;			//真实技能
+	float PosX = 6;
+	float PosY = 7;
+	float PosZ = 8;
+	int64 SkillBeginTime = 11;
+	int64 SkillEndTime = 12;
+	float SingValue = 13;
+}
+
+message M2C_UnitNumericListUpdate // IMessage
+{
+	int32 RpcId = 90;
+	int64 UnitID  = 1;
+	repeated int32 Ks = 2;
+	repeated int64 Vs = 3;
+}
+
+//ResponseType M2C_UserInfoInitResponse
+message C2M_UserInfoInitRequest // ILocationRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+}
+
+message M2C_UserInfoInitResponse  // ILocationResponse
+{
+	int32 RpcId = 90;
+	string Message = 91;
+	int32 Error = 92;
+	UserInfoProto UserInfoProto = 1;
+	repeated KeyValuePair ReddontList = 3;
+}
+
+message FriendInfo
+{
+	int64 UserId = 1;
+	int32 PlayerLevel = 2;
+	string PlayerName = 3;
+	int64 OnLineTime = 4;
+	repeated string ChatMsgList = 5;	//离线聊天
+	int32 Occ = 6;
+}
+
+//好友申请回复
+//ResponseType F2C_FriendApplyReplyResponse
+message C2F_FriendApplyReplyRequest // IFriendActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+
+	int64 UnitId = 1;
+	int64 FriendID = 2;
+	int32 ReplyCode = 3;
+}
+
+message F2C_FriendApplyReplyResponse // IFriendActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+//黑名单
+//ResponseType F2C_FriendBlacklistResponse
+message C2F_FriendBlacklistRequest // IFriendActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+
+	int32 OperateType = 1;	//添加  2移除
+	int64 UnitId = 2;
+	int64 FriendId = 3;
+}
+
+message F2C_FriendBlacklistResponse // IFriendActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+//好友申请
+//ResponseType F2C_FriendApplyResponse
+message C2F_FriendApplyRequest // IFriendActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+	int64 UnitId = 2;
+	FriendInfo FriendInfo = 1;
+}
+
+message F2C_FriendApplyResponse // IFriendActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+//ResponseType F2C_FriendChatRead
+message C2F_FriendChatRead // IFriendActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+	int64 UnitId = 1;
+	int64 FriendID = 2;
+}
+
+message F2C_FriendChatRead // IFriendActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+//好友删除
+//ResponseType F2C_FriendDeleteResponse
+message C2F_FriendDeleteRequest // IFriendActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+
+	int64 UnitId = 1;
+	int64 FriendID = 2;
+}
+
+message F2C_FriendDeleteResponse // IFriendActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+//好友列表
+//ResponseType F2C_FriendInfoResponse
+message C2F_FriendInfoRequest // IFriendActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+
+	int64 UnitId = 1;
+}
+
+message F2C_FriendInfoResponse // IFriendActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+
+	repeated FriendInfo FriendList = 2;
+	repeated FriendInfo ApplyList = 3;
+	repeated FriendInfo Blacklist = 4;
+	repeated ChatInfo FriendChats = 5;
+}
+
+//ResponseType M2C_SkillCmd
+message C2M_SkillCmd // ILocationRequest
+{
+    int32 RpcId = 90;
+    int64 ActorId = 93;
+    int32 SkillID = 1;
+    int64 TargetID = 2;
+    int32 TargetAngle = 3;
+    float TargetDistance = 4;
+    int32 WeaponSkillID = 5;
+    int32 ItemId = 6;
+	  float SingValue = 7;
+		int64 PetId = 10;
+}
+
+message M2C_SkillCmd // ILocationResponse
+{
+
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	int64 CDEndTime = 1;
+	int64 PublicCDTime = 2;
+}
+
+message M2C_UnitUseSkill // IMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+
+	int64 UnitId = 94;
+	int32 SkillID = 1;				//表现用
+
+	int32 TargetAngle = 3;				//用来角色转向
+	repeated SkillInfo SkillInfos = 4;		//技能列表[一个技能可以同时触发多个技能]
+	int32 ItemId = 6;
+	int64 CDEndTime = 7;
+	int64 PublicCDTime = 8;
+}
+
+
+message SkillSetInfo
+{
+	repeated SkillPro SkillList = 1;
+	int32 TianFuPlan = 5;
+}
+
+//技能天赋更新
+message M2C_SkillSetMessage	// IMessage
+{
+	SkillSetInfo SkillSetInfo = 1;
+}
+
+//ResponseType Chat2C_GetChatResponse
+message C2Chat_GetChatRequest // IChatActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+}
+
+message Chat2C_GetChatResponse // IChatActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	repeated ChatInfo ChatInfos = 1;
+}
+
+//ResponseType C2C_SendChatResponse
+message C2C_SendChatRequest // IChatActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+	
+	ChatInfo ChatInfo = 1;
+}
+
+message C2C_SendChatResponse // IChatActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	string ChatMsg = 1;
+	int32 ChannelId = 2;	//0世界 1帮派 2队伍
+}
+
+
+message M2C_SyncChatInfo // IMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+
+	ChatInfo ChatInfo = 1;
+}
+
+//任务列表
+message TaskPro
+{
+    int32 taskID = 1;
+
+    int32 taskTargetNum_1 = 2;
+    int32 taskTargetNum_2 = 5;
+    int32 taskTargetNum_3 = 6;
+    int32 taskStatus = 3;	//0未激活 1已接取 2已完成 3已领取
+    int32 TrackStatus = 4;	//0未追踪 1追踪
+    int32 FubenId = 7;
+    int32 WaveId = 8;
+}
+
+message M2C_TaskUpdate // IMessage
+{
+	int32 RpcId = 90;
+	int32 Error = 92;
+	int64 ActorId = 93;
+	
+	int32 UpdateMode = 1; //全量  2增量
+	repeated TaskPro RoleTaskList = 2;
+	repeated int32 RoleComoleteTaskList = 3;
+}
+
+//ResponseType M2C_SkillSet
+//技能设置
+message C2M_SkillSet	// ILocationRequest
+{
+	int32 RpcId = 90;
+	int32 SkillID = 1;
+	int32 Position = 2;
+	int32 SkillType = 3;
+}
+
+message M2C_SkillSet	// ILocationResponse
+{
+	int32 RpcId = 90;
+	string Message = 91;
+	int32 Error = 92;
+}
+
+//提交任务
+//ResponseType M2C_TaskCommitResponse
+message C2M_TaskCommitRequest    // ILocationRequest
+{
+	int32 RpcId = 90;
+	int32 TaskId = 1;
+	int64 BagInfoID = 2;			//给予任务道具ID
+}
+
+message M2C_TaskCommitResponse    // ILocationResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	repeated int32 RoleComoleteTaskList = 1;
+	repeated TaskPro RoleTaskList = 2;
+}
+
+//接取任务
+//ResponseType M2C_TaskGetResponse
+message C2M_TaskGetRequest    // ILocationRequest
+{
+	int32 RpcId = 90;
+	int32 TaskId = 1;
+	int32 TaskStatus = 2; //0未激活 1已接取 2已完成 3已领取
+}
+
+message M2C_TaskGetResponse    // ILocationResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	TaskPro TaskPro = 1;
+}
+
+//放弃任务
+//ResponseType M2C_TaskGiveUpResponse
+message C2M_TaskGiveUpRequest    // ILocationRequest
+{
+	int32 RpcId = 90;
+	int32 TaskId = 1;
+}
+
+message M2C_TaskGiveUpResponse    // ILocationResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+
+//任务列表
+//ResponseType M2C_TaskInitResponse
+message C2M_TaskInitRequest    // ILocationRequest
+{
+	int32 RpcId = 90;
+}
+
+message M2C_TaskInitResponse    // ILocationResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	repeated TaskPro RoleTaskList = 1;
+	repeated int32 RoleComoleteTaskList = 2;
+	repeated int32 ReceiveHuoYueIds = 4;
+	repeated int32 ReceiveGrowUpRewardIds = 5;
+}
+
+//ResponseType M2C_SkillInitResponse
+//技能升级
+message C2M_SkillInitRequest	// ILocationRequest
+{
+	int32 RpcId = 90;
+}
+
+message M2C_SkillInitResponse	// ILocationResponse
+{
+	int32 RpcId = 90;
+	string Message = 91;
+	int32 Error = 92;
+	SkillSetInfo SkillSetInfo = 1;
+}
+
+//技能打断
+message C2M_SkillInterruptRequest // ILocationMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+	int32 SkillID = 1;
+}
+
+message M2C_SkillInterruptResult // IMessage
+{
+	int64 ActorId = 93;
+	int64 UnitId = 1;
+	int32 SkillId = 2;
+}
+
+//ResponseType M2C_SkillOperation
+//技能操作
+message C2M_SkillOperation	// ILocationRequest
+{
+	int32 RpcId = 90;
+	int32 SkillID = 1;
+	int32 OperationType = 3;	//1技能点重置
+	string OperationValue = 4;
+}
+
+message M2C_SkillOperation	// ILocationResponse
+{
+	int32 RpcId = 90;
+	string Message = 91;
+	int32 Error = 92;
+}
+
+
+//ResponseType M2C_SkillUp
+//技能升级
+message C2M_SkillUp	// ILocationRequest
+{
+	int32 RpcId = 90;
+	int32 SkillID = 1;
+}
+
+message M2C_SkillUp	// ILocationResponse
+{
+	int32 RpcId = 90;
+	string Message = 91;
+	int32 Error = 92;
+	int32 NewSkillID = 1;
+}
+
+message M2C_UnitNumericUpdate // IMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+	int64 UnitId = 94;
+	int32 SkillId = 1;
+	int32 NumericType = 2;
+	int64 OldValue = 3;
+	int64 NewValue = 4;
+	int32 DamgeType = 5;
+	int64 AttackId = 6;
+}
+
+message M2C_FriendApplyResult	// IMessage
+{
+	FriendInfo FriendInfo = 1;
+}
+
+message C2M_UnitStateUpdate // ILocationMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+
+	int64 StateType = 2;
+	int32 StateOperateType = 3;
+	int32 StateTime = 4;
+	string StateValue = 5;
+}
+
+
+message M2C_UnitStateUpdate // IMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+	int64 UnitId = 1;
+	int64 StateType = 2;
+	int32 StateOperateType = 3;
+	int32 StateTime = 4;
+	string StateValue = 5;
+}
+
+message M2C_UnitBuffUpdate // IMessage
+{
+	int32 BuffID = 1;
+	int64 UnitIdBelongTo = 2;
+	int32 BuffOperateType = 4;
+	repeated float TargetPostion = 5;
+	int64 BuffEndTime = 6;
+	string Spellcaster = 7;
+	int32 UnitType = 8;
+	int32 UnitConfigId = 9;
+	int32 SkillId = 10;
+	int64 UnitIdFrom = 11;
+}
+
+message M2C_UnitBuffRemove // IMessage
+{
+	int32 BuffID = 1;
+	int64 UnitIdBelongTo = 2;
+}
+
+message M2C_UnitBuffStatus // IMessage
+{
+	int32 BuffID = 1;
+	string FlyText = 2;
+	int32 FlyType = 3;
+	int64 UnitID = 4;
+}
+
+//二段技能
+message M2C_SkillSecondResult // IMessage
+{
+	int64 ActorId = 93;
+	int64 UnitId = 1;
+	int32 SkillId = 2;
+	repeated int64 HurtIds = 3;
+}
+
+message TokenRecvive
+{
+	int32 ActivityId = 1;
+	int32 ReceiveIndex = 2;
+}
+
+//ResponseType M2C_StoreBuyResponse
+//商店购买
+message C2M_StoreBuyRequest		// ILocationRequest
+{
+	int32 RpcId = 90;
+	int32 SellItemID = 1;
+	int32 SellItemNum = 2;
+}
+
+message M2C_StoreBuyResponse	// ILocationResponse
+{
+	int32 RpcId = 90;
+	string Message = 91;
+	int32 Error = 92;
+}
+
+//ResponseType Actor_TransferResponse
+message Actor_TransferRequest // ILocationRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+	int32 SceneType = 1;
+	int32 SceneId = 2;
+	int32 Difficulty = 5;
+	string paramInfo = 6;
+}
+
+message Actor_TransferResponse // ILocationResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+message M2C_HorseNoticeInfo // IMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+	string NoticeText = 1;
+	int32 NoticeType = 2;
+}
+
+message M2C_ZeroClock // IMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+}
+
+message UnionListItem
+{
+	string UnionName = 1;
+	int64 UnionId = 2;
+	int32 PlayerNumber = 3;
+	int32 LevelLimit = 4;
+	int32 UnionLevel = 5;
+	string UnionLeader = 6;
+	string UnionPurpose = 7;	
+	repeated int64 ApplyList = 8;
+}
+
+//公会列表
+//ResponseType U2C_UnionListResponse
+message C2U_UnionListRequest // IUnionActorRequest
+{    
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+}
+
+message U2C_UnionListResponse // IUnionActorResponse
+{    
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	repeated UnionListItem UnionList = 1;
+}
+
+//申请入会
+//ResponseType U2C_UnionApplyResponse
+message C2U_UnionApplyRequest // IUnionActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+	int64 UnionId = 1;
+	int64 UserId = 2;
+}
+
+message U2C_UnionApplyResponse // IUnionActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+message M2C_UnionApplyResult // IMessage
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+//申请列表
+//ResponseType U2C_UnionApplyListResponse
+message C2U_UnionApplyListRequest // IUnionActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+	int64 UnionId = 1;
+}
+
+message U2C_UnionApplyListResponse // IUnionActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+
+	repeated UnionPlayerInfo UnionPlayerList = 10;
+}
+
+//申请回复
+//ResponseType U2C_UnionApplyReplyResponse
+message C2U_UnionApplyReplyRequest // IUnionActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+
+	int64 UserId = 1;
+	int32 ReplyCode = 2; //0拒绝 1同意
+	int64 UnionId = 3;
+}
+
+message U2C_UnionApplyReplyResponse // IUnionActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+//公会竞选
+//ResponseType U2C_UnionJingXuanResponse
+message C2U_UnionJingXuanRequest // IUnionActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+	int64 UnionId = 1;
+	int64 UnitId = 2;
+	int32 OperateType = 3;    //0取消申请 1确认申请
+}
+
+message U2C_UnionJingXuanResponse // IUnionActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	repeated int64 JingXuanList = 12;
+	int64 JingXuanEndTime = 13;
+}
+
+//公会踢人
+//ResponseType U2C_UnionKickOutResponse
+message C2U_UnionKickOutRequest // IUnionActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+
+	int64 UnionId = 1;
+	int64 UserId = 2;
+}
+
+message U2C_UnionKickOutResponse // IUnionActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+//公会升级
+//ResponseType U2C_UnionUpgradeResponse
+message C2U_UnionUpgradeRequest // IUnionActorRequest
+{
+  int32 RpcId = 90;
+  int64 ActorId = 93;
+
+  int64 UnionId = 1;
+  int64 UserId = 2;
+}
+
+message U2C_UnionUpgradeResponse // IUnionActorResponse
+{
+  int32 RpcId = 90;
+  int32 Error = 91;
+  string Message = 92;
+  
+  UnionInfo UnionMyInfo = 1;
+}
+
+//我的公会
+//ResponseType U2C_UnionMyInfoResponse
+message C2U_UnionMyInfoRequest // IUnionActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+	int64 UnionId = 1;
+	int64 UnitId = 2;
+}
+
+message U2C_UnionMyInfoResponse // IUnionActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	UnionInfo UnionMyInfo = 1;
+	repeated int64 OnLinePlayer = 2;
+}
+
+//公会操作
+//ResponseType U2C_UnionOperatateResponse
+message C2U_UnionOperatateRequest // IUnionActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+
+	int64 UnitId = 1;
+	int64 UnionId = 2;
+	int32 Operatate = 3;
+	string Value = 4;
+}
+
+message U2C_UnionOperatateResponse // IUnionActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+//ResponseType U2C_UnionRaceInfoResponse
+message C2U_UnionRaceInfoRequest // IUnionActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+	int32 RankType = 1;
+}
+
+message U2C_UnionRaceInfoResponse // IUnionActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	repeated UnionListItem UnionInfoList = 1;
+	int64 TotalDonation = 2;
+}
+
+
+//ResponseType M2C_BlackAccountResponse
+message C2M_BlackAccountRequest // IRequest
+{
+	int32 RpcId = 90;
+	string Account = 1;
+	string Password = 2;
+}
+
+message M2C_BlackAccountResponse // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+//ResponseType M2C_ReceiveMailResponse
+message C2M_ReceiveMailRequest // ILocationRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+	int64 MailId = 1;
+}
+
+message M2C_ReceiveMailResponse // ILocationResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+//ResponseType E2C_ReceiveMailResponse
+message C2E_ReceiveMailRequest // IMailActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+	int64 MailId = 1;
+}
+
+message E2C_ReceiveMailResponse // IMailActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+//ResponseType E2C_GetAllMailResponse
+message C2E_GetAllMailRequest // IMailActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+}
+
+message E2C_GetAllMailResponse // IMailActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	repeated MailInfo MailInfos = 1;
+}
+
+//ResponseType M2C_GameSettingResponse
+//游戏设置
+message C2M_GameSettingRequest		// ILocationRequest
+{
+	int32 RpcId = 90;
+	repeated KeyValuePair GameSettingInfos = 1;
+}
+
+message M2C_GameSettingResponse	// ILocationResponse
+{
+	int32 RpcId = 90;
+	string Message = 91;
+	int32 Error = 92;
+}
+
+//ResponseType M2C_GMCustomResponse
+message C2M_GMCustomRequest //ILocationRequest
+{
+	int32 RpcId = 90;
+}
+
+message M2C_GMCustomResponse //ILocationResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+
+//新手引导
+//ResponseType M2C_GuideUpdateResponse
+message C2M_GuideUpdateRequest // ILocationRequest
+{
+	int32 RpcId = 1;
+	int32 GuideId = 2;
+	int32 GuideStep = 3;
+}
+
+message M2C_GuideUpdateResponse // ILocationResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+
+//ResponseType M2C_ModifyNameResponse
+//改名卡
+message C2M_ModifyNameRequest		// ILocationRequest
+{
+	int32 RpcId = 90;
+	string NewName = 1;
+}
+
+message M2C_ModifyNameResponse	// ILocationResponse
+{
+	int32 RpcId = 90;
+	string Message = 91;
+	int32 Error = 92;
+}
+
+//更新红点信息，已读
+//ResponseType M2C_ReddotReadResponse
+message C2M_ReddotReadRequest // ILocationRequest
+{
+	int32 RpcId = 1;
+	int32 ReddotType = 2;
+}
+
+message M2C_ReddotReadResponse // ILocationResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+//重连成功刷新Unit
+message C2M_RefreshUnitRequest // ILocationMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+}
+
+//ResponseType M2C_UnitInfoResponse
+message C2M_UnitInfoRequest // ILocationRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+	int64 UnitID = 1;
+}
+
+message M2C_UnitInfoResponse // ILocationResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+
+	repeated int32 Ks = 6;
+	repeated int64 Vs = 7;
+}
+
+//ResponseType R2C_DBServerInfoResponse
+message C2R_DBServerInfoRequest // IRankActorRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+}
+
+message R2C_DBServerInfoResponse // IRankActorResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	ServerInfo ServerInfo = 1;
+}
+
+//活动信息
+//ResponseType M2C_ActivityInfoResponse
+message C2M_ActivityInfoRequest // ILocationRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+	int32 ActivityType = 1;		//活动类型
+	int32 ActivityId = 2;		//活动ID
+}
+
+message M2C_ActivityInfoResponse // ILocationResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	repeated int32 ReceiveIds = 1;
+	int64 LastSignTime = 2;
+	int32 TotalSignNumber = 3;
+	int64 LastSignTime_VIP = 4;
+	int32 TotalSignNumber_VIP = 5;
+	repeated TokenRecvive QuTokenRecvive = 6;
+	int64 LastLoginTime = 7;
+	repeated int32 DayTeHui = 8;
+}
+
+//领取奖励
+//ResponseType M2C_ActivityReceiveResponse
+message C2M_ActivityReceiveRequest // ILocationRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+	int32 ActivityType = 1;		//活动类型
+	int32 ActivityId = 2;		//活动ID
+	int32 ReceiveIndex = 3;
+}
+
+message M2C_ActivityReceiveResponse // ILocationResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	repeated RewardItem RewardList = 1;
+}
+
+message M2C_UpdateUserInfoMessage	// IMessage
+{
+	UserInfoProto UserInfo = 1;
+}
+
+//ResponseType Actor_SendReviveResponse
+message Actor_SendReviveRequest // ILocationRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+	int32 MapIndex = 1;
+	bool Revive = 2;     //
+}
+
+message Actor_SendReviveResponse // ILocationResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+
+//上下马
+//ResponseType M2C_HorseRideResponse
+message C2M_HorseRideRequest    // ILocationRequest
+{
+	int32 RpcId = 90;
+	int32 HorseId = 1;
+	int32 OperateType = 2; //1上马  0下马
+}
+
+message M2C_HorseRideResponse    // ILocationResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+//坐骑出战
+//ResponseType M2C_HorseFightResponse
+message C2M_HorseFightRequest    // ILocationRequest
+{
+	int32 RpcId = 90;
+	int32 HorseId = 1;
+	int32 OperateType = 2; //1上马  0下马
+}
+
+message M2C_HorseFightResponse    // ILocationResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+//单独的message消息体， 以Proto结尾，需要生成对应的entity (TestServerInfo) 和转换方法（代码放在Server/ProtboToEntity目录下）
+//只处理outmessage即可
+message TestServerInfoProto
+{
+	int32 Id = 1;
+	int32 Status = 2;
+	string ServerName = 3;
+}
+
+//BagComponentS   
+//生成的iteminfo x需要加标签 [ChildOf(typeof(BagComponentS))]
+message ItemInfoProto    
+{
+	int64 BagInfoID = 1;
+	int32 ItemID = 2;
+	int32 ItemNum = 3;
+	string ItemPar = 4;
+	int32 HideID = 5;
+	string GemHole = 6;	//对应的孔位颜色
+	int32 Loc = 8; //0背包 1装备
+	bool IfJianDing = 9;
+	repeated HideProList HideProLists = 10;					//鉴定属性
+	repeated HideProList XiLianHideProLists = 11;           //洗练属性
+	repeated int32 HideSkillLists = 12;
+	bool isBinging = 13;
+	repeated HideProList XiLianHideTeShuProLists = 14;		//洗练特殊属性
+	string GetWay = 16; //来源方式
+	string GemIDNew = 17;	//对应的宝石ID
+	string MakePlayer = 18;					//制作玩家名字
+	repeated HideProList FumoProLists = 20; //附魔属性
+	int32 InheritTimes = 21;
+	repeated int32 InheritSkills = 22;
+	bool IsProtect = 23;						///装备锁 宠物锁 功能 npc打开
+	repeated HideProList IncreaseProLists = 24; // 增幅属性
+	repeated int32 IncreaseSkillLists = 25; // 增幅技能
+	int32 EquipPlan = 26;
+	int32 EquipIndex = 27;
+	int32 FuLing = 28;    //0未附灵 1附灵
+}
+
+message DamageValueInfo
+{
+	int32 UnitType = 1;
+	int32 ConfigId = 2;	
+	string UnitName = 3;
+	int32 SkillId = 4;	
+	int64 DamageValue = 5;
+	int64 Time = 6;
+}

@@ -1,0 +1,7 @@
+{"dict": [
+[1, {"_t":"GlobalValueConfig","_id":1,"Value":"100001"}],
+[2, {"_t":"GlobalValueConfig","_id":2,"Value":"600000111"}],
+[3, {"_t":"GlobalValueConfig","_id":3,"Value":"120"}],
+[4, {"_t":"GlobalValueConfig","_id":4,"Value":"25"}],
+[5, {"_t":"GlobalValueConfig","_id":5,"Value":"1000021;1"}],
+]}

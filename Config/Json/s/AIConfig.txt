@@ -1,0 +1,11 @@
+{"dict": [
+[101, {"_t":"AIConfig","_id":101,"AIConfigId":1,"Order":1,"Name":"AI_XunLuo","NodeParams":""}],
+[102, {"_t":"AIConfig","_id":102,"AIConfigId":1,"Order":2,"Name":"AI_Retreat","NodeParams":""}],
+[103, {"_t":"AIConfig","_id":103,"AIConfigId":1,"Order":3,"Name":"AI_ZhuiJi","NodeParams":""}],
+[104, {"_t":"AIConfig","_id":104,"AIConfigId":1,"Order":4,"Name":"AI_Attack","NodeParams":""}],
+[201, {"_t":"AIConfig","_id":201,"AIConfigId":2,"Order":1,"Name":"AI_Follow","NodeParams":""}],
+[202, {"_t":"AIConfig","_id":202,"AIConfigId":2,"Order":2,"Name":"AI_ZhuiJi","NodeParams":""}],
+[203, {"_t":"AIConfig","_id":203,"AIConfigId":2,"Order":3,"Name":"AI_Attack","NodeParams":""}],
+[301, {"_t":"AIConfig","_id":301,"AIConfigId":3,"Order":1,"Name":"AI_NPCXunLuo","NodeParams":""}],
+[401, {"_t":"AIConfig","_id":401,"AIConfigId":4,"Order":1,"Name":"AI_Tower","NodeParams":""}],
+]}

@@ -1,0 +1,14 @@
+{"dict": [
+[1, {"_t":"MedalExchangeConfig","_id":1,"BigType":1,"SubType":11,"Name":"荣誉级勋章1级","CostReputation":11,"SuccessRate":30,"CostItems":"1;1@2;1"}],
+[2, {"_t":"MedalExchangeConfig","_id":2,"BigType":1,"SubType":11,"Name":"荣誉级勋章2级","CostReputation":12,"SuccessRate":30,"CostItems":"1;1@2;2"}],
+[3, {"_t":"MedalExchangeConfig","_id":3,"BigType":1,"SubType":11,"Name":"荣誉级勋章3级","CostReputation":13,"SuccessRate":30,"CostItems":""}],
+[4, {"_t":"MedalExchangeConfig","_id":4,"BigType":1,"SubType":11,"Name":"荣誉级勋章4级","CostReputation":14,"SuccessRate":30,"CostItems":"1;1@2;1"}],
+[5, {"_t":"MedalExchangeConfig","_id":5,"BigType":1,"SubType":12,"Name":"圣战级勋章1级","CostReputation":15,"SuccessRate":30,"CostItems":"1;1@2;1"}],
+[6, {"_t":"MedalExchangeConfig","_id":6,"BigType":1,"SubType":12,"Name":"圣战级勋章2级","CostReputation":16,"SuccessRate":30,"CostItems":"1;1@2;1"}],
+[7, {"_t":"MedalExchangeConfig","_id":7,"BigType":2,"SubType":21,"Name":"白虎印","CostReputation":11,"SuccessRate":30,"CostItems":"1;1@2;1"}],
+[8, {"_t":"MedalExchangeConfig","_id":8,"BigType":2,"SubType":21,"Name":"朱雀印","CostReputation":12,"SuccessRate":30,"CostItems":"1;1@2;2"}],
+[9, {"_t":"MedalExchangeConfig","_id":9,"BigType":2,"SubType":21,"Name":"青龙印","CostReputation":13,"SuccessRate":30,"CostItems":""}],
+[10, {"_t":"MedalExchangeConfig","_id":10,"BigType":2,"SubType":22,"Name":"无双勋章","CostReputation":14,"SuccessRate":30,"CostItems":"1;1@2;1"}],
+[11, {"_t":"MedalExchangeConfig","_id":11,"BigType":2,"SubType":22,"Name":"荒古勋章","CostReputation":15,"SuccessRate":30,"CostItems":"1;1@2;1"}],
+[12, {"_t":"MedalExchangeConfig","_id":12,"BigType":2,"SubType":22,"Name":"星辰勋章","CostReputation":16,"SuccessRate":30,"CostItems":"1;1@2;1"}],
+]}

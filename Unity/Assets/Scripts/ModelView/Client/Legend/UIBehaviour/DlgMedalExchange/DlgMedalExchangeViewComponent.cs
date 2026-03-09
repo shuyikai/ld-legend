@@ -1,0 +1,74 @@
+﻿
+using UnityEngine;
+using UnityEngine.UI;
+namespace ET.Client
+{
+	[ComponentOf(typeof(DlgMedalExchange))]
+	[EnableMethod]
+	public  class DlgMedalExchangeViewComponent : Entity,IAwake,IDestroy 
+	{
+		public UnityEngine.RectTransform EG_SubViewRectTransform
+     	{
+     		get
+     		{
+     			if (this.uiTransform == null)
+     			{
+     				Log.Error("uiTransform is null.");
+     				return null;
+     			}
+     			if( this.m_EG_SubViewRectTransform == null )
+     			{
+		    		this.m_EG_SubViewRectTransform = UIFindHelper.FindDeepChild<UnityEngine.RectTransform>(this.uiTransform.gameObject,"EG_SubView");
+     			}
+     			return this.m_EG_SubViewRectTransform;
+     		}
+     	}
+
+		public UnityEngine.UI.ToggleGroup E_FunctionSetBtnToggleGroup
+     	{
+     		get
+     		{
+     			if (this.uiTransform == null)
+     			{
+     				Log.Error("uiTransform is null.");
+     				return null;
+     			}
+     			if( this.m_E_FunctionSetBtnToggleGroup == null )
+     			{
+		    		this.m_E_FunctionSetBtnToggleGroup = UIFindHelper.FindDeepChild<UnityEngine.UI.ToggleGroup>(this.uiTransform.gameObject,"Left/E_FunctionSetBtn");
+     			}
+     			return this.m_E_FunctionSetBtnToggleGroup;
+     		}
+     	}
+		
+		public UnityEngine.UI.Button E_CloseButton
+		{
+			get
+			{
+				if (this.uiTransform == null)
+				{
+					Log.Error("uiTransform is null.");
+					return null;
+				}
+				if( this.m_E_CloseButton == null )
+				{
+					this.m_E_CloseButton = UIFindHelper.FindDeepChild<UnityEngine.UI.Button>(this.uiTransform.gameObject,"E_CloseButton");
+				}
+				return this.m_E_CloseButton;
+			}
+		}
+
+		public void DestroyWidget()
+		{
+			this.m_EG_SubViewRectTransform = null;
+			this.m_E_FunctionSetBtnToggleGroup = null;
+			this.m_E_CloseButton = null;
+			this.uiTransform = null;
+		}
+
+		private UnityEngine.RectTransform m_EG_SubViewRectTransform = null;
+		private UnityEngine.UI.ToggleGroup m_E_FunctionSetBtnToggleGroup = null;
+		private UnityEngine.UI.Button m_E_CloseButton = null;
+		public Transform uiTransform = null;
+	}
+}

@@ -1,0 +1,3 @@
+{"dict": [
+[1, {"_t":"UnionConfig","_id":1,"Exp":500,"XiuLianLevel":1,"PeopleNum":15,"DonateGold":200000,"DonateDiamond":180,"DonateExp":[10,30],"DonateReward":[5,15],"UpAllReward":"1,50000;16,10","AddUnionGold":[20000,80000],"UnionGoldLimit":50000000,"UnionGoldCost":100}],
+]}

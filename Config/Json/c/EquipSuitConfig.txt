@@ -1,0 +1,3 @@
+{"dict": [
+[11011, {"_t":"EquipSuitConfig","_id":11011,"Name":"圣光套装","NeedEquipID":[1501003,1502003,1503003,1504003],"SuitPropertyID":"2,110111;4,110112","SuitType":0,"Occ":0}],
+]}

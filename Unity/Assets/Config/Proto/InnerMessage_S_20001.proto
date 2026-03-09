@@ -1,0 +1,1048 @@
+syntax = "proto3";
+// using 
+
+package ET;
+
+//ResponseType ObjectQueryResponse
+message ObjectQueryRequest // IRequest
+{
+	int32 RpcId = 1;
+	int64 Key = 2;
+	int64 InstanceId = 3;
+}
+
+//ResponseType A2M_Reload
+message M2A_Reload // IRequest
+{
+	int32 RpcId = 1;
+}
+
+message A2M_Reload // IResponse
+{
+	int32 RpcId = 1;
+	int32 Error = 2;
+	string Message = 3;
+}
+
+//ResponseType G2G_LockResponse
+message G2G_LockRequest // IRequest
+{
+	int32 RpcId = 1;
+	int64 Id = 2;
+	string Address = 3;
+}
+
+message G2G_LockResponse // IResponse
+{
+	int32 RpcId = 1;
+	int32 Error = 2;
+	string Message = 3;
+}
+
+//ResponseType G2G_LockReleaseResponse
+message G2G_LockReleaseRequest // IRequest
+{
+	int32 RpcId = 1;
+	int64 Id = 2;
+	string Address = 3;
+}
+
+message G2G_LockReleaseResponse // IResponse
+{
+	int32 RpcId = 1;
+	int32 Error = 2;
+	string Message = 3;
+}
+
+//ResponseType ObjectAddResponse
+message ObjectAddRequest // IRequest
+{
+	int32 RpcId = 1;
+	int32 Type = 2;
+	int64 Key = 3;
+	ActorId ActorId = 4;
+}
+
+message ObjectAddResponse // IResponse
+{
+	int32 RpcId = 1;
+	int32 Error = 2;
+	string Message = 3;
+}
+
+//ResponseType ObjectLockResponse
+message ObjectLockRequest // IRequest
+{
+	int32 RpcId = 1;
+	int32 Type = 2;
+	int64 Key = 3;
+	ActorId ActorId = 4;
+	int32 Time = 5;
+}
+message ObjectLockResponse // IResponse
+{
+	int32 RpcId = 1;
+	int32 Error = 2;
+	string Message = 3;
+}
+
+//ResponseType ObjectUnLockResponse
+message ObjectUnLockRequest // IRequest
+{
+	int32 RpcId = 1;
+	int32 Type = 2;
+	int64 Key = 3;
+	ActorId OldActorId = 4;
+	ActorId NewActorId = 5;
+}
+message ObjectUnLockResponse // IResponse
+{
+	int32 RpcId = 1;
+	int32 Error = 2;
+	string Message = 3;
+}
+
+//ResponseType ObjectRemoveResponse
+message ObjectRemoveRequest // IRequest
+{
+	int32 RpcId = 1;
+	int32 Type = 2;
+	int64 Key = 3;
+}
+message ObjectRemoveResponse // IResponse
+{
+	int32 RpcId = 1;
+	int32 Error = 2;
+	string Message = 3;
+}
+
+//ResponseType ObjectGetResponse
+message ObjectGetRequest // IRequest
+{
+	int32 RpcId = 1;
+	int32 Type = 2;
+	int64 Key = 3;
+}
+message ObjectGetResponse // IResponse
+{
+	int32 RpcId = 1;
+	int32 Error = 2;
+	string Message = 3;
+	int32 Type = 4;
+	ActorId ActorId = 5;
+}
+
+//ResponseType G2R_GetLoginKey
+message R2G_GetLoginKey // IRequest
+{
+	int32 RpcId = 1;
+	string Account = 2;
+}
+
+message G2R_GetLoginKey // IResponse
+{
+	int32 RpcId = 1;
+	int32 Error = 2;
+	string Message = 3;
+	int64 Key = 4;
+	int64 GateId = 5;
+}
+
+message ObjectQueryResponse // IResponse
+{
+	int32 RpcId = 1;
+	int32 Error = 2;
+	string Message = 3;
+	bytes Entity = 4;
+}
+
+
+//ResponseType L2R_LoginAccountRequest
+message R2L_LoginAccountRequest // IRequest
+{
+	int32 RpcId = 1;
+	string AccountName = 2;
+	int32 Relink = 4;
+}
+
+message L2R_LoginAccountRequest // IResponse
+{
+	int32 RpcId = 1;
+	int32 Error = 2;
+	string Message = 3;
+}
+
+//ResponseType G2L_DisconnectGateUnit
+message L2G_DisconnectGateUnit // IRequest
+{
+	int32 RpcId = 1;
+	string AccountName = 2;
+	int32 ReLink = 4;
+}
+
+message G2L_DisconnectGateUnit // IResponse
+{
+	int32 RpcId = 1;
+	int32 Error = 2;
+	string Message = 3;
+}
+
+//ResponseType G2A_GetOnLineUnit
+message A2G_GetOnLineUnit // IRequest
+{
+	int32 RpcId = 1;
+}
+
+message G2A_GetOnLineUnit // IResponse
+{
+	int32 RpcId = 1;
+	int32 Error = 2;
+	string Message = 3;
+	repeated int64 OnLineUnits = 4;
+}
+
+//ResponseType G2A_GetUnitNumber
+message A2G_GetUnitNumber // IRequest
+{
+	int32 RpcId = 1;
+}
+
+message G2A_GetUnitNumber // IResponse
+{
+	int32 RpcId = 1;
+	int32 Error = 2;
+	string Message = 3;
+	int32 OnLinePlayer = 4;
+	int32 OnLineRobot = 5;
+}
+
+//ResponseType Q2R_EnterQueue
+message R2Q_EnterQueue // IRequest
+{
+	int32 RpcId = 90;
+	string Account  = 1;
+	int64 AccountId = 2;
+	string Token = 3;
+}
+
+message Q2R_EnterQueue // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	int32 QueueNumber = 1;
+}
+
+//ResponseType Q2G_ExitGame
+message G2Q_ExitGame // IRequest
+{
+	int32 RpcId = 90;
+	int64 AccountId = 1;
+}
+
+message Q2G_ExitGame // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+//ResponseType L2G_AddLoginRecord
+message G2L_AddLoginRecord // IRequest
+{
+	int32 RpcId = 1;
+	string AccountName = 2;
+	int32 ServerId = 3;
+}
+
+
+message L2G_AddLoginRecord // IResponse
+{
+	int32 RpcId = 1;
+	int32 Error = 2;
+	string Message = 3;
+}
+
+
+//ResponseType L2G_RemoveLoginRecord
+message G2L_RemoveLoginRecord // IRequest
+{
+	int32 RpcId = 1;
+	string AccountName = 2;
+	int32 ServerId = 3;
+}
+
+
+message L2G_RemoveLoginRecord // IResponse
+{
+	int32 RpcId = 1;
+	int32 Error = 2;
+	string Message = 3;
+}
+
+
+message G2M_SessionDisconnect // ILocationMessage
+{
+	int32 RpcId = 1;
+}
+
+
+//ResponseType M2G_SecondLogin
+message G2M_SecondLogin // ILocationRequest
+{
+	int32 RpcId = 1;
+}
+
+
+message M2G_SecondLogin // ILocationResponse
+{
+	int32 RpcId = 1;
+	int32 Error = 2;
+	string Message = 3;
+	int32 SceneType = 5;
+	int32 SceneId = 6;
+}
+
+
+
+//ResponseType M2G_RequestExitGame
+message G2M_RequestExitGame // ILocationRequest
+{
+	int32 RpcId = 1;
+}
+
+
+message M2G_RequestExitGame // ILocationResponse
+{
+	int32 RpcId = 1;
+	int32 Error = 2;
+	string Message = 3;
+}
+
+//ResponseType M2M_UnitTransferResponse
+message M2M_UnitTransferRequest // IRequest
+{
+	int32 RpcId = 1;
+	ActorId OldActorId = 2;
+	bytes Unit = 3;
+	repeated bytes Entitys = 4;
+	int32 SceneType = 5;
+	int32 SceneId = 6;
+	int32 Difficulty = 7;
+	int32 FubenDifficulty = 8;
+	string  ParamInfo = 9;
+}
+
+message M2M_UnitTransferResponse // IResponse
+{
+	int32 RpcId = 1;
+	int32 Error = 2;
+	string Message = 3;
+}
+
+//----------玩家缓存相关----------------
+//增加或者更新Unit缓存
+//ResponseType UnitCache2Other_AddOrUpdateUnit
+message Other2UnitCache_AddOrUpdateUnit // IRequest
+{
+	 int32 RpcId = 90;
+
+     int64 UnitId = 1;				  // 需要缓存的UnitId
+     repeated string EntityTypes = 2;  //实体类型
+     repeated bytes EntityBytes = 3;   //实体序列化后的bytes
+}
+
+message UnitCache2Other_AddOrUpdateUnit // IResponse
+{
+	int32 RpcId = 90;
+    int32 Error = 91;
+    string Message = 92;
+}
+
+//获取Unit缓存
+//ResponseType UnitCache2Other_GetUnit
+message Other2UnitCache_GetUnit //IRequest
+{
+    int32 RpcId = 90;
+
+    int64 UnitId = 1;
+    repeated string ComponentNameList = 2; //需要获取的组件名
+}
+
+message UnitCache2Other_GetUnit //IResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+
+	repeated bytes EntityList = 1;
+	repeated string ComponentNameList = 2;
+}
+
+//删除Unit缓存
+//ResponseType UnitCache2Other_DeleteUnit
+message Other2UnitCache_DeleteUnit // IRequest
+{
+   int32 RpcId = 90;
+
+   int64 UnitId = 1;    
+}
+
+message UnitCache2Other_DeleteUnit // IResponse
+{
+    int32 RpcId = 90;
+    int32 Error = 91;
+    string Message = 92;
+}
+
+//ResponseType UnitCache2Other_GetComponent
+message Other2UnitCache_GetComponent // IRequest
+{
+    int32 RpcId = 90;
+    int64 ActorId = 93;
+	  int64 UnitId = 1;
+    string Component = 2;
+}
+
+message UnitCache2Other_GetComponent // IResponse
+{
+    int32 RpcId = 90;
+    int32 Error = 91;
+    string Message = 92;
+	  bytes Component = 1;
+}
+
+//----------玩家缓存相关----------------
+
+//ResponseType L2A_LoginAccountResponse
+message A2L_LoginAccountRequest // IRequest
+{
+	int32 RpcId = 90;
+	int64 AccountId = 1;
+	bool Relink = 5;
+}
+
+message L2A_LoginAccountResponse // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+//ResponseType Chat2G_EnterChat
+message G2Chat_EnterChat // IRequest
+{
+	int32 RpcId = 90;
+	string Name = 1;
+	int64 UnitId = 2;
+	int64 GateSessionActorId = 3;
+	int64 UnionId = 4;
+}
+
+message Chat2G_EnterChat // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	int64 ChatInfoUnitInstanceId = 1;
+}
+
+//ResponseType Chat2G_RequestExitChat
+message G2Chat_RequestExitChat // ILocationRequest
+{
+	int32 RpcId = 90;
+}
+
+message Chat2G_RequestExitChat // ILocationResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+//排行榜刷新
+message R2M_RankUpdateMessage // ILocationMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+	int32 RankType = 1;   //1 战力 2天梯 3捐献
+	int32 RankId = 2;
+	int32 OccRankId = 3;   //目前只有战力有职业排行
+}
+
+//ResponseType E2M_EMailSendResponse
+message M2E_EMailSendRequest // IRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+	int64 Id = 1;
+	MailInfo MailInfo = 3;
+	int32 GetWay = 4;
+}
+
+message E2M_EMailSendResponse // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+message Mail2M_SendServerMailItem // ILocationMessage
+{
+	int32 RpcId = 90;
+	ServerMailItem ServerMailItem = 1;
+}
+
+//ResponseType A2A_ServerMessageRResponse
+message A2A_ServerMessageRequest // IRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+	int32 MessageType = 2;
+	string MessageValue = 5;
+}
+
+message A2A_ServerMessageRResponse // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+//ResponseType Chat2M_UpdateUnion
+message M2Chat_UpdateUnion //IRequest
+{
+	int32 RpcId = 90;
+
+	int64 UnitId = 2;
+	int64 UnionId = 4;
+}
+
+message Chat2M_UpdateUnion //IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+//公会操作  1增加经验  2获取等级
+//ResponseType U2M_UnionOperationResponse
+message M2U_UnionOperationRequest // IRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+	int64 UnionId = 1;
+	int32 OperateType = 2;		//1 增加经验
+	string Par = 3;				//1 2 3(自身金币数量)
+	int64 UnitId = 4;
+}
+
+message U2M_UnionOperationResponse // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	string Par = 1;          //返回值
+}
+
+message M2U_UnionInviteReplyMessage // ILocationMessage
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	int64 UnionId = 1;
+	int32 ReplyCode = 2; //0拒绝 1同意
+	int64 UnitID = 3;
+}
+
+//离开公会
+//ResponseType U2M_UnionLeaveResponse
+message M2U_UnionLeaveRequest // IRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+	int64 UnionId = 1;
+	int64 UserId = 2;
+}
+
+message U2M_UnionLeaveResponse // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+//ResponseType U2M_UnionMysteryBuyResponse
+message M2U_UnionMysteryBuyRequest // IRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+	int64 UnionId = 1;
+	int32 MysteryId = 2;
+	int32 BuyNumber = 3;
+}
+
+message U2M_UnionMysteryBuyResponse // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+//ResponseType Union2G_EnterUnion
+message G2Union_EnterUnion //IRequest
+{
+	int32 RpcId = 90;
+	string Name = 1;
+	int64 UnitId = 2;
+}
+
+message Union2G_EnterUnion //IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	int64 WinUnionId = 2;
+	int32 DonationRankId = 3;
+	int64 LeaderId = 4;
+}
+
+//进入公会地图
+//ResponseType F2M_UnionEnterResponse
+message M2F_UnionEnterRequest // IRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+	int64 UnionId = 1;
+	int64 UnitId = 2;
+	int32 SceneId = 3;
+	int32 OperateType = 4;   ///0默认 1公会争霸赛
+}
+
+message F2M_UnionEnterResponse // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+
+	int32 FubenId = 1;
+	int64 FubenInstanceId = 2;
+	ActorId FubenActorId = 3;
+}
+
+//ResponseType A2A_ActivityUpdateResponse
+message A2A_ActivityUpdateRequest // IRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+	int32 Hour = 1;
+	int32 FunctionId = 3;
+	int32 FunctionType = 4;
+}
+
+message A2A_ActivityUpdateResponse // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+message G2M_ActivityUpdate // IMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+	int32 Hour = 1;
+	int32 FunctionId = 3;
+	int32 FunctionType = 4;
+}
+
+//广播
+//ResponseType A2A_BroadcastProcessResponse
+message A2A_BroadcastProcessRequest // IRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+
+	int32 LoadType = 3;
+	string LoadValue = 4;
+	ServerInfo ServerInfo = 5;
+}
+
+message A2A_BroadcastProcessResponse // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+//通知机器人进程
+message G2Robot_MessageRequest // IMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+
+	int32 Zone = 1;
+	int32 MessageType = 2;
+	string Message = 3;
+}
+
+
+//ResponseType L2M_PhoneBinging
+//手机号绑定
+message M2L_PhoneBinging // IRequest
+{
+	int32 RpcId = 90;
+	string PhoneNumber = 1;
+	int64 AccountId  = 2;	// 帐号Id
+	string Account  = 3;	// 帐号
+	string  Password = 4;	// 密码
+}
+
+message L2M_PhoneBinging // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+//ResponseType L2M_BlackAccountResponse
+message M2L_BlackAccountRequest // IRequest
+{
+	int32 RpcId = 90;
+	string Account = 1;
+	string Password = 2;
+}
+
+message L2M_BlackAccountResponse // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+
+//ResponseType L2M_CenterServerInfoRespone
+message M2L_CenterServerInfoReuest // IRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+	int infoType = 1;
+	int Zone = 2;
+}
+
+message L2M_CenterServerInfoRespone // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	string Value = 1;
+}
+
+//ResponseType L2M_ShareSucessResponse
+message M2L_ShareSucessRequest // IRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+	int32 ShareType = 1;
+	int64 UnitId = 2;
+	int64 AccountId = 3;
+}
+
+message L2M_ShareSucessResponse // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+//ResponseType Chat2M_UpdateLevel
+message M2Chat_UpdateLevel //IRequest
+{
+	int32 RpcId = 90;
+	int64 UnitId = 2;
+	int32 Level = 5;
+}
+
+message Chat2M_UpdateLevel //IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+
+//ResponseType Chat2Mail_GetUnitList
+message Mail2Chat_GetUnitList //IRequest
+{
+	int32 RpcId = 90;
+}
+
+message Chat2Mail_GetUnitList //IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	repeated int64 OnlineUnitIdList = 1;
+}
+
+//ResponseType Mail2G_EnterMail
+message G2Mail_EnterMail //IRequest
+{
+	int32 RpcId = 90;
+	int64 UnitId = 1;
+	int32 ServerMailIdCur = 3;
+}
+
+message Mail2G_EnterMail //IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	int32 ServerMailIdMax = 3;
+}
+
+//ResponseType E2M_EMailReceiveResponse
+message M2E_EMailReceiveRequest // IRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+	int64 Id = 1;
+	int64 MailId = 2;
+}
+
+message E2M_EMailReceiveResponse // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	MailInfo MailInfo = 4;
+}
+
+//ResponseType F2M_FubenCenterListResponse
+message M2F_FubenCenterListRequest // IRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+}
+
+message F2M_FubenCenterListResponse // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	repeated int64 FubenInstanceList = 1;
+}
+
+//副本分配中心服
+//ResponseType F2M_FubenCenterOpenResponse
+message M2F_FubenCenterOperateRequest // IRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+	int32 OperateType = 1; //1开启 2关闭
+	int64 FubenInstanceId = 2;
+	int32 SceneType = 3;
+}
+
+message F2M_FubenCenterOpenResponse // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	ServerInfo ServerInfo = 1;
+}
+
+//野外副本Id
+//ResponseType F2M_FubenSceneIdResponse
+message M2F_FubenSceneIdRequest // IRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+	int32 SceneId = 2;
+	int64 UnitId = 3;
+}
+
+message F2M_FubenSceneIdResponse // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	int64 FubenInstanceId = 2;
+	ActorId FubenActorId = 3;
+	int32 Camp = 4;
+	int32 Position = 5;
+}
+
+//ResponseType R2M_DBServerInfoResponse
+message M2R_DBServerInfoRequest // IRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+}
+
+message R2M_DBServerInfoResponse // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	ServerInfo ServerInfo  = 1;
+}
+
+//ResponseType P2M_StallBuyResponse
+message M2P_StallBuyRequest // IRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+	PaiMaiItemInfo PaiMaiItemInfo = 1;
+}
+
+message P2M_StallBuyResponse // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	PaiMaiItemInfo PaiMaiItemInfo = 1;
+}
+
+//ResponseType P2M_StallSellResponse
+message M2P_StallSellRequest // IRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+	PaiMaiItemInfo PaiMaiItemInfo = 2;
+}
+
+message P2M_StallSellResponse // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+
+//ResponseType M2G_RechargeResultResponse
+message G2M_RechargeResultRequest // IRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+	int64 Id = 1;
+	int32 RechargeNumber = 2;
+	string OrderInfo = 4;
+}
+
+message M2G_RechargeResultResponse // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+//ResponseType M2M_AllPlayerListResponse
+message M2M_AllPlayerListRequest // IRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+}
+
+message M2M_AllPlayerListResponse // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	repeated int64 AllPlayers = 1;
+}
+
+//ResponseType R2A_DeleteRoleData
+message A2R_DeleteRoleData // IRequest
+{
+	int32 RpcId = 90;
+	int32 DeleXuhaoID = 2;
+	int64 DeleUserID = 3;
+	int64 AccountId = 4;
+}
+
+message R2A_DeleteRoleData // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+//ResponseType Rank2G_EnterRank
+message G2Rank_EnterRank //IRequest
+{
+	int32 RpcId = 90;
+	string Name = 1;
+	int64 UnitId = 2;
+	int32 Occ = 3;
+}
+
+message Rank2G_EnterRank //IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	int32 RankId = 1;
+	int32 PetRankId = 2;
+	int32 SoloRankId = 3;
+	int32 TrialRankId = 4;
+	int32 OccRankId = 5;
+}
+
+//ResponseType R2M_RechargeResponse
+message M2R_RechargeRequest // IRequest
+{
+	int32 RpcId = 90;
+	int64 UnitId = 93;
+	int32 RechargeNumber = 1;
+	int64 PayType = 2;
+	int32 Zone = 3;
+	string payMessage = 4;
+	string UnitName = 5;
+	string Account = 6;
+	string ClientIp = 7;
+}
+
+message R2M_RechargeResponse // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	string PayMessage = 1;
+}
+
+//ResponseType G2R_RechargeResultResponse
+message R2G_RechargeResultRequest // IRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+	int64 Id = 1;
+	int32 RechargeNumber = 2;
+	int64 UserID = 3;
+	string OrderInfo = 4;
+	string CpOrder = 5;
+	int32 RechargetType = 6;
+}
+
+message G2R_RechargeResultResponse // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+//ResponseType A2A_BroadcastSceneResponse
+message A2A_BroadcastSceneRequest // IRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+	
+	int64 UnitId = 1;
+}
+
+message A2A_BroadcastSceneResponse // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}

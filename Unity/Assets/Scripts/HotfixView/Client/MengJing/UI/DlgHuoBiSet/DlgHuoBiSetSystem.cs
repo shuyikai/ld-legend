@@ -1,0 +1,137 @@
+using System;
+using UnityEngine;
+
+namespace ET.Client
+{
+    [Event(SceneType.Demo)]
+    public class UpdateUserData_HuoBiSetRefresh : AEvent<Scene, UpdateUserData>
+    {
+        protected override async ETTask Run(Scene root, UpdateUserData args)
+        {
+            root.GetComponent<UIComponent>().GetDlgLogic<DlgHuoBiSet>()?.InitShow();
+            await ETTask.CompletedTask;
+        }
+    }
+
+    [FriendOf(typeof(UserInfoComponentC))]
+    [FriendOf(typeof(DlgHuoBiSet))]
+    public static class DlgHuoBiSetSystem
+    {
+        public static void RegisterUIEvent(this DlgHuoBiSet self)
+        {
+            self.View.E_AddGoldButton.AddListener(self.OnAddGoldButton);
+            self.View.E_AddZuanShiButton.AddListener(self.OnAddZuanShiButton);
+
+            self.View.E_CloseButton.AddListener(self.OnCloseButton);
+            self.View.E_Close2Button.AddListener(self.OnCloseButton);
+
+            self.DefaultTitleIconSprite = self.View.E_TitleIconImage.sprite;
+            
+            IPHoneHelper.SetPosition( self.View.E_TopLeftTitle.gameObject, new Vector2(220f, 0f) );
+
+            self.InitShow();
+        }
+
+        public static void ShowWindow(this DlgHuoBiSet self, Entity contextData = null)
+        {
+        }
+
+        private static  void OnAddGoldButton(this DlgHuoBiSet self)
+        {
+            // if (self.Root().GetComponent<UIComponent>().GetDlgLogic<DlgRecharge>() != null)
+            // {
+            //     return;
+            // }
+
+            ShowWindowData showWindowData = new ShowWindowData();
+            showWindowData.ParamInfoInt = 3;
+        }
+
+        private static void OnAddZuanShiButton(this DlgHuoBiSet self)
+        {
+            
+        }
+
+        public static void InitShow(this DlgHuoBiSet self)
+        {
+            UserInfo userInfo = self.Root().GetComponent<UserInfoComponentC>().UserInfo;
+            self.View.E_GoldText.text = userInfo.Gold.ToString();
+            self.View.E_ZuanShiText.text = userInfo.Diamond.ToString();
+            self.View.E_Lab_RongYuText.text = userInfo.RongYu.ToString();
+            self.View.E_Lab_ZiJinText.text = userInfo.JiaYuanFund.ToString();
+            self.View.E_JiaZu_ZiJinText.text = userInfo.UnionZiJin.ToString();
+            // self.View.E_WeiJing_ZiJinText.text = userInfo.WeiJingGold.ToString();
+
+            UIComponent uiComponent = self.Root().GetComponent<UIComponent>();
+            if (uiComponent.OpenUIList.Count > 0)
+            {
+                self.OnUpdateTitle(uiComponent.OpenUIList[0]);
+                self.View.EG_ZiJinSetRectTransform.gameObject.SetActive(Enum.GetName(typeof(WindowID), uiComponent.OpenUIList[0])
+                        .Contains("JiaYuan"));
+                self.View.EG_JiaZuSetRectTransform.gameObject.SetActive(Enum.GetName(typeof(WindowID), uiComponent.OpenUIList[0]).Contains("Union"));
+                //self.View.EG_WeiJingSetRectTransform.gameObject.SetActive(
+                //    Enum.GetName(typeof(WindowID), uiComponent.OpenUIList[0]).Contains("PaiMai"));
+            }
+        }
+
+        private static void OnCloseButton(this DlgHuoBiSet self)
+        {
+            UIComponent uiComponent = self.Root().GetComponent<UIComponent>();
+
+            uiComponent.CloseWindow(WindowID.WindowID_ItemTips);
+ 
+            if (uiComponent.OpenUIList.Count > 0)
+            {
+                uiComponent.CloseWindow(uiComponent.OpenUIList[0]);
+            }
+        }
+
+        public static void OnUpdateTitle(this DlgHuoBiSet self, WindowID windowID)
+        {
+            // string[] paths = uiType.Split('/');
+            // string titlePath = paths[paths.Length - 1];
+            // if (uiType.Contains("UITeamDungeon"))
+            // {
+            //     titlePath = "UITeamDungeon";
+            // }
+            //
+            // string path = ABPathHelper.GetAtlasPath_2(ABAtlasTypes.TiTleIcon, "Img_UIActivity");
+            // Sprite sp = self.Root().GetComponent<ResourcesLoaderComponent>().LoadAssetSync<Sprite>(path);
+            // self.View.E_TitleImage.sprite = sp;
+
+            // 标题图标
+            string titleIcon = windowID switch
+            {
+                WindowID.WindowID_Task => "Title_Task",
+                WindowID.WindowID_Role => "Title_Rose",
+                WindowID.WindowID_Skill => "Title_Skill",
+                WindowID.WindowID_Friend => "Title_Friend",
+                _ => "Default"
+            };
+            
+            // 标题文字
+            string title = windowID switch
+            {
+                WindowID.WindowID_Task => "任务系统",
+                WindowID.WindowID_Role => "角色系统",
+                WindowID.WindowID_Skill => "技能系统",
+                WindowID.WindowID_Friend => "好友系统",
+                WindowID.WindowID_Recharge=>"游戏商城",
+                _ => ""
+            };
+
+            if (titleIcon != "Default")
+            {
+                string path = ABPathHelper.GetAtlasPath_2(ABAtlasTypes.TiTleIcon, titleIcon);
+                Sprite sp = self.Root().GetComponent<ResourcesLoaderComponent>().LoadAssetSync<Sprite>(path);
+                self.View.E_TitleIconImage.sprite = sp;
+            }
+            else
+            {
+                self.View.E_TitleIconImage.sprite = self.DefaultTitleIconSprite;
+            }
+
+            self.View.E_TitleTextText.text = title;
+        }
+    }
+}

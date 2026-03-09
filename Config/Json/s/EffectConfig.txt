@@ -1,0 +1,6 @@
+{"dict": [
+[1, {"_t":"EffectConfig","_id":1,"EffectType":1,"IfFollowCollider":0,"EffectName":"100001","SkillEffectDelayTime":0.4,"SkillParent":1,"SkillParentPosition":"Center","HideTime":0,"SkillEffectLiveTime":3000,"PlayType":0,"Scale":1}],
+[2, {"_t":"EffectConfig","_id":2,"EffectType":1,"IfFollowCollider":0,"EffectName":"100003","SkillEffectDelayTime":0,"SkillParent":1,"SkillParentPosition":"Center","HideTime":0,"SkillEffectLiveTime":3000,"PlayType":0,"Scale":1}],
+[3, {"_t":"EffectConfig","_id":3,"EffectType":1,"IfFollowCollider":0,"EffectName":"100002","SkillEffectDelayTime":0.1,"SkillParent":0,"SkillParentPosition":"Center","HideTime":0,"SkillEffectLiveTime":3000,"PlayType":0,"Scale":1}],
+[4, {"_t":"EffectConfig","_id":4,"EffectType":3,"IfFollowCollider":0,"EffectName":"UIEffect_Quaity_5","SkillEffectDelayTime":0,"SkillParent":1,"SkillParentPosition":"Center","HideTime":0,"SkillEffectLiveTime":5000000,"PlayType":0,"Scale":70}],
+]}

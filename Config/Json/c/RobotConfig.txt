@@ -1,0 +1,4 @@
+{"dict": [
+[1000, {"_t":"RobotConfig","_id":1000,"Level":1,"Occ":1,"OccTwo":0,"EquipList":[],"PointList":[10,10,0,0,0],"Behaviour":0,"BehaviourID":0,"AIParameter":""}],
+[1001, {"_t":"RobotConfig","_id":1001,"Level":1,"Occ":1,"OccTwo":0,"EquipList":[],"PointList":[10,10,0,0,0],"Behaviour":1,"BehaviourID":0,"AIParameter":""}],
+]}

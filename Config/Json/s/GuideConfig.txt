@@ -1,0 +1,3 @@
+{"dict": [
+[10001, {"_t":"GuideConfig","_id":10001,"GroupId":0,"NextID":0,"Save":1,"TrigerType":1,"TrigerParams":"UIMain","ActionType":1,"ActionTarget":"UIMain","ActionParams":"AdventureBtn","Force":0,"Text":"点击按钮进入探险","TextPosition":0,"Offset":[]}],
+]}

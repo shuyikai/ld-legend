@@ -1,0 +1,3 @@
+{"dict": [
+[10001, {"_t":"ZuoQiConfig","_id":10001,"Name":"坐骑","Icon":10001,"NextID":10002,"JieName":"一阶","Lv":2,"UpNeedLv":10,"UpZiZhiCostGold":50000,"UpCostZiJin":5000,"ZiZhiMax":1100,"AddProperty":"100203;50@100603;10","Des":""}],
+]}

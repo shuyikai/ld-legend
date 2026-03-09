@@ -1,0 +1,6 @@
+{"dict": [
+[1, {"_t":"ActivityConfig","_id":1,"ActivityType":2,"Icon":"Activ103","Par_1":"1,999","Par_2":"3;980","Par_3":"1000027;30@1000025;30@1000028;30","Par_4":"宠物箱子"}],
+[2, {"_t":"ActivityConfig","_id":2,"ActivityType":2,"Icon":"Activ106","Par_1":"1,999","Par_2":"3;980","Par_3":"1010030;1@1010036;10@1010035;10","Par_4":"金币礼包"}],
+[3, {"_t":"ActivityConfig","_id":3,"ActivityType":2,"Icon":"Activ106","Par_1":"1,999","Par_2":"3;980","Par_3":"1010034;10@1010034;10@1010034;10","Par_4":"经验礼包"}],
+[4, {"_t":"ActivityConfig","_id":4,"ActivityType":2,"Icon":"Activ102","Par_1":"1,999","Par_2":"3;980","Par_3":"1000018;50@1010051;1@1010034;5","Par_4":"洗炼礼包"}],
+]}
