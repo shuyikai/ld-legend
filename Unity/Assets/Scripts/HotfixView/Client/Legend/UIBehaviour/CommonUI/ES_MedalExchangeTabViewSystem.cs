@@ -79,13 +79,17 @@ namespace ET.Client
 			if (string.IsNullOrEmpty(medalExchangeConfig.CostItems))
 			{
 				self.ES_RewardList.Refresh(String.Empty);
+				self.E_Lab_CostItemsText.text = LanguageComponent.Instance.GetText("无");
 			}
 			else
 			{
 				self.ES_RewardList.Refresh(medalExchangeConfig.CostItems);
-			}
+				self.E_Lab_CostItemsText.text =   string.Empty;
 
-			
+				self.E_Text_Deda1NameText.text = medalExchangeConfig.Name;
+				self.E_Lab_CostReputationText.text = medalExchangeConfig.CostReputation.ToString();
+				self.E_Lab_SucessRateText.text = (medalExchangeConfig.SuccessRate * 0.01f).ToString("0%"); 
+			}
 		}
 	}
 

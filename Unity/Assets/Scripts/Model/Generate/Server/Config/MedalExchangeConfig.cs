@@ -65,7 +65,9 @@ namespace ET
 		public int BigType { get; set; }
 		/// <summary>勋章小类型</summary>
 		public int SubType { get; set; }
-		/// <summary>勋章名字</summary>
+		/// <summary>勋章道具id</summary>
+		public int ItemId { get; set; }
+		/// <summary>勋章名字（可以不用读道具表）</summary>
 		public string Name { get; set; }
 		/// <summary>消耗声望值</summary>
 		public int CostReputation { get; set; }
