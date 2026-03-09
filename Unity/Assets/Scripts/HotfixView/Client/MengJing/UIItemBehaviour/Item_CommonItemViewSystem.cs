@@ -235,7 +235,7 @@ namespace ET.Client
                 self.E_ItemClickButton.gameObject.SetActive(true);
                 self.E_ItemClickButton.AddListener(self.OnClickUIItem);
 
-                //self.E_ItemNameText.gameObject.SetActive(true);
+                self.E_ItemNameText.gameObject.SetActive(true);
                 self.E_ItemNameText.text = itemConfig.ItemName;
                 self.ItemID = bagInfo.ItemID;
                 if (itemOperateEnum == ItemOperateEnum.ItemXiLian)
@@ -259,6 +259,7 @@ namespace ET.Client
             }
             else
             {
+                self.E_ItemNameText.gameObject.SetActive(false);
                 self.E_ItemDiImage.gameObject.SetActive(true);
             }
         }

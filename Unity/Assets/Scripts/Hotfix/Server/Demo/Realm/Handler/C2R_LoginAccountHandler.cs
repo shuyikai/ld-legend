@@ -272,6 +272,7 @@ namespace ET.Server
             
             roleList.UnitId = userID;
             roleList.PlayerName = userInfo.Name;
+            roleList.PlayerOcc = 1;
             return roleList;
         }
 

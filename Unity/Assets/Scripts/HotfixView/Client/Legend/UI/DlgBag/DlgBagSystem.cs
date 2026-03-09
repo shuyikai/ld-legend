@@ -54,13 +54,11 @@ namespace ET.Client
             BagComponentC bagComponent = self.Root().GetComponent<BagComponentC>();
             UserInfoComponentC userInfoComponent = self.Root().GetComponent<UserInfoComponentC>();
             int openell = bagComponent.GetBagTotalCell(ItemLocType.ItemLocBag);
-            if (index < openell)
-            {
-                scrollItemCommonItem.UpdateUnLock(true);
-                scrollItemCommonItem.Refresh(index < self.ShowBagInfos.Count ? self.ShowBagInfos[index] : null, ItemOperateEnum.Bag,
-                    self.UpdateSelect);
-            }
-            else
+            
+            scrollItemCommonItem.UpdateUnLock(true);
+            
+            scrollItemCommonItem.Refresh(index < self.ShowBagInfos.Count ? self.ShowBagInfos[index] : null, ItemOperateEnum.Bag,
+                self.UpdateSelect);
             {
                 /*int addcell = bagComponent.BagBuyCellNumber[0] + (index - openell);
                 BuyCellCost buyCellCost = ConfigData.BuyBagCellCosts[addcell];
