@@ -8,6 +8,7 @@ namespace ET.Client
 	[EnableMethod]
 	public  class ES_RoleBag : Entity,IAwake<Transform>,IDestroy,IUILogic
 	{
+		
 		public Dictionary<int, EntityRef<Scroll_Item_CommonItem>> ScrollItemCommonItems;
 		public List<ItemInfo> ShowBagInfos { get; set; } = new();
 		public int CurrentItemType;

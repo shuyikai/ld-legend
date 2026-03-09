@@ -90,13 +90,9 @@ namespace ET.Server
         public CreateRoleInfo GetRoleListInfo(UserInfo userInfo,long userID)
         {
 	        CreateRoleInfo roleList = CreateRoleInfo.Create();
-
-	        roleList.OccTwo =  userInfo.OccTwo;
+	        
 	        roleList.UnitId = userID;
 	        roleList.PlayerName = userInfo.Name;
-	        roleList.PlayerLv = userInfo.Lv;
-	        roleList.PlayerOcc = userInfo.Occ;
-
 	        return roleList;
         }
 

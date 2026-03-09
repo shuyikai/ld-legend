@@ -19,8 +19,8 @@
             UserInfo userInfo = root.GetComponent<UserInfoComponentC>().UserInfo;
             C2C_SendChatRequest request = C2C_SendChatRequest.Create();
             request.ChatInfo = ChatInfo.Create();
-            request.ChatInfo.PlayerLevel = userInfo.Lv;
-            request.ChatInfo.Occ = userInfo.Occ;
+            request.ChatInfo.PlayerLevel = 1;
+            request.ChatInfo.Occ = 1;
             switch (channelEnum)
             {
                 case ChannelEnum.Word:

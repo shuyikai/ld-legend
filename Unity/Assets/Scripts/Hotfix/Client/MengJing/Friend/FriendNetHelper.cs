@@ -112,8 +112,8 @@ namespace ET.Client
             FriendInfo friendInfo = FriendInfo.Create();
             friendInfo.UserId = userInfoComponent.UserInfo.UserId;
             friendInfo.PlayerName = userInfoComponent.UserInfo.Name;
-            friendInfo.PlayerLevel = userInfoComponent.UserInfo.Lv;
-            friendInfo.Occ = userInfoComponent.UserInfo.Occ;
+            friendInfo.PlayerLevel = 1;
+            friendInfo.Occ = 1;
             request.FriendInfo = friendInfo;
 
             F2C_FriendApplyResponse response = (F2C_FriendApplyResponse)await root.GetComponent<ClientSenderCompnent>().Call(request);

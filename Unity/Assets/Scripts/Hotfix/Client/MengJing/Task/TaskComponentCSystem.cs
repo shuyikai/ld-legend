@@ -141,9 +141,8 @@ namespace ET.Client
             
             Scene root = self.Root();
 
-            int playerlv = root.GetComponent<UserInfoComponentC>().UserInfo.Lv;
+            int playerlv = 1;
             List<int> comtaskid = self.RoleComoleteTaskList;
-
             for (int i = 0; i < taskid.Length; i++)
             {
                 if (taskid[i] == 0)

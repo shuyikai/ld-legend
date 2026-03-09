@@ -148,7 +148,7 @@ namespace ET.Client
                         }
                         else
                         {
-                            int occ = self.Root().GetComponent<UserInfoComponentC>().UserInfo.Occ;
+                            int occ = 1;
                             float[] scaleList = new float[4] { 6f, 12f, 6f, 6f };
 
                             //法师加长

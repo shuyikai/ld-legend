@@ -79,25 +79,6 @@ namespace ET.Client
 
                 SkillConfig skillConfig_base = SkillConfigCategory.Instance.Get(skillPro.SkillID);
 
-                int playerLv = userInfo.Lv;
-                if (userInfo.Sp < skillConfig_base.CostSPValue)
-                {
-                    // 技能点不足！!
-                    return;
-                }
-
-                if (playerLv < skillConfig_base.LearnRoseLv)
-                {
-                    // 等级不足！!
-                    return;
-                }
-
-                if (userInfo.Gold < skillConfig_base.CostGoldValue)
-                {
-                    // 金币不足！!
-                    return;
-                }
-
                 if (skillConfig_base.NextSkillID == 0)
                 {
                     // 已满级！!
@@ -324,8 +305,7 @@ namespace ET.Client
             NpcConfig npcConfig = NpcConfigCategory.Instance.Get(npcid);
             int shopSellid = npcConfig.ShopValue;
 
-            int playLv = root.GetComponent<UserInfoComponentC>().UserInfo.Lv;
-
+         
             List<int> ShowStores = new List<int>();
             while (shopSellid != 0)
             {
@@ -433,19 +413,14 @@ namespace ET.Client
             await RobotHelper.MoveToNpc(root, 20000015);
 
             UserInfoComponentC userInfoComponent = root.GetComponent<UserInfoComponentC>();
-            int occ = userInfoComponent.UserInfo.Occ;
+            int occ = 1;
             OccupationConfig occupationConfig = OccupationConfigCategory.Instance.Get(occ);
 
             int index = RandomHelper.RandomNumber(0, occupationConfig.OccTwoID.Length);
 
             int occTwoId = occupationConfig.OccTwoID[index];
 
-            if (userInfoComponent.UserInfo.OccTwo != 0)
-            {
-                // 不能重复转职!
-                return;
-            }
-
+          
            
         }
         
@@ -453,14 +428,6 @@ namespace ET.Client
         {
             //初始化兑换值
             R2C_DBServerInfoResponse response = await PaiMaiNetHelper.DBServerInfo(root);
-
-            long diamondsNumber = 100;
-            if (root.GetComponent<UserInfoComponentC>().UserInfo.Diamond < diamondsNumber)
-            {
-                // 钻石不足！
-                return;
-            }
-
         }
 
         public static async ETTask GemMake(Scene root)
@@ -486,25 +453,6 @@ namespace ET.Client
             BagComponentC bagComponent = root.GetComponent<BagComponentC>();
             foreach (int makeId in showMake)
             {
-                long cdEndTime = userInfoComponent.GetMakeTime(makeId);
-                if (cdEndTime > TimeHelper.ServerNow())
-                {
-                    continue;
-                }
-
-                EquipMakeConfig equipMakeConfig = EquipMakeConfigCategory.Instance.Get(makeId);
-                if (userInfoComponent.UserInfo.Gold < equipMakeConfig.MakeNeedGold)
-                {
-                    // 金币不足！
-                    continue;
-                }
-
-                bool success = bagComponent.CheckNeedItem(equipMakeConfig.NeedItems);
-                if (!success)
-                {
-                    // 材料不足！
-                    continue;
-                }
 
             }
         }
@@ -574,29 +522,7 @@ namespace ET.Client
             BagComponentC bagComponent = root.GetComponent<BagComponentC>();
             for (int i = 0; i < 7; i++)
             {
-                for (int j = chapterMakeids[i].Count - 1; j >= 0; j--)
-                {
-                    long cdEndTime = userInfoComponent.GetMakeTime(chapterMakeids[i][j]);
-                    if (cdEndTime > TimeHelper.ServerNow())
-                    {
-                        continue;
-                    }
-
-                    EquipMakeConfig equipMakeConfig1 = EquipMakeConfigCategory.Instance.Get(chapterMakeids[i][j]);
-                    if (userInfoComponent.UserInfo.Gold < equipMakeConfig1.MakeNeedGold)
-                    {
-                        // 金币不足！
-                        continue;
-                    }
-
-                    bool success = bagComponent.CheckNeedItem(equipMakeConfig1.NeedItems);
-                    if (!success)
-                    {
-                        // 材料不足！
-                        continue;
-                    }
-
-                }
+               
             }
 
             await ETTask.CompletedTask;
@@ -743,11 +669,6 @@ namespace ET.Client
                     continue;
                 }
 
-                if (userInfoComponent.UserInfo.Lv < int.Parse(activityConfig.Par_1))
-                {
-                    // "等级不足！"
-                    break;
-                }
 
                 List<TokenRecvive> zhanQuTokenRecvives = activityComponent.QuTokenRecvive;
 

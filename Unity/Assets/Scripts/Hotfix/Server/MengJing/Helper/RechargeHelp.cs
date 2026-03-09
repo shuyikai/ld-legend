@@ -19,13 +19,6 @@ namespace ET.Server
             {
                 return;
             }
-
-            // 单笔充值奖励记录
-            int singerechargeid =  ActivityHelper.GetSingleRechargeId(rechargeNumber);
-            if (singerechargeid > 0 && !unit.GetComponent<UserInfoComponentS>().UserInfo.SingleRechargeIds.Contains(singerechargeid))
-            {
-                unit.GetComponent<UserInfoComponentS>().UserInfo.SingleRechargeIds.Add(singerechargeid);
-            }
         }
 
         public static async ETTask SendToAccountCenter(Scene root, long accountId, long userId, int rechargeNumber, string ordinfo)

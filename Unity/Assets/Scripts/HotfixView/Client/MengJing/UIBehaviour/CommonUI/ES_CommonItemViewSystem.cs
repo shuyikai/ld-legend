@@ -98,7 +98,7 @@ namespace ET.Client
                         BagInfo = self.Baginfo,
                         ItemOperateEnum = self.ItemOperateEnum,
                         InputPoint = Input.mousePosition,
-                        Occ = self.Root().GetComponent<UserInfoComponentC>().UserInfo.Occ,
+                        Occ = 1,
                         EquipList = new List<ItemInfo>(),
                         CurrentHouse =  self.CurrentHouse
                     });

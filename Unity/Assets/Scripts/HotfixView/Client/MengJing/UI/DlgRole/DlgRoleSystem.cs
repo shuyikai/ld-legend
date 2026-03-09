@@ -8,7 +8,7 @@ namespace ET.Client
     {
         protected override async ETTask Run(Scene scene, BagItemUpdate args)
         {
-            scene.GetComponent<UIComponent>().GetDlgLogic<DlgRole>()?.Refresh();
+           
             scene.GetComponent<UIComponent>().GetDlgLogic<DlgRole>()?.View.ES_RoleGem?.RefreshBagItems();
             await ETTask.CompletedTask;
         }
@@ -162,7 +162,6 @@ namespace ET.Client
                     break;
             }
 
-            self.Refresh();
         }
 
         public static void OnEquipWear(this DlgRole self)
@@ -170,22 +169,9 @@ namespace ET.Client
             BagComponentC bagComponent = self.Root().GetComponent<BagComponentC>();
             UserInfoComponentC userInfoComponent = self.Root().GetComponent<UserInfoComponentC>();
             ItemInfo bagInfo = bagComponent.GetEquipBySubType(ItemLocType.ItemLocEquip, (int)ItemSubTypeEnum.Wuqi);
-            self.View.ES_EquipSet.ChangeWeapon(bagInfo, userInfoComponent.UserInfo.Occ);
+            self.View.ES_EquipSet.ChangeWeapon(bagInfo, 1);
         }
-
-        public static void Refresh(this DlgRole self)
-        {
-            UserInfo userInfo = self.Root().GetComponent<UserInfoComponentC>().UserInfo;
-            self.View.ES_EquipSet.PlayerLv(userInfo.Lv);
-            self.View.ES_EquipSet.PlayerName(userInfo.Name);
-            self.View.ES_EquipSet.PlayerCombat(userInfo.Combat);
-            self.View.ES_EquipSet.ShowPlayerModel(new ItemInfo(), userInfo.Occ, 0, new List<int>());
-
-            BagComponentC bagComponentC = self.Root().GetComponent<BagComponentC>();
-            UserInfoComponentC userInfoComponentC = self.Root().GetComponent<UserInfoComponentC>();
-            self.View.ES_EquipSet.RefreshEquip(bagComponentC.GetItemsByLoc(ItemLocType.ItemLocEquip),
-                bagComponentC.GetItemsByLoc(ItemLocType.ItemLocEquip_2), userInfoComponentC.UserInfo.Occ, ItemOperateEnum.Juese);
-        }
+        
 
         public static bool OnClickXiangQianItem(this DlgRole self, ItemInfo bagInfo)
         {

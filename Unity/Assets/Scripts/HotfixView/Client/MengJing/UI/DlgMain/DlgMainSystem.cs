@@ -9,192 +9,6 @@ using UnityEngine.UI;
 namespace ET.Client
 {
     
-
-
-    [Event(SceneType.Demo)]
-    public class DataUpdate_TeamUpdatet_DlgMainRefresh : AEvent<Scene, RecvTeamUpdate>
-    {
-        protected override async ETTask Run(Scene scene, RecvTeamUpdate args)
-        {
-          
-            await ETTask.CompletedTask;
-        }
-    }
-
-    [Event(SceneType.Demo)]
-    public class DataUpdate_TeamUpdatet_ZeroClock : AEvent<Scene, ZeroClock>
-    {
-        protected override async ETTask Run(Scene scene, ZeroClock args)
-        {
-            scene.GetComponent<UIComponent>().GetDlgLogic<DlgMain>().OnZeroClockUpdate();
-            await ETTask.CompletedTask;
-        }
-    }
-
-    [Event(SceneType.Demo)]
-    public class CommonHintErrorEvent : AEvent<Scene, CommonHintError>
-    {
-        protected override async ETTask Run(Scene root, CommonHintError args)
-        {
-            if (args.ErrorValue == ErrorCode.ERR_ModifyData)
-            {
-                root.GetComponent<RelinkComponent>()?.OnModifyData();
-            }
-
-            HintHelp.ShowErrorHint(root, args.ErrorValue);
-
-            await ETTask.CompletedTask;
-        }
-    }
-    
-    [Event(SceneType.Demo)]
-    public class BuffUpdate_DlgMainRefresh : AEvent<Scene, BuffUpdate>
-    {
-        protected override async ETTask Run(Scene scene, BuffUpdate args)
-        {
-            DlgMain dlgMain = scene.GetComponent<UIComponent>().GetDlgLogic<DlgMain>();
-            if (dlgMain == null)
-            {
-                return;
-            }
-
-            if (args.Unit.MainHero)
-            {
-                dlgMain.View.ES_MainBuff.OnBuffUpdate(args.ABuffHandler, args.OperateType);
-            }
-            else if (args.Unit.IsBoss())
-            {
-                dlgMain.View.ES_MainHpBar.ES_MainBuff.OnBuffUpdate(args.ABuffHandler, args.OperateType);
-            }
-
-            await ETTask.CompletedTask;
-        }
-    }
-
-    [Event(SceneType.Demo)]
-    public class DataUpdate_TaskGet_DlgMainRefresh : AEvent<Scene, TaskGet>
-    {
-        protected override async ETTask Run(Scene scene, TaskGet args)
-        {
-            scene.GetComponent<GuideComponent>().OnTrigger(GuideTriggerType.AcceptTask, args.TaskConfigId.ToString());
-            scene.GetComponent<UIComponent>().GetDlgLogic<DlgMain>()?.OnRecvTaskUpdate();
-            await ETTask.CompletedTask;
-        }
-    }
-
-    [Event(SceneType.Demo)]
-    public class DataUpdate_TaskComplete_DlgMainRefresh : AEvent<Scene, TaskComplete>
-    {
-        protected override async ETTask Run(Scene scene, TaskComplete args)
-        {
-            scene.GetComponent<UIComponent>().GetDlgLogic<DlgMain>()?.OnRecvTaskUpdate();
-            await ETTask.CompletedTask;
-        }
-    }
-
-    [Event(SceneType.Demo)]
-    public class DataUpdate_TaskGiveUp_DlgMainRefresh : AEvent<Scene, TaskGiveUp>
-    {
-        protected override async ETTask Run(Scene scene, TaskGiveUp args)
-        {
-            scene.GetComponent<UIComponent>().GetDlgLogic<DlgMain>()?.OnRecvTaskUpdate();
-            await ETTask.CompletedTask;
-        }
-    }
-
-    [Event(SceneType.Demo)]
-    public class DataUpdate_OnRecvChat_MainChatItemsRefresh : AEvent<Scene, OnRecvChat>
-    {
-        protected override async ETTask Run(Scene root, OnRecvChat args)
-        {
-            root.GetComponent<UIComponent>().GetDlgLogic<DlgMain>()?.OnRecvChat();
-            await ETTask.CompletedTask;
-        }
-    }
-
-    [Event(SceneType.Demo)]
-    public class DataUpdate_BeforeMove_DlgMainRefresh : AEvent<Scene, BeforeMove>
-    {
-        protected override async ETTask Run(Scene root, BeforeMove args)
-        {
-            if (args.DataParamString == "1")
-            {
-                root.GetComponent<UIComponent>().GetDlgLogic<DlgMain>()?.AutoHorse();
-            }
-
-            root.GetComponent<UIComponent>().GetDlgLogic<DlgMain>()?.OnMoveStart();
-
-            await ETTask.CompletedTask;
-        }
-    }
-
-    [Event(SceneType.Demo)]
-    public class DataUpdate_UpdateSing_DlgMainRefresh : AEvent<Scene, UpdateSing>
-    {
-        protected override async ETTask Run(Scene root, UpdateSing args)
-        {
-           
-            await ETTask.CompletedTask;
-        }
-    }
-
-    [Event(SceneType.Demo)]
-    public class SingingUpdate_DlgMainRefresh : AEvent<Scene, SingingUpdate>
-    {
-        protected override async ETTask Run(Scene root, SingingUpdate args)
-        {
-            root.GetComponent<UIComponent>().GetDlgLogic<DlgMain>()?.View.ES_Singing.OnTimer(args);
-
-            await ETTask.CompletedTask;
-        }
-    }
-
-    [Event(SceneType.Demo)]
-    public class BeforeSkill_DlgMainRefresh : AEvent<Scene, BeforeSkill>
-    {
-        protected override async ETTask Run(Scene root, BeforeSkill args)
-        {
-            DlgMain dlgMain = root.GetComponent<UIComponent>().GetDlgLogic<DlgMain>();
-            if (dlgMain != null)
-            {
-                dlgMain.OnSpellStart();
-                dlgMain.OnBeforeSkill();
-            }
-
-            await ETTask.CompletedTask;
-        }
-    }
-
-    [Event(SceneType.Demo)]
-    public class DataUpdate_SkillCDUpdate_DlgMainRefresh : AEvent<Scene, SkillCDUpdate>
-    {
-        protected override async ETTask Run(Scene root, SkillCDUpdate args)
-        {
-          
-            await ETTask.CompletedTask;
-        }
-    }
-
-    [Event(SceneType.Demo)]
-    public class DataUpdate_SkillBeging_DlgMainRefresh : AEvent<Scene, SkillBeging>
-    {
-        protected override async ETTask Run(Scene root, SkillBeging args)
-        {
-            
-            await ETTask.CompletedTask;
-        }
-    }
-
-    [Event(SceneType.Demo)]
-    public class DataUpdate_SkillFinish_DlgMainRefresh : AEvent<Scene, SkillFinish>
-    {
-        protected override async ETTask Run(Scene root, SkillFinish args)
-        {
- 
-            await ETTask.CompletedTask;
-        }
-    }
-
     [Event(SceneType.Demo)]
     public class DataUpdate_JingLingButton_DlgMainRefresh : AEvent<Scene, JingLingButton>
     {
@@ -246,6 +60,9 @@ namespace ET.Client
         public static void RegisterUIEvent(this DlgMain self)
         {
             Log.Debug($"DlgMainSystem.RegisterUIEvent");
+            self.View.E_GMSendButton.AddListener(self.OnClickGMSendButton);
+            self.View.E_BagButton.AddListener(self.OnClickBagButton);
+            
             //初始化基础属性
             self.InitShow();
             self.InitMainHero(MapTypeEnum.MainCityScene);
@@ -255,6 +72,22 @@ namespace ET.Client
         public static void ShowWindow(this DlgMain self, Entity contextData = null)
         {
             //self.ShowGuide().Coroutine();
+        }
+
+        public static void  OnClickGMSendButton(this DlgMain self)
+        {
+            string text = self.View.E_GMLabInputText.text;
+            if (string.IsNullOrEmpty(text))
+            {
+                return;
+            }
+
+            GMNetHelp.SendGmCommand(self.Root(), text);
+        }
+
+        public static void OnClickBagButton(this DlgMain self)
+        {
+            self.Root().GetComponent<UIComponent>().ShowWindowAsync(WindowID.WindowID_Bag).Coroutine();
         }
 
         public static async ETTask ShowGuide(this DlgMain self)
@@ -645,11 +478,7 @@ namespace ET.Client
         public static void UpdateShowRoleExp(this DlgMain self)
         {
             UserInfo userInfo = self.Root().GetComponent<UserInfoComponentC>().UserInfo;
-            if (!ExpConfigCategory.Instance.Contain(userInfo.Lv))
-            {
-                FlyTipComponent.Instance.ShowFlyTip("非法修改数据！");
-                return;
-            }
+            
         }
 
         #endregion
@@ -695,14 +524,7 @@ namespace ET.Client
             UserInfoComponentC userInfoComponent = self.Root().GetComponent<UserInfoComponentC>();
 
             bool showButton = false;
-            foreach (var item in ConfigData.RechargeReward)
-            {
-                if (!userInfoComponent.UserInfo.RechargeReward.Contains(item.Key))
-                {
-                    showButton = true;
-                    break;
-                }
-            }
+            
 
             self.View.E_Button_RechargeRewardButton.gameObject.SetActive(showButton);
         }
@@ -783,17 +605,7 @@ namespace ET.Client
             self.MainUnit = UnitHelper.GetMyUnitFromClientScene(self.Scene());
         
             UserInfoComponentC userInfoComponent = self.Root().GetComponent<UserInfoComponentC>();
-            string value = userInfoComponent.GetGameSettingValue(GameSettingEnum.HideLeftBottom);
-            if (value == "1")
-            {
-                // self.View.EG_LeftBottomBtnsRectTransform.gameObject.SetActive(sceneTypeEnum == SceneTypeEnum.MainCityScene);
-            }
-            else
-            {
-                // self.View.EG_LeftBottomBtnsRectTransform.gameObject.SetActive(self.View.EG_LeftBottomBtnsRectTransform.gameObject.activeSelf &&
-                //     sceneTypeEnum != SceneTypeEnum.RunRace && sceneTypeEnum != SceneTypeEnum.Demon);
-            }
-
+           
             self.View.ES_JoystickMove.AfterEnterScene();
             self.View.ES_JoystickMove.uiTransform.gameObject.SetActive(true);
             switch (sceneTypeEnum)
@@ -858,54 +670,7 @@ namespace ET.Client
 
         public static void UpdateShadow(this DlgMain self, string usevalue = "")
         {
-            UserInfoComponentC userInfoComponent = self.Root().GetComponent<UserInfoComponentC>();
-            string value = usevalue != "" ? usevalue : userInfoComponent.GetGameSettingValue(GameSettingEnum.Shadow);
-
-            // 获取所有的Light组件
-            Light[] lights = GameObject.FindObjectsOfType<Light>();
-            if (lights != null)
-            {
-                // 遍历所有灯光
-                foreach (Light light in lights)
-                {
-                    //if (!light.name.Contains("Directional Light"))
-                    //{
-                    //    continue;
-                    //}
-
-                    if (light.type != LightType.Directional)
-                    {
-                        continue;
-                    }
-                    light.shadows = value == "0" ? LightShadows.None : LightShadows.Soft;
-                    light.shadowStrength = 0.5f;
-                    Log.Debug($"UpdateShadow:  {light.name}    {value}");
-                }
-            }
-
-            GameObject Fence_5 = GameObject.Find("AdditiveHide/ScenceModelSet/SceneSet/Fence_5_Test_0910");
-            if (Fence_5 != null)
-            {
-                Renderer rendererFence_5 = Fence_5.GetComponent<Renderer>();
-
-                // 获取游戏对象上第一个材质的Shader
-                Shader shaderFence_5 = rendererFence_5.material.shader;
-                // 输出Shader的名称
-                Log.Console("Fence_5,  Shader Name: " + shaderFence_5.name);
-            }
-
-            GameObject T1errain = GameObject.Find("AdditiveHide/ScenceModelSet/Terrain");
-            if (T1errain != null)
-            {
-                // 获取当前游戏对象上的Terrain组件
-                Terrain terrain = T1errain.GetComponent<Terrain>();
-                // 获取Terrain的材质
-                Material mat = terrain.materialTemplate;
-
-                // 获取并打印Shader
-                Shader shader = mat.shader;
-                Debug.Log("Terrain ,  Shader Name: " + shader.name);
-            }
+            
         }
 
         public static void ShowPing(this DlgMain self)
@@ -976,22 +741,7 @@ namespace ET.Client
 
         public static void OnSettingUpdate(this DlgMain self)
         {
-            UserInfoComponentC userInfoComponent = self.Root().GetComponent<UserInfoComponentC>();
-            int operatMode = int.Parse(userInfoComponent.GetGameSettingValue(GameSettingEnum.YanGan));
-            self.View.ES_JoystickMove.UpdateOperateMode(operatMode);
-
-            string oldValue = userInfoComponent.GetGameSettingValue(GameSettingEnum.Smooth);
-            SettingHelper.OnSmooth(oldValue);
-
-            oldValue = userInfoComponent.GetGameSettingValue(GameSettingEnum.NoShowOther);
-            SettingHelper.OnShowOther(oldValue);
-
-            string value = userInfoComponent.GetGameSettingValue(GameSettingEnum.AutoAttack);
-            AttackComponent attackComponent = self.Root().GetComponent<AttackComponent>();
-            attackComponent.AutoAttack = value == "1";
-
-            string fpsValue = userInfoComponent.GetGameSettingValue(GameSettingEnum.HighFps);
-            CommonViewHelper.TargetFrameRate(fpsValue == "1" ? 60 : 30);
+          
         }
 
         public static void OnSpellStart(this DlgMain self)

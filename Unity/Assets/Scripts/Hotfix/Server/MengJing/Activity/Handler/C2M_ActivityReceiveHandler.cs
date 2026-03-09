@@ -95,42 +95,7 @@ namespace ET.Server
                         activityComponent.ActivityReceiveIds.Add(request.ActivityId);
                         unit.GetComponent<BagComponentS>().OnAddItemData(activityConfig.Par_2, $"{ItemGetWay.Activity}_{TimeHelper.ServerNow()}");
                         break;
-                    case (int)ActivityEnum.Type_24:    //令牌
-                        List<TokenRecvive> zhanQuTokenRecvives = activityComponent.QuTokenRecvive;
-                        for (int i = 0; i < zhanQuTokenRecvives.Count; i++)
-                        {
-                            if (zhanQuTokenRecvives[i].ActivityId == request.ActivityId
-                                && zhanQuTokenRecvives[i].ReceiveIndex == (request.ReceiveIndex))
-                            {
-                                response.Error = ErrorCode.ERR_AlreadyReceived;
-                                return;
-                            }
-                        }
-                        UserInfoComponentS userInfoComponent = unit.GetComponent<UserInfoComponentS>();
-                        if (userInfoComponent.UserInfo.Lv < int.Parse(activityConfig.Par_1))
-                        {
-                            return;
-                        }
-                        activityConfig = ActivityConfigCategory.Instance.Get(request.ActivityId);
-                        string rewards = "";
-                        if (request.ReceiveIndex == 1) rewards = activityConfig.Par_2;
-                        if (request.ReceiveIndex == 2) rewards = activityConfig.Par_3;
-                        if (request.ReceiveIndex == 3) rewards = activityConfig.Par_4;
-
-                        rewarditems = rewards.Split('@');
-                        if (rewarditems.Length > unit.GetComponent<BagComponentS>().GetBagLeftCell(ItemLocType.ItemLocBag))
-                        {
-                            response.Error = ErrorCode.ERR_BagIsFull;
-                            return;
-                        }
-
-                        TokenRecvive TokenRecvive = TokenRecvive.Create();
-                        TokenRecvive.ActivityId = request.ActivityId; 
-                        TokenRecvive.ReceiveIndex = request.ReceiveIndex;
-                        zhanQuTokenRecvives.Add(TokenRecvive);
-                        unit.GetComponent<BagComponentS>().OnAddItemData(rewards, $"{ItemGetWay.Activity}_{TimeHelper.ServerNow()}");
-                        response.RewardList = ItemHelper.GetRewardItems(rewards);
-                        break;
+                 
                     case (int)ActivityEnum.Type_26:
                         if (activityComponent.TotalSignNumber < int.Parse(activityConfig.Par_1))
                         {
@@ -167,93 +132,7 @@ namespace ET.Server
                         unit.GetComponent<BagComponentS>().OnAddItemData(activityConfig.Par_2, $"{ItemGetWay.Activity}_{TimeHelper.ServerNow()}");
                         
                         break;
-                    case (int)ActivityEnum.Type_31:    //登录奖励
-                        userInfoComponent = unit.GetComponent<UserInfoComponentS>();
-                        if (userInfoComponent.UserInfo.Lv < 10)
-                        {
-                            return;
-                        }
-                        serverNow = TimeHelper.ServerNow();
-                        if (CommonHelp.GetDayByTime(serverNow) == CommonHelp.GetDayByTime(activityComponent.LastLoginTime))
-                        {
-                            response.Error = ErrorCode.ERR_AlreadyReceived;
-                            return;
-                        }
-
-                        rewarditems = activityConfig.Par_3.Split('@');
-                        if (rewarditems.Length > unit.GetComponent<BagComponentS>().GetBagLeftCell(ItemLocType.ItemLocBag))
-                        {
-                            response.Error = ErrorCode.ERR_BagIsFull;
-                            return;
-                        }
-
-                        activityComponent.LastLoginTime = serverNow;
-                        unit.GetComponent<ActivityComponentS>().ActivityReceiveIds.Add(request.ActivityId);
-                        unit.GetComponent<BagComponentS>().OnAddItemData(activityConfig.Par_3, $"{ItemGetWay.Activity}_{TimeHelper.ServerNow()}");
-                        break;
-                    case (int)ActivityEnum.Type_32:    //新年集字
-                        rewarditems = activityConfig.Par_3.Split('@');
-                        if (rewarditems.Length > unit.GetComponent<BagComponentS>().GetBagLeftCell(ItemLocType.ItemLocBag))
-                        {
-                            response.Error = ErrorCode.ERR_BagIsFull;
-                            return;
-                        }
-                        if (unit.GetComponent<BagComponentS>().OnCostItemData(activityConfig.Par_2))
-                        {
-                            unit.GetComponent<ActivityComponentS>().ActivityReceiveIds.Add(request.ActivityId);
-                            unit.GetComponent<BagComponentS>().OnAddItemData(activityConfig.Par_3, $"{97}_{TimeHelper.ServerNow()}");
-                        }
-                        else
-                        {
-                            response.Error = ErrorCode.ERR_ItemNotEnoughError;
-                        }
-                        break;
-                    case (int)ActivityEnum.Type_33://节日活动
-                        if (unit.GetComponent<UserInfoComponentS>().TodayOnLine < 1800)
-                        {
-                            response.Error = ErrorCode.Err_OnLineTimeNot;
-                            return;
-                        }
-                        string rewardItemlist = ActivityHelper.GetJieRiReward(unit.GetComponent<UserInfoComponentS>().UserInfo.Lv);
-                        if (unit.GetComponent<BagComponentS>().GetBagLeftCell(ItemLocType.ItemLocBag) < rewardItemlist.Split('@').Length)
-                        {
-                            response.Error = ErrorCode.ERR_BagIsFull;
-                            return;
-                        }
-                        if (!ActivityHelper.IsJieRiActivityId(request.ActivityId))
-                        {
-                            response.Error = ErrorCode.ERR_AlreadyFinish;
-                            return;
-                        }
-
-                        if (unit.GetComponent<UserInfoComponentS>().UserInfo.Lv < 20)
-                        {
-                            response.Error = ErrorCode.ERR_EquipLvLimit;
-                            return;
-                        }
-
-                        unit.GetComponent<ActivityComponentS>().ActivityReceiveIds.Add(request.ActivityId);
-                        unit.GetComponent<BagComponentS>().OnAddItemData(rewardItemlist, $"{ItemGetWay.Activity}_{TimeHelper.ServerNow()}");
-                        break;
-                    case (int)ActivityEnum.Type_34:
-                        userInfoComponent = unit.GetComponent<UserInfoComponentS>();
-                        if (userInfoComponent.UserInfo.Lv < int.Parse(activityConfig.Par_1))
-                        {
-                            response.Error = ErrorCode.ERR_EquipLvLimit;
-                            return;
-                        }
-
-                        rewarditems = activityConfig.Par_3.Split('@');
-                        if (rewarditems.Length > unit.GetComponent<BagComponentS>().GetBagLeftCell(ItemLocType.ItemLocBag))
-                        {
-                            response.Error = ErrorCode.ERR_BagIsFull;
-                            return;
-                        }
-
-                        unit.GetComponent<ActivityComponentS>().ActivityReceiveIds.Add(request.ActivityId);
-                        unit.GetComponent<BagComponentS>().OnAddItemData(activityConfig.Par_3, $"{ItemGetWay.Serial}_{TimeHelper.ServerNow()}");
-                        break;
-                    
+                
                     default:
                         bool success = unit.GetComponent<BagComponentS>().OnCostItemData(activityConfig.Par_2);
                         if (success)

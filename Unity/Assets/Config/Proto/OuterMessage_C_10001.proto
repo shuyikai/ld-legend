@@ -768,127 +768,16 @@ message UserInfoProto
 {
     int64 AccInfoID = 1;
     string Name = 2;
-    int64 Gold  = 3;
-    //钻石
-    int64 Diamond = 4;
-
-    // 等级
-    int32 Lv = 5;
-    // 经验
-    int64 Exp = 6;
-    // 疲劳
-    int64 PiLao = 7;
-    //职业
-    int32 Occ = 8;
-
-    //职业
-    int32 OccTwo = 9;
-
-    int32 Combat = 10;
 
     int32 RobotId = 11;
 
-    int32 Sp = 13;
-
-    int32 Vitality = 14;	//活力
-
-    int64 RongYu = 16;
-
+   
     string UnionName = 17;
 
     int64 UserId = 18;
 
-    repeated KeyValuePair GameSettingInfos = 19;
-
-	repeated int32 MakeList = 20;
-
-	repeated int32 CompleteGuideIds = 21;
-
-	repeated KeyValuePairInt DayFubenTimes = 22;
-
-	repeated KeyValuePair MonsterRevives = 23;
-
-	repeated int32 TowerRewardIds = 24;
-
-	repeated int32 ChouKaRewardIds = 25;
-
-	repeated int32 XiuLianRewardIds = 26;
-
-	//购买过的神秘商品
-	repeated KeyValuePairInt  MysteryItems = 27;
-	
-	//已开启的宝箱记录
-	repeated KeyValuePair  OpenChestList = 28;
-
-	repeated KeyValuePairInt  MakeIdList = 29;
-
-	//已通关的副本列表
-    repeated FubenPassInfo FubenPassList = 30;
-
-	//每日道具使用限制
-	repeated KeyValuePairInt DayItemUse = 31;
-
-	repeated int32 HorseIds = 32;
-
-	//剧情副本每日刷新 global79
-	repeated KeyValuePairInt DayMonsters = 33;
-
-	//随机精灵每日刷新 global80
-	repeated int32 DayJingLing = 34;
-
-	int64 JiaYuanFund = 35;
-	int64 JiaYuanExp = 36;
-	int32 JiaYuanLv = 37;
-
-	int32 BaoShiDu = 38;
-
-	repeated KeyValuePair FirstWinSelf = 39;
-
-	int64 UnionZiJin = 40;
-
-	int32 ServerMailIdCur = 41;     //已领取的全服邮件
-
-	repeated int32 DiamondGetWay = 42;
-
-	string DemonName = 43;
-
-	repeated int32 PetMingRewards = 44;   //ini long都放在数值组件
-
-	repeated int32 OpenJingHeIds = 45;
-
-	int32 SeasonLevel = 46;		 //赛季等级
-	int32 SeasonExp = 47;		  //赛季经验
-	int64 SeasonCoin = 48;			//赛季币
-
-	repeated int32 WelfareTaskRewards = 49;
-
 	int64 CreateTime = 50;
 
-	repeated int32  WelfareInvestList = 51; //投资
-
-	repeated int32 RechargeReward = 52;
-
-	repeated int32 UnionKeJiList = 53;  //当前的能力id,客户端根据这个显示即可
-
-	repeated int32 PetExploreRewardIds = 54;
-
-	repeated int32 PetHeXinExploreRewardIds = 55;
-
-	string StallName = 56;
-
-	repeated int32 SingleRechargeIds = 57;
-
-	repeated int32 SingleRewardIds = 58;
-
-	repeated int32 ItemXiLianNumRewardIds = 59;
-
-	repeated int32 DefeatedBossIds = 60;
-	
-	repeated  KeyValuePairInt BuyStoreItems = 61;
-
-	int32 TalentPoints = 62;
-
-	repeated int32 SeasonDonateRewardIds = 63;
 }
 
 message M2C_RoleDataUpdate // IMessage

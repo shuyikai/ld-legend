@@ -59,12 +59,6 @@ namespace ET.Server
                     return;
                 }
 
-                if (itemConfig.DayUseNum > 0 && userInfoComponent.GetDayItemUse(itemConfig.Id) >= itemConfig.DayUseNum)
-                {
-                    response.Error = ErrorCode.ERR_ItemNoUseTime;
-                    return;
-                }
-
                 //获取背包数据
                 int costNumber = 1;
                 bool bagIsFull = false;
@@ -233,11 +227,7 @@ namespace ET.Server
                         case 9:
                             bagComponent.OnAddItemData(droplist, string.Empty, $"{ItemGetWay.ActivityHongBao}_{TimeHelper.ServerNow()}");
                             break;
-                        //冷却时间清空卷轴"
-                        case 12:
-                            userInfoComponent.OnCleanBossCD();
-                            
-                            break;
+                      
                         //召唤卷轴
                         case 14:
                             if (mapComponent.MapType == (int) MapTypeEnum.LocalDungeon)
@@ -252,7 +242,7 @@ namespace ET.Server
                         case 110:
                             //1;20;70010101,70010102@21;70;70020101,70020102
                             int createMonsterID = 0;
-                            int lv = userInfoComponent.UserInfo.Lv;
+                            int lv = 1;
                             string[] monsters = itemConfig.ItemUsePar.Split('@');
 
                             if (monsters.Length > 100)
@@ -292,36 +282,8 @@ namespace ET.Server
                             }
 
                             break;
-                        //金币袋子
-                        case 111:
-                            string[] jinbiInfos = itemConfig.ItemUsePar.Split(';');
-                            int userLv = userInfoComponent.UserInfo.Lv;
-                            ExpConfig expConfig = ExpConfigCategory.Instance.Get(userLv);
-                            long addCoin = (int) RandomHelper.RandomNumberFloat(float.Parse(jinbiInfos[0]) * expConfig.RoseGoldPro,
-                                float.Parse(jinbiInfos[1]) * expConfig.RoseGoldPro);
-                            addCoin *= costNumber;
-                           
-                            break;
-                        //经验木桩
-                        case 112:
-                            string[] expInfos = itemConfig.ItemUsePar.Split('@');
-                            int needZuanshi = request.OperatePar == "1"? int.Parse(expInfos[0]) : 0;
-                            string[] paramInfo = expInfos[int.Parse(request.OperatePar)].Split(';');
-                            userLv = userInfoComponent.UserInfo.Lv;
-
-                            //如果当前钻石不足返回错误
-                            if (userInfoComponent.UserInfo.Diamond < needZuanshi)
-                            {
-                                response.Error = ErrorCode.ERR_DiamondNotEnoughError;
-                                break;
-                            }
-
-                            expConfig = ExpConfigCategory.Instance.Get(userLv);
-                            int addExp = (int) RandomHelper.RandomNumberFloat(float.Parse(paramInfo[0]) * expConfig.RoseExpPro,
-                                float.Parse(paramInfo[1]) * expConfig.RoseExpPro);
-                         
-                            response.OperatePar = addExp.ToString();
-                            break;
+                   
+                        
                         //藏宝图
                         case 113:
                             int dropid = int.Parse(useBagInfo.ItemPar.Split('@')[2]);
@@ -405,10 +367,6 @@ namespace ET.Server
                         }
                     }
 
-                    if (itemConfig.DayUseNum > 0)
-                    {
-                        userInfoComponent.OnDayItemUse(itemConfig.Id);
-                    }
                 }
             }
 
@@ -565,82 +523,7 @@ namespace ET.Server
                 m2c_bagUpdate.BagInfoUpdate.Add(useBagInfo.ToMessage());
     
             }
-
-            //鉴定装备
-            if (request.OperateType == 5)
-            {
-                //判定材料消耗
-                bool ifSell = false; //默认出售全部
-                long baginfoId = long.Parse(request.OperatePar);
-                int rolelv = useInfo.Lv;
-                string qulitylv = "";
-             
-                if (baginfoId == 0 && itemConfig != null)
-                {
-                    //金币鉴定，扣除金币
-                    qulitylv = itemConfig.UseLv.ToString();
-                    ifSell = bagComponent.OnCostItemData($"1;{ItemHelper.GetJianDingCoin(itemConfig.UseLv)}");
-                }
-                else
-                {
-                    ItemInfo baginfoCost = bagComponent.GetItemByLoc(ItemLocType.ItemLocBag, baginfoId);
-                    if (baginfoCost != null)
-                    {
-                        //道具鉴定，扣除道具
-                        qulitylv = baginfoCost.ItemPar;
-                        qulitylv = string.IsNullOrEmpty(qulitylv)? "0" : qulitylv;
-                        ItemConfig costitemconfig = ItemConfigCategory.Instance.Get(baginfoCost.ItemID);
-
-                        unit.GetComponent<TaskComponentS>().TriggerTaskEvent(TaskTargetType.JianDingQulity_42, int.Parse(qulitylv), 1);
-                        unit.GetComponent<TaskComponentS>().TriggerTaskEvent(TaskTargetType.JianDing_1017, 0, 1);
-
-                        ifSell = bagComponent.OnCostItemData(baginfoId, 1);
-                    }
-                    else
-                    {
-                        ifSell = false;
-                    }
-                }
-
-                if (ifSell)
-                {
-                    //未鉴定才可以
-                    useBagInfo.IfJianDing = false;
-
-                    m2c_bagUpdate.BagInfoUpdate.Add(useBagInfo.ToMessage());
-                    //如果当前有隐藏技能一起飘出
-                    if (useBagInfo.HideSkillLists.Count > 0)
-                    {
-                        string skillName = "";
-                        for (int i = 0; i < useBagInfo.HideSkillLists.Count; i++)
-                        {
-                            skillName = skillName + $" {SkillConfigCategory.Instance.Get(useBagInfo.HideSkillLists[0]).SkillName}";
-                            //unit.GetComponent<ChengJiuComponent>().TriggerEvent(ChengJiuTargetEnum.EquipActiveSkillId_222, useBagInfo.HideSkillLists[i], 1);
-                        }
-
-                        string noticeContent = $"恭喜玩家<color=#B6FF00>{userInfoComponent.UserName}</color>在拾取装备时，意外在装备上发现了隐藏技能:<color=#FFA313>{skillName}</color>。";
-                        BroadCastHelper.SendBroadMessage(unit.Root(), NoticeType.Notice, noticeContent);
-                    }
-
-                    long totalValue = 0;
-                    if (useBagInfo.HideProLists != null && useBagInfo.HideProLists.Count > 0)
-                    {
-                        unit.GetComponent<TaskComponentS>().TriggerTaskEvent(TaskTargetType.JianDingAttrNumber_43, useBagInfo.HideProLists.Count, 1);
-
-                        for (int pro = 0; pro < useBagInfo.HideProLists.Count; pro++)
-                        {
-                            totalValue += useBagInfo.HideProLists[pro].HideValue;
-                        }
-                    } 
-                    unit.GetComponent<TaskComponentS>().TriggerTaskEvent(TaskTargetType.JianDingValue_140, (int)totalValue, 1);
-                }
-                else
-                {
-                    response.Error = ErrorCode.ERR_ItemNotEnoughError;
-                    return;
-                }
-            }
-
+            
             //放入仓库
             if (request.OperateType == 6)
             {

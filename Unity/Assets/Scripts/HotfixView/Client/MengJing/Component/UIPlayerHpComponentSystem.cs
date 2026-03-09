@@ -432,7 +432,7 @@ namespace ET.Client
                 return;
             }
 
-            int occTwo = userInfoComponent.UserInfo.OccTwo;
+            int occTwo = 0;
             if (occTwo == 0)
             {
                 return;

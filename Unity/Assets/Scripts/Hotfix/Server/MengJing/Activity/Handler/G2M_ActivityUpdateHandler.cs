@@ -25,7 +25,7 @@ namespace ET
                         unit.GetComponent<UserInfoComponentS>().OnHourUpdate(0, true);
                         unit.GetComponent<TaskComponentS>().CheckWeeklyUpdate();
                         unit.GetComponent<TaskComponentS>().OnZeroClockUpdate(true);
-                        unit.GetComponent<ActivityComponentS>().OnZeroClockUpdate(userInfo.Lv);
+                        unit.GetComponent<ActivityComponentS>().OnZeroClockUpdate(1);
                         break;
                  
                     default:

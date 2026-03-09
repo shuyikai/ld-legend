@@ -42,11 +42,7 @@ namespace ET.Client
         public static bool HaveLoginReward(this ActivityComponentC self)
         {
             UserInfoComponentC userInfoComponent = self.Root().GetComponent<UserInfoComponentC>();
-            if (userInfoComponent.UserInfo.Lv < 10)
-            {
-                return false;
-            }
-
+         
             int unGetId = 0;
             List<ActivityConfig> activityConfigs = ActivityConfigCategory.Instance.GetAll().Values.ToList();
             for (int i = 0; i < activityConfigs.Count; i++)

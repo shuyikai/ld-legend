@@ -135,7 +135,7 @@ namespace ET.Server
             if (mapComponent.MapType == MapTypeEnum.LocalDungeon)
             {
                 mainUnit = scene.GetComponent<LocalDungeonComponent>().MainUnit;
-                revetime = mainUnit.GetComponent<UserInfoComponentS>().GetReviveTime(monsterConfig.Id);
+                revetime = 0;
             }
 
             if (monsterConfig.DeathTime > 0)
@@ -338,7 +338,7 @@ namespace ET.Server
             MonsterConfig monsterCof = MonsterConfigCategory.Instance.Get(bekill.ConfigId);
             if (SceneConfigHelper.IsSingleFuben(sceneType))
             {
-                drop = main.GetComponent<UserInfoComponentS>().UserInfo.PiLao > 0 || bekill.IsBoss();
+                drop =  bekill.IsBoss();
 
                 //场景宝箱掉落和体力无关
                 if (monsterCof.MonsterType == 5 &&
@@ -357,17 +357,7 @@ namespace ET.Server
                     drop = false;
                 }
             }
-
-            if (ConfigData.IsShowLieOpen && !drop && !main.IsRobot())
-            {
-                MonsterConfig monsterConfig = MonsterConfigCategory.Instance.Get(bekill.ConfigId);
-                int userlv = main.GetComponent<UserInfoComponentS>().UserInfo.Lv;
-                if (monsterConfig.Lv >= 60 || math.abs(userlv - monsterConfig.Lv) <= 9)
-                {
-                    drop = true;
-                }
-            }
-
+            
             if (!drop)
             {
                 return;
@@ -418,7 +408,7 @@ namespace ET.Server
             //创建掉落
             if (main != null && monsterCof.MonsterSonType == MonsterSonTypeEnum.Type_1)
             {
-                int nowUserLv = main.GetComponent<UserInfoComponentS>().UserInfo.Lv;
+                int nowUserLv = 1;
                 for (int i = 0; i < monsterCof.Parameter.Length; i++)
                 {
                     MonsterConfig nowmonsterCof = MonsterConfigCategory.Instance.Get(monsterCof.Parameter[i]);

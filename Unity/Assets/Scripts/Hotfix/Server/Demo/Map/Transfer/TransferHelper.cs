@@ -29,15 +29,12 @@ namespace ET.Server
                     }
 
                     SceneConfig sceneConfig = SceneConfigCategory.Instance.Get(request.SceneId);
-                    if (sceneConfig.DayEnterNum > 0 && sceneConfig.DayEnterNum <= userInfoComponent.GetSceneFubenTimes(request.SceneId))
-                    {
-                        return ErrorCode.ERR_TimesIsNot;
-                    }
+                   
                     if (sceneConfig.EnterLv > userInfoComponent.GetUserLv())
                     {
                         return ErrorCode.ERR_LevelIsNot;
                     }
-                    userInfoComponent.AddSceneFubenTimes(request.SceneId);
+
                 }
                 if (oldScene == MapTypeEnum.MainCityScene && request.SceneType != MapTypeEnum.MainCityScene)
                 {

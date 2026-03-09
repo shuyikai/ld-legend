@@ -55,7 +55,7 @@ namespace ET.Client
             UserInfoComponentC infoComponent = root.GetComponent<UserInfoComponentC>();
 
             ItemConfig itemConfig = ItemConfigCategory.Instance.Get(bagInfo.ItemID);
-            int occ = infoComponent.UserInfo.Occ;
+            int occ = 1;
             if (itemConfig.UseOcc != 0 && itemConfig.UseOcc != occ)
             {
                 M2C_ItemOperateResponse response_0 = M2C_ItemOperateResponse.Create();
@@ -75,33 +75,7 @@ namespace ET.Client
                 return response;
             }
 
-            if (itemConfig.ItemSubType == 2)
-            {
-                EventSystem.Instance.Publish(root, new ShowFlyTip() { Str = $"恭喜你获得{itemConfig.ItemUsePar}经验!" });
-            }
-
-            if (itemConfig.ItemSubType == 16)
-            {
-                EquipMakeConfig equipMake = EquipMakeConfigCategory.Instance.Get(int.Parse(itemConfig.ItemUsePar));
-                EventSystem.Instance.Publish(root,
-                    new ShowFlyTip() { Str = $"恭喜你学习 {ItemConfigCategory.Instance.Get(equipMake.MakeItemID).ItemName}!" });
-                infoComponent.UserInfo.MakeList.Add(int.Parse(itemConfig.ItemUsePar));
-            }
-
-            if (itemConfig.ItemSubType == 112)
-            {
-                EventSystem.Instance.Publish(root, new ShowFlyTip() { Str = $"恭喜你获得{response.OperatePar}经验!" });
-            }
-
-            if (itemConfig.ItemSubType == 125)
-            {
-                root.GetComponent<UserInfoComponentC>().OnHorseActive(int.Parse(itemConfig.ItemUsePar), true);
-            }
-
-            if (itemConfig.DayUseNum > 0)
-            {
-                infoComponent.OnDayItemUse(itemConfig.Id);
-            }
+ 
 
             return response;
         }
@@ -162,17 +136,6 @@ namespace ET.Client
             }
 
             int costType = storeSellConfig.SellType;
-            if (costType == 1 && userInfo.Gold < storeSellConfig.SellValue)
-            {
-                HintHelp.ShowHint(root, "金币不足");
-                return;
-            }
-
-            if (costType == 3 && userInfo.Diamond < storeSellConfig.SellValue)
-            {
-                HintHelp.ShowHint(root, "钻石不足");
-                return;
-            }
 
             if (bagComponent.GetItemNumber(costType) < storeSellConfig.SellValue)
             {
@@ -187,7 +150,7 @@ namespace ET.Client
             M2C_StoreBuyResponse response = (M2C_StoreBuyResponse)await root.GetComponent<ClientSenderCompnent>().Call(request);
             if (response.Error == ErrorCode.ERR_Success)
             {
-                root.GetComponent<UserInfoComponentC>().OnStoreBuy(storeSellConfig.Id);
+              
             }
         }
 
@@ -202,7 +165,7 @@ namespace ET.Client
 
         public static async ETTask<M2C_GameSettingResponse> GameSetting(Scene root, List<KeyValuePair> gameSettingInfos)
         {
-            root.GetComponent<UserInfoComponentC>().UpdateGameSetting(gameSettingInfos);
+         
             EventSystem.Instance.Publish(root, new SettingUpdate());
 
             C2M_GameSettingRequest request = C2M_GameSettingRequest.Create();

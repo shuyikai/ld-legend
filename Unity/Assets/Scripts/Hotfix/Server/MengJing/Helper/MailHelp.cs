@@ -125,11 +125,7 @@ namespace ET.Server
                    
                     break;
                 case 3: //20级以上 补
-                    if (unionInfoCache.Lv < int.Parse(Title))
-                    {
-                        return false;
-                    }
-
+                    
                     break;
                
                 default:

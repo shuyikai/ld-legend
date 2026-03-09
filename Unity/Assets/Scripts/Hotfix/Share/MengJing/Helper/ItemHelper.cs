@@ -31,7 +31,7 @@ namespace ET
             ItemConfig itemConfig = ItemConfigCategory.Instance.Get(bagInfo.ItemID);
 
             //判断等级
-            int roleLv = userInfo.Lv;
+            int roleLv = 1;
             int equipLv = itemConfig.UseLv;
             //简易
             if (bagInfo.HideSkillLists.Contains(68000103))
@@ -49,45 +49,7 @@ namespace ET
             {
                 return ErrorCode.ERR_EquipLvLimit;
             }
-
-            //对应部位是否符合
-            if (itemConfig.ItemType == 3 && itemConfig.EquipType != 0)
-            {
-                //查看自身是否是二转
-                if (userInfo.OccTwo > 0)
-                {
-                    OccupationTwoConfig occtwoCof = OccupationTwoConfigCategory.Instance.Get(userInfo.OccTwo);
-                    if (occtwoCof.ArmorMastery == itemConfig.EquipType || itemConfig.EquipType == 99 || itemConfig.EquipType == 101)
-                    {
-                        //可以穿戴
-                    }
-                    else
-                    {
-                        bool ifWear = false;
-                        if (userInfo.Occ == 1 && (itemConfig.EquipType == 1 || itemConfig.EquipType == 2))
-                        {
-                            ifWear = true;
-                        }
-
-                        if (userInfo.Occ == 2 && (itemConfig.EquipType == 3 || itemConfig.EquipType == 4))
-                        {
-                            ifWear = true;
-                        }
-
-                        if (userInfo.Occ == 3 && (itemConfig.EquipType == 1 || itemConfig.EquipType == 5))
-                        {
-                            ifWear = true;
-                        }
-
-                        //佩戴部位不符
-                        if (ifWear == false)
-                        {
-                            return ErrorCode.ERR_EquipType; //错误码:穿戴类型不符
-                        }
-                    }
-                }
-            }
-
+            
             return 0;
         }
         

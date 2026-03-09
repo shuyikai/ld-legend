@@ -298,12 +298,6 @@ namespace ET.Client
             ItemConfig itemConfig = ItemConfigCategory.Instance.Get(self.BagInfo.ItemID);
             string usrPar = "";
 
-            if (itemConfig.DayUseNum > 0 && userInfoComponent.GetDayItemUse(itemConfig.Id) >= itemConfig.DayUseNum)
-            {
-                HintHelp.ShowErrorHint(self.Root(), ErrorCode.ERR_ItemNoUseTime);
-                return;
-            }
-
             // 增幅卷轴
             if (itemConfig.ItemSubType == 17)
             {

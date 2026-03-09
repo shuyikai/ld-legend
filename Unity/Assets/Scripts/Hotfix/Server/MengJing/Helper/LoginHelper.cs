@@ -109,7 +109,7 @@ namespace ET.Server
                     unit.GetComponent<TaskComponentS>().CheckWeeklyUpdate(lastLoginTime, currentTime);
                     unit.GetComponent<TaskComponentS>().OnZeroClockUpdate(false);
                     unit.GetComponent<HeroDataComponentS>().OnZeroClockUpdate(false);
-                    unit.GetComponent<ActivityComponentS>().OnZeroClockUpdate(userInfo.Lv);
+                    unit.GetComponent<ActivityComponentS>().OnZeroClockUpdate(1);
                 }
                 else
                 {
@@ -149,8 +149,8 @@ namespace ET.Server
             unit.GetComponent<HeroDataComponentS>().OnLogin(userInfo.RobotId);
             unit.GetComponent<DBSaveComponent>().OnLogin();
             unit.GetComponent<RechargeComponent>().OnLogin();
-            unit.GetComponent<ActivityComponentS>().OnLogin(userInfo.Lv);
-            unit.GetComponent<SkillSetComponentS>().OnLogin(userInfo.Occ);
+            unit.GetComponent<ActivityComponentS>().OnLogin(1);
+            unit.GetComponent<SkillSetComponentS>().OnLogin(1);
         }
     }
 }

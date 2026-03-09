@@ -97,21 +97,6 @@ namespace ET.Client
                     continue;
                 }
 
-                if (userInfo.Sp < skillConfig_base.CostSPValue)
-                {
-                    continue;
-                }
-
-                if (userInfo.Lv < skillConfig_base.LearnRoseLv)
-                {
-                    continue;
-                }
-
-                if (userInfo.Gold < skillConfig_base.CostGoldValue)
-                {
-                    continue;
-                }
-
                 skillids.Add(self.SkillList[i].SkillID);
             }
 

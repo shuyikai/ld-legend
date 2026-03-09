@@ -18,12 +18,7 @@
                 case (int)UserDataType.UnionName:
                     userInfo.UnionName = message.UpdateTypeValue;
                     break;
-                case (int)UserDataType.DemonName:
-                    userInfo.DemonName = message.UpdateTypeValue;
-                    break;
-                case (int)UserDataType.StallName:
-                    userInfo.StallName = message.UpdateTypeValue;
-                    break;
+             
                 default:
                     updateValue = message.UpdateTypeValue;
                     break;

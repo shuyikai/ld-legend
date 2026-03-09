@@ -40,5 +40,6 @@ namespace ET.Client
 		
 		//新项目
 		WindowID_MedalExchange,				//勋章兑换
+		WindowID_Bag,						//背包
 	}
 }

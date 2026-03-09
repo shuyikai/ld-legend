@@ -617,49 +617,7 @@ namespace ET.Server
             //self.BuffRemove(99001032);
             //self.BuffRemove(99001011);
             self.BuffRemoveList(ConfigData.BaoShiBuff);
-
-            UserInfoComponentS userInfoComponent = unit.GetComponent<UserInfoComponentS>();
-            if (userInfoComponent.UserInfo.BaoShiDu >= 80)
-            {
-                BuffData buffData_2 = new BuffData();
-                buffData_2.SkillId = 67000278;
-                buffData_2.BuffId = 99001041;
-                self.BuffFactory(buffData_2, unit, null);
-
-                buffData_2 = new BuffData();
-                buffData_2.SkillId = 67000278;
-                buffData_2.BuffId = 99001042;
-                self.BuffFactory(buffData_2, unit, null);
-            }
-
-            if (userInfoComponent.UserInfo.BaoShiDu >= 40 && userInfoComponent.UserInfo.BaoShiDu < 80)
-            {
-                BuffData buffData_2 = new BuffData();
-                buffData_2.SkillId = 67000278;
-                buffData_2.BuffId = 99001031;
-                self.BuffFactory(buffData_2, unit, null);
-
-                buffData_2 = new BuffData();
-                buffData_2.SkillId = 67000278;
-                buffData_2.BuffId = 99001032;
-                self.BuffFactory(buffData_2, unit, null);
-            }
-
-            if (userInfoComponent.UserInfo.BaoShiDu >= 20 && userInfoComponent.UserInfo.BaoShiDu < 40)
-            {
-                BuffData buffData_2 = new BuffData();
-                buffData_2.SkillId = 67000278;
-                buffData_2.BuffId = 99001021;
-                self.BuffFactory(buffData_2, unit, null);
-            }
-
-            if (userInfoComponent.UserInfo.BaoShiDu < 20)
-            {
-                BuffData buffData_2 = new BuffData();
-                buffData_2.SkillId = 67000278;
-                buffData_2.BuffId = 99001011;
-                self.BuffFactory(buffData_2, unit, null);
-            }
+            
         }
 
         public static void InitBuff(this BuffManagerComponentS self, int sceneType)

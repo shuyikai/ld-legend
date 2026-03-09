@@ -20,15 +20,7 @@ namespace ET.Server
                 response.Error = ErrorCode.ERR_NetWorkError;
                 return;
             }
-
-            int buynumber =  unit.GetComponent<UserInfoComponentS>().GetStoreBuy(storeSellConfig.Id);
-            // if (storeSellConfig.LimitNumber >0 && request.SellItemNum +  buynumber > storeSellConfig.LimitNumber)
-            // {
-            //     response.Error = ErrorCode.ERR_BuyMaxLimit;
-            //     reply();
-            //     return;
-            // }
-
+            
             int needCell = ItemHelper.GetNeedCell($"{storeSellConfig.SellItemID};{storeSellConfig.SellItemNum * request.SellItemNum}");
             if (unit.GetComponent<BagComponentS>().GetBagLeftCell(ItemLocType.ItemLocBag) < needCell)
             {
@@ -56,16 +48,7 @@ namespace ET.Server
             switch (costType)
             {
                 case 1:
-                    if (userInfo.Gold < storeSellConfig.SellValue * request.SellItemNum)
-                    {
-                        response.Error = ErrorCode.ERR_GoldNotEnoughError;
-                    }
-                    else
-                    {
-                        //unit.GetComponent<UserInfoComponentS>().UpdateRoleMoneySub(UserDataType.Gold, costValue);
-                        //unit.GetComponent<BagComponentS>().OnAddItemData(rewardItems, string.Empty, $"{ItemGetWay.StoreBuy}_{TimeHelper.ServerNow()}");
-                        response.Error = ErrorCode.ERR_Success;
-                    }
+                   
                     break;
               
                 default:

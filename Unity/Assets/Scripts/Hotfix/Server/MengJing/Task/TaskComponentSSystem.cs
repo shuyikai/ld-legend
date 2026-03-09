@@ -114,7 +114,7 @@ namespace ET.Server
                 return (null, ErrorCode.ERR_TaskCanNotGet);
             }
             Unit unit = self.GetParent<Unit>();
-            int playerlv = unit.GetComponent<UserInfoComponentS>().UserInfo.Lv;
+            int playerlv = 100;
             List<int> comtaskids = self.RoleComoleteTaskList;
             TaskConfig taskConfig = TaskConfigCategory.Instance.Get(taskId);
             bool canget = FunctionHelp.CheckTaskOn(taskConfig.TriggerType, taskConfig.TriggerValue, comtaskids, playerlv);
@@ -225,9 +225,7 @@ namespace ET.Server
 
             switch (taskConfig.TargetType)
             {
-                case (int)TaskTargetType.KillMonsterID_1:
-                    taskPro.taskTargetNum_1 = unit.GetComponent<UserInfoComponentS>().GetReviveTime(taskConfig.Target[0]) > 0 ? 1 : 0;
-                    break;
+             
                 case (int)TaskTargetType.ItemID_Number_2:
                     for (int i = 0; i < taskConfig.Target.Length; i++)
                     {
@@ -253,9 +251,7 @@ namespace ET.Server
                 case (int)TaskTargetType.JoinUnion_9:
                     taskPro.taskTargetNum_1 = unit.GetComponent<NumericComponentS>().GetAsLong(NumericType.UnionId_0) > 0 ? 1 : 0;
                     break;
-                case (int)TaskTargetType.JiaYuanLevel_22:
-                    taskPro.taskTargetNum_1 = unit.GetComponent<UserInfoComponentS>().GetJiaYuanLv() - 10000;
-                    break;
+              
                 default:
                     taskPro.taskTargetNum_1 = 0;
                     break;
@@ -698,7 +694,7 @@ namespace ET.Server
                 }
                 if (taskConfig.TargetType == TaskTargetType.CombatToValue_133)
                 {
-                    int combat = userInfoComponent.GetCombat();
+                    int combat = 0;
                     self.TriggerTaskEvent(TaskTargetType.CombatToValue_133, 0, combat);
                     continue;
                 }

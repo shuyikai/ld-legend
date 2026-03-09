@@ -73,7 +73,7 @@ namespace ET.Server
                     //设置数据
                     UserInfoComponentS userInfoComponent = unit.GetComponent<UserInfoComponentS>();
                     unitInfo.UnitName = userInfoComponent.UserInfo.Name;
-                    unitInfo.ConfigId = userInfoComponent.UserInfo.Occ;
+                    unitInfo.ConfigId = 1;
                     unitInfo.UnionName = string.IsNullOrWhiteSpace(userInfoComponent.UserInfo.UnionName)? string.Empty
                             : userInfoComponent.UserInfo.UnionName;
                     unitInfo.DemonName = unitInfoComponent.DemonName;

@@ -30,69 +30,7 @@ namespace ET.Server
             string[] summonParList = gameObjectParameter.Split(';');
 
             UserInfo userInfo = theUnitFrom.GetComponent<UserInfoComponentS>()?.UserInfo;
-            if (userInfo != null && userInfo.DefeatedBossIds.Count > 0)
-            {
-                int monsterId = 0;
-                float range = 0f;
-                int number = 0;
-
-                monsterId = ConfigData.DefeatedBossIds[userInfo.DefeatedBossIds[RandomHelper.RandomNumber(0, userInfo.DefeatedBossIds.Count)]];
-
-                try
-                {
-                    range = float.Parse(summonParList[2]);
-                    number = int.Parse(summonParList[3]);
-                }
-                catch (Exception ex)
-                {
-                    Log.Error(ex.ToString());
-                    return;
-                }
-
-                if (number > 100)
-                {
-                    Log.Error($"Skill_Com_Summon_3: {skillS.SkillConf.Id}");
-                    return;
-                }
-
-                // 先销毁之前的
-                UnitComponent unitComponent = theUnitFrom.GetParent<UnitComponent>();
-                for (int i = unitInfoComponent.ZhaohuanIds.Count - 1; i >= 0; i--)
-                {
-                    long id = unitInfoComponent.ZhaohuanIds[i];
-                    Unit unit = unitComponent.Get(id);
-                    if (unit == null || !ConfigData.DefeatedBossIds.ContainsValue(unit.ConfigId))
-                    {
-                        continue;
-                    }
-
-                    unit.GetComponent<HeroDataComponentS>().OnDead(null);
-                    unitInfoComponent.ZhaohuanIds.Remove(id);
-                }
-
-                for (int y = 0; y < number; y++)
-                {
-                    //随机坐标
-                    float ran_x = RandomHelper.RandomNumberFloat(-1 * range, range);
-                    float ran_z = RandomHelper.RandomNumberFloat(-1 * range, range);
-                    float3 initPosi = new float3(theUnitFrom.Position.x + ran_x, theUnitFrom.Position.y, theUnitFrom.Position.z + ran_z);
-
-                    if (skillS.SkillConf.SkillZhishiType == 1)
-                    {
-                        initPosi = skillS.TargetPosition;
-                    }
-
-                    Unit unitMonster = UnitFactory.CreateMonster(theUnitFrom.Scene(), monsterId, initPosi,
-                        new CreateMonsterInfo()
-                        {
-                            Camp = theUnitFrom.GetBattleCamp(),
-                            MasterID = theUnitFrom.Id,
-                            AttributeParams = summonParList[1] + ";" + summonParList[4] + ";" + summonParList[5]
-                        });
-                    unitInfoComponent.ZhaohuanIds.Add(unitMonster.Id);
-                }
-            }
-
+          
             this.OnUpdate(skillS, 0);
         }
 

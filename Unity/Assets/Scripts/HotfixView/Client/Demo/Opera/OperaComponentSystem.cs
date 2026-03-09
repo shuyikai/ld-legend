@@ -149,7 +149,7 @@ namespace ET.Client
 
         public static void UpdateClickMode(this OperaComponent self)
         {
-            self.ClickMode = self.Root().GetComponent<UserInfoComponentC>().GetGameSettingValue(GameSettingEnum.Click) == "1";
+            //self.ClickMode = self.Root().GetComponent<UserInfoComponentC>().GetGameSettingValue(GameSettingEnum.Click) == "1";
         }
 
         public static void OnGetKeyHandler(this OperaComponent self, int keyCode)

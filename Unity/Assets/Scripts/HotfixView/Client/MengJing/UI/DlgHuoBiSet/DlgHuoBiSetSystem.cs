@@ -55,11 +55,7 @@ namespace ET.Client
         public static void InitShow(this DlgHuoBiSet self)
         {
             UserInfo userInfo = self.Root().GetComponent<UserInfoComponentC>().UserInfo;
-            self.View.E_GoldText.text = userInfo.Gold.ToString();
-            self.View.E_ZuanShiText.text = userInfo.Diamond.ToString();
-            self.View.E_Lab_RongYuText.text = userInfo.RongYu.ToString();
-            self.View.E_Lab_ZiJinText.text = userInfo.JiaYuanFund.ToString();
-            self.View.E_JiaZu_ZiJinText.text = userInfo.UnionZiJin.ToString();
+         
             // self.View.E_WeiJing_ZiJinText.text = userInfo.WeiJingGold.ToString();
 
             UIComponent uiComponent = self.Root().GetComponent<UIComponent>();

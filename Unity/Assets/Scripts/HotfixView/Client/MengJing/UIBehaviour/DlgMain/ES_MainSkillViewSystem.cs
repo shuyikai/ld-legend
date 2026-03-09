@@ -349,7 +349,7 @@ namespace ET.Client
                 SkillPro skillid = skillSetComponent.GetByPosition(i + 1);
             }
 
-            int occTwo = self.Root().GetComponent<UserInfoComponentC>().UserInfo.OccTwo;
+            int occTwo = 0;
             if (occTwo == 0)
             {
                 return;

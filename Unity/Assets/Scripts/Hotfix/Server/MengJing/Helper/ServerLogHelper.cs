@@ -70,43 +70,7 @@ namespace ET.Server
             {
                 return;
             }
-            
-            if (attack.IsRobot() || defend.IsRobot())
-            {
-                return;
-            }
-            int zone = attack.Zone();
-            ServerItem serverItem  = ServerHelper.GetServerItemByZone(VersionMode.Beta, zone);
-            if (serverItem == null)
-            {
-                return;
-            }
-            
-            MapComponent mapComponent = attack.Scene().GetComponent<MapComponent>();
-            if (!SceneConfigHelper.UseSceneConfig(mapComponent.MapType))
-            {
-                return;
-            }
-            string serverName = serverItem.ServerName;
-            string sceneName = SceneConfigCategory.Instance.Get(mapComponent.SceneId).Name;
-
-            UserInfoComponentS attackUserinfo = attack.GetComponent<UserInfoComponentS>();
-            UserInfoComponentS defendUserinfo = defend.GetComponent<UserInfoComponentS>();
-            string attackName = attackUserinfo.UserInfo.Name;
-            string defendName = defendUserinfo.UserInfo.Name;
-            attackName = attack.IsRobot() ? $"{attackName}（人机）" : attackName;
-            defendName = defend.IsRobot() ? $"{defendName}（人机）" : defendName;
-            int attackOcc = attackUserinfo.UserInfo.OccTwo > 0 ? attackUserinfo.UserInfo.OccTwo : attackUserinfo.UserInfo.Occ;
-            int defendOcc = defendUserinfo.UserInfo.OccTwo > 0 ? defendUserinfo.UserInfo.OccTwo : defendUserinfo.UserInfo.Occ;
-
-            string log = $"{TimeHelper.DateTimeNow().ToString()}:  {serverName}：{sceneName}： {attackName} 等级({attackUserinfo.UserInfo.Lv}) 职业:({attackOcc}) 战力:({attackUserinfo.UserInfo.Combat}) 击杀了： {defendName} 等级({defendUserinfo.UserInfo.Lv}) 职业:({defendOcc}) 战力:({defendUserinfo.UserInfo.Combat})";
-            ConfigData.KillInfoList.Add(log);
-            if (ConfigData.KillInfoList.Count >= 10)
-            {
-                string filePath = "../Logs/WJ_KillPlayer.txt";
-                WriteLogList(ConfigData.KillInfoList, filePath);
-                ConfigData.KillInfoList.Clear();
-            }
+          
         }
 
         public static void TrialBattleInfo(int zone, string loginfo)

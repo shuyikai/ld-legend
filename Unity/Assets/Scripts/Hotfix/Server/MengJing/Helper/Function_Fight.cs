@@ -132,8 +132,7 @@ namespace ET.Server
             //基础职业属性
             UserInfoComponentS unitInfoComponentS = unit.GetComponent<UserInfoComponentS>();
             UserInfo userInfo = unitInfoComponentS.UserInfo;
-            int roleLv = userInfo.Lv;
-
+   
             //初始化属性
             NumericComponentS numericComponent = unit.GetComponent<NumericComponentS>();
             numericComponent.ResetProperty();
@@ -295,7 +294,7 @@ namespace ET.Server
             //基础职业属性
             UserInfoComponentS unitInfoComponentS = unit.GetComponent<UserInfoComponentS>();
             UserInfo userInfo = unitInfoComponentS.UserInfo;
-            int roleLv = userInfo.Lv;
+            int roleLv = 1;
             
             NumericComponentS numericComponent = unit.GetComponent<NumericComponentS>();
             
@@ -333,7 +332,7 @@ namespace ET.Server
 
             addZhanLi = 0;
             //技能属性点附加战力
-            int skillPointFight = (roleLv - userInfo.Sp);  //剩余属性点
+            int skillPointFight = (roleLv - 0);  //剩余属性点
 
             skillPointFight = skillPointFight * 50;
             if (skillPointFight < 0)

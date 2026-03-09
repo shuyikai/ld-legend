@@ -37,7 +37,7 @@ namespace ET.Client
                         BagInfo = self.Baginfo,
                         ItemOperateEnum = ItemOperateEnum.XiangQianGem,
                         InputPoint = Input.mousePosition,
-                        Occ = self.Root().GetComponent<UserInfoComponentC>().UserInfo.Occ,
+                        Occ = 1,
                         EquipList = new List<ItemInfo>(),
                         CurrentHouse = -1
                     });

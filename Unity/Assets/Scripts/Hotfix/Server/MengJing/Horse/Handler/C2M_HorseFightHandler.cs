@@ -7,17 +7,6 @@
         protected override async ETTask Run(Unit unit, C2M_HorseFightRequest request, M2C_HorseFightResponse response)
         {
             UserInfo userInfo = unit.GetComponent<UserInfoComponentS>().UserInfo;
-            if (!userInfo.HorseIds.Contains(request.HorseId))
-            {
-                response.Error = ErrorCode.ERR_HoreseNotActive;
-                return;
-            }
-
-            if (request.HorseId == 10001 && userInfo.Lv < 25)
-            {
-                response.Error = ErrorCode.ERR_EquipLvLimit;
-                return;
-            }
 
          
             await ETTask.CompletedTask;

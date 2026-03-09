@@ -33,12 +33,7 @@ namespace ET.Client
             if (SceneConfigHelper.UseSceneConfig(newsceneType) && sceneId > 0)
             {
                 SceneConfig sceneConfig = SceneConfigCategory.Instance.Get(sceneId);
-                if (sceneConfig.DayEnterNum > 0 && sceneConfig.DayEnterNum <= userInfoComponent.GetSceneFubenTimes(sceneId))
-                {
-                    HintHelp.ShowHint(root, "次数不足！");
-                    return ErrorCode.ERR_TimesIsNot;
-                }
-
+               
                 if (sceneConfig.EnterLv > userInfoComponent.GetUserLv())
                 {
                     HintHelp.ShowHint(root, $"{sceneConfig.EnterLv}级开启！");
@@ -56,8 +51,7 @@ namespace ET.Client
             request.paramInfo = paraminfo;
 
             M2C_TransferMap response = (M2C_TransferMap)await root.GetComponent<ClientSenderCompnent>().Call(request);
-            userInfoComponent.AddSceneFubenTimes(sceneId);
-            
+  
             return ErrorCode.ERR_Success;
         }
 

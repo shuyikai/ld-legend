@@ -337,21 +337,6 @@ namespace ET.Server
 					//continue;
 				}
 				
-				
-				
-				//剧情副本一次性宝箱
-				if (sceneType == MapTypeEnum.LocalDungeon && monsterConfig.MonsterSonType == MonsterSonTypeEnum.Type_55)
-				{
-					LocalDungeonComponent localDungeonComponent = scene.GetComponent<LocalDungeonComponent>();
-					UserInfoComponentS userInfoComponent = localDungeonComponent.MainUnit.GetComponent<UserInfoComponentS>();
-					TaskComponentS taskComponent = localDungeonComponent.MainUnit.GetComponent<TaskComponentS>();
-					if (userInfoComponent.IsCheskOpen(mapComponent.SceneId, monsterid)
-					    && !taskComponent.IsItemTask(monsterid))
-					{
-						continue;
-					}
-				}
-				
 				if (mtype[0] == "1") //固定位置刷怪
 				{
 					int cmcount = int.Parse(mcount[0]);

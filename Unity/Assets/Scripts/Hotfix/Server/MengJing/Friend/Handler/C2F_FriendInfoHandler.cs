@@ -92,10 +92,10 @@ namespace  ET.Server
                
                 FriendInfo FriendInfo = FriendInfo.Create();
                 FriendInfo.UserId = friendId;
-                FriendInfo.PlayerLevel = unionInfoCache.Lv;
+                FriendInfo.PlayerLevel = 1;
                 FriendInfo.OnLineTime = onlines.Contains(friendId) ? 1 : 0;
                 FriendInfo.PlayerName = unionInfoCache.Name;
-                FriendInfo.Occ = unionInfoCache.Occ;
+                FriendInfo.Occ = 1;
                 friendInfos.Add(FriendInfo);
             }
 

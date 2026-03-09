@@ -106,11 +106,11 @@ namespace ET
 
         public int PetChouKaDropId = 0;
 
-        public int BagInitCapacity = 0;
-        public int BagMaxCapacity = 0;
+        public int BagInitCapacity = 100;
+        public int BagMaxCapacity = 100;
         public int PetHeXinMax = 200;
 
-        public int HourseInitCapacity = 0;
+        public int HourseInitCapacity = 100;
         public int HourseMaxCapacity = 0;
 
         public int GemStoreInitCapacity = 0;

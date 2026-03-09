@@ -15,10 +15,7 @@
             Unit unit = UnitHelper.GetMyUnitFromClientScene(self.Root());
             switch (reddotType)
             {
-                case ReddotType.SingleRecharge:
-                    UserInfoComponentC userInfoComponent = self.Root().GetComponent<UserInfoComponentC>();
-                    showReddot = userInfoComponent.UserInfo.SingleRechargeIds.Count > userInfoComponent.UserInfo.SingleRewardIds.Count;
-                    break;
+              
                 case ReddotType.WelfareLogin:
                     showReddot = self.Root().GetComponent<ActivityComponentC>().HaveLoginReward();
                     break;
@@ -30,10 +27,7 @@
                     int pointRemain = unit.GetComponent<NumericComponentC>().GetAsInt(NumericType.PointRemain);
                     showReddot = pointRemain > 0;
                     break;
-                case ReddotType.SkillUp:
-                    int skillpoint = self.Root().GetComponent<UserInfoComponentC>().UserInfo.Sp;
-                    showReddot = self.Root().GetComponent<SkillSetComponentC>().GetCanUpSkill(skillpoint).Count > 0;
-                    break;
+            
                 case ReddotType.FriendChat:
                     FriendComponent friendComponent = self.Root().GetComponent<FriendComponent>();
                     showReddot = friendComponent.FriendChatId.Count > 0;

@@ -54,7 +54,7 @@ namespace ET.Client
                         BagInfo = bagInfo,
                         ItemOperateEnum = ItemOperateEnum.None,
                         InputPoint = Input.mousePosition,
-                        Occ = self.Root().GetComponent<UserInfoComponentC>().UserInfo.Occ,
+                        Occ = 1,
                         EquipList = new List<ItemInfo>()
                     });
             });

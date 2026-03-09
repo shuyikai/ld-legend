@@ -727,7 +727,7 @@ namespace ET.Client
      			}
      			if( this.m_E_BagButton == null )
      			{
-		    		this.m_E_BagButton = UIFindHelper.FindDeepChild<UnityEngine.UI.Button>(this.uiTransform.gameObject,"Right/EG_RightBottomSet/E_Bag");
+		    		this.m_E_BagButton = UIFindHelper.FindDeepChild<UnityEngine.UI.Button>(this.uiTransform.gameObject,"Bottom/E_BagButton");
      			}
      			return this.m_E_BagButton;
      		}
@@ -2635,6 +2635,40 @@ namespace ET.Client
      		}
      	}
 
+		public UnityEngine.UI.InputField E_GMLabInputText
+		{
+			get
+			{
+				if (this.uiTransform == null)
+				{
+					Log.Error("uiTransform is null.");
+					return null;
+				}
+				if( this.m_E_GMLabInputText == null )
+				{
+					this.m_E_GMLabInputText = UIFindHelper.FindDeepChild<UnityEngine.UI.InputField>(this.uiTransform.gameObject,"Bottom/E_GMLabInput");
+				}
+				return this.m_E_GMLabInputText;
+			}
+		}
+
+		public UnityEngine.UI.Button E_GMSendButton
+		{
+			get
+			{
+				if (this.uiTransform == null)
+				{
+					Log.Error("uiTransform is null.");
+					return null;
+				}
+				if( this.m_E_GMSendButton == null )
+				{
+					this.m_E_GMSendButton = UIFindHelper.FindDeepChild<UnityEngine.UI.Button>(this.uiTransform.gameObject,"Bottom/E_GMSendButton");
+				}
+				return this.m_E_GMSendButton;
+			}
+		}
+
 		public UnityEngine.UI.Text E_TextPetSwitchTitleText
      	{
      		get
@@ -2871,6 +2905,8 @@ namespace ET.Client
 			this.m_es_mainpetfight_0 = null;
 			this.m_es_mainpetfight_1 = null;
 			this.m_es_mainpetfight_2 = null;
+			this.m_E_GMLabInputText = null;
+		    this.m_E_GMSendButton = null;
 			this.uiTransform = null;
 		}
 
@@ -3028,6 +3064,8 @@ namespace ET.Client
 		private UnityEngine.RectTransform m_EG_MainPetFightsRectTransform = null;
 		private UnityEngine.UI.Text m_E_TextPetSwitchText = null;
 		private UnityEngine.UI.Text m_E_TextPetSwitchTitleText = null;
+		private UnityEngine.UI.InputField m_E_GMLabInputText = null;
+		private UnityEngine.UI.Button m_E_GMSendButton = null;
 		private EntityRef<ES_MainPetFight> m_es_mainpetfight_0 = null;
 		private EntityRef<ES_MainPetFight> m_es_mainpetfight_1 = null;
 		private EntityRef<ES_MainPetFight> m_es_mainpetfight_2 = null;

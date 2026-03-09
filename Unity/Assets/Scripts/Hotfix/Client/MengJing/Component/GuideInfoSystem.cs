@@ -13,12 +13,7 @@
 
             self.Ids.Add(guideId);
         }
-
-        public static bool IsDone(this GuideInfo self)
-        {
-            UserInfoComponentC userInfoComponent = self.Root().GetComponent<UserInfoComponentC>();
-            return userInfoComponent.UserInfo.CompleteGuideIds.Contains(self.GuideId);
-        }
+        
 
         public static void OnUpdate(this GuideInfo self)
         {
