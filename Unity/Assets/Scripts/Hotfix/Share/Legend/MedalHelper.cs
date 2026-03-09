@@ -1,6 +1,8 @@
-namespace ET.Legend;
-
-public class MedalHelper
+namespace ET
 {
     
+    public static class MedalHelper
+    {
+    
+    }
 }

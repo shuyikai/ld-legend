@@ -5,8 +5,11 @@ namespace ET.Client
 {
 	[ChildOf]
 	[EnableMethod]
-	public  class ES_MedalExchangeTab : Entity,ET.IAwake<UnityEngine.Transform>,IDestroy 
+	public  class ES_MedalExchangeTab : Entity,ET.IAwake<UnityEngine.Transform>,IDestroy , IUILogic
 	{
+		
+		public UITypeViewComponent UITypeViewComponent { get; set; }
+		
 		public UnityEngine.RectTransform EG_TypeListNodeRectTransform
      	{
      		get

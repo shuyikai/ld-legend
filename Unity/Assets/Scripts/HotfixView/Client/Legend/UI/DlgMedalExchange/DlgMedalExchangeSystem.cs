@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 namespace ET.Client
 {
+	[FriendOf(typeof(ES_MedalExchangeTab))]
 	[FriendOf(typeof(DlgMedalExchange))]
 	public static  class DlgMedalExchangeSystem
 	{
@@ -35,7 +36,7 @@ namespace ET.Client
 			switch (index)
 			{
 				case 0:
-					//self.View.ES_PaiMaiShop.uiTransform.gameObject.SetActive(true);
+					self.View.ES_MedalExchangeTab.uiTransform.gameObject.SetActive(true);
 					break;
 				case 1:
 					//self.View.ES_PaiMaiBuy.uiTransform.gameObject.SetActive(true);

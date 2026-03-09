@@ -11,4 +11,6 @@
 [10, {"_t":"MedalExchangeConfig","_id":10,"BigType":2,"SubType":22,"Name":"无双勋章","CostReputation":14,"SuccessRate":30,"CostItems":"1;1@2;1"}],
 [11, {"_t":"MedalExchangeConfig","_id":11,"BigType":2,"SubType":22,"Name":"荒古勋章","CostReputation":15,"SuccessRate":30,"CostItems":"1;1@2;1"}],
 [12, {"_t":"MedalExchangeConfig","_id":12,"BigType":2,"SubType":22,"Name":"星辰勋章","CostReputation":16,"SuccessRate":30,"CostItems":"1;1@2;1"}],
+[13, {"_t":"MedalExchangeConfig","_id":13,"BigType":2,"SubType":23,"Name":"战神凭证","CostReputation":15,"SuccessRate":30,"CostItems":"1;1@2;1"}],
+[14, {"_t":"MedalExchangeConfig","_id":14,"BigType":2,"SubType":24,"Name":"帝释天勋章","CostReputation":16,"SuccessRate":30,"CostItems":"1;1@2;1"}],
 ]}
