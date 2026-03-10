@@ -21,7 +21,7 @@ namespace ET
         /// <summary>
         /// 声望对应的iemid
         /// </summary>
-        public const int Reputation = 1;
+        public const int Reputation = 15;
         
         //道具
         [StaticField]

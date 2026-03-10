@@ -74,7 +74,7 @@ namespace ET
 		/// <summary>特殊设置</summary>
 		public int Source { get; set; }
 		/// <summary>暂留</summary>
-		public int Reserved { get; set; }
+		public string Reserved { get; set; }
 		/// <summary>背包显示</summary>
 		public int Looks { get; set; }
 		/// <summary>持久度</summary>
@@ -94,9 +94,11 @@ namespace ET
 		/// <summary>套装ID</summary>
 		public string Suit { get; set; }
 		/// <summary>物品规则</summary>
-		public int Article { get; set; }
+		public string Article { get; set; }
+		/// <summary>使用职业</summary>
+		public int Occ { get; set; }
 		/// <summary>道具特殊效果参数（stamoade=200 宝箱道具ID#数量#权重#性别#职业#按开服天数开始掉落#按开服天数结束掉落 支持缩写）</summary>
-		public int effectParam { get; set; }
+		public string effectParam { get; set; }
 		/// <summary>备注</summary>
 		public string Desc { get; set; }
 		/// <summary>内挂捡取</summary>
