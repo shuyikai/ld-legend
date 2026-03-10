@@ -304,8 +304,8 @@ namespace ET.Client
 
         public static async ETTask OnFlyTo(this DlgMapBig self, int unitype, int configid)
         {
-            BagComponentC bagComponentC = self.Root().GetComponent<BagComponentC>();
-            if (bagComponentC.GetItemNumber(ConfigData.FlyToItem) < 1)
+            BagComponentClient bagComponentClient = self.Root().GetComponent<BagComponentClient>();
+            if (bagComponentClient.GetItemNumber(ConfigData.FlyToItem) < 1)
             {
                 ItemConfig itemConfig = ItemConfigCategory.Instance.Get(ConfigData.FlyToItem);
                 FlyTipComponent.Instance.ShowFlyTip($"缺少道具:{itemConfig.ItemName}");  

@@ -146,8 +146,8 @@ namespace ET.Client
 
         public static async ETTask<int> SendPickItem(Scene root, List<Unit> unitDrops)
         {
-            BagComponentC bagComponentC = root.GetComponent<BagComponentC>();
-            bagComponentC.RealAddItem--;
+            BagComponentClient bagComponentClient = root.GetComponent<BagComponentClient>();
+            bagComponentClient.RealAddItem--;
             
             List<long> unitDropIds = new();
             List<long> removeIds = new();
@@ -181,7 +181,7 @@ namespace ET.Client
                 }
             }
 
-            bagComponentC.RealAddItem++;
+            bagComponentClient.RealAddItem++;
             
             return response.Error;
         }

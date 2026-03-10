@@ -10,15 +10,15 @@ namespace ET.Server
 
             try
             {
-                BagComponentS bagComponentS = unit.GetComponent<BagComponentS>();   
-                if (bagComponentS.GetItemNumber(ConfigData.FlyToItem) < 1)
+                BagComponentServer bagComponentServer = unit.GetComponent<BagComponentServer>();   
+                if (bagComponentServer.GetItemNumber(ConfigData.FlyToItem) < 1)
                 {
                     response.Error = ErrorCode.ERR_ItemNotExist;
                     return;
                 }
 
 
-                bagComponentS.OnCostItemData($"{ConfigData.FlyToItem};1", ItemLocType.ItemLocBag);
+                bagComponentServer.OnCostItemData($"{ConfigData.FlyToItem};1", ItemLocType.ItemLocBag);
 
                 response.Error = TransferHelper.OnFlyToPosition(unit, request.UnitType, request.ConfigId);
                 await ETTask.CompletedTask;

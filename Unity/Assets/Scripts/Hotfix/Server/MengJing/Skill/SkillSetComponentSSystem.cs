@@ -299,7 +299,7 @@ namespace ET.Server
         public static void OnRemoveEquipSkill(this SkillSetComponentS self, List<int> itemSkills, long baginfoid)
         {
             Unit unit = self.GetParent<Unit>();
-            BagComponentS bagComponent = unit.GetComponent<BagComponentS>();
+            BagComponentServer bagComponent = unit.GetComponent<BagComponentServer>();
             SkillPassiveComponent skillPassiveComponent = unit.GetComponent<SkillPassiveComponent>();
             for (int i = 0; i < itemSkills.Count; i++)
             {

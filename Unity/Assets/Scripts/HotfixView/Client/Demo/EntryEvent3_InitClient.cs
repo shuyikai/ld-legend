@@ -14,7 +14,7 @@ namespace ET.Client
             root.AddComponent<UIComponent>();
             root.AddComponent<PlayerInfoComponent>();
             root.AddComponent<CurrentScenesComponent>();
-            root.AddComponent<BagComponentC>();
+            root.AddComponent<BagComponentClient>();
             root.AddComponent<RelinkComponent>();
             root.AddComponent<FlyTipComponent>();
             root.AddComponent<UserInfoComponentC>();

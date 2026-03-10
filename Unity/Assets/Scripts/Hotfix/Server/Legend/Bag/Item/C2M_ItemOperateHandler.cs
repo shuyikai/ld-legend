@@ -7,13 +7,13 @@ namespace ET.Server
 
     [MessageLocationHandler(SceneType.Map)]
     [FriendOf(typeof (UserInfoComponentS))]
-    [FriendOf(typeof (BagComponentS))]
+    [FriendOf(typeof (BagComponentServer))]
     public class C2M_ItemOperateHandler: MessageLocationHandler<Unit, C2M_ItemOperateRequest, M2C_ItemOperateResponse>
     {
         protected override async ETTask Run(Unit unit, C2M_ItemOperateRequest request, M2C_ItemOperateResponse response)
         {
             //获取UserID及User数据
-            BagComponentS bagComponent = unit.GetComponent<BagComponentS>();
+            BagComponentServer bagComponent = unit.GetComponent<BagComponentServer>();
             UserInfoComponentS userInfoComponent = unit.GetComponent<UserInfoComponentS>();
             UserInfo useInfo = userInfoComponent.UserInfo;
             long bagInfoID = request.OperateBagID;

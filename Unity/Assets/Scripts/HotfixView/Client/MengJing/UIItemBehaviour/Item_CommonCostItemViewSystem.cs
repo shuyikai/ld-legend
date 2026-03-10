@@ -19,7 +19,7 @@ namespace ET.Client
 
         public static void UpdateItem(this Scroll_Item_CommonCostItem self, int itemId, int itemNum)
         {
-            BagComponentC bagComponent = self.Root().GetComponent<BagComponentC>();
+            BagComponentClient bagComponent = self.Root().GetComponent<BagComponentClient>();
             ItemConfig itemConfig = ItemConfigCategory.Instance.Get(itemId);
 
             self.E_ItemNameText.text = itemConfig.ItemName;

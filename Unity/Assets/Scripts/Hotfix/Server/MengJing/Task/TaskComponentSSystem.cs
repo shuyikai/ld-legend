@@ -231,11 +231,11 @@ namespace ET.Server
                     {
                         if (i == 0)
                         {
-                            taskPro.taskTargetNum_1 = (int)unit.GetComponent<BagComponentS>().GetItemNumber(taskConfig.Target[i]);
+                            taskPro.taskTargetNum_1 = (int)unit.GetComponent<BagComponentServer>().GetItemNumber(taskConfig.Target[i]);
                         }
                         if (i == 1)
                         {
-                            taskPro.taskTargetNum_2 = (int)unit.GetComponent<BagComponentS>().GetItemNumber(taskConfig.Target[i]);
+                            taskPro.taskTargetNum_2 = (int)unit.GetComponent<BagComponentServer>().GetItemNumber(taskConfig.Target[i]);
                         }
                     }
                     break;
@@ -348,7 +348,7 @@ namespace ET.Server
 
         public static int CheckGiveItemTask(this TaskComponentS self, int TargetType, int[] Target, int[] TargetValue, long BagInfoID, TaskPro taskPro)
         {
-            BagComponentS bagComponent = self.GetParent<Unit>().GetComponent<BagComponentS>();
+            BagComponentServer bagComponent = self.GetParent<Unit>().GetComponent<BagComponentServer>();
             if (TargetType == (int)TaskTargetType.ItemID_Number_2)
             {
                 int needid = Target[0];
@@ -413,7 +413,7 @@ namespace ET.Server
             
             Unit unit = self.GetParent<Unit>();
             
-            BagComponentS bagComponent = unit.GetComponent<BagComponentS>();
+            BagComponentServer bagComponent = unit.GetComponent<BagComponentServer>();
             NumericComponentS numericComponent = unit.GetComponent<NumericComponentS>();
 
             List<RewardItem> rewardItems = TaskHelper.GetTaskRewards(taskid, taskConfig);
@@ -832,7 +832,7 @@ namespace ET.Server
             {
                 if (targetType == TaskTargetType.ItemID_Number_2)
                 {
-                    targetValue = (int)self.GetParent<Unit>().GetComponent<BagComponentS>().GetItemNumber(Target[t]);
+                    targetValue = (int)self.GetParent<Unit>().GetComponent<BagComponentServer>().GetItemNumber(Target[t]);
                 }
 
                 if (targetType == TaskTargetType.MakeQulityNumber_29

@@ -144,7 +144,7 @@ namespace ET.Server
             //OccupationConfig mOccupationConfig = OccupationConfigCategory.Instance.Get(userInfo.Occ);
             
             List<ItemInfo> equipList = new List<ItemInfo>();
-            equipList.AddRange( unit.GetComponent<BagComponentS>().GetItemByLoc(ItemLocType.ItemLocEquip));
+            equipList.AddRange( unit.GetComponent<BagComponentServer>().GetItemByLoc(ItemLocType.ItemLocEquip));
 
           
              //技能属性

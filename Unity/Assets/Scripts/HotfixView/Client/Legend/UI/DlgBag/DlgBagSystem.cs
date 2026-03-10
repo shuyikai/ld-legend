@@ -51,7 +51,7 @@ namespace ET.Client
     
             Scroll_Item_CommonItem scrollItemCommonItem = self.ScrollItemCommonItems[index].BindTrans(transform);
 
-            BagComponentC bagComponent = self.Root().GetComponent<BagComponentC>();
+            BagComponentClient bagComponent = self.Root().GetComponent<BagComponentClient>();
             UserInfoComponentC userInfoComponent = self.Root().GetComponent<UserInfoComponentC>();
             int openell = bagComponent.GetBagTotalCell(ItemLocType.ItemLocBag);
             
@@ -112,7 +112,7 @@ namespace ET.Client
 
         public static void RefreshBagItems(this DlgBag self)
         {
-            BagComponentC bagComponentC = self.Root().GetComponent<BagComponentC>();
+            BagComponentClient bagComponentClient = self.Root().GetComponent<BagComponentClient>();
 
             self.ShowBagInfos.Clear();
 
@@ -135,7 +135,7 @@ namespace ET.Client
 
             int allNumber = 100;// bagComponentC.GetBagShowCell(ItemLocType.ItemLocBag);
             // int maxCount = GlobalValueConfigCategory.Instance.BagMaxCapacity;
-            self.ShowBagInfos.AddRange(bagComponentC.GetItemsByType(itemTypeEnum));
+            self.ShowBagInfos.AddRange(bagComponentClient.GetItemsByType(itemTypeEnum));
             
             self.ShowBagInfos.Add(new ItemInfo(){ ItemID = 1, ItemNum = 1});
             

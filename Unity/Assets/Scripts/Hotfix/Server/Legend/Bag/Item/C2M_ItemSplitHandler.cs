@@ -8,7 +8,7 @@ namespace ET.Server
         protected override async ETTask Run(Unit unit, C2M_ItemSplitRequest request, M2C_ItemSplitResponse response)
         {
             long bagInfoID = request.OperateBagID;
-            ItemInfo useBagInfo = unit.GetComponent<BagComponentS>().GetItemByLoc(ItemLocType.ItemLocBag, bagInfoID);
+            ItemInfo useBagInfo = unit.GetComponent<BagComponentServer>().GetItemByLoc(ItemLocType.ItemLocBag, bagInfoID);
             if (useBagInfo == null)
             {
                 response.Error = ErrorCode.ERR_ItemNotExist;
@@ -52,7 +52,7 @@ namespace ET.Server
                 return;
             }
 
-            unit.GetComponent<BagComponentS>().OnAddItemDataNewCell(useBagInfo, (int)splitNumber);
+            unit.GetComponent<BagComponentServer>().OnAddItemDataNewCell(useBagInfo, (int)splitNumber);
             Log.Warning($"道具拆分 {unit.Zone()} {unit.Id} {splitNumber}");
 
             M2C_RoleBagUpdate m2c_bagUpdate = M2C_RoleBagUpdate.Create();

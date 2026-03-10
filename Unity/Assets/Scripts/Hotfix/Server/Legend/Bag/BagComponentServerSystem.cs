@@ -4,24 +4,24 @@ using System.Collections.Generic;
 namespace ET.Server
 {
     [FriendOf(typeof(UserInfoComponentS))]
-    [EntitySystemOf(typeof(BagComponentS))]
-    [FriendOf(typeof(BagComponentS))]
-    public static partial class BagComponentSSystem
+    [EntitySystemOf(typeof(BagComponentServer))]
+    [FriendOf(typeof(BagComponentServer))]
+    public static partial class BagComponentServerSystem
     {
         [EntitySystem]
-        private static void Awake(this BagComponentS self)
+        private static void Awake(this BagComponentServer self)
         {
             self.CheckAllItemList();
             
         }
 
         [EntitySystem]
-        private static void Destroy(this BagComponentS self)
+        private static void Destroy(this BagComponentServer self)
         {
         }
 
         [EntitySystem]
-        private static void Deserialize(this BagComponentS self)
+        private static void Deserialize(this BagComponentServer self)
         {
             if (self.AllItemList == null)
             {
@@ -44,7 +44,7 @@ namespace ET.Server
             }
         }
         
-        public static void DeserializeDB(this BagComponentS self)
+        public static void DeserializeDB(this BagComponentServer self)
         {
             if (self.AllItemList == null)
             {
@@ -67,7 +67,7 @@ namespace ET.Server
             }
         }
 
-        public static void CheckAllItemList(this BagComponentS self)
+        public static void CheckAllItemList(this BagComponentServer self)
         {
             if (self.AllItemList == null)
             {
@@ -98,7 +98,7 @@ namespace ET.Server
         /// </summary>
         /// <param name="self"></param>
         /// <returns></returns>
-        public static bool HaveOccEquip(this BagComponentS self)
+        public static bool HaveOccEquip(this BagComponentServer self)
         {
             List<ItemInfo> allequiplist = new List<ItemInfo>();
             allequiplist.AddRange(self.AllItemList[ItemLocType.ItemLocEquip]);
@@ -118,7 +118,7 @@ namespace ET.Server
             return false;
         }
         
-        public static List<PropertyValue> GetGemProLists(this BagComponentS self)
+        public static List<PropertyValue> GetGemProLists(this BagComponentServer self)
         {
             List<PropertyValue> list = new List<PropertyValue>();
             for (int i = 0; i < self.GetItemByLoc(ItemLocType.ItemLocGem).Count; i++)
@@ -152,7 +152,7 @@ namespace ET.Server
             return list;
         }
 
-        public static List<ItemInfo> GetItemByLoc(this BagComponentS self, int itemEquipType)
+        public static List<ItemInfo> GetItemByLoc(this BagComponentServer self, int itemEquipType)
         {
             if (self.AllItemList.ContainsKey(itemEquipType))
             {
@@ -165,7 +165,7 @@ namespace ET.Server
             }
         }
 
-        public static void ZhengLiItemList(this BagComponentS self, Dictionary<int, List<ItemInfo>> ItemSameList, M2C_RoleBagUpdate m2c_bagUpdate)
+        public static void ZhengLiItemList(this BagComponentServer self, Dictionary<int, List<ItemInfo>> ItemSameList, M2C_RoleBagUpdate m2c_bagUpdate)
         {
             foreach (var item in ItemSameList)
             {
@@ -212,7 +212,7 @@ namespace ET.Server
             }
         }
 
-        public static void OnRecvItemSort(this BagComponentS self, int itemEquipType)
+        public static void OnRecvItemSort(this BagComponentServer self, int itemEquipType)
         {
             List<ItemInfo> ItemTypeList = self.GetItemByLoc(itemEquipType);
 
@@ -270,7 +270,7 @@ namespace ET.Server
             ItemHelper.ItemLitSort(ItemTypeList);
         }
 
-        public static void CheckValiedItem(this BagComponentS self, List<ItemInfo> bagInfos)
+        public static void CheckValiedItem(this BagComponentServer self, List<ItemInfo> bagInfos)
         {
             Unit unit = self.GetParent<Unit>();
             int occ = unit.GetComponent<UserInfoComponentS>().GetOcc();
@@ -292,7 +292,7 @@ namespace ET.Server
         }
 
         //获取自身所有的道具
-        public static List<ItemInfo> GetAllItems(this BagComponentS self)
+        public static List<ItemInfo> GetAllItems(this BagComponentServer self)
         {
             List<ItemInfo> bagList = new List<ItemInfo>();
 
@@ -341,7 +341,7 @@ namespace ET.Server
             return bagList;
         }
 
-        public static List<ItemInfo> GetIdItemList(this BagComponentS self, int itemId)
+        public static List<ItemInfo> GetIdItemList(this BagComponentServer self, int itemId)
         {
             List<ItemInfo> baginfo = new List<ItemInfo>();
             for (int i = 0; i < self.GetItemByLoc(ItemLocType.ItemLocBag).Count; i++)
@@ -355,7 +355,7 @@ namespace ET.Server
             return baginfo;
         }
 
-        public static int GetNeedCell(this BagComponentS self, List<RewardItem> itemids, int itemLocType)
+        public static int GetNeedCell(this BagComponentServer self, List<RewardItem> itemids, int itemLocType)
         {
             int needcell = 0;
             for  ( int i =0; i < itemids.Count; i++ )
@@ -386,7 +386,7 @@ namespace ET.Server
         }
         
         //获取某个道具的数量
-        public static long GetItemNumber(this BagComponentS self, int itemId, int itemLocType = ItemLocType.ItemLocBag)
+        public static long GetItemNumber(this BagComponentServer self, int itemId, int itemLocType = ItemLocType.ItemLocBag)
         {
             int userDataType = ItemHelper.GetItemToUserDataType(itemId);
             long number = 0;
@@ -412,7 +412,7 @@ namespace ET.Server
         }
 
         //根据ID获取对应的背包数据
-        public static ItemInfo GetItemByLoc(this BagComponentS self, int itemLocType, long bagId)
+        public static ItemInfo GetItemByLoc(this BagComponentServer self, int itemLocType, long bagId)
         {
             if (bagId == 0)
                 return null;
@@ -428,19 +428,19 @@ namespace ET.Server
             return null;
         }
 
-        public static bool IsBagFullByLoc(this BagComponentS self, int hourseId)
+        public static bool IsBagFullByLoc(this BagComponentServer self, int hourseId)
         {
             List<ItemInfo> ItemTypeList = self.GetItemByLoc(hourseId);
             return ItemTypeList.Count >= self.GetBagTotalCell(hourseId);
         }
 
-        public static int GetBagLeftCell(this BagComponentS self, int hourseId)
+        public static int GetBagLeftCell(this BagComponentServer self, int hourseId)
         {
             List<ItemInfo> ItemTypeList = self.GetItemByLoc(hourseId);
             return self.GetBagTotalCell(hourseId) - ItemTypeList.Count;
         }
 
-        public static int GetBagTotalCell(this BagComponentS self, int hourseId)
+        public static int GetBagTotalCell(this BagComponentServer self, int hourseId)
         {
             int storeCapacity = GlobalValueConfigCategory.Instance.BagInitCapacity;  //背包
 
@@ -457,12 +457,12 @@ namespace ET.Server
         /// </summary>
         /// <param name="self"></param>
         /// <returns></returns>
-        public static int GetChouKaLeftSpace(this BagComponentS self)
+        public static int GetChouKaLeftSpace(this BagComponentServer self)
         {
             return 100 - self.GetItemByLoc(ItemLocType.ChouKaWarehouse).Count;
         }
 
-        public static void OnChangeItemLoc(this BagComponentS self, ItemInfo bagInfo, int itemLocTypeTo, int itemLocTypeFrom)
+        public static void OnChangeItemLoc(this BagComponentServer self, ItemInfo bagInfo, int itemLocTypeTo, int itemLocTypeFrom)
         {
             List<ItemInfo> ItemTypeListSour = self.GetItemByLoc(itemLocTypeFrom);
             for (int i = ItemTypeListSour.Count - 1; i >= 0; i--)
@@ -484,7 +484,7 @@ namespace ET.Server
         /// <param name="self"></param>
         /// <param name="skillId"></param>
         /// <returns></returns>
-        public static bool IsHaveEquipSkill(this BagComponentS self, int skillId, long xilianequip)
+        public static bool IsHaveEquipSkill(this BagComponentServer self, int skillId, long xilianequip)
         {
             if (xilianequip == 0)
             {
@@ -513,7 +513,7 @@ namespace ET.Server
             return false;
         }
 
-        public static void OnResetSeason(this BagComponentS self, bool notice)
+        public static void OnResetSeason(this BagComponentServer self, bool notice)
         { 
 
             self.ClearJingHeItem(self.GetItemByLoc(ItemLocType.ItemLocBag));
@@ -524,7 +524,7 @@ namespace ET.Server
             self.ClearJingHeItem(self.GetItemByLoc(ItemLocType.SeasonJingHe));
         }
 
-        public static void ClearJingHeItem(this BagComponentS self, List<ItemInfo> bagInfos)
+        public static void ClearJingHeItem(this BagComponentServer self, List<ItemInfo> bagInfos)
         {
             for (int i = bagInfos.Count - 1; i >= 0; i--)
             {
@@ -537,7 +537,7 @@ namespace ET.Server
         }
         
 
-        public static List<int> GetEquipTianFuIds(this BagComponentS self)
+        public static List<int> GetEquipTianFuIds(this BagComponentServer self)
         {
             List<int> equiptianfuids = new List<int>(); 
             List<ItemInfo> equiplist = new List<ItemInfo>();
@@ -572,7 +572,7 @@ namespace ET.Server
         }
         
 
-        public static List<ItemInfo> GetEquipListByWeizhi(this BagComponentS self, int equipIndex, int position)
+        public static List<ItemInfo> GetEquipListByWeizhi(this BagComponentServer self, int equipIndex, int position)
         {
             List<ItemInfo> bagInfos = new List<ItemInfo>();
             List<ItemInfo> equipList = self.GetItemByLoc(equipIndex);
@@ -589,7 +589,7 @@ namespace ET.Server
         }
         
         //获取某个装备位置的道具数据
-        public static ItemInfo GetEquipBySubType(this BagComponentS self, int equipIndex, int subType)
+        public static ItemInfo GetEquipBySubType(this BagComponentServer self, int equipIndex, int subType)
         {
             List<ItemInfo> equipList = self.GetItemByLoc(equipIndex);
             for (int i = 0; i < equipList.Count; i++)
@@ -604,7 +604,7 @@ namespace ET.Server
             return null;
         }
 
-        public static void OnLogin(this BagComponentS self, int robotId)
+        public static void OnLogin(this BagComponentServer self, int robotId)
         {
             self.CheckAllItemList();
             Unit unit = self.GetParent<Unit>();
@@ -623,7 +623,7 @@ namespace ET.Server
             
         }
 
-        public static int GetZodiacnumber(this BagComponentS self)
+        public static int GetZodiacnumber(this BagComponentServer self)
         {
             int number = 0;
             for (int i = 0; i < self.GetItemByLoc(ItemLocType.ItemLocEquip).Count; i++)
@@ -638,14 +638,14 @@ namespace ET.Server
             return number;
         }
 
-        public static int GetWuqiItemId(this BagComponentS self)
+        public static int GetWuqiItemId(this BagComponentServer self)
         {
             ItemInfo bagInfo = self.GetEquipBySubType(ItemLocType.ItemLocEquip, (int)ItemSubTypeEnum.Wuqi);
             return bagInfo != null ? bagInfo.ItemID : 0;
         }
 
         //字符串添加道具 
-        public static bool OnAddItemData(this BagComponentS self, string rewardItems, string getType, bool notice = true)
+        public static bool OnAddItemData(this BagComponentServer self, string rewardItems, string getType, bool notice = true)
         {
             List<RewardItem> costItems = new List<RewardItem>();
             string[] needList = rewardItems.Split('@');
@@ -665,7 +665,7 @@ namespace ET.Server
             return self.OnAddItemData(costItems, string.Empty, getType, notice);
         }
 
-        public static void OnAddItemData(this BagComponentS self, List<ItemInfoProto> bagInfos, string getType)
+        public static void OnAddItemData(this BagComponentServer self, List<ItemInfoProto> bagInfos, string getType)
         {
             for (int i = 0; i < bagInfos.Count; i++)
             {
@@ -673,7 +673,7 @@ namespace ET.Server
             }
         }
 
-        public static void OnAddItemData(this BagComponentS self, ItemInfoProto bagInfo, string getType)
+        public static void OnAddItemData(this BagComponentServer self, ItemInfoProto bagInfo, string getType)
         {
             ItemConfig itemCof = ItemConfigCategory.Instance.Get(bagInfo.ItemID);
             int maxPileSum = itemCof.ItemPileSum;
@@ -698,7 +698,7 @@ namespace ET.Server
             }
         }
         
-        public static void OnAddItemData(this BagComponentS self, ItemInfo bagInfo, string getType)
+        public static void OnAddItemData(this BagComponentServer self, ItemInfo bagInfo, string getType)
         {
             ItemConfig itemCof = ItemConfigCategory.Instance.Get(bagInfo.ItemID);
             int maxPileSum = itemCof.ItemPileSum;
@@ -722,7 +722,7 @@ namespace ET.Server
             }
         }
 
-        public static void OnAddItemToStore(this BagComponentS self, int itemlockType, int itemid, int itemnumber, string getType)
+        public static void OnAddItemToStore(this BagComponentServer self, int itemlockType, int itemid, int itemnumber, string getType)
         {
             ItemInfo useBagInfo = self.AddChild<ItemInfo>();
             useBagInfo.ItemID = itemid;
@@ -740,7 +740,7 @@ namespace ET.Server
             MapMessageHelper.SendToClient(self.GetParent<Unit>(), m2c_bagUpdate);
         }
 
-        public static void OnAddItemDataNewCell(this BagComponentS self, ItemInfo bagInfo, int itemnumber)
+        public static void OnAddItemDataNewCell(this BagComponentServer self, ItemInfo bagInfo, int itemnumber)
         {
             int itemid = bagInfo.ItemID;
             ItemInfo useBagInfo = self.AddChild<ItemInfo>();
@@ -769,7 +769,7 @@ namespace ET.Server
         /// <param name="itemNumber"></param>
         /// <param name="itemLocType"></param>
         /// <returns></returns>
-        public static bool CheckCanAddItem(this BagComponentS self, int itemId, int itemNumber, int itemLocType)
+        public static bool CheckCanAddItem(this BagComponentServer self, int itemId, int itemNumber, int itemLocType)
         {
             if (itemLocType == ItemLocType.GemWareHouse1)
             {
@@ -803,7 +803,7 @@ namespace ET.Server
             }
         }
 
-        public static int GetRealNeedCell(this BagComponentS self, RewardItem itemids, int itemLocType)
+        public static int GetRealNeedCell(this BagComponentServer self, RewardItem itemids, int itemLocType)
         {
             int needcell = 0;
 
@@ -822,7 +822,7 @@ namespace ET.Server
         }
 
         //添加背包道具道具[支持同时添加多个]
-        public static bool OnAddItemData(this BagComponentS self, List<RewardItem> rewardItems_init, string makeUserID, string getWay,
+        public static bool OnAddItemData(this BagComponentServer self, List<RewardItem> rewardItems_init, string makeUserID, string getWay,
         bool notice = true, bool gm = false, int UseLocType = ItemLocType.ItemLocBag)
         {
             int needCellNumber = 0;
@@ -1073,7 +1073,7 @@ namespace ET.Server
             return true;
         }
 
-        public static bool CheckNeedItem(this BagComponentS self, string rewardItems)
+        public static bool CheckNeedItem(this BagComponentServer self, string rewardItems)
         {
             string[] needList = rewardItems.Split('@');
             for (int i = 0; i < needList.Length; i++)
@@ -1095,7 +1095,7 @@ namespace ET.Server
             return true;
         }
 
-        public static bool CheckCostItem(this BagComponentS self, List<RewardItem> rewardItems)
+        public static bool CheckCostItem(this BagComponentServer self, List<RewardItem> rewardItems)
         {
             for (int i = 0; i < rewardItems.Count; i++)
             {
@@ -1110,7 +1110,7 @@ namespace ET.Server
         }
 
         //字符串删除道具
-        public static bool OnCostItemData(this BagComponentS self, string rewardItems, int itemLocType = ItemLocType.ItemLocBag)
+        public static bool OnCostItemData(this BagComponentServer self, string rewardItems, int itemLocType = ItemLocType.ItemLocBag)
         {
             if (string.IsNullOrEmpty(rewardItems))
             {
@@ -1136,7 +1136,7 @@ namespace ET.Server
         }
 
         //删除背包道具道具[支持同时添加多个]
-        public static bool OnCostItemData(this BagComponentS self, List<long> costItems, int itemLocType = ItemLocType.ItemLocBag)
+        public static bool OnCostItemData(this BagComponentServer self, List<long> costItems, int itemLocType = ItemLocType.ItemLocBag)
         {
             //通知客户端背包刷新
             M2C_RoleBagUpdate m2c_bagUpdate = M2C_RoleBagUpdate.Create();
@@ -1163,7 +1163,7 @@ namespace ET.Server
         }
 
         //指定某一个格子的ID
-        public static bool OnCostItemData(this BagComponentS self, long uid, int number)
+        public static bool OnCostItemData(this BagComponentServer self, long uid, int number)
         {
             //通知客户端背包刷新
             M2C_RoleBagUpdate m2c_bagUpdate = M2C_RoleBagUpdate.Create();
@@ -1196,7 +1196,7 @@ namespace ET.Server
         }
 
         //删除背包道具道具[支持同时添加多个]
-        public static bool OnCostItemData(this BagComponentS self, List<RewardItem> costItems, int itemLocType = ItemLocType.ItemLocBag)
+        public static bool OnCostItemData(this BagComponentServer self, List<RewardItem> costItems, int itemLocType = ItemLocType.ItemLocBag)
         {
             for (int i = costItems.Count - 1; i >= 0; i--)
             {
@@ -1270,7 +1270,7 @@ namespace ET.Server
         }
         
 
-        public static bool OnCostItemData(this BagComponentS self, ItemInfo bagInfo, int locType, int number)
+        public static bool OnCostItemData(this BagComponentServer self, ItemInfo bagInfo, int locType, int number)
         {
             List<ItemInfo> bagInfos = self.GetItemByLoc(locType);
 
@@ -1293,7 +1293,7 @@ namespace ET.Server
             }
         }
 
-        public static void OnEquipFuMo(this BagComponentS self, int itemid, List<HideProList> hideProLists, int index)
+        public static void OnEquipFuMo(this BagComponentServer self, int itemid, List<HideProList> hideProLists, int index)
         {
             ItemConfig itemConfig = ItemConfigCategory.Instance.Get(itemid);
             string[] itemparams = itemConfig.ItemUsePar.Split('@');

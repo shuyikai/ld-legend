@@ -56,7 +56,7 @@ namespace ET.Server
                     unit.AddDataComponent<TaskComponentS>();
                     unit.AddDataComponent<ShoujiComponentS>();
                     unit.AddDataComponent<ChengJiuComponentS>();
-                    unit.AddDataComponent<BagComponentS>();
+                    unit.AddDataComponent<BagComponentServer>();
                     unit.AddDataComponent<PetComponentS>();
                     unit.AddDataComponent<SkillSetComponentS>();
                     unit.AddDataComponent<RechargeComponent>();
@@ -307,7 +307,7 @@ namespace ET.Server
                     DropHelper.DropIDToDropItem(dropID[i], dropItemList_2, monsterID, dropProValue, all);
                     if (dropConfig.ifEnterBag == 1)
                     {
-                        unit.GetComponent<BagComponentS>()
+                        unit.GetComponent<BagComponentServer>()
                                 .OnAddItemData(dropItemList_2, string.Empty, $"{ItemGetWay.PickItem}_{TimeHelper.ServerNow()}");
                     }
                     else

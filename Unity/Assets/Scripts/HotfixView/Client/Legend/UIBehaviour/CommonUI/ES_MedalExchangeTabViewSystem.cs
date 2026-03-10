@@ -78,15 +78,15 @@ namespace ET.Client
 				return;
 			}
 
-			BagComponentC bagComponentC = self.Root().GetComponent<BagComponentC>();
-			if (bagComponentC.GetBagLeftCell(ItemLocType.ItemLocBag) < 1)
+			BagComponentClient bagComponentClient = self.Root().GetComponent<BagComponentClient>();
+			if (bagComponentClient.GetBagLeftCell(ItemLocType.ItemLocBag) < 1)
 			{
 				FlyTipComponent.Instance.ShowFlyTip(ErrorViewData.ErrorHints[ErrorCode.ERR_BagIsFull]);
 				return;
 			}
 
 			MedalExchangeConfig medalExchangeConfig = MedalExchangeConfigCategory.Instance.Get(self.MedalId);
-			if (!bagComponentC.CheckNeedItem(medalExchangeConfig.CostItems))
+			if (!bagComponentClient.CheckNeedItem(medalExchangeConfig.CostItems))
 			{
 				FlyTipComponent.Instance.ShowFlyTip(ErrorViewData.ErrorHints[ErrorCode.ERR_ItemNotEnoughError]);
 				return;

@@ -91,7 +91,7 @@ namespace ET.Server
         }
 
         public static bool CheckSendMail(int MailType, string Title, NumericComponentS numericComponent, UserInfoComponentS userInfoComponent,
-        BagComponentS bagComponent)
+        BagComponentServer bagComponent)
         {
             UserInfo unionInfoCache = userInfoComponent.ChildrenDB[0] as UserInfo;
             if (numericComponent == null || userInfoComponent == null || bagComponent == null)
@@ -121,7 +121,7 @@ namespace ET.Server
             //判断条件
             UserInfoComponentS userInfoComponent = await UnitCacheHelper.GetComponentCache<UserInfoComponentS>(root, userID);
             NumericComponentS numericComponent = await UnitCacheHelper.GetComponentCache<NumericComponentS>(root, userID);
-            BagComponentS bagComponent = await UnitCacheHelper.GetComponentCache<BagComponentS>(root, userID);
+            BagComponentServer bagComponent = await UnitCacheHelper.GetComponentCache<BagComponentServer>(root, userID);
             bagComponent.DeserializeDB();
             bool cansendMail = CheckSendMail(serverMailItem.MailType, serverMailItem.ParasmNew, numericComponent, userInfoComponent,
                 bagComponent);

@@ -38,13 +38,13 @@ namespace ET.Server
                 {
                     case (int)ActivityEnum.Type_2: //每日特惠
                         string[] needList = activityConfig.Par_3.Split('@');
-                        if (unit.GetComponent<BagComponentS>().GetBagLeftCell(ItemLocType.ItemLocBag) < needList.Length)
+                        if (unit.GetComponent<BagComponentServer>().GetBagLeftCell(ItemLocType.ItemLocBag) < needList.Length)
                         {
                             response.Error = ErrorCode.ERR_BagIsFull;
                             return;
                         }
 
-                        if (!unit.GetComponent<BagComponentS>().OnCostItemData(activityConfig.Par_2))
+                        if (!unit.GetComponent<BagComponentServer>().OnCostItemData(activityConfig.Par_2))
                         {
                             response.Error = ErrorCode.ERR_DiamondNotEnoughError;
          
@@ -74,7 +74,7 @@ namespace ET.Server
                         
                         
                         string[] rewarditems = activityConfig.Par_2.Split('@');
-                        if (rewarditems.Length > unit.GetComponent<BagComponentS>().GetBagLeftCell(ItemLocType.ItemLocBag))
+                        if (rewarditems.Length > unit.GetComponent<BagComponentServer>().GetBagLeftCell(ItemLocType.ItemLocBag))
                         {
                             response.Error = ErrorCode.ERR_BagIsFull;
                   
@@ -84,7 +84,7 @@ namespace ET.Server
                         activityComponent.TotalSignNumber++;
                         activityComponent.LastSignTime = TimeHelper.ServerNow();
                         activityComponent.ActivityReceiveIds.Add(request.ActivityId);
-                        unit.GetComponent<BagComponentS>().OnAddItemData(activityConfig.Par_2, $"{ItemGetWay.Activity}_{TimeHelper.ServerNow()}");
+                        unit.GetComponent<BagComponentServer>().OnAddItemData(activityConfig.Par_2, $"{ItemGetWay.Activity}_{TimeHelper.ServerNow()}");
                         break;
                  
                     case (int)ActivityEnum.Type_26:
@@ -95,14 +95,14 @@ namespace ET.Server
                         }
 
                         rewarditems = activityConfig.Par_2.Split('@');
-                        if (rewarditems.Length > unit.GetComponent<BagComponentS>().GetBagLeftCell(ItemLocType.ItemLocBag))
+                        if (rewarditems.Length > unit.GetComponent<BagComponentServer>().GetBagLeftCell(ItemLocType.ItemLocBag))
                         {
                             response.Error = ErrorCode.ERR_BagIsFull;
                             return;
                         }
 
                         activityComponent.ActivityReceiveIds.Add(request.ActivityId);
-                        unit.GetComponent<BagComponentS>().OnAddItemData(activityConfig.Par_2, $"{ItemGetWay.Activity}_{TimeHelper.ServerNow()}");
+                        unit.GetComponent<BagComponentServer>().OnAddItemData(activityConfig.Par_2, $"{ItemGetWay.Activity}_{TimeHelper.ServerNow()}");
 
                         break;
                     case (int)ActivityEnum.Type_27:
@@ -113,23 +113,23 @@ namespace ET.Server
                         }
 
                         rewarditems = activityConfig.Par_2.Split('@');
-                        if (rewarditems.Length > unit.GetComponent<BagComponentS>().GetBagLeftCell(ItemLocType.ItemLocBag))
+                        if (rewarditems.Length > unit.GetComponent<BagComponentServer>().GetBagLeftCell(ItemLocType.ItemLocBag))
                         {
                             response.Error = ErrorCode.ERR_BagIsFull;
                             return;
                         }
 
                         activityComponent.ActivityReceiveIds.Add(request.ActivityId);
-                        unit.GetComponent<BagComponentS>().OnAddItemData(activityConfig.Par_2, $"{ItemGetWay.Activity}_{TimeHelper.ServerNow()}");
+                        unit.GetComponent<BagComponentServer>().OnAddItemData(activityConfig.Par_2, $"{ItemGetWay.Activity}_{TimeHelper.ServerNow()}");
                         
                         break;
                 
                     default:
-                        bool success = unit.GetComponent<BagComponentS>().OnCostItemData(activityConfig.Par_2);
+                        bool success = unit.GetComponent<BagComponentServer>().OnCostItemData(activityConfig.Par_2);
                         if (success)
                         {
                             unit.GetComponent<ActivityComponentS>().ActivityReceiveIds.Add(request.ActivityId);
-                            unit.GetComponent<BagComponentS>().OnAddItemData(activityConfig.Par_3, $"{ItemGetWay.Activity}_{TimeHelper.ServerNow()}");
+                            unit.GetComponent<BagComponentServer>().OnAddItemData(activityConfig.Par_3, $"{ItemGetWay.Activity}_{TimeHelper.ServerNow()}");
                         }
                         else
                         {

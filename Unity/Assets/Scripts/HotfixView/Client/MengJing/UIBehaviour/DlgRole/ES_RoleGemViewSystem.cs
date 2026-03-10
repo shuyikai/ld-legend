@@ -48,7 +48,7 @@ namespace ET.Client
 
         public static void OnUpdateLastItem(this ES_RoleGem self)
         {
-            ItemInfo itemInfo = self.Root().GetComponent<BagComponentC>().GetBagInfo(self.ItemBagInfoID);
+            ItemInfo itemInfo = self.Root().GetComponent<BagComponentClient>().GetBagInfo(self.ItemBagInfoID);
             self.OnClickXiangQianItem(itemInfo);
             self.RefreshBagItems();
         }
@@ -76,7 +76,7 @@ namespace ET.Client
 
         public static void RefreshBagItems(this ES_RoleGem self)
         {
-            BagComponentC bagComponentC = self.Root().GetComponent<BagComponentC>();
+            BagComponentClient bagComponentClient = self.Root().GetComponent<BagComponentClient>();
 
             self.ShowBagInfos.Clear();
 
@@ -98,13 +98,13 @@ namespace ET.Client
             }
 
             int maxCount = GlobalValueConfigCategory.Instance.BagInitCapacity;
-            self.ShowBagInfos.AddRange(bagComponentC.GetItemsByType(itemTypeEnum));
+            self.ShowBagInfos.AddRange(bagComponentClient.GetItemsByType(itemTypeEnum));
             self.AddUIScrollItems(ref self.ScrollItemCommonItems, maxCount);
             self.E_BagItemsLoopVerticalScrollRect.SetVisible(true, maxCount);
 
             if (self.XiangQianItem != null)
             {
-                ItemInfo bagInfo = self.Root().GetComponent<BagComponentC>().GetBagInfo(self.XiangQianItem.BagInfoID);
+                ItemInfo bagInfo = self.Root().GetComponent<BagComponentClient>().GetBagInfo(self.XiangQianItem.BagInfoID);
                 self.OnClickXiangQianItem(bagInfo);
             }
         }

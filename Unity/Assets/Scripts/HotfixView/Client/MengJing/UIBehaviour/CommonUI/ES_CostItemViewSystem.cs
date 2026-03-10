@@ -20,7 +20,7 @@ namespace ET.Client
 
         public static void UpdateItem(this ES_CostItem self, int itemId, int itemNum, bool usercolor = false)
         {
-            BagComponentC bagComponent = self.Root().GetComponent<BagComponentC>();
+            BagComponentClient bagComponent = self.Root().GetComponent<BagComponentClient>();
             ItemConfig itemConfig = ItemConfigCategory.Instance.Get(itemId);
 
             self.E_ItemNameText.text = itemConfig.ItemName;

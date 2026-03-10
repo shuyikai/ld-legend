@@ -144,7 +144,7 @@ namespace ET.Server
             //先重置数据
             //再触发登陆
             userInfoComponentS.OnLogin( remoteIp,  deviceName, currentTime);
-            unit.GetComponent<BagComponentS>().OnLogin(userInfo.RobotId);
+            unit.GetComponent<BagComponentServer>().OnLogin(userInfo.RobotId);
             unit.GetComponent<TaskComponentS>().OnLogin(userInfo.RobotId);
             unit.GetComponent<HeroDataComponentS>().OnLogin(userInfo.RobotId);
             unit.GetComponent<DBSaveComponent>().OnLogin();

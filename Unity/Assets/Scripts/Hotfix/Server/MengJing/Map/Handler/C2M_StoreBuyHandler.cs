@@ -22,7 +22,7 @@ namespace ET.Server
             }
             
             int needCell = ItemHelper.GetNeedCell($"{storeSellConfig.SellItemID};{storeSellConfig.SellItemNum * request.SellItemNum}");
-            if (unit.GetComponent<BagComponentS>().GetBagLeftCell(ItemLocType.ItemLocBag) < needCell)
+            if (unit.GetComponent<BagComponentServer>().GetBagLeftCell(ItemLocType.ItemLocBag) < needCell)
             {
                 response.Error = ErrorCode.ERR_BagIsFull;
                 return;
@@ -52,14 +52,14 @@ namespace ET.Server
                     break;
               
                 default:
-                    if (unit.GetComponent<BagComponentS>().GetItemNumber(costType) < storeSellConfig.SellValue * request.SellItemNum)
+                    if (unit.GetComponent<BagComponentServer>().GetItemNumber(costType) < storeSellConfig.SellValue * request.SellItemNum)
                     {
                         response.Error = ErrorCode.ERR_ItemNotEnoughError;
                     }
                     else
                     {
-                        unit.GetComponent<BagComponentS>().OnCostItemData($"{costType};{storeSellConfig.SellValue * request.SellItemNum}");
-                        unit.GetComponent<BagComponentS>().OnAddItemData(rewardItems, string.Empty, $"{ItemGetWay.StoreBuy}_{TimeHelper.ServerNow()}");
+                        unit.GetComponent<BagComponentServer>().OnCostItemData($"{costType};{storeSellConfig.SellValue * request.SellItemNum}");
+                        unit.GetComponent<BagComponentServer>().OnAddItemData(rewardItems, string.Empty, $"{ItemGetWay.StoreBuy}_{TimeHelper.ServerNow()}");
                     }
                     break;
             }

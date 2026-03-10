@@ -10,7 +10,7 @@ namespace ET.Client
         public static async ETTask JianDing(Scene root)
         {
             //可以鉴定的装备
-            List<ItemInfo> bagInfos = root.GetComponent<BagComponentC>().GetCanJianDing();
+            List<ItemInfo> bagInfos = root.GetComponent<BagComponentClient>().GetCanJianDing();
 
             //鉴定装备
             foreach (ItemInfo bagInfo in bagInfos)
@@ -26,15 +26,15 @@ namespace ET.Client
         
         public static async ETTask HuiShou(Scene root)
         {
-            BagComponentC bagComponentC = root.GetComponent<BagComponentC>();
+            BagComponentClient bagComponentClient = root.GetComponent<BagComponentClient>();
             UserInfo userInfo = root.GetComponent<UserInfoComponentC>().UserInfo;
 
             List<ItemInfo> bagInfos = new List<ItemInfo>();
 
-            bagInfos.AddRange(bagComponentC.GetItemsByType(ItemTypeEnum.Equipment));
-            bagInfos.AddRange(bagComponentC.GetItemsByType(ItemTypeEnum.Gemstone));
-            bagInfos.AddRange(bagComponentC.GetItemsByLoc(ItemLocType.ItemPetHeXinBag));
-            bagInfos.AddRange(bagComponentC.GetItemsByTypeAndSubType(ItemTypeEnum.Consume, 5));
+            bagInfos.AddRange(bagComponentClient.GetItemsByType(ItemTypeEnum.Equipment));
+            bagInfos.AddRange(bagComponentClient.GetItemsByType(ItemTypeEnum.Gemstone));
+            bagInfos.AddRange(bagComponentClient.GetItemsByLoc(ItemLocType.ItemPetHeXinBag));
+            bagInfos.AddRange(bagComponentClient.GetItemsByTypeAndSubType(ItemTypeEnum.Consume, 5));
 
             List<long> huishouList = new List<long>();
             foreach (ItemInfo bagInfo in bagInfos)
@@ -335,7 +335,7 @@ namespace ET.Client
             int npcid = 20000004;
             await RobotHelper.MoveToNpc(root, npcid);
 
-            BagComponentC bagComponent = root.GetComponent<BagComponentC>();
+            BagComponentClient bagComponent = root.GetComponent<BagComponentClient>();
 
             // 洗练
             List<ItemInfo> equips = bagComponent.GetItemsByLoc(ItemLocType.ItemLocEquip);
@@ -406,7 +406,7 @@ namespace ET.Client
             }
 
             UserInfoComponentC userInfoComponent = root.GetComponent<UserInfoComponentC>();
-            BagComponentC bagComponent = root.GetComponent<BagComponentC>();
+            BagComponentClient bagComponent = root.GetComponent<BagComponentClient>();
             foreach (int makeId in showMake)
             {
 
@@ -475,7 +475,7 @@ namespace ET.Client
             }
 
             UserInfoComponentC userInfoComponent = root.GetComponent<UserInfoComponentC>();
-            BagComponentC bagComponent = root.GetComponent<BagComponentC>();
+            BagComponentClient bagComponent = root.GetComponent<BagComponentClient>();
             for (int i = 0; i < 7; i++)
             {
                
@@ -611,7 +611,7 @@ namespace ET.Client
             UserInfoComponentC userInfoComponent = root.GetComponent<UserInfoComponentC>();
             Unit unit = UnitHelper.GetMyUnitFromClientScene(root);
 
-            if (root.GetComponent<BagComponentC>().GetBagLeftCell(ItemLocType.ItemLocBag) < 1)
+            if (root.GetComponent<BagComponentClient>().GetBagLeftCell(ItemLocType.ItemLocBag) < 1)
             {
                 // 背包已满！
                 return;

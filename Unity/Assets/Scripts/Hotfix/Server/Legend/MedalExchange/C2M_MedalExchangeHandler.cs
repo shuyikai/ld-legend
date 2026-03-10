@@ -16,7 +16,7 @@ namespace ET.Server
                 response.Error = ErrorCode.ERR_ModifyData;
                 return;
             }
-            BagComponentS bagComponents = unit.GetComponent<BagComponentS>();
+            BagComponentServer bagComponents = unit.GetComponent<BagComponentServer>();
             if (bagComponents.GetBagLeftCell(ItemLocType.ItemLocBag) < 1)
             {
                 response.Error = ErrorCode.ERR_BagIsFull;

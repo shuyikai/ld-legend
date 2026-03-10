@@ -398,7 +398,7 @@ namespace ET.Client
             
             if (itemConfig.ItemSubType == 113 || itemConfig.ItemSubType == 127)
             {
-                if (self.Root().GetComponent<BagComponentC>().GetBagLeftCell(ItemLocType.ItemLocBag) < 1)
+                if (self.Root().GetComponent<BagComponentClient>().GetBagLeftCell(ItemLocType.ItemLocBag) < 1)
                 {
                     FlyTipComponent.Instance.ShowFlyTip("背包格子不够！");
                     return;
@@ -453,7 +453,7 @@ namespace ET.Client
           
             if (itemConfig.ItemSubType == 140)
             {
-                if (self.Root().GetComponent<BagComponentC>().BagAddCellNumber[5] >= 10)
+                if (self.Root().GetComponent<BagComponentClient>().BagAddCellNumber[5] >= 10)
                 {
                     FlyTipComponent.Instance.ShowFlyTip(LanguageComponent.Instance.LoadLocalization("已达到最大购买格子数量!"));
                     return;
@@ -495,7 +495,7 @@ namespace ET.Client
             await ETTask.CompletedTask;
             string[] itemparams = itemConfig.ItemUsePar.Split('@');
             int weizhi = int.Parse(itemparams[0]);
-            ItemInfo equipinfo = self.Root().GetComponent<BagComponentC>().GetEquipBySubType(ItemLocType.ItemLocEquip, weizhi);
+            ItemInfo equipinfo = self.Root().GetComponent<BagComponentClient>().GetEquipBySubType(ItemLocType.ItemLocEquip, weizhi);
             if (equipinfo == null)
             {
                 FlyTipComponent.Instance.ShowFlyTip("对应的位置没有装备！");

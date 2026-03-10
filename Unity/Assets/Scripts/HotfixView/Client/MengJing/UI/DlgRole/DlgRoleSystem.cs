@@ -166,7 +166,7 @@ namespace ET.Client
 
         public static void OnEquipWear(this DlgRole self)
         {
-            BagComponentC bagComponent = self.Root().GetComponent<BagComponentC>();
+            BagComponentClient bagComponent = self.Root().GetComponent<BagComponentClient>();
             UserInfoComponentC userInfoComponent = self.Root().GetComponent<UserInfoComponentC>();
             ItemInfo bagInfo = bagComponent.GetEquipBySubType(ItemLocType.ItemLocEquip, (int)ItemSubTypeEnum.Wuqi);
             self.View.ES_EquipSet.ChangeWeapon(bagInfo, 1);

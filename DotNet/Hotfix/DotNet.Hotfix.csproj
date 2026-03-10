@@ -61,5 +61,19 @@
       </Folder>
       <Folder Include="Share\MengJing\Component\" />
     </ItemGroup>
+    <ItemGroup>
+      <Content Include="..\..\Unity\Assets\Scripts\Hotfix\Client\Legend\Bag\BagClientNetHelper.cs.meta">
+        <Link>Client\Legend\Bag\BagClientNetHelper.cs.meta</Link>
+      </Content>
+      <Content Include="..\..\Unity\Assets\Scripts\Hotfix\Client\Legend\Bag\BagComponentCSystem.cs.meta">
+        <Link>Client\Legend\Bag\BagComponentCSystem.cs.meta</Link>
+      </Content>
+      <Content Include="..\..\Unity\Assets\Scripts\Hotfix\Client\Legend\Bag\Handler.meta">
+        <Link>Client\Legend\Bag\Handler.meta</Link>
+      </Content>
+      <Content Include="..\..\Unity\Assets\Scripts\Hotfix\Client\Legend\Bag\Handler\M2C_RoleBagUpdateHandler.cs.meta">
+        <Link>Client\Legend\Bag\Handler\M2C_RoleBagUpdateHandler.cs.meta</Link>
+      </Content>
+    </ItemGroup>
 
 </Project>

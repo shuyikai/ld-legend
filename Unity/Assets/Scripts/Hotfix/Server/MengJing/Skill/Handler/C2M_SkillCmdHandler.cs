@@ -41,7 +41,7 @@ namespace ET.Server
                 {
                     if (request.ItemId > 0)
                     {
-                        unit.GetComponent<BagComponentS>().OnCostItemData($"{request.ItemId};1");
+                        unit.GetComponent<BagComponentServer>().OnCostItemData($"{request.ItemId};1");
                     }
                    
                 }

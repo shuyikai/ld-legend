@@ -4,28 +4,28 @@ using System.Collections.Generic;
 namespace ET.Client
 {
     [FriendOf(typeof(UserInfoComponentC))]
-    [FriendOf(typeof(BagComponentC))]
+    [FriendOf(typeof(BagComponentClient))]
     public static class BagClientNetHelper
     {
         public static async ETTask<int> RequestBagInit(Scene root)
         {
             M2C_BagInitResponse response = (M2C_BagInitResponse)await root.GetComponent<ClientSenderCompnent>().Call(C2M_BagInitRequest.Create());
 
-            BagComponentC bagComponentC = root.GetComponent<BagComponentC>();
+            BagComponentClient bagComponentClient = root.GetComponent<BagComponentClient>();
             for (int i = 0; i < response.BagInfos.Count; i++)
             {
                 int Loc = response.BagInfos[i].Loc;
 
-                ItemInfo itemInfo = bagComponentC.AddChild<ItemInfo>();
+                ItemInfo itemInfo = bagComponentClient.AddChild<ItemInfo>();
                 itemInfo.FromMessage(response.BagInfos[i]);
 
-                List<ItemInfo> bagList = bagComponentC.AllItemList[Loc];
+                List<ItemInfo> bagList = bagComponentClient.AllItemList[Loc];
                 bagList.Add(itemInfo);
             }
 
 
-            bagComponentC.BagBuyCellNumber = response.WarehouseAddedCell;
-            bagComponentC.BagAddCellNumber = response.AdditionalCellNum;
+            bagComponentClient.BagBuyCellNumber = response.WarehouseAddedCell;
+            bagComponentClient.BagAddCellNumber = response.AdditionalCellNum;
             return ErrorCode.ERR_Success;
         }
 
@@ -81,8 +81,8 @@ namespace ET.Client
 
         public static async ETTask<int> RequestSortByLoc(Scene root, int loc)
         {
-            BagComponentC bagComponentC = root.GetComponent<BagComponentC>();
-            bagComponentC.RealAddItem--;
+            BagComponentClient bagComponentClient = root.GetComponent<BagComponentClient>();
+            bagComponentClient.RealAddItem--;
             int loctype = (int)loc;
 
             C2M_ItemOperateRequest request = C2M_ItemOperateRequest.Create();
@@ -91,8 +91,8 @@ namespace ET.Client
             request.OperatePar = loctype.ToString();
 
             M2C_ItemOperateResponse response = (M2C_ItemOperateResponse)await root.GetComponent<ClientSenderCompnent>().Call(request);
-            bagComponentC.RealAddItem++;
-            bagComponentC.OnRecvItemSort(loc);
+            bagComponentClient.RealAddItem++;
+            bagComponentClient.OnRecvItemSort(loc);
 
             return response.Error;
         }
@@ -112,7 +112,7 @@ namespace ET.Client
 
         public static async ETTask RquestStoreBuy(Scene root, int sellId, int buyNum)
         {
-            BagComponentC bagComponent = root.GetComponent<BagComponentC>();
+            BagComponentClient bagComponent = root.GetComponent<BagComponentClient>();
             UserInfo userInfo = root.GetComponent<UserInfoComponentC>().UserInfo;
             StoreSellConfig storeSellConfig = StoreSellConfigCategory.Instance.Get(sellId);
             int needCell = ItemHelper.GetNeedCell($"{storeSellConfig.SellItemID};{storeSellConfig.SellItemNum * buyNum}");

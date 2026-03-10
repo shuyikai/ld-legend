@@ -184,7 +184,7 @@ namespace ET.Client
             }
             else
             {
-                ItemInfo bagInfo = self.Root().GetComponent<BagComponentC>().GetBagInfo(self.SkillPro.SkillID);
+                ItemInfo bagInfo = self.Root().GetComponent<BagComponentClient>().GetBagInfo(self.SkillPro.SkillID);
                 if (bagInfo == null)
                 {
                     return;
@@ -325,7 +325,7 @@ namespace ET.Client
                 return;
             }
 
-            long number = self.Root().GetComponent<BagComponentC>().GetItemNumber(self.SkillPro.SkillID);
+            long number = self.Root().GetComponent<BagComponentClient>().GetItemNumber(self.SkillPro.SkillID);
             self.E_Text_SkillItemNum.gameObject.SetActive(true);
             self.E_Text_SkillItemNum.GetComponent<Text>().text = number.ToString();
 
@@ -434,7 +434,7 @@ namespace ET.Client
 
             if (skillpro.SkillSetType == (int)SkillSetEnum.Skill)
             {
-                BagComponentC bagComponent = self.Root().GetComponent<BagComponentC>();
+                BagComponentClient bagComponent = self.Root().GetComponent<BagComponentClient>();
                 SkillSetComponentC skillSetComponent = self.Root().GetComponent<SkillSetComponentC>();
                 int skillid = SkillHelp.GetWeaponSkill(skillpro.SkillID, UnitHelper.GetEquipType(self.Root()), skillSetComponent.SkillList);
                 if (!SkillConfigCategory.Instance.Contain(skillid))
