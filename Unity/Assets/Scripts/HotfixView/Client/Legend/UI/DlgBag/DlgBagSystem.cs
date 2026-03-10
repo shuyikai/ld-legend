@@ -78,26 +78,9 @@ namespace ET.Client
                 return;
             }
 
-            ItemConfig itemConfig = ItemConfigCategory.Instance.Get(bagInfo.ItemID);
-          
             int curQulity = 0;
             int curLevel = 0;
             List<ItemInfo> curEquiplist = bagComponent.GetEquipListByWeizhi(1);
-            for (int e = 0; e < curEquiplist.Count; e++)
-            {
-                ItemConfig curEquipConfig = ItemConfigCategory.Instance.Get(curEquiplist[e].ItemID);
-                if (curEquipConfig.NeedLevel < curLevel || curLevel == 0)
-                {
-                    curLevel = curEquipConfig.NeedLevel;
-                }
-                
-            }
-
-            if (curEquiplist.Count < 3 )
-            {
-                curQulity = 0;
-                curLevel = 0;
-            }
         }
 
         public static void RefreshBagItems(this DlgBag self)

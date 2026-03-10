@@ -214,15 +214,29 @@ namespace ET.Client
             if (bagInfo != null)
             {
                 ResourcesLoaderComponent resourcesLoaderComponent = self.Root().GetComponent<ResourcesLoaderComponent>();
-                ItemConfig itemConfig = ItemConfigCategory.Instance.Get(bagInfo.ItemID);
+                string name = string.Empty;
+                string icon = string.Empty;
 
+                if (bagInfo.ItemID >= UserDataType.EquipInitId)
+                {
+                    EquipConfig equipConfig = EquipConfigCategory.Instance.Get(bagInfo.ItemID);
+                    name = equipConfig.Name;
+                    icon = equipConfig.GetEquipIcon();
+                }
+                else
+                {
+                    ItemConfig itemConfig = ItemConfigCategory.Instance.Get(bagInfo.ItemID);
+                    name = itemConfig.Name;
+                    icon = itemConfig.GetItemIcon();
+                }
+                
                 self.E_ItemQualityImage.gameObject.SetActive(true);
                 self.E_ItemQualityImage.overrideSprite = resourcesLoaderComponent.LoadAssetSync<Sprite>(
                     ABPathHelper.GetAtlasPath_2(ABAtlasTypes.ItemQualityIcon, FunctionUI.ItemQualiytoPath(1)));
 
                 self.E_ItemIconImage.gameObject.SetActive(true);
                 self.E_ItemIconImage.overrideSprite =
-                        resourcesLoaderComponent.LoadAssetSync<Sprite>(ABPathHelper.GetAtlasPath_2(ABAtlasTypes.ItemIcon, itemConfig.GetItemIcon()));
+                        resourcesLoaderComponent.LoadAssetSync<Sprite>(ABPathHelper.GetAtlasPath_2(ABAtlasTypes.ItemIcon, icon));
 
                 self.E_ItemNumText.gameObject.SetActive(true);
                 self.E_ItemNumText.text = ItemViewHelp.ReturnNumStr(bagInfo.ItemNum);
@@ -231,7 +245,7 @@ namespace ET.Client
                 self.E_ItemClickButton.AddListener(self.OnClickUIItem);
 
                 self.E_ItemNameText.gameObject.SetActive(true);
-                self.E_ItemNameText.text = itemConfig.Name;
+                self.E_ItemNameText.text = name;
                 self.ItemID = bagInfo.ItemID;
                 if (itemOperateEnum == ItemOperateEnum.ItemXiLian)
                 {

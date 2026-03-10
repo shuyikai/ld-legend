@@ -20,6 +20,11 @@ namespace ET
         {
             return "1"; //self.OverLap;
         }
+        
+        public static string GetEquipIcon(this EquipConfig self)
+        {
+            return "10000101"; //self.OverLap;
+        }
 
         public static List<ItemInfoProto> GetRewardItems_2(string needitems)
         {

@@ -354,7 +354,7 @@ namespace ET.Client
             List<ItemInfo> equipList = self.GetEquipList();
             for (int i = 0; i < equipList.Count; i++)
             {
-                ItemConfig itemCof = ItemConfigCategory.Instance.Get(equipList[i].ItemID);
+                EquipConfig itemCof = EquipConfigCategory.Instance.Get(equipList[i].ItemID);
             }
 
             return bagInfos;
