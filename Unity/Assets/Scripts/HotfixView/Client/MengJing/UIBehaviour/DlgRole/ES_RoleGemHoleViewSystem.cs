@@ -29,20 +29,7 @@ namespace ET.Client
                 return;
             }
 
-            if (self.E_ItemIconImage.gameObject.activeSelf)
-            {
-                EventSystem.Instance.Publish(self.Root(),
-                    new ShowItemTips()
-                    {
-                        BagInfo = self.Baginfo,
-                        ItemOperateEnum = ItemOperateEnum.XiangQianGem,
-                        InputPoint = Input.mousePosition,
-                        Occ = 1,
-                        EquipList = new List<ItemInfo>(),
-                        CurrentHouse = -1
-                    });
-            }
-
+            
             self.ClickHandler?.Invoke(self.Index);
         }
 

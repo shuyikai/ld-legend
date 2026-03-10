@@ -136,29 +136,7 @@ namespace ET
         Juese = 2,                  //角色栏打开显示对应功能按钮
         Shop = 3,                   //商店查看属性
         Cangku = 4,                 //仓库查看属性
-        Watch = 5,                   //查看其他玩家
-        HuishouBag = 6,             //回收背包打开
-        HuishouShow = 7,            //回收列表展示
-        XiangQianGem = 8,          //镶嵌在装备上的宝石
-        Muchang = 9,                //牧场  不显示任何按钮
-        MuchangCangku = 10,         //牧场仓库  显示出售按钮
-        PetXiLian = 11,
-        SkillSet = 12,
-        CangkuBag = 13,             //仓库背包
-        MakeItem = 14,
-        MailReward = 15,
-        ItemXiLian = 16,
-        PaiMaiSell = 17,            //拍卖出售
-        TaskItem = 18,              //任务
-        XiangQianBag = 19,          //在镶嵌切页的背包中
-        PetHeXinBag = 20,
-        JianYuanBag = 21,     
-        PaiMaiBuy = 22,
-        PetEquipBag = 23,
-        AccountBag = 24,             //账号仓库
-        AccountCangku = 25,
-        GemBag = 26,                //宝石仓库背包
-        GemCangku = 27,             //宝石仓库
+        CangkuBag = 5,             //仓库背包
     }
 
 }

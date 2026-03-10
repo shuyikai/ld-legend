@@ -8,7 +8,6 @@ namespace ET.Client
     public static class ItemViewHelp
     {
         
-
         public static string GetFumpProDesc(List<HideProList> hideProLists)
         {
             string fumopro = "";
@@ -163,9 +162,8 @@ namespace ET.Client
         GameObject parentGO)
         {
             int properShowNum = 0;
-            ItemConfig itemConfig = ItemConfigCategory.Instance.Get(baginfo.ItemID);
-            
-            EquipConfig equipConfig = EquipConfigCategory.Instance.Get(1);
+
+            EquipConfig equipConfig = EquipConfigCategory.Instance.Get(baginfo.ItemID);
             int equip_Hp = 0;
             int equip_MinAct = 0;
             int equip_MaxAct = 0;
@@ -406,9 +404,9 @@ namespace ET.Client
             }
             
             // 显示描述
-            if (itemConfig.Desc != "" && itemConfig.Desc != "0" && itemConfig.Desc != null)
+            if (equipConfig.Desc != "" && equipConfig.Desc != "0" && equipConfig.Desc != null)
             {
-                string[] des = itemConfig.Desc.Split("\\n");
+                string[] des = equipConfig.Desc.Split("\\n");
                 foreach (string s in des)
                 {
                     int allLength = s.Length;
@@ -674,5 +672,13 @@ namespace ET.Client
 
             return LanguageComponent.Instance.LoadLocalization(name);
         }
+        
+        public static string GetEquipStdModeToName(int subType)
+        {
+            string name = string.Empty;
+            ItemViewData.EquipStdModeToName.TryGetValue(subType, out name);
+            return name;
+        }
+
     }
 }

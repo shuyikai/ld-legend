@@ -109,5 +109,34 @@ namespace ET.Client
             { 10, new EquipWeiZhiInfo() { Icon = "Img_23", Name = "头盔" } },
             { 11, new EquipWeiZhiInfo() { Icon = "Img_25", Name = "项链" } },
         };
+        
+        /*0 衣服
+        1 武器
+        2 勋章
+        3 项链
+        4 头盔
+        5  右手镯
+        6  左手镯
+        7  右戒指
+        8  左戒指
+        9  符、毒药
+        10 腰带
+        11 鞋子*/
+        [StaticField]
+        public static Dictionary<int, string> EquipStdModeToName = new()
+        {
+            { 0, "衣服" },
+            { 1, "武器" },
+            { 2, "勋章" },
+            { 3, "项链" },
+            { 4, "头盔" },
+            { 5, "右手镯" },
+            { 6, "左手镯" },
+            { 7, "右戒指" },
+            { 8, "左戒指" },
+            { 9, "符、毒药" },
+            { 10, "腰带" },
+            { 11, "鞋子" },
+        };
     }
 }

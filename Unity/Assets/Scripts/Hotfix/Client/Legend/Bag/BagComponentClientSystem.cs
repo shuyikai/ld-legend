@@ -337,7 +337,11 @@ namespace ET.Client
             List<ItemInfo> bagInfos = self.GetItemsByLoc(itemLocType);
             for (int i = 0; i < bagInfos.Count; i++)
             {
-                ItemConfig itemConfig = ItemConfigCategory.Instance.Get(bagInfos[i].ItemID);
+                EquipConfig itemConfig = EquipConfigCategory.Instance.Get(bagInfos[i].ItemID);
+                if (itemConfig.StdMode == subType)
+                {
+                    return bagInfos[i];
+                }
             }
 
             return null;

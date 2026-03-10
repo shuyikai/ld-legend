@@ -99,19 +99,17 @@ namespace ET.Client
                 self.ClickItemHandler(self.Baginfo);
             }
 
-            if (self.ItemOperateEnum != ItemOperateEnum.ItemXiLian && self.ShowTip)
-            {
-                EventSystem.Instance.Publish(self.Root(),
-                    new ShowItemTips()
-                    {
-                        BagInfo = self.Baginfo,
-                        ItemOperateEnum = self.ItemOperateEnum,
-                        InputPoint = Input.mousePosition,
-                        Occ = 1,
-                        EquipList = new List<ItemInfo>(),
-                        CurrentHouse = self.CurrentHouse
-                    });
-            }
+            
+            EventSystem.Instance.Publish(self.Root(),
+                new ShowItemTips()
+                {
+                    BagInfo = self.Baginfo,
+                    ItemOperateEnum = self.ItemOperateEnum,
+                    InputPoint = Input.mousePosition,
+                    Occ = 1,
+                    EquipList = new List<ItemInfo>(),
+                    CurrentHouse = self.CurrentHouse
+                });
         }
 
         public static void HideItemName(this Scroll_Item_CommonItem self)
@@ -247,16 +245,7 @@ namespace ET.Client
                 self.E_ItemNameText.gameObject.SetActive(true);
                 self.E_ItemNameText.text = name;
                 self.ItemID = bagInfo.ItemID;
-                if (itemOperateEnum == ItemOperateEnum.ItemXiLian)
-                {
-                    self.E_ItemDragButton.gameObject.SetActive(true);
-                    self.E_ItemDragButton.AddListener(self.OnClickUIItem);
-                    self.SetEventTrigger();
-                }
-                else
-                {
-                    self.SetEventTrigger(false);
-                }
+                
 
                 if (!self.UseTextColor)
                 {

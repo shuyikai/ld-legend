@@ -143,11 +143,6 @@ namespace ET.Client
             {
                 // 不显示任何按钮
                 case ItemOperateEnum.None:
-                case ItemOperateEnum.PaiMaiSell:
-                case ItemOperateEnum.PaiMaiBuy:
-                    //ItemBottomTextNum = 0;
-                    break;
-                case ItemOperateEnum.JianYuanBag:
                     break;
                 // 背包打开显示对应功能按钮
                 case ItemOperateEnum.Bag:
@@ -171,49 +166,11 @@ namespace ET.Client
                     self.View.E_PutBagButton.gameObject.SetActive(true);
                     //ItemBottomTextNum = 0;
                     break;
-                case ItemOperateEnum.GemCangku:
-                    self.View.E_PutBagButton.gameObject.SetActive(true);
-                    break;
-                case ItemOperateEnum.GemBag:
-                    self.View.EG_BagOpenSetRectTransform.gameObject.SetActive(true);
-                    self.View.E_StoreHouseButton.gameObject.SetActive(true);
-                    break;
                 case ItemOperateEnum.CangkuBag:
                     self.View.EG_BagOpenSetRectTransform.gameObject.SetActive(true);
                     self.View.E_StoreHouseButton.gameObject.SetActive(true);
                     break;
-                // 回收背包打开
-                case ItemOperateEnum.HuishouBag:
-                    self.View.EG_BagOpenSetRectTransform.gameObject.SetActive(true);
-                    self.View.E_HuiShouButton.gameObject.SetActive(true);
-                    break;
-                // 回收功能显示
-                case ItemOperateEnum.HuishouShow:
-                    self.View.E_HuiShouCancleButton.gameObject.SetActive(true);
-                    break;
-                // 牧场  不显示任何按钮
-                case ItemOperateEnum.Muchang:
-                    //ItemBottomTextNum = 0;
-                    break;
-                // 牧场仓库  显示出售按钮
-                case ItemOperateEnum.MuchangCangku:
-                    self.View.EG_BagOpenSetRectTransform.gameObject.SetActive(true);
-                    self.View.E_SellButton.gameObject.SetActive(true);
-                    break;
-                // 镶嵌背包切页
-                case ItemOperateEnum.XiangQianBag:
-                    self.View.EG_BagOpenSetRectTransform.gameObject.SetActive(true);
-                    self.View.E_UseButton.gameObject.SetActive(true);
-                    break;
-                // 镶嵌在装备上的宝石
-                case ItemOperateEnum.XiangQianGem:
-                    self.View.E_XieXiaGemButton.gameObject.SetActive(true);
-                    break;
-                case ItemOperateEnum.PetHeXinBag:
-                    self.View.EG_BagOpenSetRectTransform.gameObject.SetActive(true);
-                    self.View.E_UseButton.gameObject.SetActive(true);
-                    self.View.E_UseButton.transform.GetComponentInChildren<Text>().text = "装备";
-                    break;
+
                 default:
                     //ItemBottomTextNum = 0;
                     break;
@@ -301,12 +258,7 @@ namespace ET.Client
         private static void OnStoreHouseButton(this DlgItemTips self)
         {
             ItemConfig itemConfig = ItemConfigCategory.Instance.Get(self.BagInfo.ItemID);
-            if (self.ItemOperateEnum == ItemOperateEnum.GemBag )
-            {
-                FlyTipComponent.Instance.ShowFlyTip("只能放入宝石！");
-                return;
-            }
-
+         
             self.OnCloseTips();
         }
 
