@@ -82,7 +82,9 @@ namespace ET.Server
                 Function_Fight.UnitUpdateProperty_Base(unit, true, true);
                 m2c_bagUpdate.BagInfoUpdate.Add(useBagInfo.ToMessage());
             }
-   
+            
+            MapMessageHelper.SendToClient(unit, m2c_bagUpdate);
+            
             await ETTask.CompletedTask;
         }
     }

@@ -89,26 +89,10 @@ namespace ET.Client
 
             self.ShowBagInfos.Clear();
 
-            int itemTypeEnum = ItemTypeEnum.ALL;
-            switch (self.CurrentItemType)
-            {
-                case 0:
-                    itemTypeEnum = ItemTypeEnum.ALL;
-                    break;
-                case 1:
-                    itemTypeEnum = ItemTypeEnum.Equipment;
-                    break;
-                case 2:
-                    itemTypeEnum = ItemTypeEnum.Material;
-                    break;
-                case 3:
-                    itemTypeEnum = ItemTypeEnum.Consume;
-                    break;
-            }
 
             int allNumber = bagComponentClient.GetBagShowCell(ItemLocType.ItemLocBag);
             // int maxCount = GlobalValueConfigCategory.Instance.BagMaxCapacity;
-            self.ShowBagInfos.AddRange(bagComponentClient.GetItemsByType(itemTypeEnum));
+            self.ShowBagInfos.AddRange(bagComponentClient.GetItemsByType( ItemTypeEnum.ALL));
             
             self.ShowBagInfos.Add(new ItemInfo(){ ItemID = 1, ItemNum = 1});
             
