@@ -200,10 +200,6 @@ namespace ET.Server
                 */
                 int randomValueInt = RandomHelper.RandomNumber(jiandingDate.MinNum, jiandingDate.MaxNum + 1);
                 randomValueInt = (int)(randomValueInt * JianDingPro);
-                if (randomValueInt > equipCof.OneProRandomValue)
-                {
-                    randomValueInt = equipCof.OneProRandomValue;
-                }
                 //如果品质符足够好,保底为5
                 if (randomValueInt < 5)
                 {

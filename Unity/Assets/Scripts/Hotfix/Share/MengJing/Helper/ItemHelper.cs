@@ -795,25 +795,9 @@ namespace ET
 
             //随机值(高品质保底属性)
             int minNum = 1;
-            if (JianDingPro > 1f)
-            {
-                minNum = (int)((float)equipCof.OneProRandomValue * (JianDingPro - 1f) * 0.8f);
-            }
-
-            int maxNum = (int)((float)equipCof.OneProRandomValue * JianDingPro * 0.8f);
-            if (minNum > maxNum)
-            {
-                maxNum = minNum;
-            }
-
-            if (maxNum > equipCof.OneProRandomValue)
-            {
-                maxNum = equipCof.OneProRandomValue;
-            }
 
             JianDingDate data = new JianDingDate();
             data.MinNum = minNum;
-            data.MaxNum = maxNum;
             return data;
         }
     }

@@ -164,25 +164,24 @@ namespace ET.Client
         {
             int properShowNum = 0;
             ItemConfig itemConfig = ItemConfigCategory.Instance.Get(baginfo.ItemID);
-
-
+            
             EquipConfig equipConfig = EquipConfigCategory.Instance.Get(1);
-            int equip_Hp = equipConfig.Equip_Hp;
-            int equip_MinAct = equipConfig.Equip_MinAct;
-            int equip_MaxAct = equipConfig.Equip_MaxAct;
-            int equip_MinMagAct = equipConfig.Equip_MinMagAct;
-            int equip_MaxMagAct = equipConfig.Equip_MaxMagAct;
-            int equip_MinDef = equipConfig.Equip_MinDef;
-            int equip_MaxDef = equipConfig.Equip_MaxDef;
-            int equip_MinAdf = equipConfig.Equip_MinAdf;
-            int equip_MaxAdf = equipConfig.Equip_MaxAdf;
-            double equip_Cri = equipConfig.Equip_Cri;
-            double equip_Hit = equipConfig.Equip_Hit;
-            double equip_Dodge = equipConfig.Equip_Dodge;
-            double equip_DamgeAdd = equipConfig.Equip_DamgeAdd;
-            double equip_DamgeSub = equipConfig.Equip_DamgeSub;
-            double equip_Speed = equipConfig.Equip_Speed;
-            double equip_Lucky = equipConfig.Equip_Lucky;
+            int equip_Hp = 0;
+            int equip_MinAct = 0;
+            int equip_MaxAct = 0;
+            int equip_MinMagAct = 0;
+            int equip_MaxMagAct = 0;
+            int equip_MinDef = 0;
+            int equip_MaxDef = 0;
+            int equip_MinAdf = 0;
+            int equip_MaxAdf = 0;
+            double equip_Cri = 0;
+            double equip_Hit = 0;
+            double equip_Dodge = 0;
+            double equip_DamgeAdd = 0;
+            double equip_DamgeSub = 0;
+            double equip_Speed = 0;
+            double equip_Lucky = 0;
 
             // 换算总显示数值
             if (baginfo.XiLianHideProLists != null)
@@ -405,54 +404,7 @@ namespace ET.Client
             {
                 
             }
-
-            //显示装备附加属性
-            for (int i = 0; i < equipConfig.AddPropreListType.Length; i++)
-            {
-                if (equipConfig.AddPropreListIfShow.Length <= i)
-                {
-                    continue;
-                }
-
-                if (equipConfig.AddPropreListIfShow[i] == 0)
-                {
-                    int numericType = equipConfig.AddPropreListType[i];
-                    if (numericType == 0)
-                    {
-                        continue;
-                    }
-
-                    string attribute = "";
-                    long numericValue = equipConfig.AddPropreListValue[i];
-
-                    for (int y = 0; y < baginfo.XiLianHideProLists.Count; y++)
-                    {
-                        if (equipConfig.AddPropreListType.Length <= y)
-                        {
-                            break;
-                        }
-
-                        if (baginfo.XiLianHideProLists[y].HideID == equipConfig.AddPropreListType[i])
-                        {
-                            numericValue += baginfo.XiLianHideProLists[i].HideValue;
-                        }
-                    }
-
-                    int showType = NumericHelp.GetNumericValueType(numericType);
-                    if (showType == 2)
-                    {
-                        float value = (float)numericValue / 100f;
-                        attribute = $"{GetAttributeName(numericType)} + " + value.ToString("0.##") + "%";
-                    }
-                    else
-                    {
-                        attribute = $"{GetAttributeName(numericType)} + {numericValue}";
-                    }
-
-                    ShowPropertyText(attribute, "0", propertyGO, parentGO);
-                    properShowNum += 1;
-                }
-            }
+            
             // 显示描述
             if (itemConfig.Desc != "" && itemConfig.Desc != "0" && itemConfig.Desc != null)
             {
