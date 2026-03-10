@@ -12,8 +12,8 @@ namespace ET.Client
         public static void ItemObjShowName(GameObject itemObj, int itemID)
         {
             ItemConfig itemCof = ItemConfigCategory.Instance.Get(itemID);
-            itemObj.GetComponent<Text>().text = itemCof.ItemName;
-            itemObj.GetComponent<Text>().color = QualityReturnColor(itemCof.ItemQuality);
+            itemObj.GetComponent<Text>().text = itemCof.Name;
+            itemObj.GetComponent<Text>().color = QualityReturnColor(1);
         }
 
         public static void OpenFunctionUI(Scene root, int npcid, int functionid)

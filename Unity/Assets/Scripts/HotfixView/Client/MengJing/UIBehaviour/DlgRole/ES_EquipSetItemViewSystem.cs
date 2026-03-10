@@ -75,14 +75,14 @@ namespace ET.Client
                 if (bagInfo != null)
                 {
                     ItemConfig itemconfig = ItemConfigCategory.Instance.Get(bagInfo.ItemID);
-                    string path = ABPathHelper.GetAtlasPath_2(ABAtlasTypes.ItemIcon, itemconfig.Icon);
+                    string path = ABPathHelper.GetAtlasPath_2(ABAtlasTypes.ItemIcon, itemconfig.GetItemIcon());
                     Sprite sp = self.Root().GetComponent<ResourcesLoaderComponent>().LoadAssetSync<Sprite>(path);
 
                     self.E_EquipIconImage.gameObject.SetActive(true);
                     self.E_EquipIconImage.sprite = sp;
 
                     //设置品质
-                    string ItemQuality = FunctionUI.ItemQualiytoPath(itemconfig.ItemQuality);
+                    string ItemQuality = FunctionUI.ItemQualiytoPath(1);
                     self.E_EquipQualityImage.gameObject.SetActive(true);
                     string path2 = ABPathHelper.GetAtlasPath_2(ABAtlasTypes.ItemQualityIcon, ItemQuality);
                     Sprite sp2 = self.Root().GetComponent<ResourcesLoaderComponent>().LoadAssetSync<Sprite>(path2);

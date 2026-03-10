@@ -28,17 +28,7 @@ namespace ET.Client
             }
 
             int needcell = 1;
-            for (int i = 0; i < mailComponent.SelectMail.ItemList.Count; i++)
-            {
-                ItemInfoProto bagInfo = mailComponent.SelectMail.ItemList[i];
-                ItemConfig itemConfig = ItemConfigCategory.Instance.Get(bagInfo.ItemID);
-                if (itemConfig.ItemPileSum == 999999)
-                {
-                    continue;
-                }
-
-                needcell += (int)Math.Ceiling(bagInfo.ItemNum * 1f / itemConfig.ItemPileSum);
-            }
+          
 
             if (root.GetComponent<BagComponentClient>().GetBagLeftCell(ItemLocType.ItemLocBag) < needcell)
             {

@@ -11,40 +11,7 @@ namespace ET
         
         public override void EndInit()
         {
-            foreach (ItemConfig itemConfig in this.GetAll().Values)
-            {
-                if (itemConfig.ItemType == 1 && itemConfig.ItemSubType == 131 && itemConfig.ItemQuality > 2)
-                {
-                    FoodList.Add(itemConfig.Id);
-                }
 
-            }
-
-            foreach (ItemConfig itemConfig in this.GetAll().Values)
-            {
-                if (itemConfig.ItemType== 1 && itemConfig.ItemSubType== 131)
-                {
-                    List<int> foodlist = null;
-                    FoodLevelList.TryGetValue(itemConfig.UseLv, out foodlist);
-                    if (foodlist == null)
-                    {
-                        foodlist = new List<int>();
-                        FoodLevelList.Add(itemConfig.UseLv, foodlist);
-                    }
-                    foodlist.Add(itemConfig.Id);
-                }
-                if (itemConfig.ItemType == 3 && itemConfig.EquipType != 101)
-                {
-                    List<int> equiplist = null;
-                    EquipTypeList.TryGetValue(itemConfig.ItemSubType, out equiplist);
-                    if (equiplist == null)
-                    {
-                        equiplist = new List<int>();
-                        EquipTypeList.Add(itemConfig.ItemSubType, equiplist);
-                    }
-                    equiplist.Add(itemConfig.Id);
-                }
-            }
         }
 
         public int GetRandomEquip(int occ, int subType, int lv)
@@ -59,28 +26,6 @@ namespace ET
             for (int i = 0; i < equiplist.Count; i++)
             {
                 ItemConfig itemConfig = Get(equiplist[i]);
-                if (itemConfig.ItemSubType != subType ||  itemConfig.UseLv > lv)
-                {
-                    continue;
-                }
-                if ((itemConfig.EquipType == 1|| itemConfig.EquipType == 2))
-                {
-                    if (occ == 1)
-                    {
-                        canequiplist.Add(equiplist[i]);
-                    }
-                }
-                else  if ((itemConfig.EquipType == 3 || itemConfig.EquipType == 4))
-                {
-                    if (occ == 2)
-                    {
-                        canequiplist.Add(equiplist[i]);
-                    }
-                }
-                else
-                {
-                    canequiplist.Add(equiplist[i]);
-                }
             }
             if (canequiplist.Count == 0)
             {

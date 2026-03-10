@@ -308,7 +308,7 @@ namespace ET.Client
             if (bagComponentClient.GetItemNumber(ConfigData.FlyToItem) < 1)
             {
                 ItemConfig itemConfig = ItemConfigCategory.Instance.Get(ConfigData.FlyToItem);
-                FlyTipComponent.Instance.ShowFlyTip($"缺少道具:{itemConfig.ItemName}");  
+                FlyTipComponent.Instance.ShowFlyTip($"缺少道具:{itemConfig.Name}");  
                 return; 
             }
 

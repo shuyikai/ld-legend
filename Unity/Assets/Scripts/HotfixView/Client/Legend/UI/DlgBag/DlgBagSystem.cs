@@ -79,35 +79,25 @@ namespace ET.Client
             }
 
             ItemConfig itemConfig = ItemConfigCategory.Instance.Get(bagInfo.ItemID);
-            if (itemConfig.ItemType != 3)
-            {
-                return;
-            }
-
+          
             int curQulity = 0;
             int curLevel = 0;
-            List<ItemInfo> curEquiplist = bagComponent.GetEquipListByWeizhi(itemConfig.ItemSubType);
+            List<ItemInfo> curEquiplist = bagComponent.GetEquipListByWeizhi(1);
             for (int e = 0; e < curEquiplist.Count; e++)
             {
                 ItemConfig curEquipConfig = ItemConfigCategory.Instance.Get(curEquiplist[e].ItemID);
-                if (curEquipConfig.UseLv < curLevel || curLevel == 0)
+                if (curEquipConfig.NeedLevel < curLevel || curLevel == 0)
                 {
-                    curLevel = curEquipConfig.UseLv;
+                    curLevel = curEquipConfig.NeedLevel;
                 }
-
-                if (curEquipConfig.ItemQuality < curQulity || curQulity == 0)
-                {
-                    curQulity = curEquipConfig.ItemQuality;
-                }
+                
             }
 
-            if (curEquiplist.Count < 3 && itemConfig.ItemSubType == 5)
+            if (curEquiplist.Count < 3 )
             {
                 curQulity = 0;
                 curLevel = 0;
             }
-    
-            scrollItemCommonItem.E_UpTipImage.gameObject.SetActive(itemConfig.UseLv > curLevel && itemConfig.ItemQuality > curQulity && itemConfig.EquipType != 201); // 晶核不显示箭头
         }
 
         public static void RefreshBagItems(this DlgBag self)

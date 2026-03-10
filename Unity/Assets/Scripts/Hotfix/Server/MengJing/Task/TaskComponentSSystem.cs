@@ -371,10 +371,6 @@ namespace ET.Server
                 {
                     return ErrorCode.ERR_ItemNotExist;
                 }
-                if (!TaskHelper.IsTaskGiveItem(TargetType, Target, TargetValue, bagInfo))
-                {
-                    return ErrorCode.ERR_ItemNotEnoughError;
-                }
                 bagComponent.OnCostItemData(BagInfoID, 1);
                 return ErrorCode.ERR_Success;
             }

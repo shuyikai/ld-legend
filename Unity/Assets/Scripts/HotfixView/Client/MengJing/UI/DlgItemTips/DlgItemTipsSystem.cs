@@ -47,17 +47,17 @@ namespace ET.Client
             self.ItemOperateEnum = itemOperateEnum;
             self.CurrentHouse = currentHouse;
             ItemConfig itemConfig = ItemConfigCategory.Instance.Get(bagInfo.ItemID);
-            int itemType = itemConfig.ItemType;
-            int itemSubType = itemConfig.ItemSubType;
+            int itemType = 1;
+            int itemSubType = 11;
 
             ResourcesLoaderComponent resourcesLoaderComponent = self.Root().GetComponent<ResourcesLoaderComponent>();
 
-            string qualityiconLine = FunctionUI.ItemQualityLine(itemConfig.ItemQuality);
+            string qualityiconLine = FunctionUI.ItemQualityLine(1);
             string path = ABPathHelper.GetAtlasPath_2(ABAtlasTypes.ItemQualityIcon, qualityiconLine);
             Sprite sprite = resourcesLoaderComponent.LoadAssetSync<Sprite>(path);
             self.View.E_QualityLineImage.sprite = sprite;
 
-            string qualityiconBack = FunctionUI.ItemQualityBack(itemConfig.ItemQuality);
+            string qualityiconBack = FunctionUI.ItemQualityBack(1);
             path = ABPathHelper.GetAtlasPath_2(ABAtlasTypes.ItemQualityIcon, qualityiconBack);
             sprite = resourcesLoaderComponent.LoadAssetSync<Sprite>(path);
             self.View.E_QulityBgImage.sprite = sprite;
@@ -90,16 +90,16 @@ namespace ET.Client
             }
 
             // 道具Icon
-            string ItemIcon = itemConfig.Icon;
+            string ItemIcon = itemConfig.GetItemIcon();
             sprite = resourcesLoaderComponent.LoadAssetSync<Sprite>(ABPathHelper.GetAtlasPath_2(ABAtlasTypes.ItemIcon, ItemIcon));
             self.View.E_ItemIconImage.sprite = sprite;
-            string ItemQuality = FunctionUI.ItemQualiytoPath(itemConfig.ItemQuality);
+            string ItemQuality = FunctionUI.ItemQualiytoPath(1);
             sprite = resourcesLoaderComponent.LoadAssetSync<Sprite>(ABPathHelper.GetAtlasPath_2(ABAtlasTypes.ItemQualityIcon, ItemQuality));
             self.View.E_ItemQualityImage.sprite = sprite;
 
             //显示道具信息
-            self.View.E_ItemNameText.text = itemConfig.ItemName;
-            self.View.E_ItemNameText.color = FunctionUI.QualityReturnColor(itemConfig.ItemQuality);
+            self.View.E_ItemNameText.text = itemConfig.Name;
+            self.View.E_ItemNameText.color = FunctionUI.QualityReturnColor(1);
 
             string itemDes = ItemViewHelp.GetItemDesc(bagInfo).Replace("\\n", "\n");
             //self.View.E_ItemDesText.text = itemDes;
@@ -111,49 +111,12 @@ namespace ET.Client
                 self.View.E_PutBagImage.GetComponent<RectTransform>().sizeDelta =
                         new Vector2(self.Img_backVector2.x + exceedWidth + 30, self.Img_backVector2.y);
             }
-
-            //鉴定品质符
-            if (itemConfig.ItemSubType == 121)
-            {
-                using (zstring.Block())
-                {
-                    string itempar = string.IsNullOrEmpty(bagInfo.ItemPar) ? " " : $"鉴定符品质:{bagInfo.ItemPar}"; 
-                    itemDes =zstring.Format("{0}\n{1}\n品质越高，鉴定出极品的概率越高。\n鉴定符品质与制造者技巧值相关。", itemDes, itempar);
-                }
-            }
-
-            //鉴定品质符
-            if (itemConfig.ItemType == 1 && itemConfig.ItemSubType == 131)
-            {
-                string[] addList = itemConfig.ItemUsePar.Split(';')[0].Split(',');
-                using (zstring.Block())
-                {
-                    if (string.IsNullOrEmpty(bagInfo.ItemPar))
-                    {
-                        itemDes = zstring.Format("{0}\n烹饪品质:无？？", itemDes);
-                    }
-                    else
-                    {
-                        itemDes = zstring.Format("{0}\n烹饪品质:{1}", itemDes, bagInfo.ItemPar);
-                    }
-                }
-            }
-
-            //宠物技能
-            if (itemConfig.ItemType == 2 && itemConfig.ItemSubType == 122)
-            {
-                SkillConfig skillCof = SkillConfigCategory.Instance.Get(int.Parse(itemConfig.ItemUsePar));
-                using (zstring.Block())
-                {
-                    itemDes = zstring.Format("{0}\n技能描述:{1}", itemDes, skillCof.SkillDescribe);
-                }
-            }
-
-         
+            
+            
             string langStr = LanguageComponent.Instance.LoadLocalization("使用等级");
-            if (itemConfig.UseLv > 0)
+            if (itemConfig.NeedLevel > 0)
             {
-                self.View.E_ItemLvText.text = langStr + ":" + itemConfig.UseLv;
+                self.View.E_ItemLvText.text = langStr + ":" + itemConfig.NeedLevel;
             }
             else
             {
@@ -164,7 +127,7 @@ namespace ET.Client
             self.View.E_ItemDesText.GetComponent<TextFitTip>().SetText(itemDes);
             
             // 显示按钮
-            self.View.E_UseButton.GetComponentInChildren<Text>().text = itemConfig.ItemSubType == 114 ? "镶嵌" : "使用";
+            self.View.E_UseButton.GetComponentInChildren<Text>().text = "使用";
             self.View.EG_BagOpenSetRectTransform.gameObject.SetActive(false);
             self.View.E_HuiShouButton.gameObject.SetActive(false);
             self.View.E_HuiShouCancleButton.gameObject.SetActive(false);
@@ -290,176 +253,7 @@ namespace ET.Client
             UserInfoComponentC userInfoComponent = self.Root().GetComponent<UserInfoComponentC>();
             ItemConfig itemConfig = ItemConfigCategory.Instance.Get(self.BagInfo.ItemID);
             string usrPar = "";
-
-            // 增幅卷轴
-            if (itemConfig.ItemSubType == 17)
-            {
-                self.Root().GetComponent<FlyTipComponent>().ShowFlyTip("请前往家园装备增幅系统");
-                return;
-            }
-
-            //材料
-            if (itemConfig.ItemType == (int)ItemTypeEnum.Material)
-            {
-                return;
-            }
-
-            // 镶嵌宝石
-            if (itemConfig.ItemType == (int)ItemTypeEnum.Gemstone)
-            {
-                DlgRole dlgRole = self.Root().GetComponent<UIComponent>().GetDlgLogic<DlgRole>();
-                if (dlgRole == null)
-                {
-                    return;
-                }
-
-                if (!dlgRole.View.ES_RoleGem.uiTransform.gameObject.activeSelf)
-                {
-                    return;
-                }
-
-                if (dlgRole.View.ES_RoleGem.XiangQianItem == null)
-                {
-                    FlyTipComponent.Instance.ShowFlyTip("请选择装备！");
-                    return;
-                }
-
-                string gemHole = dlgRole.View.ES_RoleGem.XiangQianItem.GemHole;
-                if (dlgRole.View.ES_RoleGem.XiangQianIndex == -1)
-                {
-                    FlyTipComponent.Instance.ShowFlyTip("请选择孔位！");
-                    return;
-                }
-
-                string[] gemHolelist = gemHole.Split('_');
-                if (gemHolelist.Length <= dlgRole.View.ES_RoleGem.XiangQianIndex)
-                {
-                    FlyTipComponent.Instance.ShowFlyTip("请选择孔位！");
-                    return;
-                }
-
-                string itemgem = gemHolelist[dlgRole.View.ES_RoleGem.XiangQianIndex];
-                if (itemgem != itemConfig.ItemSubType.ToString() && itemConfig.ItemSubType != 110 && itemConfig.ItemSubType != 111)
-                {
-                    FlyTipComponent.Instance.ShowFlyTip("宝石与孔位不符！");
-                    return;
-                }
-
-                string[] getIdNew = dlgRole.View.ES_RoleGem.XiangQianItem.GemIDNew.Split('_');
-                using (zstring.Block())
-                {
-                    usrPar = zstring.Format("{0}_{1}", dlgRole.View.ES_RoleGem.XiangQianItem.BagInfoID, dlgRole.View.ES_RoleGem.XiangQianIndex);
-
-                    if (getIdNew[dlgRole.View.ES_RoleGem.XiangQianIndex] != "0")
-                    {
-                        PopupTipHelp.OpenPopupTip(self.Root(), "镶嵌宝石", "是否需要覆盖宝石?\n覆盖后原有位置得宝石会自动销毁哦!", () => { self.RequestXiangQianGem(usrPar); })
-                                .Coroutine();
-                    }
-                    else
-                    {
-                        self.RequestXiangQianGem(usrPar);
-                    }
-                }
-
-                return;
-            }
-
-            if (itemConfig.ItemSubType == 4 || itemConfig.ItemSubType == 14)
-            {
-                if (self.Root().GetComponent<MapComponent>().MapType != (int)MapTypeEnum.LocalDungeon)
-                {
-                    FlyTipComponent.Instance.ShowFlyTip("副本中才能使用!");
-                    return;
-                }
-            }
-
-
-            if (itemConfig.ItemSubType == 15) //附魔
-            {
-                self.OnItemFumoUse(itemConfig).Coroutine();
-                return;
-            }
             
-            if (itemConfig.ItemSubType == 101)
-            {
-                Unit unit = UnitHelper.GetMyUnitFromClientScene(self.Root());
-                Quaternion quaternion = unit.Rotation;
-                unit.GetComponent<SkillManagerComponentC>()
-                        .SendUseSkill(int.Parse(itemConfig.ItemUsePar), itemConfig.Id, Mathf.FloorToInt(quaternion.eulerAngles.y), 0, 0).Coroutine();
-                self.OnCloseTips();
-                return;
-            }
-
-            if (itemConfig.ItemSubType == 102)
-            {
-                FlyTipComponent.Instance.ShowFlyTip("请前往主城的宠物蛋孵化处!");
-                return;
-            }
-            
-            if (itemConfig.ItemSubType == 113 || itemConfig.ItemSubType == 127)
-            {
-                if (self.Root().GetComponent<BagComponentClient>().GetBagLeftCell(ItemLocType.ItemLocBag) < 1)
-                {
-                    FlyTipComponent.Instance.ShowFlyTip("背包格子不够！");
-                    return;
-                }
-
-                int curSceneId = 0;
-                int needSceneId = int.Parse(self.BagInfo.ItemPar.Split('@')[0]);
-                MapComponent mapComponent = self.Root().GetComponent<MapComponent>();
-                if (mapComponent.MapType == (int)MapTypeEnum.LocalDungeon)
-                {
-                    curSceneId = mapComponent.SceneId;
-                }
-
-                if (curSceneId != needSceneId)
-                {
-                   
-                    return;
-                }
-                else
-                {
-                    EventSystem.Instance.Publish(self.Root(), new DigForTreasure() { BagInfo = self.BagInfo });
-                    self.Root().GetComponent<UIComponent>().CloseWindow(WindowID.WindowID_Role);
-                    using (zstring.Block())
-                    {
-                        FlyTipComponent.Instance.ShowFlyTip(zstring.Format("消耗道具:{0}", itemConfig.ItemName));
-                    }
-
-                    self.OnCloseTips();
-                    return;
-                }
-            }
-
-            if (itemConfig.ItemSubType == 108
-                || itemConfig.ItemSubType == 109
-                || itemConfig.ItemSubType == 117
-                || itemConfig.ItemSubType == 118
-                || itemConfig.ItemSubType == 119
-                || itemConfig.ItemSubType == 122)
-            {
-               
-
-                FlyTipComponent.Instance.ShowFlyTip("请前往宠物重塑界面使用！");
-                return;
-            }
-
-            if (itemConfig.ItemSubType == 132)
-            {
-                FlyTipComponent.Instance.ShowFlyTip("请前往赛季界面使用");
-                return;
-            }
-
-          
-            if (itemConfig.ItemSubType == 140)
-            {
-                if (self.Root().GetComponent<BagComponentClient>().BagAddCellNumber[5] >= 10)
-                {
-                    FlyTipComponent.Instance.ShowFlyTip(LanguageComponent.Instance.LoadLocalization("已达到最大购买格子数量!"));
-                    return;
-                }
-            }
-
             long instanceid = self.InstanceId;
             M2C_ItemOperateResponse response = await BagClientNetHelper.RequestUseItem(self.Root(), self.BagInfo, usrPar);
 
@@ -480,26 +274,10 @@ namespace ET.Client
 
             if (instanceid == self.InstanceId)
             {
-                if (itemConfig.ItemSubType == 110)
-                {
-                    self.Root().GetComponent<UIComponent>().CloseWindow(WindowID.WindowID_Role);
-                }
+              
 
                 //注销Tips
                 self.OnCloseTips();
-            }
-        }
-
-        public static async ETTask OnItemFumoUse(this DlgItemTips self, ItemConfig itemConfig)
-        {
-            await ETTask.CompletedTask;
-            string[] itemparams = itemConfig.ItemUsePar.Split('@');
-            int weizhi = int.Parse(itemparams[0]);
-            ItemInfo equipinfo = self.Root().GetComponent<BagComponentClient>().GetEquipBySubType(ItemLocType.ItemLocEquip, weizhi);
-            if (equipinfo == null)
-            {
-                FlyTipComponent.Instance.ShowFlyTip("对应的位置没有装备！");
-                return;
             }
         }
 
@@ -523,7 +301,7 @@ namespace ET.Client
         private static void OnStoreHouseButton(this DlgItemTips self)
         {
             ItemConfig itemConfig = ItemConfigCategory.Instance.Get(self.BagInfo.ItemID);
-            if (self.ItemOperateEnum == ItemOperateEnum.GemBag && itemConfig.ItemType != ItemTypeEnum.Gemstone)
+            if (self.ItemOperateEnum == ItemOperateEnum.GemBag )
             {
                 FlyTipComponent.Instance.ShowFlyTip("只能放入宝石！");
                 return;

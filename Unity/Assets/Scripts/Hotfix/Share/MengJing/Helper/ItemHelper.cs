@@ -5,6 +5,22 @@ namespace ET
     [FriendOf(typeof(RewardItem))]
     public static class ItemHelper
     {
+        
+        /// <summary>
+        /// 道具可以堆叠数量
+        /// </summary>
+        /// <param name="self"></param>
+        /// <returns></returns>
+        public static int GetItemStackCount(this ItemConfig self)
+        {
+            return 1; //self.OverLap;
+        }
+        
+        public static string GetItemIcon(this ItemConfig self)
+        {
+            return "1"; //self.OverLap;
+        }
+
         public static List<ItemInfoProto> GetRewardItems_2(string needitems)
         {
             List<ItemInfoProto> costItems = new List<ItemInfoProto>();
@@ -32,7 +48,7 @@ namespace ET
 
             //判断等级
             int roleLv = 1;
-            int equipLv = itemConfig.UseLv;
+            int equipLv = itemConfig.NeedLevel;
             //简易
             if (bagInfo.HideSkillLists.Contains(68000103))
             {
@@ -85,100 +101,7 @@ namespace ET
             int max = 20;
             return new List<int>() { min, max };
         }
-
-        //晶核初始品质
-        public static int GetJingHeInitQulity(int itemid)
-        {
-            //1,30@1;202103,0.01,0.03
-            //初始品质最小值,初始品质最大值;属性类型;属性值
-            //下面时属性类型
-            //1; 属性ID,属性最大值,属性最小值
-            //2;附带技能
-            ItemConfig itemConfig = ItemConfigCategory.Instance.Get(itemid);
-            string[] parmainfos = itemConfig.ItemUsePar.Split('@');
-            string[] qulityinfo = parmainfos[0].Split(',');
-            int lowlevel = int.Parse(qulityinfo[0]);
-            int highlevel = int.Parse((qulityinfo[1]));
-
-            return RandomHelper.RandomNumber(lowlevel, highlevel + 1);
-        }
-
-        //晶核属性类型
-        public static int GetJingHeProType(int itemid)
-        {
-            //1,30@1;202103,0.01,0.03   增加属性
-            //1,30@2;62000001           增加技能
-            ItemConfig itemConfig = ItemConfigCategory.Instance.Get(itemid);
-            string[] parmainfos = itemConfig.ItemUsePar.Split('@');
-            string[] attriinfos = parmainfos[1].Split(';');
-            int addType = int.Parse(attriinfos[0]);
-            return addType;
-        }
-
-        //晶核属性类型
-        public static int GetJingHeSkillId(int itemid)
-        {
-            //1,30@1;202103,0.01,0.03   增加属性
-            //1,30@2;62000001           增加技能
-            ItemConfig itemConfig = ItemConfigCategory.Instance.Get(itemid);
-            string[] parmainfos = itemConfig.ItemUsePar.Split('@');
-            string[] attriinfos = parmainfos[1].Split(';');
-            int addType = int.Parse(attriinfos[0]);
-            if (addType != 2)
-            {
-                return 0;
-            }
-
-            return int.Parse(attriinfos[1]);
-        }
-
-        //生成晶核属性. 
-        public static HideProList GetJingHeHidePro(int itemid, int qulity)
-        {
-            //1,30@1;202103,0.01,0.03   增加属性
-            //1,30@2;62000001           增加技能
-
-            ItemConfig itemConfig = ItemConfigCategory.Instance.Get(itemid);
-            string[] parmainfos = itemConfig.ItemUsePar.Split('@');
-            string[] attriinfos = parmainfos[1].Split(';');
-
-            int addType = int.Parse(attriinfos[0]);
-            if (addType != 1)
-            {
-                return null;
-            }
-
-            string[] hidevalueinfo = attriinfos[1].Split(',');
-            int hideid = int.Parse(hidevalueinfo[0]);
-            int showType = NumericHelp.GetNumericValueType(hideid);
-            if (showType == 2)
-            {
-                float hidevaluemin = float.Parse(hidevalueinfo[1]);
-                float hidevaluemax = float.Parse(hidevalueinfo[2]);
-                (hidevaluemin, hidevaluemax) = GetJingHeHideProRange(hidevaluemin, hidevaluemax, qulity);
-                float hidevalue = RandomHelper.RandomNumberFloat(hidevaluemin, hidevaluemax);
-                // float hidevalue = RandomHelper.RandomNumberFloat(hidevaluemin, hidevalueman - hidevaluemin);
-                // if (qulity < 90) {
-                //     hidevalue = hidevaluemin +  hidevalue * (0.4f + qulity / 100 * 0.6f);
-                // }
-                //保底
-                return new HideProList() { HideID = hideid, HideValue = (long)(hidevalue * 10000) };
-            }
-            else
-            {
-                int hidevaluemin = int.Parse(hidevalueinfo[1]);
-                int hidevaluemax = int.Parse(hidevalueinfo[2]);
-                (hidevaluemin, hidevaluemax) = GetJingHeHideProRange(hidevaluemin, hidevaluemax, qulity);
-                int hidevalue = RandomHelper.RandomNumber(hidevaluemin, hidevaluemax);
-                // int hidevalue = RandomHelper.RandomNumber(hidevaluemin, hidevaluemax - hidevaluemin);
-                // if (qulity < 90)
-                // {
-                //     hidevalue = hidevaluemin + (int)((float)hidevalue * (0.4f + qulity / 100 * 0.6f));
-                // }
-
-                return new HideProList() { HideID = hideid, HideValue = hidevalue };
-            }
-        }
+        
 
         public static (float, float) GetJingHeHideProRange(float min, float max, int qulity)
         {
@@ -242,128 +165,13 @@ namespace ET
         {
             return new List<PropertyValue>();
         }
-
-        /// <summary>
-        /// //5 橙装
-        /// </summary>
-        /// <param name="bagInfos"></param>
-        /// <param name="qulity"></param>
-        /// <returns></returns>
-        public static int GetNumberByQulity(List<ItemInfo> bagInfos, int qulity)
-        {
-            int number = 0;
-            for (int i = 0; i < bagInfos.Count; i++)
-            {
-                ItemConfig itemConfig = ItemConfigCategory.Instance.Get(bagInfos[i].ItemID);
-                if (itemConfig.ItemQuality >= qulity)
-                {
-                    number++;
-                }
-            }
-
-            return number;
-        }
-
-        public static List<ItemInfo> GetSeedList(List<ItemInfo> bagInfos)
-        {
-            List<ItemInfo> seedlist = new List<ItemInfo>();
-            for (int i = 0; i < bagInfos.Count; i++)
-            {
-                ItemConfig itemConfig = ItemConfigCategory.Instance.Get(bagInfos[i].ItemID);
-                if (itemConfig.ItemType == 2 &&
-                    (itemConfig.ItemSubType == 101 || itemConfig.ItemSubType == 131 || itemConfig.ItemSubType == 201 ||
-                        itemConfig.ItemSubType == 301))
-                {
-                    seedlist.Add(bagInfos[i]);
-                }
-
-                if (itemConfig.ItemType == 1 && itemConfig.ItemSubType == 131)
-                {
-                    seedlist.Add(bagInfos[i]);
-                }
-            }
-
-            return seedlist;
-        }
-
-        /// <summary>
-        /// 从背包中获取所有藏宝图
-        /// </summary>
-        /// <param name="bagInfos"></param>
-        /// <returns></returns>
-        public static List<ItemInfo> GetTreasureMapList(List<ItemInfo> bagInfos)
-        {
-            List<ItemInfo> treasureMapList = new List<ItemInfo>();
-            for (int i = 0; i < bagInfos.Count; i++)
-            {
-                ItemConfig itemConfig = ItemConfigCategory.Instance.Get(bagInfos[i].ItemID);
-
-                if (itemConfig.ItemType == 1 && itemConfig.ItemSubType == 127)
-                {
-                    treasureMapList.Add(bagInfos[i]);
-                }
-            }
-
-            return treasureMapList;
-        }
-
-        /// <summary>
-        /// 从背包中获取生活材料,用于家园藏宝图的第二页分页
-        /// </summary>
-        /// <param name="bagInfos"></param>
-        /// <returns></returns>
-        public static List<ItemInfo> GetTreasureMapList2(List<ItemInfo> bagInfos)
-        {
-            List<ItemInfo> treasureMapList = new List<ItemInfo>();
-            for (int i = 0; i < bagInfos.Count; i++)
-            {
-                ItemConfig itemConfig = ItemConfigCategory.Instance.Get(bagInfos[i].ItemID);
-
-                if ((itemConfig.ItemType == 2 && (itemConfig.ItemSubType == 121)) ||
-                    (itemConfig.ItemType == 1 && (itemConfig.ItemSubType == 15 || itemConfig.ItemSubType == 101)))
-                {
-                    treasureMapList.Add(bagInfos[i]);
-                }
-            }
-
-            return treasureMapList;
-        }
-
+        
         public static int GetItemToNumericDataType(int itemid)
         {
             int userDataType = 0;
             ConstantItemID.ItemToNumericData.TryGetValue(itemid, out userDataType);
            
             return userDataType;
-        }
-
-        public static int GetEquipType(int occ, int itemId)
-        {
-            if (itemId == 0)
-            {
-                if (occ == 1)
-                {
-                    return ItemEquipType.Sword;
-                }
-
-                if (occ == 2)
-                {
-                    return ItemEquipType.Wand;
-                }
-
-                if (occ == 3)
-                {
-                    return ItemEquipType.Bow;
-                }
-
-                Log.Error($"{occ} 没有配置此职业的默认武器！");
-                return ItemEquipType.Sword;
-            }
-            else
-            {
-                ItemConfig itemConfig = ItemConfigCategory.Instance.Get(itemId);
-                return itemConfig.EquipType;
-            }
         }
 
         public static int GetNeedCell(string needitems)
@@ -390,13 +198,13 @@ namespace ET
             {
                 int itemId = item.Key;
                 ItemConfig itemConfig = ItemConfigCategory.Instance.Get(itemId);
-                if (itemConfig.ItemPileSum == 999999)
+                if (itemConfig.GetItemStackCount() == 999999)
                 {
                     bagCellNumber += 1;
                     continue;
                 }
 
-                int ItemPileSum = itemConfig.ItemPileSum;
+                int ItemPileSum = itemConfig.GetItemStackCount();
                 if (item.Value <= ItemPileSum)
                 {
                     bagCellNumber += 1;
@@ -492,10 +300,6 @@ namespace ET
             for (int i = 0; i < bagInfos.Count; i++)
             {
                 ItemConfig itemConfig = ItemConfigCategory.Instance.Get(bagInfos[i].ItemID);
-                if (itemConfig.ItemSubType == pos)
-                {
-                    return bagInfos[i];
-                }
             }
 
             return null;
@@ -923,49 +727,14 @@ namespace ET
                 int isBingingb = b.isBinging ? 1 : 0;
                 ItemConfig itemConfig_a = ItemConfigCategory.Instance.Get(itemIda);
                 ItemConfig itemConfig_b = ItemConfigCategory.Instance.Get(itemIdb);
-                int quliatya = itemConfig_a.ItemQuality;
-                int quliatyb = itemConfig_b.ItemQuality;
-                int jianDingLva = itemConfig_a.ItemSubType == 121 && !string.IsNullOrEmpty(a.ItemPar) ? int.Parse(a.ItemPar) : 0;
-                int jianDingLvb = itemConfig_b.ItemSubType == 121 && !string.IsNullOrEmpty(b.ItemPar) ? int.Parse(b.ItemPar) : 0;
-                int dungeonida = (itemConfig_a.ItemSubType == 113 || itemConfig_a.ItemSubType == 127) ? int.Parse(a.ItemPar.Split('@')[0]) : 0;
-                int dungeonidb = (itemConfig_b.ItemSubType == 113 || itemConfig_b.ItemSubType == 127) ? int.Parse(b.ItemPar.Split('@')[0]) : 0;
-                //bagInfo.ItemPar = $"{dungeonid}@{"TaskMove_6"}@{rewardList[0].ItemID + ";" + rewardList[0].ItemNum}";
-
-                if (isBinginga == isBingingb)
+              
+                if (itemIda == itemIdb)
                 {
-                    if (quliatya == quliatyb)
-                    {
-                        if (jianDingLva == jianDingLvb)
-                        {
-                            if (dungeonida == dungeonidb)
-                            {
-                                if (itemIda == itemIdb)
-                                {
-                                    return b.ItemNum - a.ItemNum;
-                                }
-                                else
-                                {
-                                    return itemIda - itemIdb;
-                                }
-                            }
-                            else
-                            {
-                                return dungeonidb - dungeonida;
-                            }
-                        }
-                        else
-                        {
-                            return jianDingLvb - jianDingLva;
-                        }
-                    }
-                    else
-                    {
-                        return quliatyb - quliatya;
-                    }
+                    return b.ItemNum - a.ItemNum;
                 }
                 else
                 {
-                    return isBinginga - isBingingb;
+                    return itemIda - itemIdb;
                 }
             });
         }
@@ -1002,16 +771,8 @@ namespace ET
             ItemConfig itemCof = ItemConfigCategory.Instance.Get(itemID);
 
             //最低系数是20
-            int pro = itemCof.UseLv;
-            if (pro <= 20)
-            {
-                pro = 20;
-            }
+            int pro = itemCof.NeedLevel;
 
-            if (ifItem == true && itemCof.UseLv < 30)
-            {
-                jianDingPinZhi = jianDingPinZhi + 5;
-            }
 
             //鉴定符和当前装备的等级差
             float JianDingPro = (float)jianDingPinZhi / (float)pro;

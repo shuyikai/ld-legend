@@ -20,6 +20,8 @@ namespace ET
 		public string GetWay { get; set; }
 		public string GemIDNew { get; set; }
 		public string MakePlayer { get; set; }
+
+		public int ItemType { get; set; }
 	}
 
 	[EntitySystemOf(typeof(ItemInfo))]
@@ -47,6 +49,7 @@ namespace ET
 			self.GetWay = proto.GetWay;
 			self.GemIDNew = proto.GemIDNew;
 			self.MakePlayer = proto.MakePlayer;
+			
 		}
 
 		public static ItemInfoProto ToMessage(this ItemInfo self)

@@ -25,7 +25,7 @@ namespace ET.Client
                 using (zstring.Block())
                 {
                     scene.GetComponent<FallingFontComponent>()?.Play(heroHeadBarComponent.GameObject, unit,
-                        zstring.Format("{0}x{1}", itemConfig.ItemName, args.ItemNum), FallingFontType.Drop_Item, Vector3.one, BloodTextLayer.Layer_1,
+                        zstring.Format("{0}x{1}", itemConfig.Name, args.ItemNum), FallingFontType.Drop_Item, Vector3.one, BloodTextLayer.Layer_1,
                         FallingFontExecuteType.Type_1, true);
                 }
             }

@@ -68,38 +68,22 @@ namespace ET
 
     //道具存放位置
     //0背包
-    //1宠物之核背包
-    //2装备
-    //3宝石
-    //4宠物装备
-    //5仓库1
-    //6仓库2
-    //7仓库3
-    //8仓库4
-    //9-12 家园仓库
-    //13-14 家园藏宝仓库
+    //1装备
+    //2仓库1
+    //3仓库2
+    //4仓库3
+    //5仓库4
+
     public static class ItemLocType
     {
         public const int ItemLocBag = 0;
-        public const int ItemPetHeXinBag = 1;
-        public const int ItemLocEquip = 2;
-        public const int ItemLocGem = 3;
-        public const int ItemPetHeXinEquip = 4;
-        public const int ItemWareHouse1 = 5;
-        public const int ItemWareHouse2 = 6;
-        public const int ItemWareHouse3 = 7;
-        public const int ItemWareHouse4 = 8;
-        public const int  JianYuanWareHouse1 = 9;
-        public const int JianYuanWareHouse2 = 10;
-        public const int  JianYuanWareHouse3 = 11;
-        public const int JianYuanWareHouse4 = 12;
-        public const int JianYuanTreasureMapStorage1 = 13; // 家园藏宝图仓库_存藏宝图的
-        public const int JianYuanTreasureMapStorage2 = 14; // 家园藏宝图仓库_存生活材料的
-        public const int ChouKaWarehouse = 15; // 抽卡仓库
-        public const int ItemLocEquip_2 = 16;    //第二套装备
-        public const int SeasonJingHe = 17;     //赛季晶核
-        public const int PetLocEquip = 18;     //宠物装备
-        public const int GemWareHouse1 = 19;     //宝石仓库
+        public const int ItemLocEquip = 1;
+       
+        public const int ItemWareHouse1 = 2;
+        public const int ItemWareHouse2 = 3;
+        public const int ItemWareHouse3 = 4;
+        public const int ItemWareHouse4 = 5;
+        
 
         public const int  ItemLocMax = 20;
     }

@@ -333,7 +333,7 @@ namespace ET.Client
             string text1;
             using (zstring.Block())
             {
-                text1 = zstring.Format(progress, itemConfig.ItemName, taskPro.taskTargetNum_1, taskConfig.TargetValue[0]);
+                text1 = zstring.Format(progress, itemConfig.Name, taskPro.taskTargetNum_1, taskConfig.TargetValue[0]);
             }
 
             return text1;

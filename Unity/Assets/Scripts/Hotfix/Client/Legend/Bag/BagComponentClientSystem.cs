@@ -44,7 +44,7 @@ namespace ET.Client
                     continue;
                 }
 
-                int ItemPileSum = ItemConfigCategory.Instance.Get(itemId).ItemPileSum;
+                int ItemPileSum = ItemConfigCategory.Instance.Get(itemId).GetItemStackCount();
                 if (ItemPileSum == 1)
                 {
                     cellNumber += itemNum;
@@ -89,12 +89,7 @@ namespace ET.Client
                     {
                         self.ShowGetItemTip(newInfo, newInfo.ItemNum - oldInfo.ItemNum);
                     }
-
-                    if (newInfo.Loc == (int)ItemLocType.ChouKaWarehouse)
-                    {
-                        EventSystem.Instance.Publish(self.Root(), new ChouKaWarehouseAddItem());
-                    }
-
+                    
                     if (oldInfo.Loc != newInfo.Loc)
                     {
                         List<ItemInfo> oldTemp = self.GetItemsByLoc(oldInfo.Loc);
@@ -138,11 +133,6 @@ namespace ET.Client
                         self.ShowGetItemTip(bagInfo, bagInfo.ItemNum);
                     }
 
-                    if (bagInfo.Loc == (int)ItemLocType.ChouKaWarehouse)
-                    {
-                        EventSystem.Instance.Publish(self.Root(), new ChouKaWarehouseAddItem());
-                    }
-
                     List<ItemInfo> temp = self.GetItemsByLoc(bagInfo.Loc);
                     temp.Add(bagInfo);
                 }
@@ -175,7 +165,7 @@ namespace ET.Client
             if (self.RealAddItem >= 0)
             {
                 // self.Root().GetComponent<ShoujiComponentC>().OnGetItem(bagInfo.ItemID);
-                HintHelp.ShowHint(self.Root(), $"获得 {itemConfig.ItemName} {addNum}");
+                HintHelp.ShowHint(self.Root(), $"获得 {itemConfig.Name} {addNum}");
             }
             
             EventSystem.Instance.Publish(self.Root(), new BagItemItemAdd() { ItemId = bagInfo.ItemID , Num = addNum});
@@ -265,10 +255,6 @@ namespace ET.Client
             for (int i = 0; i < bagInfos.Count; i++)
             {
                 ItemConfig itemConfig = ItemConfigCategory.Instance.Get(bagInfos[i].ItemID);
-                if (itemConfig.ItemType == (int)itemType)
-                {
-                    typeList.Add(bagInfos[i]);
-                }
             }
 
             return typeList;
@@ -284,10 +270,6 @@ namespace ET.Client
             for (int i = 0; i < bagInfos.Count; i++)
             {
                 ItemConfig itemConfig = ItemConfigCategory.Instance.Get(bagInfos[i].ItemID);
-                if (itemConfig.ItemType == (int)itemType && itemConfig.ItemSubType == itemSubType)
-                {
-                    typeList.Add(bagInfos[i]);
-                }
             }
 
             return typeList;
@@ -344,10 +326,6 @@ namespace ET.Client
             for (int i = 0; i < bagInfos.Count; i++)
             {
                 ItemConfig itemConfig = ItemConfigCategory.Instance.Get(bagInfos[i].ItemID);
-                if (itemConfig.ItemSubType == subType)
-                {
-                    return bagInfos[i];
-                }
             }
 
             return null;
@@ -365,10 +343,6 @@ namespace ET.Client
             for (int i = 0; i < equipList.Count; i++)
             {
                 ItemConfig itemCof = ItemConfigCategory.Instance.Get(equipList[i].ItemID);
-                if (itemCof.ItemSubType == position)
-                {
-                    bagInfos.Add(equipList[i]);
-                }
             }
 
             return bagInfos;
@@ -414,11 +388,7 @@ namespace ET.Client
             for (int i = 0; i < equipList.Count; i++)
             {
                 ItemConfig itemconf = ItemConfigCategory.Instance.Get(equipList[i].ItemID);
-                // 赛季晶核除外
-                if (itemconf.ItemType == 3 && itemconf.EquipType == 201)
-                {
-                    continue;
-                }
+            
                 
             }
 
@@ -458,7 +428,7 @@ namespace ET.Client
                 // 猎人武器特殊处理 。。。
                 // 。。。。。。。。
 
-                int weizhi = itemConfig.ItemSubType;
+                int weizhi = 0;
                 //获取之前的位置是否有装备
                 ItemInfo beforeequip = null;
                 if (weizhi == (int)ItemSubTypeEnum.Shiping)
@@ -478,7 +448,7 @@ namespace ET.Client
                 else
                 {
                     ItemConfig nowItemConfig = ItemConfigCategory.Instance.Get(beforeequip.ItemID);
-                    if (itemConfig.UseLv > nowItemConfig.UseLv && itemConfig.ItemQuality > nowItemConfig.ItemQuality)
+                    if (itemConfig.NeedLevel > nowItemConfig.NeedLevel)
                     {
                         canEquipList.Add(baginfo1);
                     }
@@ -490,25 +460,8 @@ namespace ET.Client
 
         public static void OnResetSeason(this BagComponentClient self, bool notice)
         {
-            self.ClearJingHeItem(self.AllItemList[(int)ItemLocType.ItemLocBag]);
-            self.ClearJingHeItem(self.AllItemList[(int)ItemLocType.ItemWareHouse1]);
-            self.ClearJingHeItem(self.AllItemList[(int)ItemLocType.ItemWareHouse2]);
-            self.ClearJingHeItem(self.AllItemList[(int)ItemLocType.ItemWareHouse3]);
-            self.ClearJingHeItem(self.AllItemList[(int)ItemLocType.ItemWareHouse4]);
-            self.ClearJingHeItem(self.AllItemList[(int)ItemLocType.SeasonJingHe]);
+           
         }
-
-        public static void ClearJingHeItem(this BagComponentClient self, List<ItemInfo> bagInfos)
-        {
-            for (int i = bagInfos.Count - 1; i >= 0; i--)
-            {
-                ItemConfig itemConfig = ItemConfigCategory.Instance.Get(bagInfos[i].ItemID);
-                if (itemConfig.EquipType == 201)
-                {
-                    bagInfos[i].Dispose();
-                    bagInfos.RemoveAt(i);
-                }
-            }
-        }
+        
     }
 }

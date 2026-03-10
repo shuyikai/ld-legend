@@ -51,7 +51,7 @@ namespace ET.Server
             }
 
             ItemConfig itemCof = ItemConfigCategory.Instance.Get(bagInf0.ItemID);
-            float minValuePro = (float)shulianValue / (float)int.Parse(itemCof.ItemUsePar);
+            float minValuePro = 1f;
             if (minValuePro >= 1)
             {
                 minValuePro = 1;
@@ -70,16 +70,6 @@ namespace ET.Server
             bagInf0.ItemPar = randValue.ToString();
         }
 
-        public static void TreasureItem(Unit unit, ItemInfo bagInfo)
-        {
-
-            ItemConfig itemConfig = ItemConfigCategory.Instance.Get(bagInfo.ItemID);
-            if (itemConfig.ItemSubType != 113 && itemConfig.ItemSubType != 127)
-            {
-                return;
-            }
-
-        }
 
         //获取装备的鉴定属性
         public static List<HideProList> GetEquipZhuanJingHidePro(int equipID, int itemID, int jianDingPinZhi, Unit unit, bool ifItem)
@@ -108,13 +98,13 @@ namespace ET.Server
             //jianDingPinZhi = 99;
 
             //最低系数是20
-            int pro = itemCof.UseLv;
+            int pro = itemCof.NeedLevel;
             if (pro <= 20)
             {
                 pro = 20;
             }
 
-            if (ifItem == true && itemCof.UseLv < 30)
+            if (ifItem == true && itemCof.NeedLevel < 30)
             {
                 jianDingPinZhi = jianDingPinZhi + 5;
             }
@@ -168,7 +158,7 @@ namespace ET.Server
             */
 
             //65级装备默认最低2条属性
-            if (itemCof.UseLv >= 65 && randomNum < 2)
+            if (itemCof.NeedLevel >= 65 && randomNum < 2)
             {
                 randomNum = 2;
             }

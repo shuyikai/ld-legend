@@ -369,12 +369,7 @@ namespace ET.Client
             }
 
             string weaponPath = "";
-            if (weaponId != 0 && ItemConfigCategory.Instance.Contain(weaponId))
-            {
-                ItemConfig itemConfig = ItemConfigCategory.Instance.Get(weaponId);
-                weaponPath = itemConfig.ItemModelID;
-            }
-
+    
             GameObject weaponParent_1 = hero.Get<GameObject>("Wuqi001");
             GameObject weaponParent_2 = hero.Get<GameObject>("Wuqi002");
             if (weaponParent_1 != null)

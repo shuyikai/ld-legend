@@ -88,7 +88,7 @@ namespace ET.Client
             self.Baginfo = bagInfo;
             ItemConfig itemConfig = ItemConfigCategory.Instance.Get(bagInfo.ItemID);
             self.E_ItemIconImage.overrideSprite = self.Root().GetComponent<ResourcesLoaderComponent>()
-                    .LoadAssetSync<Sprite>(ABPathHelper.GetAtlasPath_2(ABAtlasTypes.ItemIcon, itemConfig.Icon));
+                    .LoadAssetSync<Sprite>(ABPathHelper.GetAtlasPath_2(ABAtlasTypes.ItemIcon, itemConfig.GetItemIcon()));
         }
     }
 }

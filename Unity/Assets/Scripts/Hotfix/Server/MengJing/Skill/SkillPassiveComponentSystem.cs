@@ -469,27 +469,6 @@ namespace ET.Server
                 SkillPassiveInfo skillIfo = skillPassiveInfos[s];
 
                 float skillproValue = skillIfo.SkillPro[skillIfo.SkillPassiveTypeEnum.IndexOf(skillPassiveTypeEnum)];
-                if (skillPassiveTypeEnum == SkillPassiveTypeEnum.WandBuff_8)
-                {
-                    int weapontype = Convert.ToInt32(skillproValue);
-                    int buffId = SkillConfigCategory.Instance.Get(skillIfo.SkillId).InitBuffID[0];
-                    int weaponType = targetId == 0 ? ItemEquipType.Common : (int)ItemConfigCategory.Instance.Get((int)targetId).EquipType;
-                    if (weaponType != weapontype)
-                    {
-                        unit.GetComponent<BuffManagerComponentS>().BuffRemoveByUnit(0, buffId);
-                    }
-
-                    if (weaponType == weapontype && buffId != 0)
-                    {
-                        BuffData buffData_1 = new BuffData();
-                        buffData_1.SkillId = skillIfo.SkillId;
-                        buffData_1.BuffId = buffId;
-                        unit.GetComponent<BuffManagerComponentS>().BuffFactory(buffData_1, unit, null);
-                    }
-
-                    continue;
-                }
-
                 //只触发一次
                 if (skillIfo.LastTriggerTime > 0 && skillIfo.TriggerOnce == 1)
                 {

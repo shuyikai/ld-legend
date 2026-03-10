@@ -33,21 +33,8 @@ namespace ET.Client
 
             bagInfos.AddRange(bagComponentClient.GetItemsByType(ItemTypeEnum.Equipment));
             bagInfos.AddRange(bagComponentClient.GetItemsByType(ItemTypeEnum.Gemstone));
-            bagInfos.AddRange(bagComponentClient.GetItemsByLoc(ItemLocType.ItemPetHeXinBag));
             bagInfos.AddRange(bagComponentClient.GetItemsByTypeAndSubType(ItemTypeEnum.Consume, 5));
-
-            List<long> huishouList = new List<long>();
-            foreach (ItemInfo bagInfo in bagInfos)
-            {
-                ItemConfig itemConfig = ItemConfigCategory.Instance.Get(bagInfo.ItemID);
-
-                // 回收绿色及其以下品质的道具
-                if (itemConfig.ItemQuality <= 2)
-                {
-                    huishouList.Add(bagInfo.BagInfoID);
-                }
-            }
-
+            
             await ETTask.CompletedTask;
         } 
         
@@ -442,11 +429,7 @@ namespace ET.Client
                 int chapterindex = -1;
                 int itemid = equipMakeConfig.MakeItemID;
                 ItemConfig itemConfig = ItemConfigCategory.Instance.Get(itemid);
-                if (itemConfig.ItemType == 1 || itemConfig.ItemType == 2)
-                {
-                    chapterindex = 0;
-                }
-                else if (equipMakeConfig.LearnLv <= 20)
+                if (equipMakeConfig.LearnLv <= 20)
                 {
                     chapterindex = 1;
                 }

@@ -389,30 +389,6 @@ namespace  ET
             return  false;
         }
 
-        //根据时间蛋计算剩余消耗钻石
-        public static int ReturnPetOpenTimeDiamond(int itemID,long endTime) {
-
-            ItemConfig itemConfig = ItemConfigCategory.Instance.Get(itemID);
-            string[] itemUseinfo = itemConfig.ItemUsePar.Split('@');
-            float costValue = float.Parse(itemUseinfo[1]);
-
-            long timeNow = endTime - TimeHelper.ServerNow();
-            if (timeNow <= 0)
-            {
-                return 0;
-            }
-
-            float proValue = (float)timeNow / 86400000f;
-            int renturnInt = (int)(proValue * costValue);
-
-            if (renturnInt < 10) {
-                renturnInt = 10;
-            }
-
-            return renturnInt;
-        }
-
-
         //暴击等级等属性转换成实际暴击率的方法
         public static float LvProChange(long value, int lv)
         {

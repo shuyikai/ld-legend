@@ -93,65 +93,6 @@ namespace ET.Server
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="self"></param>
-        /// <returns></returns>
-        public static bool HaveOccEquip(this BagComponentServer self)
-        {
-            List<ItemInfo> allequiplist = new List<ItemInfo>();
-            allequiplist.AddRange(self.AllItemList[ItemLocType.ItemLocEquip]);
-            allequiplist.AddRange(self.AllItemList[ItemLocType.ItemLocEquip_2]);
-
-            for (int i = 0; i < allequiplist.Count; i++)
-            {
-                ItemConfig itemConfig = ItemConfigCategory.Instance.Get(allequiplist[i].ItemID);
-                if (itemConfig.ItemType == 3
-                    && itemConfig.EquipType >= 0 && itemConfig.EquipType <= 100
-                    && itemConfig.ItemSubType >= 0 && itemConfig.ItemSubType <= 12)
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-        
-        public static List<PropertyValue> GetGemProLists(this BagComponentServer self)
-        {
-            List<PropertyValue> list = new List<PropertyValue>();
-            for (int i = 0; i < self.GetItemByLoc(ItemLocType.ItemLocGem).Count; i++)
-            {
-                ItemConfig itemConfig = ItemConfigCategory.Instance.Get(self.GetItemByLoc(ItemLocType.ItemLocGem)[i].ItemID);
-                string itemUsePar = itemConfig.ItemUsePar;
-                if (string.IsNullOrEmpty(itemUsePar) || itemUsePar == "0")
-                {
-                    continue;
-                }
-
-                string[] attributes = itemUsePar.Split('@');
-                for (int a = 0; a < attributes.Length; a++)
-                {
-                    string[] attributeItem = attributes[a].Split(';');
-                    int hideId = int.Parse(attributeItem[0]);
-                    long hide_value = 0;
-                    if (NumericHelp.GetNumericValueType(hideId) == 2)
-                    {
-                        hide_value = (long)(float.Parse(attributeItem[1]) * 10000);
-                    }
-                    else
-                    {
-                        hide_value = long.Parse(attributeItem[1]);
-                    }
-
-                    list.Add(new PropertyValue() { HideID = hideId, HideValue = hide_value });
-                }
-            }
-
-            return list;
-        }
-
         public static List<ItemInfo> GetItemByLoc(this BagComponentServer self, int itemEquipType)
         {
             if (self.AllItemList.ContainsKey(itemEquipType))
@@ -185,9 +126,9 @@ namespace ET.Server
                     totalNum += bagInfos[i].ItemNum;
                 }
 
-                needGrid = totalNum / itemCof.ItemPileSum;
-                needGrid += (totalNum % itemCof.ItemPileSum > 0 ? 1 : 0);
-                finalNum = totalNum - (needGrid - 1) * itemCof.ItemPileSum;
+                needGrid = totalNum / itemCof.GetItemStackCount();
+                needGrid += (totalNum % itemCof.GetItemStackCount() > 0 ? 1 : 0);
+                finalNum = totalNum - (needGrid - 1) * itemCof.GetItemStackCount();
 
                 if (needGrid <= 0 || needGrid > bagInfos.Count)
                 {
@@ -199,7 +140,7 @@ namespace ET.Server
                 m2c_bagUpdate.BagInfoUpdate.Add(bagInfos[needGrid - 1].ToMessage());
                 for (int i = 0; i < needGrid - 1; i++)
                 {
-                    bagInfos[i].ItemNum = itemCof.ItemPileSum;
+                    bagInfos[i].ItemNum = itemCof.GetItemStackCount();
                     m2c_bagUpdate.BagInfoUpdate.Add(bagInfos[i].ToMessage());
                 }
 
@@ -227,7 +168,7 @@ namespace ET.Server
 
                 //最大堆叠数量
                 ItemConfig itemCof = ItemConfigCategory.Instance.Get(bagInfo.ItemID);
-                if (bagInfo.ItemNum >= itemCof.ItemPileSum)
+                if (bagInfo.ItemNum >= itemCof.GetItemStackCount())
                 {
                     continue;
                 }
@@ -295,49 +236,20 @@ namespace ET.Server
         public static List<ItemInfo> GetAllItems(this BagComponentServer self)
         {
             List<ItemInfo> bagList = new List<ItemInfo>();
-
-            self.CheckValiedItem(self.GetItemByLoc(ItemLocType.ItemLocGem));
+            
             self.CheckValiedItem(self.GetItemByLoc(ItemLocType.ItemLocBag));
             self.CheckValiedItem(self.GetItemByLoc(ItemLocType.ItemLocEquip));
-            self.CheckValiedItem(self.GetItemByLoc(ItemLocType.ItemPetHeXinBag));
             self.CheckValiedItem(self.GetItemByLoc(ItemLocType.ItemWareHouse1));
             self.CheckValiedItem(self.GetItemByLoc(ItemLocType.ItemWareHouse2));
             self.CheckValiedItem(self.GetItemByLoc(ItemLocType.ItemWareHouse3));
             self.CheckValiedItem(self.GetItemByLoc(ItemLocType.ItemWareHouse4));
-
-            for (int i = self.GetItemByLoc(ItemLocType.ItemLocEquip).Count - 1; i >= 0; i--)
-            {
-                ItemConfig itemConfig = ItemConfigCategory.Instance.Get(self.GetItemByLoc(ItemLocType.ItemLocEquip)[i].ItemID);
-                if (itemConfig.ItemType == ItemTypeEnum.Gemstone)
-                {
-                    Log.Warning($"误穿宝石！！  {itemConfig.ItemName}");
-                    self.GetItemByLoc(ItemLocType.ItemLocEquip)[i].Dispose();
-                    self.GetItemByLoc(ItemLocType.ItemLocEquip).RemoveAt(i);
-                    break;
-                }
-            }
-
-            bagList.AddRange(self.GetItemByLoc(ItemLocType.ItemLocGem));
+            
             bagList.AddRange(self.GetItemByLoc(ItemLocType.ItemLocBag));
-            bagList.AddRange(self.GetItemByLoc(ItemLocType.ItemPetHeXinBag));
             bagList.AddRange(self.GetItemByLoc(ItemLocType.ItemLocEquip));
-            bagList.AddRange(self.GetItemByLoc(ItemLocType.ItemPetHeXinEquip));
             bagList.AddRange(self.GetItemByLoc(ItemLocType.ItemWareHouse1));
             bagList.AddRange(self.GetItemByLoc(ItemLocType.ItemWareHouse2));
             bagList.AddRange(self.GetItemByLoc(ItemLocType.ItemWareHouse3));
             bagList.AddRange(self.GetItemByLoc(ItemLocType.ItemWareHouse4));
-            bagList.AddRange(self.GetItemByLoc(ItemLocType.JianYuanWareHouse1));
-            bagList.AddRange(self.GetItemByLoc(ItemLocType.JianYuanWareHouse2));
-            bagList.AddRange(self.GetItemByLoc(ItemLocType.JianYuanWareHouse3));
-            bagList.AddRange(self.GetItemByLoc(ItemLocType.JianYuanWareHouse4));
-            bagList.AddRange(self.GetItemByLoc(ItemLocType.JianYuanTreasureMapStorage1));
-            bagList.AddRange(self.GetItemByLoc(ItemLocType.JianYuanTreasureMapStorage2));
-            bagList.AddRange(self.GetItemByLoc(ItemLocType.ChouKaWarehouse));
-            bagList.AddRange(self.GetItemByLoc(ItemLocType.ItemLocEquip_2));
-            bagList.AddRange(self.GetItemByLoc(ItemLocType.SeasonJingHe));
-            bagList.AddRange(self.GetItemByLoc(ItemLocType.PetLocEquip));
-            bagList.AddRange(self.GetItemByLoc(ItemLocType.GemWareHouse1));
-
             return bagList;
         }
 
@@ -363,21 +275,21 @@ namespace ET.Server
                 ItemConfig itemConfig = ItemConfigCategory.Instance.Get(itemids[i].ItemID);
                 long curNumber = self.GetItemNumber(itemids[i].ItemID, itemLocType);
 
-                if (curNumber > 0 && curNumber + itemids[i].ItemNum < itemConfig.ItemPileSum)
+                if (curNumber > 0 && curNumber + itemids[i].ItemNum < itemConfig.GetItemStackCount())
                 {
                     needcell = 0;
                 }
                 else
                 {
                     int temp = 0;
-                    temp += (int)(1f * itemids[i].ItemNum / itemConfig.ItemPileSum);
-                    temp += (itemids[i].ItemNum % itemConfig.ItemPileSum > 0 ? 1 : 0);
+                    temp += (int)(1f * itemids[i].ItemNum / itemConfig.GetItemStackCount());
+                    temp += (itemids[i].ItemNum % itemConfig.GetItemStackCount() > 0 ? 1 : 0);
 
                     needcell += temp;
 
                     if (temp != 1)
                     {
-                        Console.WriteLine($"needcell:{needcell}  ItemNum:{itemids[i].ItemNum}   ItemPileSum:{itemConfig.ItemPileSum}");
+                        Console.WriteLine($"needcell:{needcell}  ItemNum:{itemids[i].ItemNum}   ItemPileSum:{itemConfig.GetItemStackCount()}");
                     }
                 }
             }
@@ -455,16 +367,6 @@ namespace ET.Server
             return storeCapacity + self.BagBuyCellNumber[hourseId] + self.BagAddCellNumber[hourseId];
         }
 
-        /// <summary>
-        /// 获取抽卡仓库剩余的格数，上限100
-        /// </summary>
-        /// <param name="self"></param>
-        /// <returns></returns>
-        public static int GetChouKaLeftSpace(this BagComponentServer self)
-        {
-            return 100 - self.GetItemByLoc(ItemLocType.ChouKaWarehouse).Count;
-        }
-
         public static void OnChangeItemLoc(this BagComponentServer self, ItemInfo bagInfo, int itemLocTypeTo, int itemLocTypeFrom)
         {
             List<ItemInfo> ItemTypeListSour = self.GetItemByLoc(itemLocTypeFrom);
@@ -494,24 +396,6 @@ namespace ET.Server
                 return false;
             }
 
-            for (int i = 0; i < self.GetItemByLoc(ItemLocType.ItemLocEquip).Count; i++)
-            {
-                if (self.GetItemByLoc(ItemLocType.ItemLocEquip)[i].BagInfoID == xilianequip)
-                {
-                    continue;
-                }
-
-                ItemConfig itemConfig = ItemConfigCategory.Instance.Get(self.GetItemByLoc(ItemLocType.ItemLocEquip)[i].ItemID);
-                if (itemConfig.SkillID.Contains(skillId.ToString()))
-                {
-                    return true;
-                }
-
-                if (self.GetItemByLoc(ItemLocType.ItemLocEquip)[i].HideSkillLists.Contains(skillId))
-                {
-                    return true;
-                }
-            }
 
             return false;
         }
@@ -519,58 +403,13 @@ namespace ET.Server
         public static void OnResetSeason(this BagComponentServer self, bool notice)
         { 
 
-            self.ClearJingHeItem(self.GetItemByLoc(ItemLocType.ItemLocBag));
-            self.ClearJingHeItem(self.GetItemByLoc(ItemLocType.ItemWareHouse1));
-            self.ClearJingHeItem(self.GetItemByLoc(ItemLocType.ItemWareHouse2));
-            self.ClearJingHeItem(self.GetItemByLoc(ItemLocType.ItemWareHouse3));
-            self.ClearJingHeItem(self.GetItemByLoc(ItemLocType.ItemWareHouse4));
-            self.ClearJingHeItem(self.GetItemByLoc(ItemLocType.SeasonJingHe));
-        }
-
-        public static void ClearJingHeItem(this BagComponentServer self, List<ItemInfo> bagInfos)
-        {
-            for (int i = bagInfos.Count - 1; i >= 0; i--)
-            {
-                ItemConfig itemConfig = ItemConfigCategory.Instance.Get(bagInfos[i].ItemID);
-                if (itemConfig.EquipType == 201)
-                {
-                    bagInfos.RemoveAt(i);
-                }
-            }
         }
         
 
         public static List<int> GetEquipTianFuIds(this BagComponentServer self)
         {
             List<int> equiptianfuids = new List<int>(); 
-            List<ItemInfo> equiplist = new List<ItemInfo>();
-            equiplist.AddRange(self.AllItemList[ItemLocType.ItemLocEquip] );
-            equiplist.AddRange(self.AllItemList[ItemLocType.ItemLocEquip_2]);
-            equiplist.AddRange(self.AllItemList[ItemLocType.SeasonJingHe]);
-
-            
-            for (int i = 0; i < equiplist.Count; i++)
-            {
-                if (!ItemConfigCategory.Instance.Contain(equiplist[i].ItemID))
-                {
-                    continue;
-                }
-
-                ItemConfig itemConfig = ItemConfigCategory.Instance.Get(equiplist[i].ItemID);
-
-                if (!EquipConfigCategory.Instance.Contain(itemConfig.ItemEquipID))
-                {
-                    continue;
-                }
-                EquipConfig equipConfig = EquipConfigCategory.Instance.Get(itemConfig.ItemEquipID);
-                
-
-                if (equipConfig.TianFuId != 0)
-                {
-                    equiptianfuids.Add(equipConfig.TianFuId);
-                }
-            }
-
+          
             return equiptianfuids;
         }
         
@@ -581,11 +420,11 @@ namespace ET.Server
             List<ItemInfo> equipList = self.GetItemByLoc(equipIndex);
             for (int i = 0; i < equipList.Count; i++)
             {
-                ItemConfig itemCof = ItemConfigCategory.Instance.Get(equipList[i].ItemID);
+                /*ItemConfig itemCof = ItemConfigCategory.Instance.Get(equipList[i].ItemID);
                 if (itemCof.ItemSubType == position)
                 {
                     bagInfos.Add(equipList[i]);
-                }
+                }*/
             }
 
             return bagInfos;
@@ -597,11 +436,13 @@ namespace ET.Server
             List<ItemInfo> equipList = self.GetItemByLoc(equipIndex);
             for (int i = 0; i < equipList.Count; i++)
             {
+                
+                /*
                 ItemConfig itemCof = ItemConfigCategory.Instance.Get(equipList[i].ItemID);
                 if (itemCof.ItemSubType == subType)
                 {
                     return equipList[i];
-                }
+                }*/
             }
 
             return null;
@@ -611,34 +452,7 @@ namespace ET.Server
         {
             self.CheckAllItemList();
             Unit unit = self.GetParent<Unit>();
-            int zodiacnumber = self.GetZodiacnumber();
-            //unit.GetComponent<ChengJiuComponent>().TriggerEvent(ChengJiuTargetEnum.ZodiacEquipNumber_215, 0, zodiacnumber);
-
-            ///old
-            //int warehourseNumber = (int)ItemLocType.ItemLocMax - 5;
-            //if (self.WarehouseAddedCell.Count < warehourseNumber)  // 11)
-            //{
-            //    for (int i = self.WarehouseAddedCell.Count; i < warehourseNumber; i++)
-            //    {
-            //        self.WarehouseAddedCell.Add(0);
-            //    }
-            //}
-            
-        }
-
-        public static int GetZodiacnumber(this BagComponentServer self)
-        {
-            int number = 0;
-            for (int i = 0; i < self.GetItemByLoc(ItemLocType.ItemLocEquip).Count; i++)
-            {
-                ItemConfig itemConfig = ItemConfigCategory.Instance.Get(self.GetItemByLoc(ItemLocType.ItemLocEquip)[i].ItemID);
-                if (itemConfig.EquipType == 101)
-                {
-                    number++;
-                }
-            }
-
-            return number;
+         
         }
 
         public static int GetWuqiItemId(this BagComponentServer self)
@@ -679,7 +493,7 @@ namespace ET.Server
         public static void OnAddItemData(this BagComponentServer self, ItemInfoProto bagInfo, string getType)
         {
             ItemConfig itemCof = ItemConfigCategory.Instance.Get(bagInfo.ItemID);
-            int maxPileSum = itemCof.ItemPileSum;
+            int maxPileSum = itemCof.GetItemStackCount();
 
             if (maxPileSum > 1 || bagInfo.BagInfoID == 0)
             {
@@ -704,7 +518,7 @@ namespace ET.Server
         public static void OnAddItemData(this BagComponentServer self, ItemInfo bagInfo, string getType)
         {
             ItemConfig itemCof = ItemConfigCategory.Instance.Get(bagInfo.ItemID);
-            int maxPileSum = itemCof.ItemPileSum;
+            int maxPileSum = itemCof.GetItemStackCount();
 
             if (maxPileSum > 1 || bagInfo.BagInfoID == 0)
             {
@@ -750,7 +564,7 @@ namespace ET.Server
             useBagInfo.ItemID = itemid;
             useBagInfo.ItemNum = itemnumber;
             ItemConfig itemCof = ItemConfigCategory.Instance.Get(itemid);
-            useBagInfo.Loc = itemCof.ItemType == (int)ItemTypeEnum.PetHeXin ? (int)ItemLocType.ItemPetHeXinBag : (int)ItemLocType.ItemLocBag;
+            useBagInfo.Loc = (int)ItemLocType.ItemLocBag;
             useBagInfo.BagInfoID = IdGenerater.Instance.GenerateId();
             useBagInfo.GemHole = "0_0_0_0";
             useBagInfo.GemIDNew = "0_0_0_0";
@@ -763,63 +577,23 @@ namespace ET.Server
             //通知客户端背包道具发生改变
             MapMessageHelper.SendToClient(self.GetParent<Unit>(), m2c_bagUpdate);
         }
-
-        /// <summary>
-        /// 暂时只有宝石仓库用到
-        /// </summary>
-        /// <param name="self"></param>
-        /// <param name="itemId"></param>
-        /// <param name="itemNumber"></param>
-        /// <param name="itemLocType"></param>
-        /// <returns></returns>
-        public static bool CheckCanAddItem(this BagComponentServer self, int itemId, int itemNumber, int itemLocType)
-        {
-            if (itemLocType == ItemLocType.GemWareHouse1)
-            {
-                if (self.IsBagFullByLoc((int)itemLocType))
-                {
-                    List<ItemInfo> bagInfoList = self.GetItemByLoc(itemLocType);
-                    for (int i = 0; i < bagInfoList.Count; i++)
-                    {
-                        if (bagInfoList[i].ItemID != itemId)
-                        {
-                            continue;
-                        }
-
-                        ItemConfig itemConfig = ItemConfigCategory.Instance.Get(itemId);
-                        if (bagInfoList[i].ItemNum + itemNumber <= itemConfig.ItemPileSum)
-                        {
-                            return true;
-                        }
-                    }
-
-                    return false;
-                }
-                else
-                {
-                    return true;
-                }
-            }
-            else
-            {
-                return false;
-            }
-        }
-
+        
+        
         public static int GetRealNeedCell(this BagComponentServer self, RewardItem itemids, int itemLocType)
         {
-            int needcell = 0;
+            int needcell = 10;
 
-            ItemConfig itemConfig = ItemConfigCategory.Instance.Get(itemids.ItemID);
+            /*temConfig itemConfig = ItemConfigCategory.Instance.Get(itemids.ItemID);
             long curNumber = self.GetItemNumber(itemids.ItemID, itemLocType);
 
-            if (curNumber > 0 && curNumber + itemids.ItemNum <= itemConfig.ItemPileSum)
+            if (curNumber > 0 && curNumber + itemids.ItemNum <= itemConfig.OverLap)
             {
                 return 0;
             }
 
-            needcell += (int)(1f * itemids.ItemNum / itemConfig.ItemPileSum);
-            needcell += (itemids.ItemNum % itemConfig.ItemPileSum > 0 ? 1 : 0);
+            needcell += (int)(1f * itemids.ItemNum / itemConfig.OverLap);
+            needcell += (itemids.ItemNum % itemConfig.OverLap > 0 ? 1 : 0);
+            */
 
             return needcell;
         }
@@ -828,8 +602,7 @@ namespace ET.Server
         public static bool OnAddItemData(this BagComponentServer self, List<RewardItem> rewardItems_init, string makeUserID, string getWay,
         bool notice = true, bool gm = false, int UseLocType = ItemLocType.ItemLocBag)
         {
-            int needCellNumber = 0;
-            int petHeXinNumber = 0;
+            int needCellNumber = 1;
             string[] getWayInfo = getWay.Split('_');
             int getType = int.Parse(getWayInfo[0]);
             Unit unit = self.GetParent<Unit>();
@@ -876,19 +649,10 @@ namespace ET.Server
                     continue;
                 }
 
-                int ItemPileSum = (gm && itemCof.ItemPileSum > 1) ? 1000000 : itemCof.ItemPileSum;
-                if (UseLocType >= ItemLocType.ItemWareHouse1)
-                {
-                    continue;
-                }
+                int ItemPileSum = gm  ? 1000000 : itemCof.GetItemStackCount();
 
-                if (itemCof.ItemType == ItemTypeEnum.PetHeXin)
-                {
-                    petHeXinNumber += rewardItems[i].ItemNum;
-                    continue;
-                }
 
-                ItemPileSum = itemCof.ItemPileSum;
+                ItemPileSum = itemCof.GetItemStackCount();
                 if (ItemPileSum == 1)
                 {
                     needCellNumber +=  ( gm?1 :rewardItems[i].ItemNum);
@@ -934,36 +698,17 @@ namespace ET.Server
 
                 //最大堆叠数量
                 ItemConfig itemCof = ItemConfigCategory.Instance.Get(itemID);
-                if (itemCof.EquipType == 101 || itemCof.ItemQuality >= 4 || (itemCof.Id >= 16000101 && itemCof.Id <= 16000312) ||
-                    (itemCof.Id >= 10030011 && itemCof.Id <= 10030019))
-                {
-                    Log.Warning($"[获取道具] {unit.Id} {getType} {itemID} {rewardItems[i].ItemNum}");
-                }
-
+              
                 if (leftNum >= 99)
                 {
                     Log.Warning($"[获取道具]leftNum >= 99  {unit.Id} {getType} {itemID} {rewardItems[i].ItemNum}");
                 }
 
-                int maxPileSum = (gm && itemCof.ItemPileSum > 1) ? 10000000 : itemCof.ItemPileSum;
+                int maxPileSum = gm ? 10000000 : itemCof.GetItemStackCount();
                 int itemLockType = ItemLocType.ItemLocBag;
                 List<ItemInfo> itemlist = null;
-                if (itemCof.ItemType == ItemTypeEnum.Equipment)
-                {
-                    maxPileSum = itemCof.ItemPileSum;
-                }
-
-                if (itemCof.ItemType == ItemTypeEnum.PetHeXin)
-                {
-                    maxPileSum = itemCof.ItemPileSum;
-                    itemLockType = ItemLocType.ItemPetHeXinBag;
-                    itemlist = self.GetItemByLoc(itemLockType);
-                }
-                else
-                {
-                    itemLockType = UseLocType;
-                    itemlist = self.GetItemByLoc(itemLockType);
-                }
+                itemLockType = UseLocType;
+                itemlist = self.GetItemByLoc(itemLockType);
 
                 for (int k = 0; k < itemlist.Count; k++)
                 {
@@ -1014,53 +759,7 @@ namespace ET.Server
 
                     //记录制造的玩家
                     useBagInfo.MakePlayer = makeUserID;
-                    //蓝色品质的装备需要进行鉴定
-                    //if (!ItemHelper.IsBuyItem(getType) && itemCof.ItemType == 3)
-                    if (itemCof.ItemType == 3)
-                    {
-                        
-                    }
-                    
-                    if (ItemGetWay.ItemGetBing.Contains(getType))
-                    {
-                        useBagInfo.isBinging = true;
-                    }
-
-
-                    //藏宝图
-                    if (itemCof.ItemSubType == 113 || itemCof.ItemSubType == 127)
-                    {
-                        ItemAddHelper.TreasureItem(unit, useBagInfo);
-                    }
-
-                
-                    //食物
-                    if (itemCof.ItemType == 1 && itemCof.ItemSubType == 131)
-                    {
-                        useBagInfo.ItemPar = RandomHelper.RandomNumber(1, 100).ToString();
-                    }
-                    
-                    //拾取到橙色装备
-                    if (itemCof.ItemType == 3 && itemCof.ItemQuality >= 5 && getType == ItemGetWay.PickItem)
-                    {
-                        string name = unit.GetComponent<UserInfoComponentS>().GetName();
-                        string noticeContent = $"恭喜玩家 {name} 获得装备: <color=#{CommonHelp.QualityReturnColor(5)}>{itemCof.ItemName}</color>";
-                        BroadCastHelper.SendBroadMessage(self.Root(), NoticeType.Notice, noticeContent);
-                    }
-
-                    //刷新传承属性
-                    // if (itemCof.ItemType == ItemTypeEnum.Equipment && itemCof.EquipType != 101
-                    //     && itemCof.ItemQuality >= 5 && itemCof.UseLv >= 60)
-                    // {
-                    //     int occ = unit.GetComponent<UserInfoComponentS>().GetOcc();
-                    //     int occTwo = unit.GetComponent<UserInfoComponentS>().GetOccTwo();
-                    //     int skillid = XiLianHelper.XiLianChuanChengJianDing(itemCof, occ, occTwo);
-                    //     if (skillid != 0)
-                    //     {
-                    //         useBagInfo.InheritSkills.Add(skillid);
-                    //     }
-                    // }
-                    
+                  
                     self.GetItemByLoc(useBagInfo.Loc).Add(useBagInfo);
                     m2c_bagUpdate.BagInfoAdd.Add(useBagInfo.ToMessage());
                 }
@@ -1297,28 +996,5 @@ namespace ET.Server
                 return false;
             }
         }
-
-        public static void OnEquipFuMo(this BagComponentServer self, int itemid, List<HideProList> hideProLists, int index)
-        {
-            ItemConfig itemConfig = ItemConfigCategory.Instance.Get(itemid);
-            string[] itemparams = itemConfig.ItemUsePar.Split('@');
-            int weizhi = int.Parse(itemparams[0]);
-            List<ItemInfo> bagInfos = self.GetEquipListByWeizhi(ItemLocType.ItemLocEquip, weizhi);
-            if (bagInfos.Count <= index)
-            {
-                return;
-            }
-
-            //通知客户端背包刷新
-            M2C_RoleBagUpdate m2c_bagUpdate = M2C_RoleBagUpdate.Create();
-            m2c_bagUpdate.BagInfoUpdate.Add(bagInfos[index].ToMessage());
-
-            //bagInfos[index].FumoProLists.AddRange( ItemHelper.GetItemFumoPro(itemid) );
-
-            //通知客户端背包道具发生改变
-            MapMessageHelper.SendToClient(self.GetParent<Unit>(), m2c_bagUpdate);
-            //Function_Fight.GetInstance().UnitUpdateProperty_Base(self.GetParent<Unit>(), true, true);
-        }
-       
     }
 }

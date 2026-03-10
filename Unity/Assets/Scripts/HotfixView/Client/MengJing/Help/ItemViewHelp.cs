@@ -7,24 +7,7 @@ namespace ET.Client
 {
     public static class ItemViewHelp
     {
-
-        /// <summary>
-        /// 等级 99 显示传承  98显示史诗
-        /// </summary>
-        /// <param name="itemConfig"></param>
-        /// <returns></returns>
-        public static string GetGemUseLv(ItemConfig itemConfig)
-        {
-            if (itemConfig.UseLv == 99)
-            {
-                return "传承";
-            }
-            if (itemConfig.UseLv == 98)
-            {
-                return "史诗";
-            }
-            return itemConfig.UseLv.ToString() + "级";
-        }
+        
 
         public static string GetFumpProDesc(List<HideProList> hideProLists)
         {
@@ -182,46 +165,8 @@ namespace ET.Client
             int properShowNum = 0;
             ItemConfig itemConfig = ItemConfigCategory.Instance.Get(baginfo.ItemID);
 
-            // 赛季晶核
-            if (itemConfig.ItemType == 3 && itemConfig.EquipType == 201)
-            {
-                string showColor = "1";
-                if (baginfo.XiLianHideProLists != null)
-                {
-                    foreach (HideProList hideProList in baginfo.XiLianHideProLists)
-                    {
-                        if (hideProList.HideID == 0) continue;
-                        string attribute = "";
-                        string proName = GetAttributeName(hideProList.HideID);
-                        int showType = NumericHelp.GetNumericValueType(hideProList.HideID);
-                        if (showType == 2)
-                        {
-                            attribute = $"当前附加 {proName}:" + (hideProList.HideValue / 100f).ToString("0.##") + "%";
-                        }
-                        else
-                        {
-                            attribute = $"当前附加 {proName}:" + hideProList.HideValue;
-                        }
 
-                        ShowPropertyText(attribute, showColor, propertyGO, parentGO);
-                        properShowNum += 1;
-                    }
-                }
-
-                if (baginfo.HideSkillLists != null)
-                {
-                    for (int i = 0; i < baginfo.HideSkillLists.Count; i++)
-                    {
-                        int skillID = baginfo.HideSkillLists[i];
-                        SkillConfig skillCof = SkillConfigCategory.Instance.Get(skillID);
-                        string proStr = "当前附加技能" + ":" + skillCof.SkillName;
-                        ShowPropertyText(proStr, "2", propertyGO, parentGO);
-                        properShowNum += 1;
-                    }
-                }
-            }
-
-            EquipConfig equipConfig = EquipConfigCategory.Instance.Get(itemConfig.ItemEquipID);
+            EquipConfig equipConfig = EquipConfigCategory.Instance.Get(1);
             int equip_Hp = equipConfig.Equip_Hp;
             int equip_MinAct = equipConfig.Equip_MinAct;
             int equip_MaxAct = equipConfig.Equip_MaxAct;
@@ -458,15 +403,7 @@ namespace ET.Client
             //显示隐藏技能
             if (baginfo.HideSkillLists != null)
             {
-                string skillTip = itemConfig.EquipType == 301 ? "套装效果，附加技能：" : "隐藏技能：";
-                for (int i = 0; i < baginfo.HideSkillLists.Count; i++)
-                {
-                    int skillID = baginfo.HideSkillLists[i];
-                    SkillConfig skillCof = SkillConfigCategory.Instance.Get(skillID);
-                    string proStr = LanguageComponent.Instance.LoadLocalization(skillTip) + skillCof.SkillName;
-                    ShowPropertyText(proStr, "2", propertyGO, parentGO);
-                    properShowNum += 1;
-                }
+                
             }
 
             //显示装备附加属性
@@ -517,9 +454,9 @@ namespace ET.Client
                 }
             }
             // 显示描述
-            if (itemConfig.ItemDes != "" && itemConfig.ItemDes != "0" && itemConfig.ItemDes != null)
+            if (itemConfig.Desc != "" && itemConfig.Desc != "0" && itemConfig.Desc != null)
             {
-                string[] des = itemConfig.ItemDes.Split("\\n");
+                string[] des = itemConfig.Desc.Split("\\n");
                 foreach (string s in des)
                 {
                     int allLength = s.Length;
@@ -704,9 +641,9 @@ namespace ET.Client
         public static string GetItemDesc(ItemInfo baginfo)
         {
             ItemConfig itemconf = ItemConfigCategory.Instance.Get(baginfo.ItemID);
-            string Text_ItemDes = itemconf.ItemDes;
-            int itemType = itemconf.ItemType;
-            int itemSubType = itemconf.ItemSubType;
+            string Text_ItemDes = itemconf.Desc;
+            int itemType = 1;
+            int itemSubType = 11;
 
             string[] itemDesArray = Text_ItemDes.Split(';');
             string itemMiaoShu = "";
@@ -742,45 +679,7 @@ namespace ET.Client
             {
                 string holeStr = "";
                 //string baoshitype = "101, 102, 103, 104, 105";
-                string baoshitype = itemconf.ItemSubType.ToString();
-                string[] holeStrList = baoshitype.Split(',');
-                for (int i = 0; i < holeStrList.Length; i++)
-                {
-                    switch (holeStrList[i])
-                    {
-                        case "101":
-                            langStr = LanguageComponent.Instance.LoadLocalization("黄色");
-                            holeStr = holeStr + langStr + "、";
-                            break;
-                        case "102":
-                            langStr = LanguageComponent.Instance.LoadLocalization("紫色");
-                            holeStr = holeStr + langStr + "、";
-                            break;
-                        case "103":
-                            langStr = LanguageComponent.Instance.LoadLocalization("蓝色");
-                            holeStr = holeStr + langStr + "、";
-                            break;
-                        case "104":
-                            langStr = LanguageComponent.Instance.LoadLocalization("绿色");
-                            holeStr = holeStr + langStr + "、";
-                            break;
-                        /*
-                        case "105":
-                            langStr = GameSettingLanguge.LoadLocalization("白色");
-                            holeStr = holeStr + langStr + "、";
-                            break;
-                        */
-                        case "110":
-                            langStr = LanguageComponent.Instance.LoadLocalization("任意");
-                            holeStr = holeStr + langStr + "、";
-                            break;
-                        case "111":
-                            langStr = LanguageComponent.Instance.LoadLocalization("任意");
-                            holeStr = holeStr + langStr + "、";
-                            break;
-                    }
-                }
-
+      
                 if (holeStr != "")
                 {
                     holeStr = holeStr.Substring(0, holeStr.Length - 1);
@@ -790,49 +689,6 @@ namespace ET.Client
 
                 string langStr_2 = LanguageComponent.Instance.LoadLocalization("可镶嵌在");
                 string langStr_3 = LanguageComponent.Instance.LoadLocalization("孔位");
-                Text_ItemDes = Text_ItemDes + "\n" + "\n" + @"" + langStr_2 + holeStr + @langStr_3 + "";
-
-                if (itemconf.ItemSubType == 110)
-                {
-                    Text_ItemDes = Text_ItemDes + "\n" + "\n" + @"提示:史诗宝石一旦镶嵌将无法卸下身上最多可镶嵌4颗史诗宝石";
-                }
-            }
-
-            //宠物之核
-            if (itemType == 5)
-            {
-                string holeStr = "";
-                //string baoshitype = "101, 102, 103, 104, 105";
-                string baoshitype = itemconf.ItemSubType.ToString();
-                string[] holeStrList = baoshitype.Split(',');
-                for (int i = 0; i < holeStrList.Length; i++)
-                {
-                    switch (holeStrList[i])
-                    {
-                        case "1":
-                            langStr = LanguageComponent.Instance.LoadLocalization("进攻能量");
-                            holeStr = holeStr + langStr + "、";
-                            break;
-                        case "2":
-                            langStr = LanguageComponent.Instance.LoadLocalization("守护能量");
-                            holeStr = holeStr + langStr + "、";
-                            break;
-                        case "3":
-                            langStr = LanguageComponent.Instance.LoadLocalization("生命能量");
-                            holeStr = holeStr + langStr + "、";
-                            break;
-                    }
-                }
-
-                if (holeStr != "")
-                {
-                    holeStr = holeStr.Substring(0, holeStr.Length - 1);
-                }
-
-                i1 = i1 + 2;
-
-                string langStr_2 = LanguageComponent.Instance.LoadLocalization("可装备在宠物的");
-                string langStr_3 = LanguageComponent.Instance.LoadLocalization("槽位");
                 Text_ItemDes = Text_ItemDes + "\n" + "\n" + @"" + langStr_2 + holeStr + @langStr_3 + "";
             }
             

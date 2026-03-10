@@ -73,10 +73,7 @@ namespace ET.Client
                 self.ShowBagInfos.Add(bagInfo);
             }
 
-            self.ShowBagInfos = self.ShowBagInfos
-                    .OrderByDescending(t => ItemConfigCategory.Instance.Get(t.ItemID).ItemQuality)
-                    .ThenBy(t => ItemConfigCategory.Instance.Get(t.ItemID).ItemType == 3 ? 0 : 1)
-                    .ToList();
+         
 
             self.E_BagItemsLoopVerticalScrollRect.AddItemRefreshListener(self.OnBagItemsRefresh);
             self.AddUIScrollItems(ref self.ScrollItemCommonItems, self.ShowBagInfos.Count);
@@ -145,11 +142,7 @@ namespace ET.Client
 
             }
 
-            self.ShowBagInfos = self.ShowBagInfos
-                    .OrderByDescending(t => ItemConfigCategory.Instance.Get(t.ItemID).ItemQuality)
-                    .ThenBy(t => ItemConfigCategory.Instance.Get(t.ItemID).ItemType == 3 ? 0 : 1)
-                    .ToList();
-            
+       
             self.E_BagItemsLoopVerticalScrollRect.AddItemRefreshListener(self.OnBagItemsRefresh);
             self.AddUIScrollItems(ref self.ScrollItemCommonItems, self.ShowBagInfos.Count);
             self.E_BagItemsLoopVerticalScrollRect.SetVisible(true, self.ShowBagInfos.Count);

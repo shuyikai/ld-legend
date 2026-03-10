@@ -391,7 +391,7 @@ namespace ET
 						if (ItemConfigCategory.Instance.Contain(dropItemID))
 						{
 							ItemConfig itemCof = ItemConfigCategory.Instance.Get(dropItemID);
-							if (itemCof.ItemQuality >= needQuality && showID.Contains(dropItemID) == false)
+							if (showID.Contains(dropItemID) == false)
 							{
 								showID.Add(dropItemID);
 								dropItemList.Add(new RewardItem() { ItemID = dropItemID, ItemNum = 1 });

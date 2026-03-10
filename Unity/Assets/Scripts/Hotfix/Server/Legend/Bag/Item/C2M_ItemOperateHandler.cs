@@ -19,12 +19,7 @@ namespace ET.Server
             long bagInfoID = request.OperateBagID;
 
             int locType = ItemLocType.ItemLocBag;
-            if (request.OperateType == 2)
-            {
-                ItemConfig config = ItemConfigCategory.Instance.Get(int.Parse(request.OperatePar.Split('_')[0]));
-                locType = config.ItemType == (int) ItemTypeEnum.PetHeXin? ItemLocType.ItemPetHeXinBag : locType;
-            }
-
+           
             if (request.OperateType == 4)
             {
                 locType = ItemLocType.ItemLocEquip;
@@ -46,7 +41,6 @@ namespace ET.Server
             if (useBagInfo != null)
             {
                 itemConfig = ItemConfigCategory.Instance.Get(useBagInfo.ItemID);
-                weizhi = itemConfig.ItemSubType;
             }
 
             //通知客户端背包刷新
@@ -63,94 +57,14 @@ namespace ET.Server
                 int costNumber = 1;
                 bool bagIsFull = false;
                 List<RewardItem> droplist = new List<RewardItem>();
-                if (itemConfig.ItemSubType == 8) //碎片兑换
-                {
-                    string[] duihuanparams = itemConfig.ItemUsePar.Split(';');
-                    int neednum = int.Parse(duihuanparams[0]);
-                    if (bagComponent.GetItemNumber(itemConfig.Id) < neednum)
-                    {
-                        response.Error = ErrorCode.ERR_ItemNotEnoughError;
-                        return;
-                    }
-                }
-
-                if (itemConfig.ItemSubType == 9) //充值达到一定额度开启宝箱获得道具
-                {
-                    string[] itemPar = itemConfig.ItemUsePar.Split(';');
-                  
-                    string[] rewardInfos = itemConfig.ItemUsePar.Split(';');
-                    DropHelper.DropIDToDropItem(int.Parse(rewardInfos[1]), droplist);
-
-                    if (bagComponent.GetBagLeftCell(ItemLocType.ItemLocBag) < ItemHelper.GetNeedCell(droplist))
-                    {
-                        bagIsFull = true;
-                    }
-                }
-
-                if (itemConfig.ItemSubType == 102 || (itemConfig.ItemSubType == 103)) //宠物蛋(点击使用直接获得1个宠物)
-                {
-                    if (bagComponent.GetBagLeftCell(ItemLocType.ItemLocBag) < 1)
-                    {
-                        bagIsFull = true;
-                    }
-                }
-
-                if (itemConfig.ItemSubType == 104) //随机道具盒子
-                {
-                    int dropid = int.Parse(itemConfig.ItemUsePar);
-                    droplist = new List<RewardItem>();
-                    DropHelper.DropIDToDropItem(dropid, droplist);
-                    if (bagComponent.GetBagLeftCell(ItemLocType.ItemLocBag) < droplist.Count)
-                    {
-                        bagIsFull = true;
-                    }
-                }
-
-                MapComponent mapComponent = unit.Scene().GetComponent<MapComponent>();
-                if (itemConfig.ItemSubType == 111 && ConfigData.BatchUseItemList.Contains(itemConfig.Id))
-                {
-                    //目前只有111类型支持批量使用
-                    if (!string.IsNullOrEmpty(request.OperatePar))
-                    {
-                        costNumber = int.Parse(request.OperatePar);
-                    }
-                }
-
-                if (itemConfig.ItemSubType == 14 //召唤卷轴
-                    || itemConfig.ItemSubType == 114) //宝石
-                {
-                    costNumber = 0;
-                }
+             
                 
-                if (itemConfig.ItemSubType == 127)
-                {
-                    if (bagComponent.GetBagLeftCell(ItemLocType.ItemLocBag) < 1)
-                    {
-                        bagIsFull = true;
-                    }
-                }
-
-                if (itemConfig.ItemSubType == 137)
-                {
-                    //检测要附灵的宠物蛋是否存在
-                    long chongwudanId = long.Parse(request.OperatePar);
-                    ItemInfo chongwudan = bagComponent.GetItemByLoc(ItemLocType.ItemLocBag, chongwudanId);
-                    if (chongwudan == null)
-                    {
-                        response.Error = ErrorCode.ERR_ItemNotExist;
-                        return;
-                    }
-                }
-
+                MapComponent mapComponent = unit.Scene().GetComponent<MapComponent>();
+            
+             
                 if (bagIsFull)
                 {
                     response.Error = ErrorCode.ERR_BagIsFull;
-                    return;
-                }
-
-                if (itemConfig.ItemType != 1
-                    && itemConfig.ItemType != 2)
-                {
                     return;
                 }
 
@@ -158,7 +72,7 @@ namespace ET.Server
                 {
                     bool costItemStatus = true;
                     //根据道具子类分发不同的功能
-                    switch (itemConfig.ItemSubType)
+                    switch (itemConfig.Id)
                     {
                         //增加金币
                         case 1:
@@ -189,51 +103,6 @@ namespace ET.Server
                         case 108: //宠物经验骨头
                         case 109: //宠物经验牛奶
                             break;
-                        case 110:
-                            //1;20;70010101,70010102@21;70;70020101,70020102
-                            int createMonsterID = 0;
-                            int lv = 1;
-                            string[] monsters = itemConfig.ItemUsePar.Split('@');
-
-                            if (monsters.Length > 100)
-                            {
-                                Log.Error($"monsters.Length > 100:  {itemConfig.ItemUsePar}");
-                                return;
-                            }
-
-                            for (int c = 0; c < monsters.Length; c++)
-                            {
-                                //1;20;70010101,70010102
-                                string[] lelveparams = monsters[c].Split(";");
-                                int level_1 = int.Parse(lelveparams[0]);
-                                int level_2 = int.Parse(lelveparams[1]);
-                                if (lv < level_1 || lv > level_2)
-                                {
-                                    continue;
-                                }
-
-                                string[] ids = lelveparams[2].Split(',');
-                                int r_number = RandomHelper.RandomNumber(0, ids.Length);
-                                Vector3 vector3 = new Vector3(unit.Position.x + RandomHelper.RandFloat01() * 1, unit.Position.y,
-                                    unit.Position.z + RandomHelper.RandFloat01() * 1);
-                                // Unit monster = UnitFactory.CreateMonster(unit.DomainScene(), int.Parse(ids[r_number]), vector3, new CreateMonsterInfo()
-                                // {
-                                //     Camp = CampEnum.CampMonster1
-                                // });
-                                createMonsterID = int.Parse(ids[r_number]);
-                            }
-
-                            //发送广播信息
-                            if (createMonsterID != 0)
-                            {
-                                // MonsterConfig monsterCof = MonsterConfigCategory.Instance.Get(createMonsterID);
-                                //ServerMessageHelper.SendServerMessage(DBHelper.GetChatServerId(unit.DomainZone()),
-                                //     NoticeType.Notice, "玩家" + unit.GetComponent<UserInfoComponent>().UserInfo.Name + "在宝藏之地召唤出领主怪物:<color=#FF75F0>" + monsterCof.MonsterName + "</color>").Coroutine();
-                            }
-
-                            break;
-                   
-                        
                         //藏宝图
                         case 113:
                             int dropid = int.Parse(useBagInfo.ItemPar.Split('@')[2]);
@@ -316,43 +185,16 @@ namespace ET.Server
                     }
 
                     itemConf = ItemConfigCategory.Instance.Get(int.Parse(gemids[i]));
-                    userInfoComponent.UpdateRoleData((int) itemConf.SellMoneyType, (itemConf.SellMoneyValue).ToString());
+                
                 }
                 
             }
-
-            if (request.OperateType == 2 && locType == ItemLocType.ItemPetHeXinBag)
-            {
-                //默认出售全部
-                //给与对应金币或货币奖励
-                int sellNum = int.Parse(request.OperatePar.Split('_')[1]);
-                if (sellNum <= 0 || sellNum > useBagInfo.ItemNum)
-                {
-                    response.Error = ErrorCode.ERR_ModifyData;
-                    return;
-                }
-
-                userInfoComponent.UpdateRoleData(itemConfig.SellMoneyType, (sellNum * itemConfig.SellMoneyValue).ToString());
-                bagComponent.OnCostItemData(useBagInfo, locType, sellNum);
-                if (useBagInfo.ItemNum == 0)
-                {
-                    m2c_bagUpdate.BagInfoDelete.Add(useBagInfo.ToMessage());
-                }
-                else
-                {
-                    m2c_bagUpdate.BagInfoUpdate.Add(useBagInfo.ToMessage());
-                }
-            }
-
+            
             //穿戴装备
             if (request.OperateType == 3)
             {
                 //宝石
-                if (itemConfig.ItemType == 4)
-                {
-                    response.Error = ErrorCode.ERR_EquipLvLimit;
-                    return;
-                }
+              
 
                 int error = ItemHelper.CanEquip(useBagInfo, useInfo);
                 if (error != 0)
@@ -383,8 +225,7 @@ namespace ET.Server
                 {
                     bagComponent.OnChangeItemLoc(useBagInfo, ItemLocType.ItemLocEquip, ItemLocType.ItemLocBag);
                 }
-
-                int zodiacnumber = bagComponent.GetZodiacnumber();
+                
                 Function_Fight.UnitUpdateProperty_Base(unit, true, true);
                 useBagInfo.isBinging = true;
                 m2c_bagUpdate.BagInfoUpdate.Add(useBagInfo.ToMessage());
@@ -403,11 +244,6 @@ namespace ET.Server
                 if (full)
                 {
                     response.Error = ErrorCode.ERR_BagIsFull;
-                    return;
-                }
-
-                if (itemConfig.ItemType == ItemTypeEnum.Equipment && itemConfig.ItemSubType == 201)
-                {
                     return;
                 }
 

@@ -121,34 +121,8 @@ namespace ET.Client
             for (int i = 0; i < equiplist.Count; i++)
             {
                 ItemConfig itemConfig = ItemConfigCategory.Instance.Get(equiplist[i].ItemID);
-                if (itemConfig.EquipType == 101 || itemConfig.EquipType == 201)
-                {
-                    continue;
-                }
-
-                if (itemConfig.ItemType == 4)
-                {
-                    continue;
-                }
-
-                if (itemConfig.ItemSubType < (int)ItemSubTypeEnum.Shiping)
-                {
-                    ES_EquipItem esEquipItem = self.ESEquipItems_1[itemConfig.ItemSubType - 1];
-                    esEquipItem.Refresh(equiplist[i], occ, itemOperateEnum, equiplist);
-                }
-
-                if (itemConfig.ItemSubType == (int)ItemSubTypeEnum.Shiping)
-                {
-                    ES_EquipItem esEquipItem = self.ESEquipItems_1[itemConfig.ItemSubType + shipingIndex - 1];
-                    esEquipItem.Refresh(equiplist[i], occ, itemOperateEnum, equiplist, 1);
-                    shipingIndex++;
-                }
-
-                if (itemConfig.ItemSubType > (int)ItemSubTypeEnum.Shiping)
-                {
-                    ES_EquipItem esEquipItem = self.ESEquipItems_1[itemConfig.ItemSubType + (ConfigData.EquipShiPingMax - 2)];
-                    esEquipItem.Refresh(equiplist[i], occ, itemOperateEnum, equiplist);
-                }
+                ES_EquipItem esEquipItem = self.ESEquipItems_1[2 - 1];
+                esEquipItem.Refresh(equiplist[i], occ, itemOperateEnum, equiplist);
             }
 
             self.Root().GetComponent<UIComponent>().GetDlgLogic<DlgRole>()?.OnUpdateRoleZodiac();
@@ -159,12 +133,9 @@ namespace ET.Client
             for (int i = 0; i < equiplist.Count; i++)
             {
                 ItemConfig itemConfig = ItemConfigCategory.Instance.Get(equiplist[i].ItemID);
-                if (itemConfig.EquipType == 101)
-                {
-                    continue;
-                }
+               
 
-                ES_EquipItem esEquipItem = self.ESEquipItems_2[itemConfig.ItemSubType - 1];
+                ES_EquipItem esEquipItem = self.ESEquipItems_2[1];
                 esEquipItem.Refresh(equiplist[i], occ, itemOperateEnum, equiplist);
             }
         }

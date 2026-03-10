@@ -35,11 +35,11 @@ namespace ET.Client
                 self.E_EquipQualityImage.gameObject.SetActive(true);
                 
                 ItemConfig itemConfig = ItemConfigCategory.Instance.Get(bagInfo.ItemID);
-                string path = ABPathHelper.GetAtlasPath_2(ABAtlasTypes.ItemIcon, itemConfig.Icon);
+                string path = ABPathHelper.GetAtlasPath_2(ABAtlasTypes.ItemIcon, itemConfig.GetItemIcon());
                 Sprite sp = self.Root().GetComponent<ResourcesLoaderComponent>().LoadAssetSync<Sprite>(path);
                 self.E_EquipIconImage.sprite = sp;
                 
-                string qualityiconStr = FunctionUI.ItemQualiytoPath(itemConfig.ItemQuality);
+                string qualityiconStr = FunctionUI.ItemQualiytoPath(1);
                 string path2 = ABPathHelper.GetAtlasPath_2(ABAtlasTypes.ItemQualityIcon, qualityiconStr);
                 Sprite sp2 = self.Root().GetComponent<ResourcesLoaderComponent>().LoadAssetSync<Sprite>(path2);
                 self.E_EquipQualityImage.sprite = sp2;
