@@ -20,7 +20,6 @@ namespace ET
 		public string GetWay { get; set; }
 		public string GemIDNew { get; set; }
 		public string MakePlayer { get; set; }
-
 		public int ItemType { get; set; }
 	}
 
@@ -49,7 +48,7 @@ namespace ET
 			self.GetWay = proto.GetWay;
 			self.GemIDNew = proto.GemIDNew;
 			self.MakePlayer = proto.MakePlayer;
-			
+			self.ItemType = proto.ItemType;
 		}
 
 		public static ItemInfoProto ToMessage(this ItemInfo self)
@@ -69,6 +68,7 @@ namespace ET
 			proto.GetWay = self.GetWay;
 			proto.GemIDNew = self.GemIDNew;
 			proto.MakePlayer = self.MakePlayer;
+			proto.ItemType = self.ItemType;
 			return proto;
 		}
 	}

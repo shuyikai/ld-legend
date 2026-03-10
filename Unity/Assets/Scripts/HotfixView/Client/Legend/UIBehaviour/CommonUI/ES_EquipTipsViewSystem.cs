@@ -33,6 +33,15 @@ namespace ET.Client
 
 		private static async ETTask OnUseButton(this ES_EquipTips self)
 		{
+			EquipConfig equipConfig = EquipConfigCategory.Instance.Get(self.BagInfo.ItemID);
+			if (ItemViewData.EquipStdModeToName.ContainsKey(equipConfig.StdMode))
+			{
+				FlyTipComponent.Instance.ShowFlyTip(LanguageComponent.Instance.LoadLocalization("EquipConfig.StdMode配置有误！"));
+				return;
+			}
+
+			await BagClientNetHelper.RequestEquipWear(self.Root(), self.BagInfo, 1);
+			
 			await ETTask.CompletedTask;
 		}
 		

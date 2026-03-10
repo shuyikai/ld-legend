@@ -436,13 +436,11 @@ namespace ET.Server
             List<ItemInfo> equipList = self.GetItemByLoc(equipIndex);
             for (int i = 0; i < equipList.Count; i++)
             {
-                
-                /*
-                ItemConfig itemCof = ItemConfigCategory.Instance.Get(equipList[i].ItemID);
-                if (itemCof.ItemSubType == subType)
+                EquipConfig itemCof = EquipConfigCategory.Instance.Get(equipList[i].ItemID);
+                if (itemCof.StdMode == subType)
                 {
                     return equipList[i];
-                }*/
+                }
             }
 
             return null;

@@ -8647,6 +8647,12 @@ namespace ET
         [MemoryPackOrder(17)]
         public string MakePlayer { get; set; }
 
+        /// <summary>
+        /// 1道具 2装备
+        /// </summary>
+        [MemoryPackOrder(18)]
+        public int ItemType { get; set; }
+
         public override void Dispose()
         {
             if (!this.IsFromPool)
@@ -8668,6 +8674,7 @@ namespace ET
             this.GetWay = default;
             this.GemIDNew = default;
             this.MakePlayer = default;
+            this.ItemType = default;
 
             ObjectPool.Instance.Recycle(this);
         }
@@ -8734,6 +8741,88 @@ namespace ET
             this.RpcId = default;
             this.Error = default;
             this.Message = default;
+
+            ObjectPool.Instance.Recycle(this);
+        }
+    }
+
+    // 穿戴装备脱下装备
+    [MemoryPackable]
+    [Message(OuterMessage.C2M_EquipWearRequest)]
+    [ResponseType(nameof(M2C__EquipWearResponse))]
+    public partial class C2M_EquipWearRequest : MessageObject, ILocationRequest
+    {
+        public static C2M_EquipWearRequest Create(bool isFromPool = false)
+        {
+            return ObjectPool.Instance.Fetch(typeof(C2M_EquipWearRequest), isFromPool) as C2M_EquipWearRequest;
+        }
+
+        [MemoryPackOrder(89)]
+        public int RpcId { get; set; }
+
+        /// <summary>
+        /// 操作类型 1 装备穿戴   2脱下
+        /// </summary>
+        [MemoryPackOrder(0)]
+        public int OperateType { get; set; }
+
+        [MemoryPackOrder(1)]
+        public long OperateBagID { get; set; }
+
+        /// <summary>
+        /// 类型参数[穿戴饰品需要传位置]
+        /// </summary>
+        [MemoryPackOrder(2)]
+        public string OperatePar { get; set; }
+
+        public override void Dispose()
+        {
+            if (!this.IsFromPool)
+            {
+                return;
+            }
+
+            this.RpcId = default;
+            this.OperateType = default;
+            this.OperateBagID = default;
+            this.OperatePar = default;
+
+            ObjectPool.Instance.Recycle(this);
+        }
+    }
+
+    [MemoryPackable]
+    [Message(OuterMessage.M2C__EquipWearResponse)]
+    public partial class M2C__EquipWearResponse : MessageObject, ILocationResponse
+    {
+        public static M2C__EquipWearResponse Create(bool isFromPool = false)
+        {
+            return ObjectPool.Instance.Fetch(typeof(M2C__EquipWearResponse), isFromPool) as M2C__EquipWearResponse;
+        }
+
+        [MemoryPackOrder(89)]
+        public int RpcId { get; set; }
+
+        [MemoryPackOrder(90)]
+        public string Message { get; set; }
+
+        [MemoryPackOrder(91)]
+        public int Error { get; set; }
+
+        [MemoryPackOrder(0)]
+        public string OperatePar { get; set; }
+
+        public override void Dispose()
+        {
+            if (!this.IsFromPool)
+            {
+                return;
+            }
+
+            this.RpcId = default;
+            this.Message = default;
+            this.Error = default;
+            this.OperatePar = default;
 
             ObjectPool.Instance.Recycle(this);
         }
@@ -8962,5 +9051,7 @@ namespace ET
         public const ushort ItemInfoProto = 10220;
         public const ushort C2M_MedalExchangeRequest = 10221;
         public const ushort M2C_MedalExchangeResponse = 10222;
+        public const ushort C2M_EquipWearRequest = 10223;
+        public const ushort M2C__EquipWearResponse = 10224;
     }
 }

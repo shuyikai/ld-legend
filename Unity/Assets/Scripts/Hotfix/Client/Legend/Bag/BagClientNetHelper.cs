@@ -42,14 +42,14 @@ namespace ET.Client
 
             return response.Error;
         }
+        
 
         public static async ETTask<M2C_ItemOperateResponse> RequestUseItem(Scene root, ItemInfo bagInfo, string parinfo = "")
         {
             UserInfoComponentC infoComponent = root.GetComponent<UserInfoComponentC>();
 
             ItemConfig itemConfig = ItemConfigCategory.Instance.Get(bagInfo.ItemID);
-     
-   
+            
             C2M_ItemOperateRequest request = C2M_ItemOperateRequest.Create();
             request.OperateType = 1;
             request.OperateBagID = bagInfo.BagInfoID;
@@ -170,5 +170,30 @@ namespace ET.Client
             M2C_MedalExchangeResponse response = (M2C_MedalExchangeResponse)await root.GetComponent<ClientSenderCompnent>().Call(request);
             return response;
         }
+        
+        
+        /// <summary>
+        /// 穿戴脱下装备
+        /// </summary>
+        /// <param name="root"></param>
+        /// <param name="bagInfo"></param>
+        /// <param name="parinfo"></param>
+        /// <returns></returns>
+        public static async ETTask<M2C__EquipWearResponse> RequestEquipWear(Scene root, ItemInfo bagInfo, int operatetype)
+        {
+            C2M_EquipWearRequest request = C2M_EquipWearRequest.Create();
+            request.OperateType = operatetype;
+            request.OperateBagID = bagInfo.BagInfoID;
+            request.OperatePar = string.Empty;
+
+            M2C__EquipWearResponse response = (M2C__EquipWearResponse)await root.GetComponent<ClientSenderCompnent>().Call(request);
+
+            if (response.Error != ErrorCode.ERR_Success)
+            {
+                return response;
+            }
+            return response;
+        }
+
     }
 }

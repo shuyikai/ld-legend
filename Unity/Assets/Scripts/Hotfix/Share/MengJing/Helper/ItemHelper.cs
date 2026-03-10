@@ -54,18 +54,6 @@ namespace ET
             //判断等级
             int roleLv = 1;
             int equipLv = itemConfig.NeedLevel;
-            //简易
-            if (bagInfo.HideSkillLists.Contains(68000103))
-            {
-                equipLv = equipLv - 5;
-            }
-
-            //无级别
-            if (bagInfo.HideSkillLists.Contains(68000106))
-            {
-                equipLv = 1;
-            }
-
             if (roleLv < equipLv)
             {
                 return ErrorCode.ERR_EquipLvLimit;

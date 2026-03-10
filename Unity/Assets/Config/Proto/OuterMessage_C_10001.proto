@@ -1991,3 +1991,21 @@ message M2C_MedalExchangeResponse    // ILocationResponse
 	int32 Error = 91;
 	string Message = 92;
 }
+
+//穿戴装备脱下装备
+//ResponseType M2C__EquipWearResponse
+message C2M_EquipWearRequest // ILocationRequest
+{
+	int32 RpcId = 90;
+	int32 OperateType = 1;				//操作类型 1 装备穿戴   2脱下
+	int64 OperateBagID = 2;
+	string OperatePar = 3;				// 类型参数[穿戴饰品需要传位置]
+}
+
+message M2C__EquipWearResponse // ILocationResponse
+{
+	int32 RpcId = 90;
+	string Message = 91;
+	int32 Error = 92;
+	string OperatePar = 1;
+}
