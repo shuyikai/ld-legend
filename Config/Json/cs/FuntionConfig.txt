@@ -1,4 +1,4 @@
 {"dict": [
 [1001, {"_t":"FuntionConfig","_id":1001,"Name":"WindowID_MedalExchange","ConditionType":[1],"ConditionParam":[1],"OpenTime":"","OpenDay":[-1],"IfOpen":"0","SceneId":0,"CreateMonsterPosi":[]}],
-[1002, {"_t":"FuntionConfig","_id":1002,"Name":"WindowID_MedalExchange","ConditionType":[1],"ConditionParam":[1],"OpenTime":"","OpenDay":[-1],"IfOpen":"0","SceneId":0,"CreateMonsterPosi":[]}],
+[1002, {"_t":"FuntionConfig","_id":1002,"Name":"WindowID_NecklaceRefine","ConditionType":[1],"ConditionParam":[1],"OpenTime":"","OpenDay":[-1],"IfOpen":"0","SceneId":0,"CreateMonsterPosi":[]}],
 ]}

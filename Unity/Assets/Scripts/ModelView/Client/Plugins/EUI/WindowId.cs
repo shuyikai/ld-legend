@@ -42,6 +42,6 @@ namespace ET.Client
 		WindowID_MedalExchange,				//勋章兑换
 		WindowID_Bag,						//背包
 		WindowID_EquipDuiBiTips,
-		WindowID_NecklaceRefine,
+		WindowID_NecklaceRefine,			//项链洗练界面
 	}
 }
