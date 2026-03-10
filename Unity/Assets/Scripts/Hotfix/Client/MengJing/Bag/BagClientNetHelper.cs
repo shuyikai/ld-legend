@@ -23,12 +23,8 @@ namespace ET.Client
                 bagList.Add(itemInfo);
             }
 
-            bagComponentC.QiangHuaLevel = response.QiangHuaLevel;
-            bagComponentC.QiangHuaFails = response.QiangHuaFails;
+
             bagComponentC.BagBuyCellNumber = response.WarehouseAddedCell;
-            bagComponentC.FashionActiveIds = response.FashionActiveIds;
-            bagComponentC.FashionEquipList = response.FashionEquipList;
-            bagComponentC.SeasonJingHePlan = response.SeasonJingHePlan;
             bagComponentC.BagAddCellNumber = response.AdditionalCellNum;
             return ErrorCode.ERR_Success;
         }

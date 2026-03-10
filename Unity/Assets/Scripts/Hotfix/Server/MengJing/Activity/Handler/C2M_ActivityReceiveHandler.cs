@@ -50,11 +50,7 @@ namespace ET.Server
          
                             return;
                         }
-                        if (!unit.GetComponent<BagComponentS>().OnAddItemData(activityConfig.Par_3, $"{ItemGetWay.Activity_DayTeHui}_{TimeHelper.ServerNow()}"))
-                        {
-                            response.Error = ErrorCode.ERR_BagIsFull;
-                            return;
-                        }
+                       
 
                         activityComponent.ActivityReceiveIds.Add(request.ActivityId);
                         

@@ -485,12 +485,7 @@ namespace ET
 
             return gold;
         }
-
-        public static bool IsBuyItem(int getType)
-        {
-            return getType == ItemGetWay.StoreBuy || getType == ItemGetWay.MysteryBuy || getType == ItemGetWay.PaiMaiShop;
-        }
-
+        
         public static ItemInfo GetEquipByWeizhi(List<ItemInfo> bagInfos, int pos)
         {
             for (int i = 0; i < bagInfos.Count; i++)

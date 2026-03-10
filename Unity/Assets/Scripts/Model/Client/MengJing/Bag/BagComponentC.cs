@@ -6,12 +6,7 @@ namespace ET.Client
     [ComponentOf(typeof(Scene))]
     public class BagComponentC : Entity, IAwake, IDestroy
     {
-        public int SeasonJingHePlan { get; set; }
-
-        public List<int> QiangHuaLevel { get; set; } = new();
-
-        public List<int> QiangHuaFails { get; set; } = new();
-
+       
         /// <summary>
         /// ItemLocType.ItemLocBag 
         /// </summary>
@@ -22,18 +17,6 @@ namespace ET.Client
         /// </summary>
         public List<int> BagAddCellNumber { get; set; } = new();
 
-        /// <summary>
-        /// 激活的时装
-        /// </summary>
-        public List<int> FashionActiveIds { get; set; } = new();
-
-        /// <summary>
-        /// 穿戴的时装
-        /// </summary>
-        public List<int> FashionEquipList { get; set; } = new();
-
-        //public List<BagInfo>[] AllItemList { get; set; }
-        
         public Dictionary<int, List<ItemInfo>> AllItemList { get; set; } = new();
 
         /// <summary>

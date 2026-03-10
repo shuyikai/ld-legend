@@ -116,42 +116,6 @@ namespace ET.Server
         {
             long serverTime = TimeHelper.ServerNow();
 
-            for (int i = 0; i < players.Count; i++)
-            {
-                MailInfo mailInfo = MailInfo.Create();
-                mailInfo.Status = 0;
-                mailInfo.Title = "角斗场排名奖励";
-                mailInfo.MailId = IdGenerater.Instance.GenerateId();
-
-                if (players[i].RankId > 0)
-                {
-                    mailInfo.Context = $"恭喜你在角斗场中获得第{players[i].RankId}名，获得如下奖励。";
-                }
-                else
-                {
-                    mailInfo.Context = $"参与角斗场，获得如下奖励。";
-                }
-
-                string[] needList = rewardList.Split('@');
-                for (int k = 0; k < needList.Length; k++)
-                {
-                    string[] itemInfo = needList[k].Split(';');
-                    if (itemInfo.Length < 2)
-                    {
-                        continue;
-                    }
-
-                    int itemId = int.Parse(itemInfo[0]);
-                    int itemNum = int.Parse(itemInfo[1]);
-                    ItemInfoProto BagInfo = ItemInfoProto.Create();
-                    BagInfo.ItemID = itemId;
-                    BagInfo.ItemNum = itemNum;
-                    BagInfo.GetWay = $"{ItemGetWay.ArenaWin}_{serverTime}";
-                    mailInfo.ItemList.Add(BagInfo);
-                }
-
-                MailHelp.SendUserMail(self.Root(), players[i].UnitId, mailInfo, ItemGetWay.ArenaWin).Coroutine();
-            }
         }
 
         public static List<ArenaPlayerStatu> GetNoRankPlayers(this ArenaDungeonComponent self)

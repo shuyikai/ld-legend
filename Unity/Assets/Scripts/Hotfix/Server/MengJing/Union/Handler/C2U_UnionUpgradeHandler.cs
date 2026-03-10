@@ -46,19 +46,9 @@ namespace ET.Server
                 for (int i = 0; i < rewardStrList.Length; i++)
                 {
                     string[] rewardList = rewardStrList[i].Split(',');
-                
-                    ItemInfoProto BagInfo = ItemInfoProto.Create();
-                    BagInfo.ItemID = int.Parse(rewardList[0]);
-                    BagInfo.ItemNum = int.Parse(rewardList[1]);
-                    BagInfo. GetWay =$"{ItemGetWay.UnionUpLv}_{serverTime}";
-                    mailInfo.ItemList.Add(BagInfo);
+                    
                 }
-                
-                for (int i = 0; i < dBUnionInfo.UnionInfo.UnionPlayerList.Count; i++)
-                {
-                    MailHelp.SendUserMail(scene.Root(), dBUnionInfo.UnionInfo.UnionPlayerList[i].UserID, mailInfo,ItemGetWay.UnionUpLv).Coroutine();
-                }
-                
+               
                 string noticeContent = $"恭喜 <color=#{CommonHelp.QualityReturnColor(5)}>{dBUnionInfo.UnionInfo.UnionName}</color> 公会等级提升至{dBUnionInfo.UnionInfo.Level}级";
                 BroadCastHelper.SendBroadMessage(scene.Root(), NoticeType.Notice, noticeContent);
  

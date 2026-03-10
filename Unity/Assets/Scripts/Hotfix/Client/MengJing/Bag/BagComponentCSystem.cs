@@ -490,8 +490,6 @@ namespace ET.Client
 
         public static void OnResetSeason(this BagComponentC self, bool notice)
         {
-            self.SeasonJingHePlan = 0;
-
             self.ClearJingHeItem(self.AllItemList[(int)ItemLocType.ItemLocBag]);
             self.ClearJingHeItem(self.AllItemList[(int)ItemLocType.ItemWareHouse1]);
             self.ClearJingHeItem(self.AllItemList[(int)ItemLocType.ItemWareHouse2]);

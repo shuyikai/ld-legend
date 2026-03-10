@@ -52,8 +52,7 @@ namespace ET.Client
             scrollItemCommonItem.E_ItemNameText.gameObject.SetActive(self.ShowName);
             scrollItemCommonItem.E_ItemNameText.GetComponent<Outline>().enabled = self.ShowNameOutline;
             scrollItemCommonItem.uiTransform.localScale = Vector3.one * self.Scale;
-            scrollItemCommonItem.E_BindingImage.gameObject.SetActive(self.GetWay == ItemGetWay.Activity_DayTeHui ||
-                self.GetWay == ItemGetWay.ActivityNewYear);
+            scrollItemCommonItem.E_BindingImage.gameObject.SetActive(false);
         }
 
         public static void Refresh(this ES_RewardList self, List<RewardItem> rewardItems, float scale = 1f, bool showNumber = true,

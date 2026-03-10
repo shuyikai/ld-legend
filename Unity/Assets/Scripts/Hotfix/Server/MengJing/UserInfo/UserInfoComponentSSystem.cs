@@ -97,10 +97,7 @@ namespace ET.Server
             }
             else
             {
-                if (getWay != ItemGetWay.PickItem || gold > 1000)
-                {
-                    // LogHelper.LogWarning($"增加货币:{Type} {unit.Id} {getWay} {self.UserInfo.Name}  {value}", true);
-                }
+              
             }
 
             if (gold > 100000 || gold < -100000)
@@ -111,20 +108,6 @@ namespace ET.Server
             {
                 // Log.Warning($"增加货币[超额]:{Type} {unit.Id} {getWay} {self.UserInfo.Name} {value}", true);
             }
-
-            // if (self.UserInfo.AccInfoID == 2216719689042690056
-            //     || self.UserInfo.AccInfoID == 7330971014316759846
-            //     || self.RemoteAddress.Contains("36.148.134.236")
-            //     || self.DeviceName.Equals("OPPO PCLM10_1920:1080"))
-            // {
-            //     Log.Warning($"增加货币[作弊]:{Type} {unit.Id} {getWay} {self.UserInfo.Name} {value}", true);
-            // }
-
-            if (gold > 0 && getWay == ItemGetWay.PaiMaiSell)
-            {
-                // unit.GetComponent<ChengJiuComponent>().TriggerEvent(ChengJiuTargetEnum.PaiMaiGetGoldNumber_217, 0, (int)gold);
-            }
-            
 
             self.UpdateRoleData(Type, value, notice);
         }

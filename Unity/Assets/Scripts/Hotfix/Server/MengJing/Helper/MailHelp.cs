@@ -4,26 +4,6 @@ namespace ET.Server
 {
     public static class MailHelp
     {
-        public static  void SendPaiMaiEmail(Scene root, ItemInfoProto iteminfo, int price, int costNum, long unitid)
-        {
-            MailInfo mailInfo = MailInfo.Create();
-            ItemConfig itemCof = ItemConfigCategory.Instance.Get(iteminfo.ItemID);
-            mailInfo.Status = 0;
-            mailInfo.Context = "你拍卖行出售的道具:" + itemCof.ItemName + "，已经被其他玩家购买。" + costNum + "个。";
-            mailInfo.Title = "拍卖行邮件";
-            mailInfo.MailId = IdGenerater.Instance.GenerateId();
-            ItemInfoProto reward = ItemInfoProto.Create();
-            reward.ItemID = 1;
-            int sellPrice = (int)(price * 0.95f) * costNum; //5%手续费
-            reward.ItemNum = sellPrice;
-            reward.GetWay = $"{ItemGetWay.PaiMaiSell}_{TimeHelper.ServerNow()}";
-            mailInfo.ItemList.Add(reward);
-            mailInfo.ItemSell = iteminfo;
-            mailInfo.BuyPlayerId = unitid;
-
-            //发送到邮件服
-            SendUserMail(root, unitid, mailInfo, ItemGetWay.PaiMaiSell).Coroutine();
-        }
 
         //指定玩家发送邮件
         public static async ETTask<int> SendUserMail(Scene root, long userID, MailInfo mailInfo, int getWay)

@@ -77,7 +77,6 @@ namespace ET.Server
                     unitInfo.UnionName = string.IsNullOrWhiteSpace(userInfoComponent.UserInfo.UnionName)? string.Empty
                             : userInfoComponent.UserInfo.UnionName;
                     unitInfo.DemonName = unitInfoComponent.DemonName;
-                    unitInfo.FashionEquipList = unit.GetComponent<BagComponentS>().FashionEquipList;
                     //携带的buff
                     unitInfo.Buffs = unit.GetComponent<BuffManagerComponentS>().GetMessageBuff();
                     unitInfo.Skills = unit.GetComponent<SkillManagerComponentS>().GetMessageSkill();

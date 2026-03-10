@@ -16,17 +16,23 @@ namespace ET.Server
                 response.Error = ErrorCode.ERR_ModifyData;
                 return;
             }
-
-            
-            
-            MedalExchangeConfig medalExchangeConfig = MedalExchangeConfigCategory.Instance.Get(request.MedalId);
             BagComponentS bagComponents = unit.GetComponent<BagComponentS>();
+            if (bagComponents.GetBagLeftCell(ItemLocType.ItemLocBag) < 1)
+            {
+                response.Error = ErrorCode.ERR_BagIsFull;
+                return;
+            }
 
+
+            MedalExchangeConfig medalExchangeConfig = MedalExchangeConfigCategory.Instance.Get(request.MedalId);
+            
             if (!string.IsNullOrEmpty(medalExchangeConfig.CostItems))
             {
                 bagComponents.OnCostItemData(medalExchangeConfig.CostItems);
             }
-
+            
+            bagComponents.OnAddItemData($"{medalExchangeConfig.ItemId};1", $"{ItemGetWay.MedalExchange}_{TimeHelper.ServerNow()}");
+            
             await ETTask.CompletedTask;
         }
     }

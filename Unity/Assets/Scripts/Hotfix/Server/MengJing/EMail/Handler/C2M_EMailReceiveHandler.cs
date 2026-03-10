@@ -24,23 +24,6 @@ namespace ET.Server
                     return;
                 }
 
-                for (int i = mailInfo.ItemList.Count - 1; i >= 0; i--)
-                {
-                    if (mailInfo.ItemList[i].ItemID == 110000164)
-
-                    {
-                        mailInfo.ItemList[i].ItemID = 10000164;
-                    }
-                    if (!string.IsNullOrEmpty(mailInfo.ItemList[i].GetWay))
-                    {
-                        unit.GetComponent<BagComponentS>().OnAddItemData(mailInfo.ItemList[i], mailInfo.ItemList[i].GetWay);
-                    }
-                    else
-                    {
-                        unit.GetComponent<BagComponentS>().OnAddItemData(mailInfo.ItemList[i], $"{ItemGetWay.ReceieMail}_{TimeHelper.ServerNow()}");
-                    }
-                }
-              
             }
             
             await ETTask.CompletedTask;

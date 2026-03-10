@@ -10,116 +10,18 @@ namespace ET
     public static class ItemGetWay
     {
         public const int System = 1;                //系统赠与
-        public const int FubenGetReward = 2;        //副本结算奖励
-        public const int ChouKa = 3;                //抽卡
-        public const int Energy = 4;                //正能量
-        public const int GM = 5;                    //GM
-        public const int ItemBox_6 = 6;               //道具盒子
-        public const int XiLianLevel = 7;           //洗练大师
-        public const int LingDiReward = 8;          //领地
-        public const int MysteryBuy = 9;            //神秘商店
-        public const int PetFubenReward = 10;       //宠物副本奖励
-        public const int PetHeXinHeCheng = 11;      //宠物之核合成
-        public const int RandomTowerReward = 12;    //随机塔奖励
-        public const int ShoujiReward = 13;         //收集奖励
-        public const int StoreBuy = 14;             //商店购买
-        public const int TaskCountry = 15;          //活跃任务
-        public const int YueKaReward = 16;          //月卡奖励
-        public const int ChengJiuRward = 17;        //成就奖励
-        public const int RankReward = 18;           //排行榜奖励
-        public const int FirstWin = 19;             //首胜
-        public const int PickItem = 20;             //拾取
-        public const int PaiMaiShop = 21;           //拍賣商店
-        public const int PetEggDuiHuan = 22;        //宠物蛋兑换
-        public const int TaskReward = 23;           //任务奖励
-        public const int PetFenjie = 24;            //宠物分解
-        public const int BattleWin = 25;            //战场胜利
-        public const int ReceieMail = 26;           //邮件
-        public const int Melting = 27;              //熔炼
-        public const int TiaoZhan = 28;             //挑战之地
-        public const int SkillMake = 29;            //生活制造
-        public const int HuiShou = 30;              //回收系统
-        public const int XiaJia = 31;               //拍卖行下架
-        public const int DuiHuan = 32;              //兑换
-        public const int HongBao = 33;              //红包系统
-        public const int CostItem = 34;             //扣除道具
-        public const int Share = 35;                //分享
-        public const int PaiMaiBuy = 36;            //拍卖购买
-        public const int XiuLian = 37;              //修炼
-        public const int TreasureMap = 38;          //藏宝图获得
-        public const int Sell = 39;                 //出售获得
-        public const int PaiMaiSell = 40;           //拍賣出售
-        public const int BuChang = 41;              //补偿
-        public const int JingLing = 42;             //精灵
-        public const int JiaYuanGather = 43;        //家园种植
-        public const int JiaYuanMale = 44;          //JiaYuanMale
-        public const int JiaYuanSell = 45;          //家园出售
-        public const int JiaYuanCost = 46;          //家园资金兑换
-        public const int Popularize = 47;           //推广
-        public const int Serial = 48;               //序列号奖励
-        public const int JiaYuanCook = 49;          //家园厨房
-        public const int Donation = 50;             //捐献
-        public const int UnionXiuLian = 51;         //公会修炼
-        public const int UnionBoss = 52;            //公会BOSS
-        public const int UnionRace = 53;            //公会争霸
-        public const int Auction = 54;              //竞拍
-        public const int PetChouKa = 55;             //宠物抽卡
-        public const int ItemBox_8 = 56;               //道具盒子
-        public const int ItemBox_9 = 57;               //道具盒子
-        public const int ItemBox_104 = 58;               //道具盒子
-        public const int ItemBox_106 = 59;               //道具盒子
-        public const int PetTianTiReward = 60;          //宠物天梯
-        public const int JiaYuanExchange = 61;          //家园兑换
-        public const int GemHuiShou = 62;               //宝石回收  
-        public const int ArenaWin = 63;                 //角斗场胜利
-        public const int MiJingBoss = 64;               //密境BOSS
-        public const int AuctionJoin = 65;              //竞拍保证金
-        public const int UnionUpLv = 66;                 //公会升级
-        public const int GemHeCheng = 67;                //宝石合成
-        public const int SoloReward = 68;               //竞技场奖励
-        public const int Activity_MaoXianJia = 69;      //冒险家
-        public const int Activity_ZhanQu = 70;          //战区活动
-        public const int Recharge = 71;                 //充值
-        public const int TowerOfSealCost = 72;          // 封印之塔消耗钻石
-        public const int JueXing = 73;                  //觉醒
-        public const int Activity_DayTeHui = 74;           //每日特惠
-        public const int UnionMysteryBuy = 75;            //公会神秘商店
-        public const int HappyMove = 76;                    //喜从天降
-        public const int Turtle = 77;                   //小龟大赛
-        public const int ShowLie = 78;                  //狩猎
-        public const int RunRace = 79;                  // 奔跑大赛
-        public const int Demon = 80;                  // 恶魔
-        public const int PetMine = 81;                  //矿场
-        public const int Season = 82;                   //赛季奖励
-        public const int Welfare = 83;                  //福利
-        public const int LeavlReward = 84;              //等级奖励
-        public const int KillMonsterReward = 85;        //击败怪物奖励
-        public const int StallBuy = 86;                 //摆摊购买
-        public const int ActivityChouKa = 87;                 //摆摊购买
-        public const int ActivityConsume = 88;         //消耗钻石
-        public const int ActivityHongBao = 89;          //红包
-        public const int PetExplore = 90;               //宠物探索
-        public const int SingleRecharge = 91;           //单笔充值奖励
-        public const int ItemXiLian = 92;               //道具洗练
-        public const int ActivityNewYear = 93;
-        public const int PetMeleeReward = 94;
-        public const int UnionWish = 96;
-        public const int UnionOrder = 97;
-        public const int TakeOutBag = 98;               //从背包取出
-        public const int Activity = 100;                //活动
-
+        public const int GM = 2;                    //GM
+        public const int MedalExchange = 3;                //兑换
+        public const int TaskReward = 4;                //任务奖励
+        public const int PickItem = 5;                  //拾取道具
+        public const int StoreBuy = 6;              //商店购买
+        public const int Activity = 7;                  //活动通用。。
 
         //以下途径获取的道具绑定道具,其他途径为非绑定道具
         [StaticField]
         public static List<int> ItemGetBing = new List<int>()
         {
-                RankReward,	//拍卖行
-                BattleWin,   //战场胜利
-                BuChang,   //补偿
-                Share, 	//分享
-                Popularize, //推广
-                Serial,  //序列号奖励
-                Activity_DayTeHui,
+                
         };
 
     }

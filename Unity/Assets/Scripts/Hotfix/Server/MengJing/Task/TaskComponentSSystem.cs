@@ -715,16 +715,7 @@ namespace ET.Server
 
         public static void OnGetItemNumber(this TaskComponentS self, int getWay, int itemId, int itemNumber)
         {
-            if (itemId == 1 || (getWay != ItemGetWay.ReceieMail && getWay != ItemGetWay.PaiMaiSell))
-            {
-                self.TriggerTaskEvent(TaskTargetType.GetItemNumber_142, itemId, itemNumber);
-            }
-
-            ItemConfig itemConfig = ItemConfigCategory.Instance.Get(itemId);
-            if (itemConfig.ItemType == ItemTypeEnum.Equipment && itemConfig.ItemQuality >= 5)
-            {
-                self.TriggerTaskEvent(TaskTargetType.GetOrangeEquip_139, itemConfig.UseLv, 1);
-            }
+           
         }
         
         public static void OnGetItem_2(this TaskComponentS self, int itemId)

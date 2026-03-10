@@ -27,21 +27,7 @@ namespace ET.Server
 
             long serverTime = TimeHelper.ServerNow();
             List<Unit> players = UnitHelper.GetUnitList(self.Scene(), UnitType.Player);
-            for (int i = 0; i < players.Count; i++)
-            {
-                MailInfo mailInfo = MailInfo.Create();
-                mailInfo.Status = 0;
-                mailInfo.Title = "公会入侵怪物奖励";
-                mailInfo.MailId = IdGenerater.Instance.GenerateId();
-
-                ItemInfoProto BagInfo = ItemInfoProto.Create();
-                BagInfo.ItemID = 1;
-                BagInfo.ItemNum = 100;
-                BagInfo.GetWay = $"{ItemGetWay.UnionBoss}_{serverTime}";
-
-                mailInfo.ItemList.Add(BagInfo);
-                MailHelp.SendUserMail(self.Root(), players[i].Id, mailInfo,ItemGetWay.UnionBoss).Coroutine();
-            }
+            
         }
 
         public static void GenerateUnionBoss(this UnionDungeonComponet self)

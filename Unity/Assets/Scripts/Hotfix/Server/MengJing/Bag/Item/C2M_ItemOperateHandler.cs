@@ -177,40 +177,6 @@ namespace ET.Server
                         //图纸制造
                         case 5:
                             break;
-                        //随机宝箱
-                        case 6:
-                            int dropId = 0;
-                            try
-                            {
-                                dropId = int.Parse(itemConfig.ItemUsePar);
-                            }
-                            catch (Exception ex)
-                            {
-                                Log.Error(ex.ToString() + $"{itemConfig.Id}   dropId ==0");
-
-                            }
-
-                            if (dropId > 0)
-                            {
-                                DropHelper.DropIDToDropItem_2(dropId, droplist);
-                                bagComponent.OnAddItemData(droplist, string.Empty,
-                                    $"{ItemGetWay.ItemBox_6}_{TimeHelper.ServerNow()}_{itemConfig.Id}");
-                            }
-
-                            response.RewardList = droplist;
-                            break;
-                        //兑换：
-                        case 8:
-                            string[] duihuanparams = itemConfig.ItemUsePar.Split(';');
-                            int neednum = int.Parse(duihuanparams[0]);
-                            int newItem = int.Parse(duihuanparams[1]);
-
-                            bagComponent.OnCostItemData($"{itemConfig.Id};{neednum - 1}");
-                            bagComponent.OnAddItemData($"{newItem};1", $"{ItemGetWay.ItemBox_8}_{TimeHelper.ServerNow()}");
-                            break;
-                        case 9:
-                            bagComponent.OnAddItemData(droplist, string.Empty, $"{ItemGetWay.ActivityHongBao}_{TimeHelper.ServerNow()}");
-                            break;
                       
                         //召唤卷轴
                         case 14:
@@ -284,27 +250,7 @@ namespace ET.Server
                             break;
                         case 126: //集字
                             break;
-                        case 127: //藏宝图
-                            string rewardItem = useBagInfo.ItemPar.Split('@')[2];
-                            bagComponent.OnAddItemData(rewardItem, $"{ItemGetWay.TreasureMap}_{TimeHelper.ServerNow()}");
-                            //unit.GetComponent<ChengJiuComponent>().TriggerEvent(ChengJiuTargetEnum.TreasureMapNumber_210, 0, 1);
-
-                            //普通
-                            if (itemConfig.ItemQuality == 4)
-                            {
-                                //unit.GetComponent<TaskComponent>().TriggerTaskEvent(TaskTargetType.TreasureMapNormal_26, 0, 1);
-                                //unit.GetComponent<TaskComponent>().TriggerTaskCountryEvent(TaskTargetType.TreasureMapNormal_26, 0, 1);
-                            }
-
-                            if (itemConfig.ItemQuality == 5)
-                            {
-                                //unit.GetComponent<TaskComponent>().TriggerTaskEvent(TaskTargetType.TreasureMapHigh_27, 0, 1);
-                                //unit.GetComponent<TaskComponent>().TriggerTaskCountryEvent(TaskTargetType.TreasureMapHigh_27, 0, 1);
-                            }   
-
-                            break;
-                     
-                  
+                        
                         case 134:
                             break;
                         case 135:
@@ -372,25 +318,7 @@ namespace ET.Server
                     itemConf = ItemConfigCategory.Instance.Get(int.Parse(gemids[i]));
                     userInfoComponent.UpdateRoleData((int) itemConf.SellMoneyType, (itemConf.SellMoneyValue).ToString());
                 }
-
-                //珍宝属性价格提升
-                int sellValue = itemConfig.SellMoneyValue;
-                if (useBagInfo.HideSkillLists.Contains(68000102))
-                {
-                    sellValue = itemConfig.SellMoneyValue * 20;
-                }
-
-                itemConf = ItemConfigCategory.Instance.Get(useBagInfo.ItemID);
-                userInfoComponent.UpdateRoleMoneyAdd((int) itemConf.SellMoneyType, (sellNum * sellValue).ToString(), true, ItemGetWay.Sell);
-                bagComponent.OnCostItemData(useBagInfo, locType, sellNum);
-                if (useBagInfo.ItemNum <= 0)
-                {
-                    m2c_bagUpdate.BagInfoDelete.Add(useBagInfo.ToMessage());
-                }
-                else
-                {
-                    m2c_bagUpdate.BagInfoUpdate.Add(useBagInfo.ToMessage());
-                }
+                
             }
 
             if (request.OperateType == 2 && locType == ItemLocType.ItemPetHeXinBag)

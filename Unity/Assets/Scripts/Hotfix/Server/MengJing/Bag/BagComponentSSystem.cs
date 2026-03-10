@@ -515,8 +515,7 @@ namespace ET.Server
 
         public static void OnResetSeason(this BagComponentS self, bool notice)
         { 
-            self.SeasonJingHePlan = 0;
-       
+
             self.ClearJingHeItem(self.GetItemByLoc(ItemLocType.ItemLocBag));
             self.ClearJingHeItem(self.GetItemByLoc(ItemLocType.ItemWareHouse1));
             self.ClearJingHeItem(self.GetItemByLoc(ItemLocType.ItemWareHouse2));
@@ -588,21 +587,7 @@ namespace ET.Server
 
             return bagInfos;
         }
-
-        public static int GetMaxQiangHuaLevel(this BagComponentS self)
-        {
-            int maxLevel = 0;
-            for (int i = 0; i < self.QiangHuaLevel.Count; i++)
-            {
-                if (self.QiangHuaLevel[i] > maxLevel)
-                {
-                    maxLevel = self.QiangHuaLevel[i];
-                }
-            }
-
-            return maxLevel;
-        }
-
+        
         //获取某个装备位置的道具数据
         public static ItemInfo GetEquipBySubType(this BagComponentS self, int equipIndex, int subType)
         {
@@ -635,69 +620,7 @@ namespace ET.Server
             //        self.WarehouseAddedCell.Add(0);
             //    }
             //}
-
-            if (self.QiangHuaLevel.Count == 0)
-            {
-                for (int i = 0; i <= 11; i++)
-                {
-                    self.QiangHuaLevel.Add(0);
-                    self.QiangHuaFails.Add(0);
-                }
-            }
-            else
-            {
-              
-            }
-
-            if (robotId != 0)
-            {
-                int[] equipList = new int[0];
-                UserInfoComponentS userInfoComponentS = unit.GetComponent<UserInfoComponentS>();
-                RobotConfig robotConfig = RobotConfigCategory.Instance.Get(robotId);
-
-                if (robotConfig.Behaviour != 1 && robotConfig.Level > userInfoComponentS.GetUserLv())
-                {
-                    userInfoComponentS.SetUserLv(robotConfig.Level);
-                }
-
-                if (robotConfig.EquipList != null)
-                {
-                    equipList = robotConfig.EquipList != null ? robotConfig.EquipList : equipList;
-                }
-                else
-                {
-                    equipList = ItemConfigCategory.Instance.GetRandomEquipList(userInfoComponentS.GetOcc(), userInfoComponentS.GetUserLv());
-                }
-
-                for (int i = 0; i < equipList.Length; i++)
-                {
-                    if (equipList[i] == 0)
-                    {
-                        continue;
-                    }
-
-                    ItemConfig itemconfig = ItemConfigCategory.Instance.Get(equipList[i]);
-                    if (self.GetEquipBySubType(ItemLocType.ItemLocEquip, itemconfig.ItemSubType) != null)
-                    {
-                        continue;
-                    }
-
-                    if (self.GetIdItemList(equipList[i]).Count > 0)
-                    {
-                        continue;
-                    }
-
-                    self.OnAddItemData($"{equipList[i]};1", $"{ItemGetWay.System}_0", false);
-                    List<ItemInfo> bagInfo = self.GetIdItemList(equipList[i]);
-                    if (bagInfo.Count == 0)
-                    {
-                        Log.Warning("机器人装备 bagInfo.Count == 0");
-                        continue;
-                    }
-
-                    self.OnChangeItemLoc(bagInfo[0], ItemLocType.ItemLocEquip, ItemLocType.ItemLocBag);
-                }
-            }
+            
         }
 
         public static int GetZodiacnumber(this BagComponentS self)
@@ -1098,14 +1021,6 @@ namespace ET.Server
                         useBagInfo.isBinging = true;
                     }
 
-                    //掉落的橙色装备默认为绑定的物品
-                    if (((getType == ItemGetWay.PickItem
-                                || getType == ItemGetWay.ChouKa)
-                            && itemCof.ItemQuality >= 5) || itemCof.IfLock == 1)
-                    {
-                        useBagInfo.isBinging = true;
-                    }
-                    
 
                     //藏宝图
                     if (itemCof.ItemSubType == 113 || itemCof.ItemSubType == 127)
@@ -1119,13 +1034,7 @@ namespace ET.Server
                     {
                         useBagInfo.ItemPar = RandomHelper.RandomNumber(1, 100).ToString();
                     }
-
-                    //家园烹饪
-                    if (getType == ItemGetWay.JiaYuanCook)
-                    {
-                        useBagInfo.ItemPar = RandomHelper.RandomNumber(1, 100).ToString();
-                    }
-
+                    
                     //拾取到橙色装备
                     if (itemCof.ItemType == 3 && itemCof.ItemQuality >= 5 && getType == ItemGetWay.PickItem)
                     {
@@ -1359,22 +1268,7 @@ namespace ET.Server
             MapMessageHelper.SendToClient(unit, m2c_bagUpdate);
             return true;
         }
-
-        public static int GetQiangHuaLevel(this BagComponentS self, int subType)
-        {
-            if (subType > 1000)
-            {
-                return 0;
-            }
-
-            if (self.QiangHuaLevel.Count == 0)
-            {
-                Console.WriteLine("self.QiangHuaLevel.Count == 0");
-                return 0;
-            }
-
-            return self.QiangHuaLevel[subType];
-        }
+        
 
         public static bool OnCostItemData(this BagComponentS self, ItemInfo bagInfo, int locType, int number)
         {
