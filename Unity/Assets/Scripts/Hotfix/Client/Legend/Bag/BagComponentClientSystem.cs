@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace ET.Client
 {
@@ -160,12 +161,23 @@ namespace ET.Client
 
         private static void ShowGetItemTip(this BagComponentClient self, ItemInfo bagInfo, int addNum)
         {
-            ItemConfig itemConfig = ItemConfigCategory.Instance.Get(bagInfo.ItemID);
+            string itemname = String.Empty;
             
+            if (bagInfo.ItemID > UserDataType.EquipInitId)
+            {
+                EquipConfig equipConfig = EquipConfigCategory.Instance.Get(bagInfo.ItemID);
+                itemname = equipConfig.Name;
+            }
+            else
+            {
+                ItemConfig itemConfig = ItemConfigCategory.Instance.Get(bagInfo.ItemID);
+                itemname = itemConfig.Name;
+            }
+
             if (self.RealAddItem >= 0)
             {
                 // self.Root().GetComponent<ShoujiComponentC>().OnGetItem(bagInfo.ItemID);
-                HintHelp.ShowHint(self.Root(), $"获得 {itemConfig.Name} {addNum}");
+                HintHelp.ShowHint(self.Root(), $"获得 {itemname} {addNum}");
             }
             
             EventSystem.Instance.Publish(self.Root(), new BagItemItemAdd() { ItemId = bagInfo.ItemID , Num = addNum});

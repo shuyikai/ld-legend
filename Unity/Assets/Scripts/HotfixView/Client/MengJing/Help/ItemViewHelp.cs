@@ -477,12 +477,6 @@ namespace ET.Client
             return go;
         }
         
-        public static string GetItemSubType3Name(int subType)
-        {
-            string name = string.Empty;
-            ItemViewData.ItemSubType3Name.TryGetValue(subType, out name);
-            return name;
-        }
 
         public static string QualityReturnColorUI(int ItenQuality)
         {

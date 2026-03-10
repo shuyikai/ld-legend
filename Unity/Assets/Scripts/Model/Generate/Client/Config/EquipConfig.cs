@@ -61,6 +61,8 @@ namespace ET
 	{
 		/// <summary>Id</summary>
 		public int Id { get; set; }
+		/// <summary>名称</summary>
+		public string Name { get; set; }
 		/// <summary>分类</summary>
 		public int StdMode { get; set; }
 		/// <summary>效果</summary>

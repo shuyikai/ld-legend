@@ -169,7 +169,7 @@ namespace ET
         public static int GetItemToNumericDataType(int itemid)
         {
             int userDataType = 0;
-            ConstantItemID.ItemToNumericData.TryGetValue(itemid, out userDataType);
+            UserDataType.ItemToNumericData.TryGetValue(itemid, out userDataType);
            
             return userDataType;
         }

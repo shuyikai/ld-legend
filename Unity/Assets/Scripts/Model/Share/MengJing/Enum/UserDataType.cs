@@ -13,11 +13,15 @@ namespace ET
         public const int Name = 5;
        
         public const int Max = 100;
-    }
-
-    public static class ConstantItemID
-    {
-
+        
+        
+        
+        
+        /// <summary>
+        /// id大与等于这个为装备类型 小于的则为道具类型
+        /// </summary>
+        public const int EquipInitId = 50000;
+        
         /// <summary>
         /// 声望对应的iemid
         /// </summary>
@@ -30,4 +34,5 @@ namespace ET
             { Reputation, NumericType.Now_Reputation },          //声望
         };
     }
+    
 }

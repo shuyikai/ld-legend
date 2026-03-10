@@ -70,60 +70,7 @@ namespace ET.Client
             { 104, "ItemQuality3_2" },
             { 105, "ItemQuality3_5" },
         };
-
-
-        //Administrator:
-        //当道具类型为1（消耗品）时该字段的意义
-        //1 获得金币值
-        //2 获得经验值
-        //101 触发某个技能ID
-        //103 宠物蛋
-        //104 随机道具盒子
-        //105 宠物洗炼相关道具
-        //106 道具盒子,打开获取指定东西
-        //当道具类型为3（装备）时该字段的意义
-        //1 武器
-        //2 衣服
-        //3 护符
-        //4 戒指
-        //5 饰品
-        //6 鞋子
-        //7 裤子
-        //8 腰带
-        //9 手镯
-        //10 头盔
-        //11 项链
-        /// <summary>
-        /// ItemSubType To Name
-        /// </summary>
-        [StaticField]
-        public static Dictionary<int, string> ItemSubType3Name = new()
-        {
-            { 0, "全部" },
-            { 1, "武器" },
-            { 2, "衣服" },
-            { 3, "护符" },
-            { 4, "戒指" },
-            { 5, "饰品" },
-            { 6, "鞋子" },
-            { 7, "裤子" },
-            { 8, "腰带" },
-            { 9, "手镯" },
-            { 10, "头盔" },
-            { 11, "项链" },
-            { 1100, "生肖" },
-        };
-
-        [StaticField]
-        public static Dictionary<int, string> ItemTypeName = new()
-        {
-            { ItemTypeEnum.Consume, "消耗品" },
-            { ItemTypeEnum.Material, "材料" },
-            { ItemTypeEnum.Equipment, "装备" },
-            { ItemTypeEnum.Gemstone, "宝石" },
-            { ItemTypeEnum.PetHeXin, "宠物之核" },
-        };
-
+        
         [StaticField]
         public static Dictionary<int, NumericAttribute> AttributeToName = new()
         {

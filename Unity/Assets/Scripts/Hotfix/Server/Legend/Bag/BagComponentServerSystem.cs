@@ -615,7 +615,13 @@ namespace ET.Server
             List<RewardItem> rewardItems = new List<RewardItem>();
             for (int i = rewardItems_init.Count - 1; i >= 0; i--)
             {
-                if (rewardItems_init[i].ItemID == 0 || !ItemConfigCategory.Instance.Contain(rewardItems_init[i].ItemID))
+                if (rewardItems_init[i].ItemID == 0 )
+                {
+                    continue;
+                }
+
+                if (!ItemConfigCategory.Instance.Contain(rewardItems_init[i].ItemID)
+                    && !EquipConfigCategory.Instance.Contain(rewardItems_init[i].ItemID))
                 {
                     continue;
                 }
@@ -642,17 +648,26 @@ namespace ET.Server
 
             for (int i = rewardItems.Count - 1; i >= 0; i--)
             {
-                ItemConfig itemCof = ItemConfigCategory.Instance.Get(rewardItems[i].ItemID);
-                int userDataType = ItemHelper.GetItemToNumericDataType(rewardItems[i].ItemID);
+                int itemid = rewardItems[i].ItemID;
+                int ItemPileSum = 0;
+                
+                int userDataType = ItemHelper.GetItemToNumericDataType(itemid);
                 if (userDataType != UserDataType.None)
                 {
                     continue;
                 }
-
-                int ItemPileSum = gm  ? 1000000 : itemCof.GetItemStackCount();
-
-
-                ItemPileSum = itemCof.GetItemStackCount();
+                
+                if (itemid >= UserDataType.EquipInitId)
+                {
+                    ItemPileSum = 1;
+                }
+                else
+                {
+                    ItemConfig itemCof = ItemConfigCategory.Instance.Get(itemid);
+                    ItemPileSum = gm  ? 1000000 : itemCof.GetItemStackCount();
+                    ItemPileSum = itemCof.GetItemStackCount();
+                }
+                
                 if (ItemPileSum == 1)
                 {
                     needCellNumber +=  ( gm?1 :rewardItems[i].ItemNum);
@@ -676,12 +691,10 @@ namespace ET.Server
             for (int i = rewardItems.Count - 1; i >= 0; i--)
             {
                 int itemID = rewardItems[i].ItemID;
-                if (itemID == 0 || !ItemConfigCategory.Instance.Contain(itemID))
+                if (itemID == 0 )
                 {
                     continue;
                 }
-
-                ServerLogHelper.GetItemInfo( self.Id, itemID, rewardItems[i].ItemNum, getType );
                 
                 int leftNum = rewardItems[i].ItemNum;
                 int userDataType = ItemHelper.GetItemToNumericDataType(itemID);
@@ -695,16 +708,33 @@ namespace ET.Server
                     ItemAddHelper.OnGetItem(unit, getType, itemID, leftNum);
                     continue;
                 }
+                
+                if(!ItemConfigCategory.Instance.Contain(itemID)
+                   && !EquipConfigCategory.Instance.Contain(itemID))
+                {
+                    continue;
+                }
 
-                //最大堆叠数量
-                ItemConfig itemCof = ItemConfigCategory.Instance.Get(itemID);
-              
+                //ServerLogHelper.GetItemInfo( self.Id, itemID, rewardItems[i].ItemNum, getType );
+                
+                int itemid = rewardItems[i].ItemID;
+                int maxPileSum = 0;
+                
+                if (itemid >= UserDataType.EquipInitId)
+                {
+                    maxPileSum = 1;
+                }
+                else
+                {
+                    //最大堆叠数量
+                    ItemConfig itemCof = ItemConfigCategory.Instance.Get(itemID);
+                    maxPileSum  = gm ? 10000000 : itemCof.GetItemStackCount();
+                }
                 if (leftNum >= 99)
                 {
                     Log.Warning($"[获取道具]leftNum >= 99  {unit.Id} {getType} {itemID} {rewardItems[i].ItemNum}");
                 }
-
-                int maxPileSum = gm ? 10000000 : itemCof.GetItemStackCount();
+               
                 int itemLockType = ItemLocType.ItemLocBag;
                 List<ItemInfo> itemlist = null;
                 itemLockType = UseLocType;

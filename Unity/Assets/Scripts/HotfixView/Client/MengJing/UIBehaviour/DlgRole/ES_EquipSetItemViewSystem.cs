@@ -51,7 +51,6 @@ namespace ET.Client
             self.E_EquipIconImage.gameObject.SetActive(false);
             self.E_EquipQualityImage.gameObject.SetActive(false);
             self.EG_BangDingRectTransform.gameObject.SetActive(false);
-            self.E_QiangHuaNameText.text = ItemViewHelp.GetItemSubType3Name(subType);
             // if (subType < 100)
             // {
             //     string qianghuaName = ItemViewData.EquipWeiZhiToName[subType].Icon;
