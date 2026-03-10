@@ -171,12 +171,7 @@ namespace ET.Client
         private static void ShowGetItemTip(this BagComponentClient self, ItemInfo bagInfo, int addNum)
         {
             ItemConfig itemConfig = ItemConfigCategory.Instance.Get(bagInfo.ItemID);
-            if (itemConfig.IfAutoUse == 1)
-            {
-                BagClientNetHelper.RequestUseItem(self.Root(), bagInfo).Coroutine();
-                return;
-            }
-
+            
             if (self.RealAddItem >= 0)
             {
                 // self.Root().GetComponent<ShoujiComponentC>().OnGetItem(bagInfo.ItemID);

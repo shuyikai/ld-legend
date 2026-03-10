@@ -91,16 +91,8 @@ namespace ET
 		public string ItemUsePar { get; set; }
 		/// <summary>道具技能</summary>
 		public string SkillID { get; set; }
-		/// <summary>道具Tips显示技能</summary>
-		public int SkillIDIfShow { get; set; }
-		/// <summary>回收获取物品</summary>
-		public string HuiShouGetItem { get; set; }
 		/// <summary>道具描述</summary>
 		public string ItemDes { get; set; }
-		/// <summary>道具背景描述</summary>
-		public string ItemBlackDes { get; set; }
-		/// <summary>是否自动使用</summary>
-		public int IfAutoUse { get; set; }
 		/// <summary>是否禁止拍卖行上架</summary>
 		public int IfStopPaiMai { get; set; }
 		/// <summary>获取是否绑定</summary>
