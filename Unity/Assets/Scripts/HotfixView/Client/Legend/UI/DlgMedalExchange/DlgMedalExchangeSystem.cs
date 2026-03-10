@@ -22,6 +22,13 @@ namespace ET.Client
 		public static void ShowWindow(this DlgMedalExchange self, Entity contextData = null)
 		{
 			self.View.E_FunctionSetBtnToggleGroup.OnSelectIndex(0);
+
+			Unit unit = UnitHelper.GetMyUnitFromClientScene(self.Root());
+			NumericComponentC numericComponentC = unit.GetComponent<NumericComponentC>();
+			long reputation = numericComponentC.GetAsLong(NumericType.Now_Reputation);
+			string text_1 = LanguageComponent.Instance.LoadLocalization("当前声望：");
+			text_1 += reputation;
+			FlyTipComponent.Instance.ShowFlyTip(text_1);
 		}
 
 		private static void OnCloseButton(this DlgMedalExchange self)

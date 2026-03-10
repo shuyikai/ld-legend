@@ -34,6 +34,7 @@
         public const int LastLoginTime = 2024;
         public const int AOI = 2025;
         public const int Now_Exp = 2026;
+        public const int Now_Reputation = 2027;                                     //当前声望值
         
         public const int Max = 10000;
         

@@ -226,12 +226,13 @@ namespace ET.Client
 
         public static long GetItemNumber(this BagComponentClient self, int itemId)
         {
-            int userDataType = ItemHelper.GetItemToUserDataType(itemId);
-            UserInfo userInfo = self.Root().GetComponent<UserInfoComponentC>().UserInfo;
+            int userDataType = ItemHelper.GetItemToNumericDataType(itemId);
+            Unit unit = UnitHelper.GetMyUnitFromClientScene(self.Root());
+            NumericComponentC numericComponentC = unit.GetComponent<NumericComponentC>();
             long number = 0;
             switch (userDataType)
             {
-                case UserDataType.None:
+                case 0:
                     List<ItemInfo> bagInfos = self.GetBagList();
                     for (int i = 0; i < bagInfos.Count; i++)
                     {
@@ -241,6 +242,10 @@ namespace ET.Client
                         }
                     }
 
+                    break;
+                case NumericType.Now_Reputation:
+                    //声望值
+                    number = numericComponentC.GetAsLong(userDataType);
                     break;
                 default:
                     number = 0;

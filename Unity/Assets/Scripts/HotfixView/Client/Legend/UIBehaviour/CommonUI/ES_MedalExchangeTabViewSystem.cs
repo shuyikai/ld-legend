@@ -78,6 +78,7 @@ namespace ET.Client
 				return;
 			}
 
+			
 			BagComponentClient bagComponentClient = self.Root().GetComponent<BagComponentClient>();
 			if (bagComponentClient.GetBagLeftCell(ItemLocType.ItemLocBag) < 1)
 			{
@@ -85,7 +86,18 @@ namespace ET.Client
 				return;
 			}
 
+
 			MedalExchangeConfig medalExchangeConfig = MedalExchangeConfigCategory.Instance.Get(self.MedalId);
+			
+			Unit unit = UnitHelper.GetMyUnitFromClientScene(self.Root());
+			NumericComponentC numericComponentC = unit.GetComponent<NumericComponentC>();
+			long now_reputation = numericComponentC.GetAsLong(NumericType.Now_Reputation);
+			if (now_reputation < medalExchangeConfig.CostReputation)
+			{
+				FlyTipComponent.Instance.ShowFlyTip(ErrorViewData.ErrorHints[ErrorCode.ERR_ReputationNotEnoughError]);
+				return;
+			}
+
 			if (!bagComponentClient.CheckNeedItem(medalExchangeConfig.CostItems))
 			{
 				FlyTipComponent.Instance.ShowFlyTip(ErrorViewData.ErrorHints[ErrorCode.ERR_ItemNotEnoughError]);

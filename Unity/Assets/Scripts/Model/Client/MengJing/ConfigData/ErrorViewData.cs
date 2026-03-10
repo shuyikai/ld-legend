@@ -45,6 +45,7 @@ namespace ET.Client
             { ErrorCode.ERR_BagIsFull, "背包已满!" },
             { ErrorCode.ERR_ItemNotEnoughError, "道具不足!" },
             { ErrorCode.ERR_EquipNotEnoughError, "装备不足!" },
+            { ErrorCode.ERR_ReputationNotEnoughError, "声望不足!" },
             {
                 ErrorCode.ERR_FangChengMi_Tip1,
                 "您目前为未成年人账号，已被纳入防沉迷系统。根据国家新闻出版署《关于进一步严格管理切实防止未成年人沉迷网络游戏的通知》，仅每周五、周六、周日和法定节假日每日20时至21时提供1小时网络游戏服务。您今日游戏剩余时间{0}分钟。"

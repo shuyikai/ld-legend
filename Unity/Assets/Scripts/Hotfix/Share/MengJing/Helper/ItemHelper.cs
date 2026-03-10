@@ -329,9 +329,10 @@ namespace ET
             return treasureMapList;
         }
 
-        public static int GetItemToUserDataType(int itemid)
+        public static int GetItemToNumericDataType(int itemid)
         {
-            int userDataType = UserDataType.None;
+            int userDataType = 0;
+            ConstantItemID.ItemToNumericData.TryGetValue(itemid, out userDataType);
            
             return userDataType;
         }

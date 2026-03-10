@@ -388,11 +388,13 @@ namespace ET.Server
         //获取某个道具的数量
         public static long GetItemNumber(this BagComponentServer self, int itemId, int itemLocType = ItemLocType.ItemLocBag)
         {
-            int userDataType = ItemHelper.GetItemToUserDataType(itemId);
+            Unit unit = self.GetParent<Unit>();
+            NumericComponentS numericComponentS = unit.GetComponent<NumericComponentS>();
+            int userDataType = ItemHelper.GetItemToNumericDataType(itemId);
             long number = 0;
             switch (userDataType)
             {
-                case UserDataType.None:
+                case NumericType.Min:
                     List<ItemInfo> bagInfos = self.GetItemByLoc(itemLocType);
                     for (int i = 0; i < bagInfos.Count; i++)
                     {
@@ -401,9 +403,10 @@ namespace ET.Server
                             number += bagInfos[i].ItemNum;
                         }
                     }
-
                     break;
-            
+                case NumericType.Now_Reputation:
+                    number = numericComponentS.GetAsLong(userDataType);
+                    break;
                 default:
                     break;
             }
@@ -867,7 +870,7 @@ namespace ET.Server
             for (int i = rewardItems.Count - 1; i >= 0; i--)
             {
                 ItemConfig itemCof = ItemConfigCategory.Instance.Get(rewardItems[i].ItemID);
-                int userDataType = ItemHelper.GetItemToUserDataType(rewardItems[i].ItemID);
+                int userDataType = ItemHelper.GetItemToNumericDataType(rewardItems[i].ItemID);
                 if (userDataType != UserDataType.None)
                 {
                     continue;
@@ -917,12 +920,14 @@ namespace ET.Server
                 ServerLogHelper.GetItemInfo( self.Id, itemID, rewardItems[i].ItemNum, getType );
                 
                 int leftNum = rewardItems[i].ItemNum;
-                int userDataType = ItemHelper.GetItemToUserDataType(itemID);
+                int userDataType = ItemHelper.GetItemToNumericDataType(itemID);
 
-                if (userDataType != UserDataType.None)
+                //货币类 不进背包
+                if (userDataType != NumericType.Min)
                 {
                     //检测任务需求道具
-                    unit.GetComponent<UserInfoComponentS>().UpdateRoleMoneyAdd(userDataType, leftNum.ToString(), true, getType);
+                    //unit.GetComponent<UserInfoComponentS>().UpdateRoleMoneyAdd(userDataType, leftNum.ToString(), true, getType);
+                    unit.GetComponent<NumericComponentS>().ApplyChange( userDataType, leftNum );
                     ItemAddHelper.OnGetItem(unit, getType, itemID, leftNum);
                     continue;
                 }

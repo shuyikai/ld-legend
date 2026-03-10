@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace ET
 {
 
@@ -15,6 +17,17 @@ namespace ET
 
     public static class ConstantItemID
     {
-        public const int Gold = 100;
+
+        /// <summary>
+        /// 声望对应的iemid
+        /// </summary>
+        public const int Reputation = 1;
+        
+        //道具
+        [StaticField]
+        public static Dictionary<int, int> ItemToNumericData = new Dictionary<int, int>()
+        {
+            { Reputation, NumericType.Now_Reputation },          //声望
+        };
     }
 }

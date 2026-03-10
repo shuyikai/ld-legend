@@ -15,8 +15,7 @@ namespace ET
             {
                 if (popularizeInfos[i].Level >= 30 && !popularizeInfos[i].Rewards.Contains(30))
                 {
-                    popularizeInfos[i].Rewards.Add(30);
-                    rewardlist.Add( new RewardItem() { ItemID = ConstantItemID.Gold, ItemNum = 200000 });
+                    
                 }
                 
             }

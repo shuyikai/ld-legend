@@ -118,5 +118,6 @@ namespace ET
         public const int ERR_KickOutPlayer = 200083;                    //玩家被踢下线
         public const int ERR_PackageFrequent = 200084;                  //发包异常
         public const int ERR_EquipNotEnoughError = 200085;                           //装备不足
+        public const int ERR_ReputationNotEnoughError = 200086;                           //声望不足
     }
 }

@@ -133,7 +133,8 @@ namespace ET.Client
                     break;
             }
 
-            int allNumber = 100;// bagComponentC.GetBagShowCell(ItemLocType.ItemLocBag);
+            
+            int allNumber = bagComponentClient.GetBagShowCell(ItemLocType.ItemLocBag);
             // int maxCount = GlobalValueConfigCategory.Instance.BagMaxCapacity;
             self.ShowBagInfos.AddRange(bagComponentClient.GetItemsByType(itemTypeEnum));
             
