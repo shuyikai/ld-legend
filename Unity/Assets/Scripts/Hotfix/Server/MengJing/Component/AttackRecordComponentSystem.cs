@@ -70,7 +70,7 @@ namespace ET.Server
         public static void ClearBeAttack(this AttackRecordComponent self)
         {
             self.BeAttackPlayerList.Clear();
-            NumericComponentS numericComponent = self.GetParent<Unit>().GetComponent<NumericComponentS>();
+            NumericComponentServer numericComponent = self.GetParent<Unit>().GetComponent<NumericComponentServer>();
         }
 
         public static List<long> GetBeAttackPlayerList(this AttackRecordComponent self)

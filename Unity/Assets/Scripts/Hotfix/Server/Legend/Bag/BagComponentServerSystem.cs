@@ -389,7 +389,7 @@ namespace ET.Server
         public static long GetItemNumber(this BagComponentServer self, int itemId, int itemLocType = ItemLocType.ItemLocBag)
         {
             Unit unit = self.GetParent<Unit>();
-            NumericComponentS numericComponentS = unit.GetComponent<NumericComponentS>();
+            NumericComponentServer numericComponentServer = unit.GetComponent<NumericComponentServer>();
             int userDataType = ItemHelper.GetItemToNumericDataType(itemId);
             long number = 0;
             switch (userDataType)
@@ -405,7 +405,7 @@ namespace ET.Server
                     }
                     break;
                 case NumericType.Now_Reputation:
-                    number = numericComponentS.GetAsLong(userDataType);
+                    number = numericComponentServer.GetAsLong(userDataType);
                     break;
                 default:
                     break;
@@ -927,7 +927,7 @@ namespace ET.Server
                 {
                     //检测任务需求道具
                     //unit.GetComponent<UserInfoComponentS>().UpdateRoleMoneyAdd(userDataType, leftNum.ToString(), true, getType);
-                    unit.GetComponent<NumericComponentS>().ApplyChange( userDataType, leftNum );
+                    unit.GetComponent<NumericComponentServer>().ApplyChange( userDataType, leftNum );
                     ItemAddHelper.OnGetItem(unit, getType, itemID, leftNum);
                     continue;
                 }

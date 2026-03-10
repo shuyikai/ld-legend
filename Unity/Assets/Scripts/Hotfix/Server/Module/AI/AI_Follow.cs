@@ -9,7 +9,7 @@ namespace ET.Server
         {
             Unit unit = aiComponent.GetParent<Unit>();
             UnitComponent unitComponent = unit.GetParent<UnitComponent>();
-            long masterid = unit.GetComponent<NumericComponentS>().GetAsLong(NumericType.MasterId);
+            long masterid = unit.GetComponent<NumericComponentServer>().GetAsLong(NumericType.MasterId);
             Unit master = unitComponent.Get(masterid);
             if (master == null)
             {
@@ -79,14 +79,14 @@ namespace ET.Server
         public override async ETTask Execute(AIComponent aiComponent, AIConfig aiConfig, ETCancellationToken cancellationToken)
         {
             Unit unit = aiComponent.GetParent<Unit>();
-            NumericComponentS numericComponentS = unit.GetComponent<NumericComponentS>();
-            long masterid =numericComponentS.GetAsLong(NumericType.MasterId);
+            NumericComponentServer numericComponentServer = unit.GetComponent<NumericComponentServer>();
+            long masterid =numericComponentServer.GetAsLong(NumericType.MasterId);
             Unit master = unit.GetParent<UnitComponent>().Get(masterid);
            
-            long oldSpeed =numericComponentS.GetAsLong(NumericType.Base_Speed_Base);
+            long oldSpeed =numericComponentServer.GetAsLong(NumericType.Base_Speed_Base);
             
-            long masterspeed = master.GetComponent<NumericComponentS>().GetAsLong(NumericType.Now_Speed);
-            numericComponentS.ApplyValue(NumericType.Base_Speed_Base, masterspeed);
+            long masterspeed = master.GetComponent<NumericComponentServer>().GetAsLong(NumericType.Now_Speed);
+            numericComponentServer.ApplyValue(NumericType.Base_Speed_Base, masterspeed);
 
             while (true)
             {
@@ -119,7 +119,7 @@ namespace ET.Server
 
             if (!unit.IsDisposed)
             {
-                unit.GetComponent<NumericComponentS>()?.ApplyValue(NumericType.Base_Speed_Base, oldSpeed);
+                unit.GetComponent<NumericComponentServer>()?.ApplyValue(NumericType.Base_Speed_Base, oldSpeed);
             }
         }
     }

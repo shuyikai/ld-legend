@@ -54,10 +54,10 @@ namespace ET.Client
             unit.Position = unitInfo.Position;
             unit.Forward = unitInfo.Forward;
 
-            NumericComponentC numericComponentC = unit.AddComponent<NumericComponentC>();
+            NumericComponentClient numericComponentClient = unit.AddComponent<NumericComponentClient>();
             foreach (var kv in unitInfo.KV)
             {
-                numericComponentC.ApplyValue(kv.Key, kv.Value, false);
+                numericComponentClient.ApplyValue(kv.Key, kv.Value, false);
             }
             
             bool noSkill = unit.Type == UnitType.Npc && NpcConfigCategory.Instance.Get(unit.ConfigId).AI == 0;
@@ -96,10 +96,10 @@ namespace ET.Client
             unit.Type = UnitType.DropItem;
             unitComponent.Add(unit);
 
-            NumericComponentC numericComponentC = unit.AddComponent<NumericComponentC>();
+            NumericComponentClient numericComponentClient = unit.AddComponent<NumericComponentClient>();
             foreach (var kv in unitInfo.KV)
             {
-                numericComponentC.ApplyValue(kv.Key, kv.Value, false);
+                numericComponentClient.ApplyValue(kv.Key, kv.Value, false);
             }
 
             unit.AddComponent<DropComponentC>();
@@ -155,10 +155,10 @@ namespace ET.Client
             Unit unit = unitComponent.AddChildWithId<Unit, int>(unitInfo.UnitId, 1);
             unit.Type = unitInfo.Type;
 
-            NumericComponentC numericComponentC = unit.AddComponent<NumericComponentC>();
+            NumericComponentClient numericComponentClient = unit.AddComponent<NumericComponentClient>();
             foreach (var kv in unitInfo.KV)
             {
-                numericComponentC.ApplyValue(kv.Key, kv.Value, false);
+                numericComponentClient.ApplyValue(kv.Key, kv.Value, false);
             }
 
             unit.ConfigId = unitInfo.ConfigId;

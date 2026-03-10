@@ -19,7 +19,7 @@ namespace ET.Server
         
         public static void OnLogin(this RechargeComponent self)
         {
-            NumericComponentS numericComponent = self.GetParent<Unit>().GetComponent<NumericComponentS>();
+            NumericComponentServer numericComponent = self.GetParent<Unit>().GetComponent<NumericComponentServer>();
 
         }
     }

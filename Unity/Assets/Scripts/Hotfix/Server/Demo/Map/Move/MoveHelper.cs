@@ -34,7 +34,7 @@ namespace ET.Server
             m2CPathfindingResult.SpeedRate = speedRate;
             MapMessageHelper.Broadcast(unit, m2CPathfindingResult);
 
-            float speed = unit.GetComponent<NumericComponentS>().GetAsFloat(NumericType.Now_Speed);
+            float speed = unit.GetComponent<NumericComponentServer>().GetAsFloat(NumericType.Now_Speed);
             speed *= (speedRate * 0.01f);
             bool ret = await moveComponent.MoveToAsync(m2CPathfindingResult.Points, speed);
             if (ret) // 如果返回false，说明被其它移动取消了，这时候不需要通知客户端stop
@@ -45,7 +45,7 @@ namespace ET.Server
 
         public static async ETTask PathResultToAsync(Unit unit, List<float3> positonsss, MoveComponent moveComponent, int speedRate)
         {
-            float speed = unit.GetComponent<NumericComponentS>().GetAsFloat(NumericType.Now_Speed);
+            float speed = unit.GetComponent<NumericComponentServer>().GetAsFloat(NumericType.Now_Speed);
             speed *= (speedRate * 0.01f);
             bool ret = await moveComponent.MoveToAsync(positonsss, speed);
             if (ret) // 如果返回false，说明被其它移动取消了，这时候不需要通知客户端stop
@@ -59,7 +59,7 @@ namespace ET.Server
         // 可以多次调用，多次调用的话会取消上一次的协程
         public static async ETTask BulletMoveToAsync(this Unit unit,  float3 target)
         {
-            float speed = unit.GetComponent<NumericComponentS>().GetAsFloat(NumericType.Now_Speed);
+            float speed = unit.GetComponent<NumericComponentServer>().GetAsFloat(NumericType.Now_Speed);
             if (speed < 0.01)
             {
                 Log.Error("Bullet move speed is less than 0.1");

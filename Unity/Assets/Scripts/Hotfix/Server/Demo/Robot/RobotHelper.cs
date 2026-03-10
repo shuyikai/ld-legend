@@ -216,7 +216,7 @@ namespace ET.Client
         public static async ETTask UnionApply(Scene root)
         {
             Unit unit = UnitHelper.GetMyUnitFromClientScene(root);
-            NumericComponentC numericComponent = unit.GetComponent<NumericComponentC>();
+            NumericComponentClient numericComponent = unit.GetComponent<NumericComponentClient>();
             long unionId = numericComponent.GetAsLong(NumericType.UnionId_0);
             if (unionId != 0)
             {
@@ -490,7 +490,7 @@ namespace ET.Client
 
             Unit unit = UnitHelper.GetMyUnitFromClientScene(root);
             TaskComponentC taskComponent = root.GetComponent<TaskComponentC>();
-            NumericComponentC numericComponent = unit.GetComponent<NumericComponentC>();
+            NumericComponentClient numericComponent = unit.GetComponent<NumericComponentClient>();
 
             NpcConfig npcConfig = NpcConfigCategory.Instance.Get(npcid);
             switch (npcConfig.FuncitonID)

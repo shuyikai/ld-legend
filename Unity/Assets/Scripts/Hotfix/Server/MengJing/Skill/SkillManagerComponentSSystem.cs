@@ -732,7 +732,7 @@ namespace ET.Server
               Unit unit = self.GetParent<Unit>();
               SkillCDItem skillcd = null;
               SkillConfig skillConfig = SkillConfigCategory.Instance.Get(weaponSkill);
-              NumericComponentS numericComponent = unit.GetComponent<NumericComponentS>();
+              NumericComponentServer numericComponent = unit.GetComponent<NumericComponentServer>();
               double skillcdTime = skillConfig.SkillCD;
 
               //if (skillConfig.SkillActType == 0 && unit.Type == UnitType.Monster)
@@ -988,7 +988,7 @@ namespace ET.Server
                   return;
               }
 
-              if (target.GetComponent<NumericComponentS>().GetAsInt(NumericType.Now_Dead) == 1)
+              if (target.GetComponent<NumericComponentServer>().GetAsInt(NumericType.Now_Dead) == 1)
               {
                   return;
               }

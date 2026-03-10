@@ -6,7 +6,7 @@ using Unity.Mathematics;
 namespace ET.Server
 {
     [FriendOf(typeof (MoveComponent))]
-    [FriendOf(typeof (NumericComponentS))]
+    [FriendOf(typeof (NumericComponentServer))]
     [FriendOf(typeof (UserInfoComponentS))]
     public static partial class UnitHelper
     {
@@ -25,7 +25,7 @@ namespace ET.Server
         public static void RecordPostion(this Unit self, int sceneType, int sceneId)
         {
             bool record = false;
-            NumericComponentS numericComponent = self.GetComponent<NumericComponentS>();
+            NumericComponentServer numericComponent = self.GetComponent<NumericComponentServer>();
             if (!SceneConfigHelper.UseSceneConfig(sceneType) || sceneId == 0)
             {
                 record = false;
@@ -59,7 +59,7 @@ namespace ET.Server
 
         public static int GetCurrentTowerId(this Unit self, int sceneType)
         {
-            NumericComponentS numericComponent = self.GetComponent<NumericComponentS>();
+            NumericComponentServer numericComponent = self.GetComponent<NumericComponentServer>();
             return 0;
         }
 
@@ -122,17 +122,17 @@ namespace ET.Server
         
         public static long GetTeamId(this Unit self)
         {
-            return self.GetComponent<NumericComponentS>().GetAsInt(NumericType.TeamId);
+            return self.GetComponent<NumericComponentServer>().GetAsInt(NumericType.TeamId);
         }
         
         public static int GetAttackMode(this Unit self)
         {
-            return self.GetComponent<NumericComponentS>().GetAsInt(NumericType.AttackMode);
+            return self.GetComponent<NumericComponentServer>().GetAsInt(NumericType.AttackMode);
         }
 
         public static long GetUnionId(this Unit self)
         {
-            return self.GetComponent<NumericComponentS>().GetAsLong(NumericType.UnionId_0);
+            return self.GetComponent<NumericComponentServer>().GetAsLong(NumericType.UnionId_0);
         }
         
 
@@ -143,12 +143,12 @@ namespace ET.Server
 
         public static bool IsYeWaiMonster(this Unit self)
         {
-            return self.Type == UnitType.Monster && self.GetComponent<NumericComponentS>().GetAsLong(NumericType.MasterId) == 0;
+            return self.Type == UnitType.Monster && self.GetComponent<NumericComponentServer>().GetAsLong(NumericType.MasterId) == 0;
         }
         
         public static int GetBattleCamp(this Unit self)
         {
-            NumericComponentS numericComponent = self.GetComponent<NumericComponentS>();
+            NumericComponentServer numericComponent = self.GetComponent<NumericComponentServer>();
             return numericComponent.GetAsInt(NumericType.BattleCamp);
         }
 
@@ -182,7 +182,7 @@ namespace ET.Server
 
             if (checkdead)
             {
-                NumericComponentS numericComponent = self.GetComponent<NumericComponentS>();
+                NumericComponentServer numericComponent = self.GetComponent<NumericComponentServer>();
                 if (numericComponent.GetAsLong((int)NumericType.Now_Hp) <= 0
                     || numericComponent.GetAsLong((int)NumericType.Now_Dead) == 1)
                     return false;
@@ -206,7 +206,7 @@ namespace ET.Server
                 return self.Id;
             }
             
-            return self.GetComponent<NumericComponentS>().GetAsLong(NumericType.MasterId);
+            return self.GetComponent<NumericComponentServer>().GetAsLong(NumericType.MasterId);
 
             // if (self.Type == UnitType.Pet || self.Type == UnitType.Monster
             //     || self.Type == UnitType.JingLing || self.Type == UnitType.Pasture
@@ -220,8 +220,8 @@ namespace ET.Server
 
         public static bool IsMasterOrPet(this Unit self, Unit defend, PetComponentS petComponent)
         {
-            long masterId = self.GetComponent<NumericComponentS>().GetAsLong(NumericType.MasterId);
-            long othermaster = defend.GetComponent<NumericComponentS>().GetAsLong(NumericType.MasterId);
+            long masterId = self.GetComponent<NumericComponentServer>().GetAsLong(NumericType.MasterId);
+            long othermaster = defend.GetComponent<NumericComponentServer>().GetAsLong(NumericType.MasterId);
             if (self.Type != UnitType.Player && masterId == defend.Id)
             {
                 return true;
@@ -452,7 +452,7 @@ namespace ET.Server
 
             M2Chat_UpdateUnion M2Chat_UpdateUnion = M2Chat_UpdateUnion.Create();
             M2Chat_UpdateUnion.UnitId = self.Id;
-            M2Chat_UpdateUnion.UnionId = self.GetComponent<NumericComponentS>().GetAsLong(NumericType.UnionId_0);
+            M2Chat_UpdateUnion.UnionId = self.GetComponent<NumericComponentServer>().GetAsLong(NumericType.UnionId_0);
             Chat2M_UpdateUnion chat2G_EnterChat = (Chat2M_UpdateUnion)await self.Root().GetComponent<MessageSender>().Call(chatServerId, M2Chat_UpdateUnion);
             return chat2G_EnterChat.Error;
         }
@@ -464,7 +464,7 @@ namespace ET.Server
             for (int i = 0; i < allunits.Count; i++)
             {
                 Unit unit = allunits[i];
-                if (unit.Type == unitType && unit.GetComponent<NumericComponentS>().GetAsInt(NumericType.Now_Dead) == 0)
+                if (unit.Type == unitType && unit.GetComponent<NumericComponentServer>().GetAsInt(NumericType.Now_Dead) == 0)
                 {
                     units.Add(allunits[i]);
                 }
@@ -507,7 +507,7 @@ namespace ET.Server
 
         public static void UpdateYueKaTimes(this Unit self)
         {
-            NumericComponentS numericComponent = self.GetComponent<NumericComponentS>();
+            NumericComponentServer numericComponent = self.GetComponent<NumericComponentServer>();
           
         }
         

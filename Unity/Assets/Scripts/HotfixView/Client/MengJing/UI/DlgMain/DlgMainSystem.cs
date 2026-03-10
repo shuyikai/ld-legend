@@ -221,14 +221,14 @@ namespace ET.Client
 
         public static void AutoHorse(this DlgMain self)
         {
-            NumericComponentC numericComponent = self.MainUnit.GetComponent<NumericComponentC>();
+            NumericComponentClient numericComponent = self.MainUnit.GetComponent<NumericComponentClient>();
            
         }
 
         public static void OnButton_Horse(this DlgMain self, bool showtip)
         {
             Unit unit = UnitHelper.GetMyUnitFromClientScene(self.Root());
-            int now_horse = unit.GetComponent<NumericComponentC>().GetAsInt(NumericType.HorseRide);
+            int now_horse = unit.GetComponent<NumericComponentClient>().GetAsInt(NumericType.HorseRide);
             if (now_horse == 0 && !self.Root().GetComponent<BattleMessageComponent>().IsCanRideHorse())
             {
                 FlyTipComponent.Instance.ShowFlyTip("战斗状态不能骑马!");
@@ -416,7 +416,7 @@ namespace ET.Client
         public static void OnCityHorseButton(this DlgMain self, bool showtip)
         {
             Unit unit = UnitHelper.GetMyUnitFromClientScene(self.Root());
-            int now_horse = unit.GetComponent<NumericComponentC>().GetAsInt(NumericType.HorseRide);
+            int now_horse = unit.GetComponent<NumericComponentClient>().GetAsInt(NumericType.HorseRide);
             if (now_horse == 0 && !self.Root().GetComponent<BattleMessageComponent>().IsCanRideHorse())
             {
                 FlyTipComponent.Instance.ShowFlyTip("战斗状态不能骑马!");

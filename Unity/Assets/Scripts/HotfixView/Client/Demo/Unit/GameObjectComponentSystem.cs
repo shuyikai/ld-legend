@@ -165,7 +165,7 @@ namespace ET.Client
                         return;
                     }
 
-                    NumericComponentC numericComponent = unit.GetComponent<NumericComponentC>();
+                    NumericComponentClient numericComponent = unit.GetComponent<NumericComponentClient>();
                     
                     if (string.IsNullOrEmpty(self.UnitAssetsPath))
                     {
@@ -179,9 +179,9 @@ namespace ET.Client
                     int monsterId = unit.ConfigId;
                     MonsterConfig monsterCof = MonsterConfigCategory.Instance.Get(monsterId);
                   
-                    long masterId = unit.GetComponent<NumericComponentC>().GetAsLong(NumericType.MasterId);
+                    long masterId = unit.GetComponent<NumericComponentClient>().GetAsLong(NumericType.MasterId);
                     Unit master = unit.GetParent<UnitComponent>().Get(masterId);
-                    numericComponent = unit.GetComponent<NumericComponentC>();
+                    numericComponent = unit.GetComponent<NumericComponentClient>();
                     self.UnitAssetsPath = string.Empty;
                     int nowdead = numericComponent.GetAsInt(NumericType.Now_Dead);
                   
@@ -282,7 +282,7 @@ namespace ET.Client
 
             self.ObjectHorse = go;
             Unit unit = self.GetParent<Unit>();
-            NumericComponentC numericComponent = unit.GetComponent<NumericComponentC>();
+            NumericComponentClient numericComponent = unit.GetComponent<NumericComponentClient>();
            
             int horseRide = numericComponent.GetAsInt(NumericType.HorseRide);
             if (horseRide != 0)
@@ -374,7 +374,7 @@ namespace ET.Client
             }
 
             Unit unit = self.GetParent<Unit>();
-            NumericComponentC numericComponent = unit.GetComponent<NumericComponentC>();
+            NumericComponentClient numericComponent = unit.GetComponent<NumericComponentClient>();
             
 
             int horseRide = numericComponent.GetAsInt(NumericType.HorseRide);
@@ -463,7 +463,7 @@ namespace ET.Client
                     
                     LayerHelp.ChangeLayer(go.transform, LayerEnum.Player);
                     self.OnAddCollider(go);
-                    NumericComponentC numericComponent = unit.GetComponent<NumericComponentC>();
+                    NumericComponentClient numericComponent = unit.GetComponent<NumericComponentClient>();
                  
                     go.transform.name = unit.Id.ToString();
                     
@@ -616,7 +616,7 @@ namespace ET.Client
                     
                     unit.GetComponent<BuffManagerComponentC>()?.InitBuff();
                     unit.GetComponent<SkillManagerComponentC>()?.InitSkill();
-                    numericComponent = unit.GetComponent<NumericComponentC>();
+                    numericComponent = unit.GetComponent<NumericComponentClient>();
                     // if (numericComponent.GetAsInt(NumericType.Now_Dead) == 1)
                     // {
                     //     EventSystem.Instance.Publish(self.Root(), new UnitDead() { Unit = unit});
@@ -662,7 +662,7 @@ namespace ET.Client
                 SkillConfig skillConfig = SkillConfigCategory.Instance.Get(unit.ConfigId);
                 if (skillConfig.GameObjectName.Equals(ConfigData.Skill_ComTargetMove_RangDamge_7))
                 {
-                    long masterid = unit.GetComponent<NumericComponentC>().GetAsLong(NumericType.MasterId);
+                    long masterid = unit.GetComponent<NumericComponentClient>().GetAsLong(NumericType.MasterId);
                     unit.AddComponent<RoleBullet7Componnet>().OnBaseBulletInit(masterid);
                 }
             }

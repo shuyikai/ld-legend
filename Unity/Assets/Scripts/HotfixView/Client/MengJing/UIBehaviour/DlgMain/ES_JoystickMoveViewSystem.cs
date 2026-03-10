@@ -93,14 +93,14 @@ namespace ET.Client
         public static void InitMainHero(this ES_JoystickMove self)
         {
             self.MainUnit = UnitHelper.GetMyUnitFromClientScene(self.Root());
-            self.NumericComponent = self.MainUnit.GetComponent<NumericComponentC>();
+            self.NumericComponent = self.MainUnit.GetComponent<NumericComponentClient>();
         }
 
         
         public static void AfterEnterScene(this ES_JoystickMove self)
         {
             self.MainUnit = UnitHelper.GetMyUnitFromClientScene(self.Root());
-            self.NumericComponent = self.MainUnit.GetComponent<NumericComponentC>();
+            self.NumericComponent = self.MainUnit.GetComponent<NumericComponentClient>();
             self.BattleMessageComponent.TransferMap = false;
         }
 
@@ -252,7 +252,7 @@ namespace ET.Client
             Unit unit = self.MainUnit;
             unit.GetComponent<GameObjectComponent>().UpdateRotation(quaternion.Euler(0, math.radians(direction ), 0));
             
-            float speed = unit.GetComponent<NumericComponentC>().GetAsFloat(NumericType.Now_Speed);
+            float speed = unit.GetComponent<NumericComponentClient>().GetAsFloat(NumericType.Now_Speed);
             speed = Mathf.Max(speed, 4f);
             
             int speedRate = 60;  //移动速度 10是原始速度1/10 100是原始速度
@@ -341,7 +341,7 @@ namespace ET.Client
             
             float3 newv3 = pathfind[pathfind.Count - 1];
             float distance = Vector3.Distance(newv3, unit.Position);
-            float speed = unit.GetComponent<NumericComponentC>().GetAsFloat(NumericType.Now_Speed);
+            float speed = unit.GetComponent<NumericComponentClient>().GetAsFloat(NumericType.Now_Speed);
             speed = Mathf.Max(speed, 4f);
             float needTime = distance / speed;
             self.checkTime =(long)(1000 * needTime) - 200;

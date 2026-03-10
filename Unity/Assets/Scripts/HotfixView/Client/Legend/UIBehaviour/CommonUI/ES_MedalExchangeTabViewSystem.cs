@@ -90,8 +90,8 @@ namespace ET.Client
 			MedalExchangeConfig medalExchangeConfig = MedalExchangeConfigCategory.Instance.Get(self.MedalId);
 			
 			Unit unit = UnitHelper.GetMyUnitFromClientScene(self.Root());
-			NumericComponentC numericComponentC = unit.GetComponent<NumericComponentC>();
-			long now_reputation = numericComponentC.GetAsLong(NumericType.Now_Reputation);
+			NumericComponentClient numericComponentClient = unit.GetComponent<NumericComponentClient>();
+			long now_reputation = numericComponentClient.GetAsLong(NumericType.Now_Reputation);
 			if (now_reputation < medalExchangeConfig.CostReputation)
 			{
 				FlyTipComponent.Instance.ShowFlyTip(ErrorViewData.ErrorHints[ErrorCode.ERR_ReputationNotEnoughError]);

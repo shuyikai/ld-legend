@@ -46,11 +46,11 @@ namespace ET.Server
                         userInfoComponentS.OnInit(account, id, accountId, createRoleInfo);
                     }
 
-                    if (unit.GetComponent<NumericComponentS>() == null)
+                    if (unit.GetComponent<NumericComponentServer>() == null)
                     {
-                        NumericComponentS numericComponentS = unit.AddComponent<NumericComponentS>();
-                        numericComponentS.ApplyValue(NumericType.Now_Speed, 60000, false); // 速度是6米每秒
-                        numericComponentS.ApplyValue(NumericType.AOI, 15000, false); // 视野15米
+                        NumericComponentServer numericComponentServer = unit.AddComponent<NumericComponentServer>();
+                        numericComponentServer.ApplyValue(NumericType.Now_Speed, 60000, false); // 速度是6米每秒
+                        numericComponentServer.ApplyValue(NumericType.AOI, 15000, false); // 视野15米
                     }
 
                     unit.AddDataComponent<TaskComponentS>();
@@ -117,7 +117,7 @@ namespace ET.Server
             long unitid = createMonsterInfo.UnitId > 0 ? createMonsterInfo.UnitId : IdGenerater.Instance.GenerateId();
             Unit unit = scene.GetComponent<UnitComponent>().AddChildWithId<Unit, int>(unitid, 1001);
             unit.AddComponent<AttackRecordComponent>();
-            NumericComponentS numericComponent = unit.AddComponent<NumericComponentS>();
+            NumericComponentServer numericComponent = unit.AddComponent<NumericComponentServer>();
             HeroDataComponentS heroDataComponent = unit.AddComponent<HeroDataComponentS>();
             UnitInfoComponent unitInfoComponent = unit.AddComponent<UnitInfoComponent>();
             unitInfoComponent.UnitName = monsterConfig.MonsterName;
@@ -216,7 +216,7 @@ namespace ET.Server
             unit.AddComponent<MoveComponent>();
             unit.AddComponent<PathfindingComponent, int>(scene.GetComponent<MapComponent>().NavMeshId);
             unit.AddComponent<UnitInfoComponent>();
-            NumericComponentS numericComponent = unit.AddComponent<NumericComponentS>();
+            NumericComponentServer numericComponent = unit.AddComponent<NumericComponentServer>();
             unit.ConfigId = skillid;
             unit.Position = vector3;
             unit.Type = UnitType.Bullet; //子弹Unity,根据这个类型会实例化出特效
@@ -244,7 +244,7 @@ namespace ET.Server
             unit.Position = new float3(npcConfig.Position[0] * 0.01f, npcConfig.Position[1] * 0.01f, npcConfig.Position[2] * 0.01f);
             unit.Rotation = quaternion.Euler(0, math.radians(npcConfig.Rotation), 0);
             unit.Type = UnitType.Npc;
-            NumericComponentS numericComponent = unit.AddComponent<NumericComponentS>();
+            NumericComponentServer numericComponent = unit.AddComponent<NumericComponentServer>();
             if (npcConfig.AI > 0)
             {
                 unit.AddComponent<MoveComponent>();
@@ -276,7 +276,7 @@ namespace ET.Server
             {
                 unit.AddComponent<MoveComponent>();
                 unit.AddComponent<StateComponentS>();
-                NumericComponentS numericComponent = unit.AddComponent<NumericComponentS>();
+                NumericComponentServer numericComponent = unit.AddComponent<NumericComponentServer>();
                 numericComponent.ApplyValue(NumericType.Now_Speed, npcConfig.NpcPar[0], false);
                 unit.AddComponent<PathfindingComponent, int>(scene.GetComponent<MapComponent>().NavMeshId);
                 unit.AddComponent<AIComponent, int>(npcConfig.AI); //AI行为树序号	
@@ -474,7 +474,7 @@ namespace ET.Server
                   
                     dropComponent.BeAttackPlayerList = beattackIds;
                     
-                    NumericComponentS numericComponentS = dropitem.AddComponent<NumericComponentS>();
+                    NumericComponentServer numericComponentServer = dropitem.AddComponent<NumericComponentServer>();
            
                     //掉落归属问题 掉落类型为2 原来为： 最后一刀 修改为 第一拾取权限为优先攻击他的人,如果这个人死了，那么拾取权限清空，下一次伤害是谁归属权就是谁。
 
@@ -567,7 +567,7 @@ namespace ET.Server
                     float dropZ = beKill.Position.z + RandomHelper.RandomNumberFloat(-1f, 1f);
                     dropitem.Position = new float3(dropX, dropY, dropZ);
                     dropitem.AddComponent<AOIEntity, int, float3>(9 * 1000, dropitem.Position);
-                    NumericComponentS numericComponentS = dropitem.AddComponent<NumericComponentS>();
+                    NumericComponentServer numericComponentServer = dropitem.AddComponent<NumericComponentServer>();
                 }
             }
 

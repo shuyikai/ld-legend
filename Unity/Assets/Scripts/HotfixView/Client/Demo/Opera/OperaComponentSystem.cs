@@ -117,7 +117,7 @@ namespace ET.Client
                 {
                     return;
                 }
-                float speed = unit.GetComponent<NumericComponentC>().GetAsFloat(NumericType.Now_Speed);
+                float speed = unit.GetComponent<NumericComponentClient>().GetAsFloat(NumericType.Now_Speed);
                 unit.GetComponent<MoveComponent>().MoveToAsync(points, speed, 100, (int)speed).Coroutine();
             }
         }
@@ -142,7 +142,7 @@ namespace ET.Client
                     return;
                 }
 
-                float speed = unit.GetComponent<NumericComponentC>().GetAsFloat(NumericType.Now_Speed);
+                float speed = unit.GetComponent<NumericComponentClient>().GetAsFloat(NumericType.Now_Speed);
                 unit.GetComponent<MoveComponent>().MoveToAsync(points, speed, 100, (int)speed).Coroutine();
             }
         }

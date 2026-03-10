@@ -87,7 +87,7 @@ namespace ET.Server
                 await aiComponent.Root().GetComponent<TimerComponent>().WaitAsync(1000, cancellationToken);
                 if (!cancellationToken.IsCancel() && math.distance(bornVector3, unit.Position) < 0.5f && !unit.IsDisposed)
                 {
-                    NumericComponentS numericComponent = unit.GetComponent<NumericComponentS>();
+                    NumericComponentServer numericComponent = unit.GetComponent<NumericComponentServer>();
                     if (aiComponent.SceneType != MapTypeEnum.TeamDungeon && numericComponent.GetAsInt(NumericType.Now_Dead) == 0)
                     {
                         long max_hp = numericComponent.GetAsLong(NumericType.Now_MaxHp);

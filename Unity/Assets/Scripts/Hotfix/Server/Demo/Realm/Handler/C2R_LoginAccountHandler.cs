@@ -242,7 +242,7 @@ namespace ET.Server
                         }
 
                         CreateRoleInfo roleList = GetRoleListInfo(userinfolist[0].ChildrenDB[0] as UserInfo, centerAccountInfo.RoleList[i].UnitId);
-                        List<NumericComponentS> numericComponentlist = await dbComponent.Query<NumericComponentS>(request.ServerId,d=> d.Id ==centerAccountInfo.RoleList[i].UnitId);
+                        List<NumericComponentServer> numericComponentlist = await dbComponent.Query<NumericComponentServer>(request.ServerId,d=> d.Id ==centerAccountInfo.RoleList[i].UnitId);
                       
                         roleList.State = centerAccountInfo.RoleList[i].State;
                         roleList.ServerId = centerAccountInfo.RoleList[i].ServerId;

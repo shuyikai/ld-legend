@@ -69,8 +69,8 @@ namespace ET.Server
             long currentTime = TimeHelper.ServerNow();
 
             DateTime dateTime = TimeInfo.Instance.ToDateTime(currentTime);
-            NumericComponentS numericComponentS = unit.GetComponent<NumericComponentS>();   
-            long lastLoginTime = numericComponentS.GetAsLong(NumericType.LastLoginTime);
+            NumericComponentServer numericComponentServer = unit.GetComponent<NumericComponentServer>();   
+            long lastLoginTime = numericComponentServer.GetAsLong(NumericType.LastLoginTime);
        
             if (lastLoginTime != 0)
             {

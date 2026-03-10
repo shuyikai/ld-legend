@@ -94,7 +94,7 @@ namespace ET.Server
         public void PushUnit(SkillS skillS, Unit unit)
         {
             unit.GetComponent<StateComponentS>().StateTypeAdd(StateTypeEnum.BePulled);
-            NumericComponentS numericComponent = unit.GetComponent<NumericComponentS>();
+            NumericComponentServer numericComponent = unit.GetComponent<NumericComponentServer>();
             float oldSpeed = numericComponent.GetAsFloat(NumericType.Now_Speed);
             float oldspeedAdd = numericComponent.GetAsFloat(NumericType.Extra_Buff_Speed_Add);
             double addPro = 0f;
@@ -124,7 +124,7 @@ namespace ET.Server
         public void ReSetUnit(SkillS skillS, Unit unit)
         {
             unit.GetComponent<StateComponentS>().StateTypeRemove(StateTypeEnum.BePulled);
-            NumericComponentS numericComponent = unit.GetComponent<NumericComponentS>();
+            NumericComponentServer numericComponent = unit.GetComponent<NumericComponentServer>();
             float curspeedAdd = numericComponent.GetAsFloat(NumericType.Extra_Buff_Speed_Add) - skillS.SpeedAddValue;
             numericComponent.ApplyValue(NumericType.Extra_Buff_Speed_Add, math.max(0, curspeedAdd));
         }

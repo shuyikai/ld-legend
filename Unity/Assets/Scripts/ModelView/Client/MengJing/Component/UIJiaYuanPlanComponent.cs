@@ -10,7 +10,7 @@ namespace ET.Client
         public Camera MainCamera;
         public Transform UIPosition;
         public HeadBarUI HeadBarUI;
-        public NumericComponentC NumericComponent { get; set; }
+        public NumericComponentClient NumericComponent { get; set; }
 
         public int PlanStage = -1;
         public long Timer;

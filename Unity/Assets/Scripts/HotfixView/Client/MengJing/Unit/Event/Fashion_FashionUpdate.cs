@@ -10,7 +10,7 @@ namespace ET.Client
             Unit unit = args.Unit;
             List<int> fashionids = args.Unit.GetComponent<UnitInfoComponent>().FashionEquipList;
 
-            NumericComponentC numericComponent = args.Unit.GetComponent<NumericComponentC>();
+            NumericComponentClient numericComponent = args.Unit.GetComponent<NumericComponentClient>();
            
             await ETTask.CompletedTask;
         }

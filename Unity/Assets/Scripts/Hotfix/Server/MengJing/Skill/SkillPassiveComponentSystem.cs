@@ -73,7 +73,7 @@ namespace ET.Server
             //缓存值
             self.UnitType = unit.Type;
             StateComponentS StateComponent = unit.GetComponent<StateComponentS>();
-            NumericComponentS NumericComponent = unit.GetComponent<NumericComponentS>();
+            NumericComponentServer NumericComponent = unit.GetComponent<NumericComponentServer>();
 
             if (NumericComponent.GetAsInt(NumericType.Now_Dead) != 0)
             {
@@ -134,7 +134,7 @@ namespace ET.Server
                 Log.Info("Unit is null");
             }
             
-            NumericComponentS NumericComponent = unit.GetComponent<NumericComponentS>();
+            NumericComponentServer NumericComponent = unit.GetComponent<NumericComponentServer>();
             if (NumericComponent == null)
             {
                 Log.Info("NumericComponent is null");
@@ -510,11 +510,11 @@ namespace ET.Server
                         trigger = skillproValue >= RandomHelper.RandFloat01();
                         break;
                     case SkillPassiveTypeEnum.XueLiang_2:
-                        NumericComponentS numCom = unit.GetComponent<NumericComponentS>();
+                        NumericComponentServer numCom = unit.GetComponent<NumericComponentServer>();
                         if (unit.Type == UnitType.JingLing)
                         {
                             Unit master = unit.GetParent<UnitComponent>().Get(unit.GetMasterId());
-                            numCom = (master != null && !master.IsDisposed) ? master.GetComponent<NumericComponentS>() : numCom;
+                            numCom = (master != null && !master.IsDisposed) ? master.GetComponent<NumericComponentServer>() : numCom;
                         }
 
                         long nowHp = numCom.GetAsLong((int)NumericType.Now_Hp);

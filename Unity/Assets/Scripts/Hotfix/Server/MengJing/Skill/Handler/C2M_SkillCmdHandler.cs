@@ -33,7 +33,7 @@ namespace ET.Server
                 }
               
                 unit.GetComponent<DBSaveComponent>().NoFindPath = 0;
-                unit.GetComponent<NumericComponentS>().ApplyValue(NumericType.HorseRide, 0, true);
+                unit.GetComponent<NumericComponentServer>().ApplyValue(NumericType.HorseRide, 0, true);
                 SkillManagerComponentS skillManagerManagerComponent = unit.GetComponent<SkillManagerComponentS>();   
                 M2C_SkillCmd m2C_SkillCmd = skillManagerManagerComponent.OnUseSkill(request, true);
              

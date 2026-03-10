@@ -336,7 +336,7 @@ namespace ET.Server
         public static void OnZeroClockUpdate(this UserInfoComponentS self, bool notice)
         {
             Unit unit = self.GetParent<Unit>();
-            NumericComponentS numericComponent = unit.GetComponent<NumericComponentS>();
+            NumericComponentServer numericComponent = unit.GetComponent<NumericComponentServer>();
     
             //updatevalue = ComHelp.GetMaxBaoShiDu() - self.UserInfo.BaoShiDu;
             //self.UpdateRoleData(UserDataType.BaoShiDu, updatevalue.ToString(), notice);
@@ -441,13 +441,13 @@ namespace ET.Server
             MonsterConfig monsterConfig = MonsterConfigCategory.Instance.Get(beKill.ConfigId);
         
 
-            NumericComponentS numericComponent = main.GetComponent<NumericComponentS>();
+            NumericComponentServer numericComponent = main.GetComponent<NumericComponentServer>();
         }
 
         public static async ETTask UploadCombat(this UserInfoComponentS self)
         {
             Unit unit = self.GetParent<Unit>();
-            NumericComponentS numericComponent = unit.GetComponent<NumericComponentS>();
+            NumericComponentServer numericComponent = unit.GetComponent<NumericComponentServer>();
             ActorId mapInstanceId = UnitCacheHelper.GetRankServerId(self.Zone());
             RankingInfo rankPetInfo = RankingInfo.Create();
 

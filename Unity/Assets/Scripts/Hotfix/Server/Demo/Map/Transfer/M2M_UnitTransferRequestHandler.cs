@@ -36,7 +36,7 @@ namespace ET.Server
             unit.AddComponent<MailBoxComponent, MailBoxType>(MailBoxType.OrderedMessage);
             unit.GetComponent<DBSaveComponent>().Activeted();
             
-            NumericComponentS numericComponent = unit.GetComponent<NumericComponentS>();
+            NumericComponentServer numericComponent = unit.GetComponent<NumericComponentServer>();
             numericComponent.ApplyValue(NumericType.BattleCamp, CampEnum.CampPlayer_1, false);
             unit.GetComponent<HeroDataComponentS>().CheckNumeric();
             Function_Fight.UnitUpdateProperty_Base(unit, false, false);

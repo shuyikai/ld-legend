@@ -20,7 +20,7 @@ namespace ET.Server
             defendUnit.GetComponent<SkillPassiveComponent>()?.Stop();
             defendUnit.GetComponent<SkillManagerComponentS>()?.OnFinish(false);
             defendUnit.GetComponent<BuffManagerComponentS>()?.OnDead(mainAttack);
-            NumericComponentS numericComponent = defendUnit.GetComponent<NumericComponentS>();
+            NumericComponentServer numericComponent = defendUnit.GetComponent<NumericComponentServer>();
             if (defendUnit.Type == UnitType.Player)
             {
                 // RolePetInfo rolePetInfo = defendUnit.GetComponent<PetComponentS>().GetFightPet();

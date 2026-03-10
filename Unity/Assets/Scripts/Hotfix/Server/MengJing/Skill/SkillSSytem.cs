@@ -72,7 +72,7 @@ namespace ET.Server
                              break;
                          //自身血量低攻击提升
                          case "3":
-                             float defendUnitHpPro = (float)theUnitFrom.GetComponent<NumericComponentS>().GetAsInt(NumericType.Now_Hp) / (float)theUnitFrom.GetComponent<NumericComponentS>().GetAsInt(NumericType.Now_MaxHp);
+                             float defendUnitHpPro = (float)theUnitFrom.GetComponent<NumericComponentServer>().GetAsInt(NumericType.Now_Hp) / (float)theUnitFrom.GetComponent<NumericComponentServer>().GetAsInt(NumericType.Now_MaxHp);
                              if (defendUnitHpPro <= float.Parse(parList[1]))
                                  self.ActTargetAddPro= float.Parse(parList[2]);
                              break;
@@ -336,7 +336,7 @@ namespace ET.Server
              {
                  foreach (SkillParValue_HpUpAct now in self.SkillParValueHpUpAct)
                  {
-                     float defendUnitHpPro = (float)uu.GetComponent<NumericComponentS>().GetAsInt(NumericType.Now_Hp) / (float)uu.GetComponent<NumericComponentS>().GetAsInt(NumericType.Now_MaxHp);
+                     float defendUnitHpPro = (float)uu.GetComponent<NumericComponentServer>().GetAsInt(NumericType.Now_Hp) / (float)uu.GetComponent<NumericComponentServer>().GetAsInt(NumericType.Now_MaxHp);
                      //血量低于
                      if (now.type == 1) 
                      {

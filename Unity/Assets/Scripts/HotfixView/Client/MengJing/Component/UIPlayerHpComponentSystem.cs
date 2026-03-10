@@ -255,7 +255,7 @@ namespace ET.Client
             }
 
             if (stateComponent.StateTypeGet(StateTypeEnum.Hide)
-                || unit.GetComponent<NumericComponentC>().GetAsLong(NumericType.Now_Stall) > 0)
+                || unit.GetComponent<NumericComponentClient>().GetAsLong(NumericType.Now_Stall) > 0)
             {
                 self.EnterHide();
             }
@@ -274,7 +274,7 @@ namespace ET.Client
                 return;
             }
 
-            NumericComponentC numericComponent = unit.GetComponent<NumericComponentC>();
+            NumericComponentClient numericComponent = unit.GetComponent<NumericComponentClient>();
             int horseRide = numericComponent.GetAsInt(NumericType.HorseRide);
 
             Vector3 vector3_zuoqi = new Vector3(30f, 200f, 0f);  //坐骑状态
@@ -294,7 +294,7 @@ namespace ET.Client
             }
 
             Unit unit = self.GetParent<Unit>();
-            NumericComponentC numericComponent = unit.GetComponent<NumericComponentC>();
+            NumericComponentClient numericComponent = unit.GetComponent<NumericComponentClient>();
             UnitInfoComponent infoComponent = unit.GetComponent<UnitInfoComponent>();
 
             using (zstring.Block())
@@ -327,7 +327,7 @@ namespace ET.Client
             //显示玩家名称
             if (unit.Type == UnitType.Player)
             {
-                NumericComponentC numericComponent = unit.GetComponent<NumericComponentC>();
+                NumericComponentClient numericComponent = unit.GetComponent<NumericComponentClient>();
 
                 self.Lal_Name.GetComponent<Text>().text = infoComponent.UnitName;
                 self.UpdateDemonName(infoComponent.DemonName);
@@ -379,7 +379,7 @@ namespace ET.Client
 
         public static void UpdateBlood(this UIPlayerHpComponent self)
         {
-            NumericComponentC numericComponent = self.GetParent<Unit>().GetComponent<NumericComponentC>();
+            NumericComponentClient numericComponent = self.GetParent<Unit>().GetComponent<NumericComponentClient>();
             float curhp = numericComponent.GetAsLong(NumericType.Now_Hp); // + value;
             float blood = curhp / numericComponent.GetAsLong(NumericType.Now_MaxHp);
             blood = Mathf.Max(blood, 0f);
@@ -496,7 +496,7 @@ namespace ET.Client
             }
 
             Unit unit = self.GetParent<Unit>();
-            NumericComponentC numericComponent = unit.GetComponent<NumericComponentC>();
+            NumericComponentClient numericComponent = unit.GetComponent<NumericComponentClient>();
             int skillmp = numericComponent.GetAsInt(NumericType.Now_MP);
             int maxMp = 1000;
             if (skillmp == 0)

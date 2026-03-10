@@ -69,7 +69,7 @@ namespace ET.Client
                     }
                 }
 
-                if (unit.GetComponent<NumericComponentC>().GetAsLong(NumericType.ReviveTime) > 0)
+                if (unit.GetComponent<NumericComponentClient>().GetAsLong(NumericType.ReviveTime) > 0)
                 {
                     OnBossDead(unit, args.Wait).Coroutine();
                     unit.GetComponent<FsmComponent>()?.ChangeState(FsmStateEnum.FsmDeathState);

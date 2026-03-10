@@ -48,7 +48,7 @@
         {
             Log.Debug(("UnionMyInfo.C2U_UnionMyInfoRequest"));
             Unit unit = UnitHelper.GetMyUnitFromClientScene(root);
-            long unionId = unit.GetComponent<NumericComponentC>().GetAsLong(NumericType.UnionId_0);
+            long unionId = unit.GetComponent<NumericComponentClient>().GetAsLong(NumericType.UnionId_0);
             
             C2U_UnionMyInfoRequest request = C2U_UnionMyInfoRequest.Create();
             request.UnionId = unionId;

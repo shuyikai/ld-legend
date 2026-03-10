@@ -15,7 +15,7 @@ namespace ET.Server
             for(int i = dBUnionInfo.UnionInfo.ApplyList.Count - 1; i >= 0; i--)
             {
                 //判断玩家是否已经有公会了
-                NumericComponentS numericComponent_0 = await UnitCacheHelper.GetComponentCache<NumericComponentS>(scene.Root(), dBUnionInfo.UnionInfo.ApplyList[i]);
+                NumericComponentServer numericComponent_0 = await UnitCacheHelper.GetComponentCache<NumericComponentServer>(scene.Root(), dBUnionInfo.UnionInfo.ApplyList[i]);
                 if (numericComponent_0 == null ||  numericComponent_0.GetAsLong(NumericType.UnionId_0) > 0)
                 {
                     dBUnionInfo.UnionInfo.ApplyList.RemoveAt(i);

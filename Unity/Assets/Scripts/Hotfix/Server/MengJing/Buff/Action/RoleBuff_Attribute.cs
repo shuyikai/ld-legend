@@ -17,7 +17,7 @@ namespace ET.Server
 
         public override void OnUpdate(BuffS buffS)
         {
-            NumericComponentS heroCom = buffS.TheUnitBelongto.GetComponent<NumericComponentS>();
+            NumericComponentServer heroCom = buffS.TheUnitBelongto.GetComponent<NumericComponentServer>();
             if (heroCom == null)
             {
                 Log.Warning("RoleBuff_Attribute.heroCom == null");
@@ -64,7 +64,7 @@ namespace ET.Server
             }
         }
 
-        public void buffSetProperty(BuffS buffS, NumericComponentS heroCom)
+        public void buffSetProperty(BuffS buffS, NumericComponentServer heroCom)
         {
             //Log.Info("触发Buff" + this.BuffData.BuffConfig.BuffName);
 
@@ -230,14 +230,14 @@ namespace ET.Server
                 case 1:
                     //Log.Debug("执行buff移除属性...");
                     int NowBuffParameterType = buffS.mBuffConfig.buffParameterType;
-                    NumericComponentS numericComponentS = buffS.TheUnitBelongto.GetComponent<NumericComponentS>();
+                    NumericComponentServer numericComponentServer = buffS.TheUnitBelongto.GetComponent<NumericComponentServer>();
                     if (NowBuffParameterType == 3001)
                     {
                         //血量不进行移除
                     }
                     else if (NowBuffParameterType == 3164)
                     {
-                        numericComponentS.ApplyValue(NowBuffParameterType, 0);
+                        numericComponentServer.ApplyValue(NowBuffParameterType, 0);
                     }
                     else if (NowBuffParameterType == 3134)
                     {

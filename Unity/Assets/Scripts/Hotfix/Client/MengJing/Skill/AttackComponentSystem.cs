@@ -73,7 +73,7 @@ namespace ET.Client
             }
 
             Unit taretUnit = unit.GetParent<UnitComponent>().Get(self.MoveAttackId);
-            if (taretUnit == null || taretUnit.IsDisposed || taretUnit.GetComponent<NumericComponentC>().GetAsInt(NumericType.Now_Dead) == 1)
+            if (taretUnit == null || taretUnit.IsDisposed || taretUnit.GetComponent<NumericComponentClient>().GetAsInt(NumericType.Now_Dead) == 1)
             {
                 self.MoveAttackId = 0;
                 self.Root().GetComponent<ClientSenderCompnent>().Send(C2M_Stop.Create());
@@ -125,7 +125,7 @@ namespace ET.Client
         {
             int EquipType = UnitHelper.GetEquipType(self.Root());
             Unit unit = self.GetMainUnit();
-            NumericComponentC numericComponent = unit.GetComponent<NumericComponentC>();
+            NumericComponentClient numericComponent = unit.GetComponent<NumericComponentClient>();
             float attackSpped = 1f + numericComponent.GetAsFloat(NumericType.Now_ActSpeedPro);
             self.SkillCDs = EquipType == (int)ItemEquipType.Knife ? new List<int>() { 500, 1000, 1000 } : new List<int>() { 700, 700, 700 };
             for (int i = 0; i < self.SkillCDs.Count; i++)

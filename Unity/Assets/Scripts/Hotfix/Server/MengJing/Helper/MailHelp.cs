@@ -90,7 +90,7 @@ namespace ET.Server
             root.GetComponent<MessageLocationSenderComponent>().Get(LocationType.Unit).Send(userID, mail2M_SendServer);
         }
 
-        public static bool CheckSendMail(int MailType, string Title, NumericComponentS numericComponent, UserInfoComponentS userInfoComponent,
+        public static bool CheckSendMail(int MailType, string Title, NumericComponentServer numericComponent, UserInfoComponentS userInfoComponent,
         BagComponentServer bagComponent)
         {
             UserInfo unionInfoCache = userInfoComponent.ChildrenDB[0] as UserInfo;
@@ -120,7 +120,7 @@ namespace ET.Server
         {
             //判断条件
             UserInfoComponentS userInfoComponent = await UnitCacheHelper.GetComponentCache<UserInfoComponentS>(root, userID);
-            NumericComponentS numericComponent = await UnitCacheHelper.GetComponentCache<NumericComponentS>(root, userID);
+            NumericComponentServer numericComponent = await UnitCacheHelper.GetComponentCache<NumericComponentServer>(root, userID);
             BagComponentServer bagComponent = await UnitCacheHelper.GetComponentCache<BagComponentServer>(root, userID);
             bagComponent.DeserializeDB();
             bool cansendMail = CheckSendMail(serverMailItem.MailType, serverMailItem.ParasmNew, numericComponent, userInfoComponent,

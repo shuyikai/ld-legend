@@ -24,8 +24,8 @@ namespace ET.Client
         private EntityRef<Unit> unit;
         public Unit MainUnit { get => this.unit; set => this.unit = value; }
         
-        private EntityRef<NumericComponentC> numericComponent;
-        public NumericComponentC NumericComponent { get => this.numericComponent; set => this.numericComponent = value; }
+        private EntityRef<NumericComponentClient> numericComponent;
+        public NumericComponentClient NumericComponent { get => this.numericComponent; set => this.numericComponent = value; }
 
         private EntityRef<AttackComponent> attackComponent;
         public AttackComponent AttackComponent { get => this.attackComponent; set => this.attackComponent = value; }

@@ -6,7 +6,7 @@ namespace ET.Server
         public void Run(Unit unit, NumbericChange args)
         {
             UnitInfoComponent unitInfoComponent = unit.GetComponent<UnitInfoComponent>();
-            NumericComponentS numericComponentDefend = unit.GetComponent<NumericComponentS>();
+            NumericComponentServer numericComponentDefend = unit.GetComponent<NumericComponentServer>();
 
             Scene DomainScene = args.Defend.Scene();
             MapComponent mapComponent = DomainScene.GetComponent<MapComponent>();
@@ -85,7 +85,7 @@ namespace ET.Server
     {
         public void Run(Unit unit, NumbericChange args)
         {
-            float speed = args.Defend.GetComponent<NumericComponentS>().GetAsFloat(NumericType.Now_Speed);
+            float speed = args.Defend.GetComponent<NumericComponentServer>().GetAsFloat(NumericType.Now_Speed);
             args.Defend.GetComponent<MoveComponent>()?.ChangeSpeed(speed);
         }
     }

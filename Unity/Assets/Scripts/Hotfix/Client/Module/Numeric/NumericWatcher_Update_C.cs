@@ -32,7 +32,7 @@ namespace ET.Client
     {
         public void Run(Unit unit, NumbericChange args)
         {
-            float speed = args.Defend.GetComponent<NumericComponentC>().GetAsFloat(NumericType.Now_Speed);
+            float speed = args.Defend.GetComponent<NumericComponentClient>().GetAsFloat(NumericType.Now_Speed);
             args.Defend.GetComponent<MoveComponent>().ChangeSpeed(speed);
         }
     }

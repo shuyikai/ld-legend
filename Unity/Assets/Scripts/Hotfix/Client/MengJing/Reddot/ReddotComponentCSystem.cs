@@ -24,7 +24,7 @@
                     break;
               
                 case ReddotType.RolePoint:
-                    int pointRemain = unit.GetComponent<NumericComponentC>().GetAsInt(NumericType.PointRemain);
+                    int pointRemain = unit.GetComponent<NumericComponentClient>().GetAsInt(NumericType.PointRemain);
                     showReddot = pointRemain > 0;
                     break;
             

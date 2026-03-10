@@ -161,7 +161,7 @@ namespace ET.Server
             G2Chat_EnterChat g2ChatEnterChat = G2Chat_EnterChat.Create(); 
             g2ChatEnterChat.UnitId = unit.Id;
             g2ChatEnterChat.Name = unit.GetComponent<UserInfoComponentS>().UserInfo.Name;
-            g2ChatEnterChat.UnionId = unit.GetComponent<NumericComponentS>().GetAsLong(NumericType.UnionId_0);
+            g2ChatEnterChat.UnionId = unit.GetComponent<NumericComponentServer>().GetAsLong(NumericType.UnionId_0);
             g2ChatEnterChat.GateSessionActorId = unit.Id;
             Chat2G_EnterChat chat2G_EnterChat = (Chat2G_EnterChat)await unit.Root().GetComponent<MessageSender>().Call(chatServerId,
                 g2ChatEnterChat);

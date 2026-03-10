@@ -12,7 +12,7 @@ namespace ET.Client
 
         public HeadBarUI HeadBarUI;
 
-        public EntityRef<NumericComponentC> NumericComponent;
+        public EntityRef<NumericComponentClient> NumericComponent;
 
         public long Timer;
 

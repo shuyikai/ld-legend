@@ -6,11 +6,11 @@ using MongoDB.Bson.Serialization.Options;
 
 namespace ET.Server
 {
-    [FriendOf(typeof(NumericComponentS))]
+    [FriendOf(typeof(NumericComponentServer))]
     public static class NumericComponentSSystem
     {
         //重置所有属性
-        public static void ResetProperty(this NumericComponentS self)
+        public static void ResetProperty(this NumericComponentServer self)
         {
             long max = NumericType.Max;
 
@@ -33,7 +33,7 @@ namespace ET.Server
             }
         }
 
-        public static void Reset(this NumericComponentS self)
+        public static void Reset(this NumericComponentServer self)
         {
             //重置所有属性
             long max = NumericType.Max;
@@ -50,22 +50,22 @@ namespace ET.Server
             }
         }
 
-        public static float GetAsFloat(this NumericComponentS self, int numericType)
+        public static float GetAsFloat(this NumericComponentServer self, int numericType)
         {
             return (float)self.GetByKey(numericType) / 10000;
         }
 
-        public static int GetAsInt(this NumericComponentS self, int numericType)
+        public static int GetAsInt(this NumericComponentServer self, int numericType)
         {
             return (int)self.GetByKey(numericType);
         }
 
-        public static long GetAsLong(this NumericComponentS self, int numericType)
+        public static long GetAsLong(this NumericComponentServer self, int numericType)
         {
             return self.GetByKey(numericType);
         }
 
-        private static void Update(this NumericComponentS self, int numericType, long value, bool notice = true, bool check = false, long attackid = 0, int skillId = 0, int damgeType = 0)
+        private static void Update(this NumericComponentServer self, int numericType, long value, bool notice = true, bool check = false, long attackid = 0, int skillId = 0, int damgeType = 0)
         {
             long old = 0;
             int nowValue = 0;
@@ -126,14 +126,14 @@ namespace ET.Server
             }
         }
 
-        private static long GetByKey(this NumericComponentS self, int key)
+        private static long GetByKey(this NumericComponentServer self, int key)
         {
             long value = 0;
             self.NumericDic.TryGetValue(key, out value);
             return value;
         }
 
-        public static long ReturnGetFightNumLong(this NumericComponentS self, int numericType, bool notice = true)
+        public static long ReturnGetFightNumLong(this NumericComponentServer self, int numericType, bool notice = true)
         {
             if (numericType < NumericType.Max)
             {
@@ -150,7 +150,7 @@ namespace ET.Server
             return nowPropertyValue;
         }
 
-        public static float ReturnGetFightNumfloat(this NumericComponentS self, int numericType, bool notice = true)
+        public static float ReturnGetFightNumfloat(this NumericComponentServer self, int numericType, bool notice = true)
         {
             if (numericType < NumericType.Max)
             {
@@ -167,12 +167,12 @@ namespace ET.Server
             return nowPropertyValue / 10000f;
         }
 
-        public static void ApplyValue(this NumericComponentS self, int numericType, double value, bool notice = true)
+        public static void ApplyValue(this NumericComponentServer self, int numericType, double value, bool notice = true)
         {
             self.ApplyValue(numericType, (long)(value * 10000), notice);
         }
 
-        public static void ApplyValue(this NumericComponentS self, int numericType, long value, bool notice = true, bool check = true, long attackid = 0, int skillId = 0, int damgeType = 0)
+        public static void ApplyValue(this NumericComponentServer self, int numericType, long value, bool notice = true, bool check = true, long attackid = 0, int skillId = 0, int damgeType = 0)
         {
             long old = self.GetByKey(numericType);
            
@@ -199,7 +199,7 @@ namespace ET.Server
         /// <param name="skillID"></param>
         /// <param name="notice"></param>
         /// <param name="DamgeType"></param>
-        public static void ApplyChange(this NumericComponentS self, int numericType, long changedValue, bool notice = true, bool check = false, long attackid = 0, int skillId = 0, int damgeType = 0)
+        public static void ApplyChange(this NumericComponentServer self, int numericType, long changedValue, bool notice = true, bool check = false, long attackid = 0, int skillId = 0, int damgeType = 0)
         {
             //改变值为0不做任何处理
             if (changedValue == 0)
@@ -225,7 +225,7 @@ namespace ET.Server
     }
 
     [ComponentOf(typeof(Unit))]
-    public class NumericComponentS : Entity, IAwake, ITransfer, IUnitCache
+    public class NumericComponentServer : Entity, IAwake, ITransfer, IUnitCache
     {
         [BsonDictionaryOptions(DictionaryRepresentation.ArrayOfArrays)]
         public Dictionary<int, long> NumericDic = new();

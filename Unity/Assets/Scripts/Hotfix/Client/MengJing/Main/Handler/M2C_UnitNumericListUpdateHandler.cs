@@ -18,7 +18,7 @@ namespace ET.Client
                 return;
             }
 
-            NumericComponentC numericComponent = nowNunt.GetComponent<NumericComponentC>();
+            NumericComponentClient numericComponent = nowNunt.GetComponent<NumericComponentClient>();
             for (int i = 0; i < message.Vs.Count; i++)
             {
                 numericComponent.ApplyValue(message.Ks[i], message.Vs[i], true);

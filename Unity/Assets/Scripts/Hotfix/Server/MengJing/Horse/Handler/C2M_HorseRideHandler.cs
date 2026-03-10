@@ -6,7 +6,7 @@
     {
         protected override async ETTask Run(Unit unit, C2M_HorseRideRequest request, M2C_HorseRideResponse response)
         {
-            NumericComponentS numericComponent = unit.GetComponent<NumericComponentS>();
+            NumericComponentServer numericComponent = unit.GetComponent<NumericComponentServer>();
   
             await ETTask.CompletedTask;
         }

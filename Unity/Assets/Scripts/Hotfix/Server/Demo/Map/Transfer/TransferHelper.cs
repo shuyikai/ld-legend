@@ -47,7 +47,7 @@ namespace ET.Server
                         await MainCityTransfer(unit);
                         break;
                     case (int)MapTypeEnum.Union:
-                        long unionid = unit.GetComponent<NumericComponentS>().GetAsLong(NumericType.UnionId_0);
+                        long unionid = unit.GetComponent<NumericComponentServer>().GetAsLong(NumericType.UnionId_0);
                         if (unionid == 0)
                         {
                             //return ErrorCode.ERR_Union_Not_Exist;

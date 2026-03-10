@@ -188,7 +188,7 @@ namespace ET.Client
             }
 
             if (stateComponent.StateTypeGet(StateTypeEnum.Hide)
-                || unit.GetComponent<NumericComponentC>().GetAsLong(NumericType.Now_Stall) > 0)
+                || unit.GetComponent<NumericComponentClient>().GetAsLong(NumericType.Now_Stall) > 0)
             {
                 self.EnterHide();
             }
@@ -212,7 +212,7 @@ namespace ET.Client
 
         public static void UpdateBlood(this UIPetHpComponent self)
         {
-            NumericComponentC numericComponent = self.GetParent<Unit>().GetComponent<NumericComponentC>();
+            NumericComponentClient numericComponent = self.GetParent<Unit>().GetComponent<NumericComponentClient>();
             float curhp = numericComponent.GetAsLong(NumericType.Now_Hp); // + value;
             float maxhp = numericComponent.GetAsLong(NumericType.Now_MaxHp);
             float blood = curhp / maxhp;

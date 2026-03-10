@@ -246,7 +246,7 @@ namespace ET.Client
             }
 
              Unit unit = UnitHelper.GetMyUnitFromClientScene(self.Scene());
-             NumericComponentC numericComponent = unit.GetComponent<NumericComponentC>();
+             NumericComponentClient numericComponent = unit.GetComponent<NumericComponentClient>();
              int nowhp = numericComponent.GetAsInt(NumericType.Now_Hp);
              int nowdead = numericComponent.GetAsInt(NumericType.Now_Dead);
             

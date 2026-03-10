@@ -42,7 +42,7 @@ namespace ET.Server
             self.BuffState = BuffState.Running;
             self.SkillS = skillS;
             Unit unit = self.GetParent<Unit>();
-            NumericComponentS numericComponent = unit.GetComponent<NumericComponentS>();
+            NumericComponentServer numericComponent = unit.GetComponent<NumericComponentServer>();
             self.BeginTime = TimeHelper.ServerNow();
             self.DelayTime = (long)(1000 * skillS.SkillConf.SkillDelayTime);
             self.DamageRange = skillS.GetTianfuProAdd((int)SkillAttributeEnum.AddDamageRange) +

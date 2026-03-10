@@ -16,7 +16,7 @@ namespace ET.Client
             }
 
             //客户端的NumericComponent.Set不会抛出事件。需要自己手动抛出
-            NumericComponentC numericComponent = nowNunt.GetComponent<NumericComponentC>();
+            NumericComponentClient numericComponent = nowNunt.GetComponent<NumericComponentClient>();
             numericComponent.ApplyValue(message.AttackId, message.NumericType, message.NewValue, message.SkillId, true, message.DamgeType);
             await ETTask.CompletedTask;
         }

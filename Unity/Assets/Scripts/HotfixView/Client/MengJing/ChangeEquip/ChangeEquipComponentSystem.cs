@@ -19,7 +19,7 @@ namespace ET.Client
 
         public static void InitWeapon(this ChangeEquipComponent self, List<int> fashions, int occ, int equipId = 0)
         {
-            NumericComponentC numericComponent = self.GetParent<Unit>().GetComponent<NumericComponentC>();
+            NumericComponentClient numericComponent = self.GetParent<Unit>().GetComponent<NumericComponentClient>();
             self.AddComponent<ChangeEquipHelper>().WeaponId = equipId;
             self.GetComponent<ChangeEquipHelper>().LoadEquipment(self.target, fashions, occ);
         }

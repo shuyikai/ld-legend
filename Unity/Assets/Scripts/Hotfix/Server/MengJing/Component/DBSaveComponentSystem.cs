@@ -50,7 +50,7 @@ namespace ET.Server
                 Log.Debug(offLineInfo);
             }
             self.PlayerState = PlayerState.Game;
-            NumericComponentS numericComponent = unit.GetComponent<NumericComponentS>();
+            NumericComponentServer numericComponent = unit.GetComponent<NumericComponentServer>();
             numericComponent.ApplyValue(NumericType.LastLoginTime, TimeHelper.ServerNow(), false); 
         }
         
@@ -82,7 +82,7 @@ namespace ET.Server
                     $" {unit.GetComponent<UserInfoComponentS>().UserInfo.Name} : " +
                     $"{  TimeHelper.DateTimeNow().ToString()}   离线";
 
-            NumericComponentS numericComponent = unit.GetComponent<NumericComponentS>();
+            NumericComponentServer numericComponent = unit.GetComponent<NumericComponentServer>();
             if (numericComponent.GetAsLong(NumericType.Now_Stall) > 0)
             {
                 long stallId = numericComponent.GetAsLong(NumericType.Now_Stall);
@@ -121,7 +121,7 @@ namespace ET.Server
                 unit.RecordPostion(sceneTypeEnum, 101);
             }
 
-            NumericComponentS numericComponent = unit.GetComponent<NumericComponentS>();
+            NumericComponentServer numericComponent = unit.GetComponent<NumericComponentServer>();
             numericComponent.ApplyValue(NumericType.LastLoginTime, TimeHelper.ServerNow(), false);
             self.PlayerState = PlayerState.None;
             TransferHelper.BeforeTransfer(unit,sceneTypeEnum);

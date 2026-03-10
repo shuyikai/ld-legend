@@ -109,7 +109,7 @@ namespace ET.Server
             }
 
             Unit unit = self.GetParent<Unit>();
-            if (checkDead && unit.GetComponent<NumericComponentS>().GetAsInt(NumericType.Now_Dead) == 1)
+            if (checkDead && unit.GetComponent<NumericComponentServer>().GetAsInt(NumericType.Now_Dead) == 1)
             {
                 return ErrorCode.ERR_CanNotSkillDead;
             }
@@ -182,7 +182,7 @@ namespace ET.Server
                 return ErrorCode.ERR_CanNotMove_Singing;
             }
 
-            NumericComponentS numericComponent = unit.GetComponent<NumericComponentS>();
+            NumericComponentServer numericComponent = unit.GetComponent<NumericComponentServer>();
             if (numericComponent.GetAsInt(NumericType.Now_Speed) <= 0)
             {
                 return ErrorCode.ERR_CanNotMove_Speed;

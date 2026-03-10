@@ -60,7 +60,7 @@ namespace ET.Client
 
             if (checkdead)
             {
-                NumericComponentC numericComponent = self.GetComponent<NumericComponentC>();
+                NumericComponentClient numericComponent = self.GetComponent<NumericComponentClient>();
                 if (numericComponent.GetAsLong((int)NumericType.Now_Hp) <= 0
                     || numericComponent.GetAsLong((int)NumericType.Now_Dead) == 1)
                     return false;
@@ -217,7 +217,7 @@ namespace ET.Client
             if (self.Type == UnitType.Pet || self.Type == UnitType.Monster
                 || self.Type == UnitType.JingLing || self.Type == UnitType.Pasture)
             {
-                return self.GetComponent<NumericComponentC>().GetAsLong(NumericType.MasterId);
+                return self.GetComponent<NumericComponentClient>().GetAsLong(NumericType.MasterId);
             }
 
             return 0;
@@ -235,17 +235,17 @@ namespace ET.Client
 
         public static bool IsYeWaiMonster(this Unit self)
         {
-            return self.Type == UnitType.Monster && self.GetComponent<NumericComponentC>().GetAsLong(NumericType.MasterId) == 0;
+            return self.Type == UnitType.Monster && self.GetComponent<NumericComponentClient>().GetAsLong(NumericType.MasterId) == 0;
         }
 
         public static int GetBattleCamp(this Unit self)
         {
-            return self.GetComponent<NumericComponentC>().GetAsInt(NumericType.BattleCamp);
+            return self.GetComponent<NumericComponentClient>().GetAsInt(NumericType.BattleCamp);
         }
 
         public static long GetTeamId(this Unit self)
         {
-            return self.GetComponent<NumericComponentC>().GetAsLong(NumericType.TeamId);
+            return self.GetComponent<NumericComponentClient>().GetAsLong(NumericType.TeamId);
         }
 
         public static bool IsSameTeam(this Unit self, Unit other)
@@ -262,12 +262,12 @@ namespace ET.Client
 
         public static long GetUnionId(this Unit self)
         {
-            return self.GetComponent<NumericComponentC>().GetAsLong(NumericType.UnionId_0);
+            return self.GetComponent<NumericComponentClient>().GetAsLong(NumericType.UnionId_0);
         }
 
         public static long GetUnionLeader(this Unit self)
         {
-            return self.GetComponent<NumericComponentC>().GetAsLong(NumericType.UnionLeader);
+            return self.GetComponent<NumericComponentClient>().GetAsLong(NumericType.UnionLeader);
         }
 
         public static bool IsSameUnion(this Unit self, Unit other)
@@ -279,13 +279,13 @@ namespace ET.Client
 
         public static int GetAttackMode(this Unit self)
         {
-            return self.GetComponent<NumericComponentC>().GetAsInt(NumericType.AttackMode);
+            return self.GetComponent<NumericComponentClient>().GetAsInt(NumericType.AttackMode);
         }
 
         public static bool IsMasterOrPet(this Unit self, Unit defend, PetComponentC petComponent)
         {
-            long masterId = self.GetComponent<NumericComponentC>().GetAsLong(NumericType.MasterId);
-            long othermaster = defend.GetComponent<NumericComponentC>().GetAsLong(NumericType.MasterId);
+            long masterId = self.GetComponent<NumericComponentClient>().GetAsLong(NumericType.MasterId);
+            long othermaster = defend.GetComponent<NumericComponentClient>().GetAsLong(NumericType.MasterId);
             if (self.Type != UnitType.Player && masterId == defend.Id)
             {
                 return true;
@@ -477,7 +477,7 @@ namespace ET.Client
                     continue;
                 }
 
-                if (unit.IsBoss() && unit.GetComponent<NumericComponentC>().GetAsInt(NumericType.Now_Dead) == 0 &&
+                if (unit.IsBoss() && unit.GetComponent<NumericComponentClient>().GetAsInt(NumericType.Now_Dead) == 0 &&
                     PositionHelper.Distance2D(vector3, unit.Position) < dis)
                 {
                     return true;

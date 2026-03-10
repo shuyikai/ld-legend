@@ -34,8 +34,8 @@ namespace ET.Client
             self.FangunSkillId = 0;
 
             Unit unit = self.GetParent<Unit>();
-            NumericComponentC numericComponentC = unit.GetComponent<NumericComponentC>();
-            long masterId = numericComponentC.GetAsLong(NumericType.MasterId);
+            NumericComponentClient numericComponentClient = unit.GetComponent<NumericComponentClient>();
+            long masterId = numericComponentClient.GetAsLong(NumericType.MasterId);
             self.UpdateCD = unit.MainHero || (unit.Type == UnitType.Pet && masterId == self.Root().GetComponent<PlayerInfoComponent>().CurrentRoleId);
         }
 
@@ -531,7 +531,7 @@ namespace ET.Client
 
             //检查魔法值
             SkillConfig skillConfig = SkillConfigCategory.Instance.Get(skillId);
-            int skillMp = unit.GetComponent<NumericComponentC>().GetAsInt(NumericType.Now_MP);
+            int skillMp = unit.GetComponent<NumericComponentClient>().GetAsInt(NumericType.Now_MP);
             if (skillConfig.SkillUseMP > 0 && skillMp < skillConfig.SkillUseMP)
             {
                 return ErrorCode.ERR_CanNotUseSkill_MP;

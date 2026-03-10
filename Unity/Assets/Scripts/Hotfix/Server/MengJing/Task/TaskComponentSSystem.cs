@@ -249,7 +249,7 @@ namespace ET.Server
                     taskPro.taskTargetNum_1 = unit.GetComponent<UserInfoComponentS>().GetOccTwo() > 0 ? 1 : 0;
                     break;
                 case (int)TaskTargetType.JoinUnion_9:
-                    taskPro.taskTargetNum_1 = unit.GetComponent<NumericComponentS>().GetAsLong(NumericType.UnionId_0) > 0 ? 1 : 0;
+                    taskPro.taskTargetNum_1 = unit.GetComponent<NumericComponentServer>().GetAsLong(NumericType.UnionId_0) > 0 ? 1 : 0;
                     break;
               
                 default:
@@ -414,7 +414,7 @@ namespace ET.Server
             Unit unit = self.GetParent<Unit>();
             
             BagComponentServer bagComponent = unit.GetComponent<BagComponentServer>();
-            NumericComponentS numericComponent = unit.GetComponent<NumericComponentS>();
+            NumericComponentServer numericComponent = unit.GetComponent<NumericComponentServer>();
 
             List<RewardItem> rewardItems = TaskHelper.GetTaskRewards(taskid, taskConfig);
             if (taskConfig.TaskType == TaskTypeEnum.Weekly)
@@ -641,7 +641,7 @@ namespace ET.Server
         public static void OnLogin(this TaskComponentS self, int robotid)
         {
             UserInfoComponentS userInfoComponent = self.GetParent<Unit>().GetComponent<UserInfoComponentS>();
-            NumericComponentS numericComponent = self.GetParent<Unit>().GetComponent<NumericComponentS>();
+            NumericComponentServer numericComponent = self.GetParent<Unit>().GetComponent<NumericComponentServer>();
 
             self.CheckInitTask();
             
@@ -1010,7 +1010,7 @@ namespace ET.Server
             //UserInfoComponent userInfoComponent = unit.GetComponent<UserInfoComponent>();
             //userInfoComponent.UpdateRoleData(UserDataType.HuoYue, (0 - userInfoComponent.UserInfo.HuoYue).ToString(), notice);
             
-            NumericComponentS numericComponent = unit.GetComponent<NumericComponentS>();
+            NumericComponentServer numericComponent = unit.GetComponent<NumericComponentServer>();
        
             Log.Debug($"RoleTaskList:  {unit.Id} {self.Zone()}  {self.RoleTaskList.Count}");
             Console.WriteLine($"UpdateCountryList:  {self.RoleTaskList.Count}");
@@ -1061,7 +1061,7 @@ namespace ET.Server
 
             Unit unit = self.GetParent<Unit>();
             int roleLv = unit.GetComponent<UserInfoComponentS>().GetUserLv();
-            NumericComponentS numericComponent = unit.GetComponent<NumericComponentS>();
+            NumericComponentServer numericComponent = unit.GetComponent<NumericComponentServer>();
         }
         
         public static void CheckWeeklyUpdate(this TaskComponentS self, long lastTime, long curTime)

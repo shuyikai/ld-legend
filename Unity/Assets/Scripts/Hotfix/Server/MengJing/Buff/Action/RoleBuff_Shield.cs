@@ -6,7 +6,7 @@ namespace ET.Server
         {
             buffS.OnBaseBuffInit(buffS.BuffData, theUnitFrom, theUnitBelongto);
 
-            NumericComponentS numericComponent = buffS.TheUnitBelongto.GetComponent<NumericComponentS>();
+            NumericComponentServer numericComponent = buffS.TheUnitBelongto.GetComponent<NumericComponentServer>();
             int maxHp = numericComponent.GetAsInt(NumericType.Now_MaxHp);
             //1百分比 2固定伤害
             int totalValue = 0;
@@ -22,7 +22,7 @@ namespace ET.Server
 
         public override void OnUpdate(BuffS buffS)
         {
-            NumericComponentS numericComponent = buffS.TheUnitBelongto.GetComponent<NumericComponentS>();
+            NumericComponentServer numericComponent = buffS.TheUnitBelongto.GetComponent<NumericComponentServer>();
 
           
             if (TimeHelper.ServerNow() > buffS.BuffEndTime)
@@ -33,7 +33,7 @@ namespace ET.Server
 
         public override void OnFinished(BuffS buffS)
         {
-            NumericComponentS numericComponent = buffS.TheUnitBelongto.GetComponent<NumericComponentS>();
+            NumericComponentServer numericComponent = buffS.TheUnitBelongto.GetComponent<NumericComponentServer>();
         }
     }
 }

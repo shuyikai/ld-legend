@@ -16,7 +16,7 @@ namespace ET.Server
         {
             buffS.OnBaseBuffInit(buffS.BuffData, theUnitFrom, theUnitBelongto);
             int buff_time = buffS.mBuffConfig.BuffTime;
-            float oldSpeed = theUnitFrom.GetComponent<NumericComponentS>().GetAsFloat(NumericType.Now_Speed);
+            float oldSpeed = theUnitFrom.GetComponent<NumericComponentServer>().GetAsFloat(NumericType.Now_Speed);
             float newSpeed = (float)buffS.mBuffConfig.buffParameterValue;
             float distance = (buff_time * newSpeed) * 0.001f;
             float3 dir = (theUnitBelongto.Position - theUnitFrom.Position).normalize();

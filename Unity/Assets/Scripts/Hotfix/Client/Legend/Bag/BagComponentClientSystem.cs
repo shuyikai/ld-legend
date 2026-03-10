@@ -228,7 +228,7 @@ namespace ET.Client
         {
             int userDataType = ItemHelper.GetItemToNumericDataType(itemId);
             Unit unit = UnitHelper.GetMyUnitFromClientScene(self.Root());
-            NumericComponentC numericComponentC = unit.GetComponent<NumericComponentC>();
+            NumericComponentClient numericComponentClient = unit.GetComponent<NumericComponentClient>();
             long number = 0;
             switch (userDataType)
             {
@@ -245,7 +245,7 @@ namespace ET.Client
                     break;
                 case NumericType.Now_Reputation:
                     //声望值
-                    number = numericComponentC.GetAsLong(userDataType);
+                    number = numericComponentClient.GetAsLong(userDataType);
                     break;
                 default:
                     number = 0;

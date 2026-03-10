@@ -36,7 +36,7 @@ namespace ET.Client
         private static void OnCityHorseButton(this ES_MainSkill self, bool showtip)
         {
             Unit unit = self.MainUnit;
-            int now_horse = unit.GetComponent<NumericComponentC>().GetAsInt(NumericType.HorseRide);
+            int now_horse = unit.GetComponent<NumericComponentClient>().GetAsInt(NumericType.HorseRide);
             if (now_horse == 0 && !self.Root().GetComponent<BattleMessageComponent>().IsCanRideHorse())
             {
                 FlyTipComponent.Instance.ShowFlyTip("战斗状态不能骑马!");

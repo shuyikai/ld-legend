@@ -6,7 +6,7 @@
         {
             buffC.BaseOnUpdate();
 
-            NumericComponentC numericComponent = buffC.TheUnitBelongto.GetComponent<NumericComponentC>();
+            NumericComponentClient numericComponent = buffC.TheUnitBelongto.GetComponent<NumericComponentClient>();
             
             if (TimeHelper.ServerNow() >= buffC.BuffEndTime)
             {

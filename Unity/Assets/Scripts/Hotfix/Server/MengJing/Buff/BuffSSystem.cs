@@ -49,7 +49,7 @@ namespace ET.Server
             if (skillBuffConfig.BuffType == 2 && skillBuffConfig.buffParameterType == 7)
             {
                 //韧性缩短眩晕时间
-                NumericComponentS numericComponent = theUnitBelongto.GetComponent<NumericComponentS>();
+                NumericComponentServer numericComponent = theUnitBelongto.GetComponent<NumericComponentServer>();
               
             }
 

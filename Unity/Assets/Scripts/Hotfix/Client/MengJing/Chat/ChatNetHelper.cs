@@ -28,12 +28,12 @@
                     break;
                 case ChannelEnum.Team:
                     Unit unit = UnitHelper.GetMyUnitFromClientScene(root);
-                    NumericComponentC numericComponent = unit.GetComponent<NumericComponentC>();
+                    NumericComponentClient numericComponent = unit.GetComponent<NumericComponentClient>();
                     request.ChatInfo.ParamId = numericComponent.GetAsLong(NumericType.TeamId);
                     break;
                 case ChannelEnum.Union:
                     unit = UnitHelper.GetMyUnitFromClientScene(root);
-                    numericComponent = unit.GetComponent<NumericComponentC>();
+                    numericComponent = unit.GetComponent<NumericComponentClient>();
                     request.ChatInfo.ParamId = numericComponent.GetAsLong(NumericType.UnionId_0);
                     break;
                 case ChannelEnum.Friend:

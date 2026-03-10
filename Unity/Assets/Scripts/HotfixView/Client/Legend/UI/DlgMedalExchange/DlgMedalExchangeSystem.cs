@@ -24,8 +24,8 @@ namespace ET.Client
 			self.View.E_FunctionSetBtnToggleGroup.OnSelectIndex(0);
 
 			Unit unit = UnitHelper.GetMyUnitFromClientScene(self.Root());
-			NumericComponentC numericComponentC = unit.GetComponent<NumericComponentC>();
-			long reputation = numericComponentC.GetAsLong(NumericType.Now_Reputation);
+			NumericComponentClient numericComponentClient = unit.GetComponent<NumericComponentClient>();
+			long reputation = numericComponentClient.GetAsLong(NumericType.Now_Reputation);
 			string text_1 = LanguageComponent.Instance.LoadLocalization("当前声望：");
 			text_1 += reputation;
 			FlyTipComponent.Instance.ShowFlyTip(text_1);

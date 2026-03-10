@@ -3,7 +3,7 @@
 namespace ET.Server
 {
     [MessageLocationHandler(SceneType.Map)]
-    [FriendOf(typeof(NumericComponentS))]
+    [FriendOf(typeof(NumericComponentServer))]
     public class C2M_UnitInfoHandler : MessageLocationHandler<Unit, C2M_UnitInfoRequest, M2C_UnitInfoResponse>
     {
         protected override async ETTask Run(Unit unit, C2M_UnitInfoRequest request, M2C_UnitInfoResponse response)
@@ -17,7 +17,7 @@ namespace ET.Server
 
             if (watchUnit != null)
             {
-                Dictionary<int, long> numericlist = watchUnit.GetComponent<NumericComponentS>().NumericDic;
+                Dictionary<int, long> numericlist = watchUnit.GetComponent<NumericComponentServer>().NumericDic;
                 foreach ((int key, long value) in numericlist )
                 {
                     if (key >= (int)NumericType.Max)

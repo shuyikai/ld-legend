@@ -53,7 +53,7 @@ namespace ET
                 }
 
                 Unit target = unit.GetParent<UnitComponent>().Get(aiComponent.TargetID);
-                if (target != null && target.GetComponent<NumericComponentC>().GetAsLong(NumericType.Now_Dead) == 0
+                if (target != null && target.GetComponent<NumericComponentClient>().GetAsLong(NumericType.Now_Dead) == 0
                     && math.distance(unit.Position, target.Position) < aiComponent.ActDistance)
                 {
                     int[] weights = new int[] { 70, 30 };

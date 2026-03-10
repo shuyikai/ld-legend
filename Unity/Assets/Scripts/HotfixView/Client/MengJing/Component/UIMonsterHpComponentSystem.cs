@@ -239,19 +239,19 @@ namespace ET.Client
             self.UpdateShow();
 
             StateComponentC stateComponent = unit.GetComponent<StateComponentC>();
-            NumericComponentC numericComponentC = unit.GetComponent<NumericComponentC>();   
+            NumericComponentClient numericComponentClient = unit.GetComponent<NumericComponentClient>();   
             if (stateComponent.StateTypeGet(StateTypeEnum.Stealth))
             {
                 self.EnterStealth(canAttack ? 0f : 0.3f);
             }
 
             if (stateComponent.StateTypeGet(StateTypeEnum.Hide)
-                || numericComponentC.GetAsLong(NumericType.Now_Stall) > 0)
+                || numericComponentClient.GetAsLong(NumericType.Now_Stall) > 0)
             {
                 self.EnterHide();
             }
             
-            long leftTime = numericComponentC.GetAsLong(NumericType.ReviveTime) - TimeHelper.ClientNow();
+            long leftTime = numericComponentClient.GetAsLong(NumericType.ReviveTime) - TimeHelper.ClientNow();
             if (leftTime > 0)
             {
                 self.OnDead();
@@ -266,7 +266,7 @@ namespace ET.Client
             }
 
             Unit unit = self.GetParent<Unit>();
-            NumericComponentC numericComponent = unit.GetComponent<NumericComponentC>();
+            NumericComponentClient numericComponent = unit.GetComponent<NumericComponentClient>();
             int horseRide = numericComponent.GetAsInt(NumericType.HorseRide);
 
             Vector3 vector3_zuoqi = new Vector3(0f, 180f, 0f);
@@ -297,7 +297,7 @@ namespace ET.Client
                 //NumericComponent numericComponent = unit.GetComponent<NumericComponent>();
                 //this.ObjName.GetComponent<TextMeshProUGUI>().text = $"{colorstr}{monsterCof.MonsterName}_{numericComponent.GetAsInt(NumericType.Now_AI)}</color>";
                 MapComponent mapComponent = unit.Root().GetComponent<MapComponent>();
-                NumericComponentC numericComponentC = unit.GetComponent<NumericComponentC>();
+                NumericComponentClient numericComponentClient = unit.GetComponent<NumericComponentClient>();
                 bool shenYuan = mapComponent.MapType == MapTypeEnum.TeamDungeon && mapComponent.FubenDifficulty == TeamFubenType.ShenYuan;
                 using (zstring.Block())
                 {
@@ -320,7 +320,7 @@ namespace ET.Client
 
                 //怪物等级显示
                 ReferenceCollector rc = self.GameObject.GetComponent<ReferenceCollector>();
-                int monsterLv = numericComponentC.GetAsInt(NumericType.Now_Lv);
+                int monsterLv = numericComponentClient.GetAsInt(NumericType.Now_Lv);
                 if (monsterLv > 0)
                 {
                     rc.Get<GameObject>("Lal_Lv").GetComponent<Text>().text = monsterLv.ToString();
@@ -382,7 +382,7 @@ namespace ET.Client
 
         public static void UpdateBlood(this UIMonsterHpComponent self)
         {
-            NumericComponentC numericComponent = self.GetParent<Unit>().GetComponent<NumericComponentC>();
+            NumericComponentClient numericComponent = self.GetParent<Unit>().GetComponent<NumericComponentClient>();
             long curhp = numericComponent.GetAsLong(NumericType.Now_Hp); // + value;
             long maxhp = numericComponent.GetAsLong(NumericType.Now_MaxHp);
             float blood = (1f * curhp / maxhp);
@@ -423,7 +423,7 @@ namespace ET.Client
         public static void OnTimer(this UIMonsterHpComponent self)
         {
             MonsterConfig monsterConfig = MonsterConfigCategory.Instance.Get(self.GetParent<Unit>().ConfigId);
-            long leftTime = self.GetParent<Unit>().GetComponent<NumericComponentC>().GetAsLong(NumericType.ReviveTime) - TimeHelper.ClientNow();
+            long leftTime = self.GetParent<Unit>().GetComponent<NumericComponentClient>().GetAsLong(NumericType.ReviveTime) - TimeHelper.ClientNow();
             leftTime = leftTime / 1000;
             ReferenceCollector rc = self.GameObject.GetComponent<ReferenceCollector>();
         }

@@ -23,7 +23,7 @@ namespace ET.Server
 
         public void MoveToSync(SkillS skillS)
         {
-            NumericComponentS numericComponent = skillS.TheUnitFrom.GetComponent<NumericComponentS>();
+            NumericComponentServer numericComponent = skillS.TheUnitFrom.GetComponent<NumericComponentServer>();
             float oldSpeed = numericComponent.GetAsFloat(NumericType.Now_Speed);
             double addPro = 0f;
             float newSpeed = (float)(skillS.SkillConf.SkillMoveSpeed * (1 + addPro));

@@ -5,7 +5,7 @@ namespace ET.Server
 {
     
     [FriendOf(typeof(SkillHandlerS))]
-    [FriendOf(typeof(NumericComponentS))]
+    [FriendOf(typeof(NumericComponentServer))]
     [FriendOf(typeof(UserInfoComponentS))]
     [FriendOf(typeof(PetComponentS))]
     public static class Function_Fight
@@ -40,7 +40,7 @@ namespace ET.Server
             }
             
             //设置伤害为0,用于伤害飘字
-            NumericComponentS numericComponentDefend = defendUnit.GetComponent<NumericComponentS>();
+            NumericComponentServer numericComponentDefend = defendUnit.GetComponent<NumericComponentServer>();
             long now_hp = numericComponentDefend.GetAsLong(NumericType.Now_Hp) - 10;
             numericComponentDefend.ApplyValue(NumericType.Now_Hp, now_hp, true, false, attackUnit.Id, skillconfig.Id );
 
@@ -72,7 +72,7 @@ namespace ET.Server
         /// <param name="notice"></param>
         public static void UnitUpdateProperty_DemonBig(Unit unit, bool notice)
         {
-            NumericComponentS numericComponent = unit.GetComponent<NumericComponentS>();
+            NumericComponentServer numericComponent = unit.GetComponent<NumericComponentServer>();
 
             numericComponent.ApplyValue(NumericType.Base_Speed_Mul, 0, notice);
             numericComponent.ApplyValue(NumericType.Base_Speed_Add, 0, notice);
@@ -88,7 +88,7 @@ namespace ET.Server
         /// <param name="notice"></param>
         public static void UnitUpdateProperty_DemonLittle(Unit unit, bool notice)
         {
-            NumericComponentS numericComponent = unit.GetComponent<NumericComponentS>();
+            NumericComponentServer numericComponent = unit.GetComponent<NumericComponentServer>();
             numericComponent.ApplyValue(NumericType.Base_Speed_Mul, 0, notice);
             numericComponent.ApplyValue(NumericType.Base_Speed_Add, 0, notice);
             numericComponent.ApplyValue(NumericType.Extra_Buff_Speed_Add, 0, notice);
@@ -103,7 +103,7 @@ namespace ET.Server
         /// <param name="notice"></param>
         public static void UnitUpdateProperty_DemonGhost(Unit unit, bool notice)
         {
-            NumericComponentS numericComponent = unit.GetComponent<NumericComponentS>();
+            NumericComponentServer numericComponent = unit.GetComponent<NumericComponentServer>();
             numericComponent.ApplyValue(NumericType.Base_Speed_Mul, 0, notice);
             numericComponent.ApplyValue(NumericType.Base_Speed_Add, 0, notice);
             numericComponent.ApplyValue(NumericType.Extra_Buff_Speed_Add, 0, notice);
@@ -134,7 +134,7 @@ namespace ET.Server
             UserInfo userInfo = unitInfoComponentS.UserInfo;
    
             //初始化属性
-            NumericComponentS numericComponent = unit.GetComponent<NumericComponentS>();
+            NumericComponentServer numericComponent = unit.GetComponent<NumericComponentServer>();
             numericComponent.ResetProperty();
 
             //缓存列表
@@ -296,7 +296,7 @@ namespace ET.Server
             UserInfo userInfo = unitInfoComponentS.UserInfo;
             int roleLv = 1;
             
-            NumericComponentS numericComponent = unit.GetComponent<NumericComponentS>();
+            NumericComponentServer numericComponent = unit.GetComponent<NumericComponentServer>();
             
             //其他战力附加
             int addZhanLi = 0;

@@ -156,7 +156,7 @@ namespace ET.Client
             {
                 if (unit != null && !unit.IsDisposed)
                 {
-                    NumericComponentC numericComponent = unit.GetComponent<NumericComponentC>();
+                    NumericComponentClient numericComponent = unit.GetComponent<NumericComponentClient>();
                     
                     unitDropIds.Add(unit.Id);
 

@@ -75,7 +75,7 @@ namespace ET.Client
                 return;
             }
 
-            NumericComponentC numericComponent = unit.GetComponent<NumericComponentC>();
+            NumericComponentClient numericComponent = unit.GetComponent<NumericComponentClient>();
             for (int i = 0; i < response.Ks.Count; ++i)
             {
                 numericComponent.ApplyValue(response.Ks[i], response.Vs[i]);

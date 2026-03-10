@@ -17,7 +17,7 @@
             {
                 case NumericType.Now_Hp:
                 case NumericType.Now_MaxHp:
-                    NumericComponentC numericComponentDefend = args.Defend.GetComponent<NumericComponentC>();
+                    NumericComponentClient numericComponentDefend = args.Defend.GetComponent<NumericComponentClient>();
                     long costHp = 0;
                     if (args.NumericType == NumericType.Now_Hp)
                     {

@@ -8,7 +8,7 @@ namespace ET.Server
 
     [EntitySystemOf(typeof(HeroDataComponentS))]
     [FriendOf(typeof(HeroDataComponentS))]
-    [FriendOf(typeof(NumericComponentS))]
+    [FriendOf(typeof(NumericComponentServer))]
     public static partial class HeroDataComponentSSystem
     {
         [EntitySystem]
@@ -20,7 +20,7 @@ namespace ET.Server
          public static void CheckNumeric(this HeroDataComponentS self)
          {
              Unit unit = self.GetParent<Unit>();
-             NumericComponentS numericComponent = unit.GetComponent<NumericComponentS>();
+             NumericComponentServer numericComponent = unit.GetComponent<NumericComponentServer>();
              numericComponent.Reset();
              
              if (numericComponent.GetAsInt(NumericType.Now_Hp) <= 0 || numericComponent.GetAsInt(NumericType.Now_Dead) == 1)
@@ -35,7 +35,7 @@ namespace ET.Server
          public static void OnLoginCheck(this HeroDataComponentS self, long passTime)
          {
              Unit unit = self.GetParent<Unit>();
-             NumericComponentS numericComponentS = unit.GetComponent<NumericComponentS>();
+             NumericComponentServer numericComponentServer = unit.GetComponent<NumericComponentServer>();
 
          }
 
@@ -43,7 +43,7 @@ namespace ET.Server
          public static void OnLogin(this HeroDataComponentS self, int robotId)
          {
              Unit unit = self.GetParent<Unit>();
-             NumericComponentS numericComponent = unit.GetComponent<NumericComponentS>();
+             NumericComponentServer numericComponent = unit.GetComponent<NumericComponentServer>();
              numericComponent.ApplyValue((int)NumericType.Now_Dead , 0, false);
              numericComponent.ApplyValue((int)NumericType.Now_Stall, 0, false);
              numericComponent.ApplyValue((int)NumericType.TeamId, 0, false);
@@ -53,7 +53,7 @@ namespace ET.Server
          private static void HeroDataApplyValue(this HeroDataComponentS self, int ntype, long value, List<int> keylist)
          {
              Unit unit = self.GetParent<Unit>();
-             NumericComponentS numericComponent = unit.GetComponent<NumericComponentS>();
+             NumericComponentServer numericComponent = unit.GetComponent<NumericComponentServer>();
              numericComponent.ApplyValue(ntype, value, false);
              
              keylist.Add(ntype);
@@ -73,7 +73,7 @@ namespace ET.Server
          public static void OnZeroClockUpdate(this HeroDataComponentS self, bool notice = false)
          {
              Unit unit = self.GetParent<Unit>();
-             NumericComponentS numericComponent = unit.GetComponent<NumericComponentS>();
+             NumericComponentServer numericComponent = unit.GetComponent<NumericComponentServer>();
 
              List<int> ks = new List<int>();
          
@@ -103,17 +103,17 @@ namespace ET.Server
          public static void OnReturn(this HeroDataComponentS self)
          {
              Unit unit = self.GetParent<Unit>();
-             NumericComponentS numericComponent = unit.GetComponent<NumericComponentS>();
+             NumericComponentServer numericComponent = unit.GetComponent<NumericComponentServer>();
              numericComponent.ApplyValue(NumericType.Now_Dead, 0, false);
 
              long max_hp = numericComponent.GetAsLong(NumericType.Now_MaxHp);
-             unit.GetComponent<NumericComponentS>().ApplyValue(NumericType.Now_Hp, max_hp, false);
+             unit.GetComponent<NumericComponentServer>().ApplyValue(NumericType.Now_Hp, max_hp, false);
          }
 
          public static void OnResetPoint(this HeroDataComponentS self)
          {
              Unit unit = self.GetParent<Unit>();
-             NumericComponentS numericComponent = unit.GetComponent<NumericComponentS>();
+             NumericComponentServer numericComponent = unit.GetComponent<NumericComponentServer>();
              UserInfoComponentS userInfoComponent = unit.GetComponent<UserInfoComponentS>();
 
              numericComponent.ApplyValue(NumericType.PointRemain, (userInfoComponent.GetUserLv()- 1) * 10, false);
@@ -201,7 +201,7 @@ namespace ET.Server
          public static void OnRevive(this HeroDataComponentS self, bool bornPostion = false)
          {
              Unit unit = self.GetParent<Unit>();
-             NumericComponentS numericComponent  = unit.GetComponent<NumericComponentS>();
+             NumericComponentServer numericComponent  = unit.GetComponent<NumericComponentServer>();
              long max_hp = numericComponent.GetAsLong(NumericType.Now_MaxHp);
              
              numericComponent.ApplyValue(NumericType.ReviveTime, 0);
@@ -216,7 +216,7 @@ namespace ET.Server
          public static void InitTempFollower(this HeroDataComponentS self, Unit matster, int monster)
          {
              Unit nowUnit = self.GetParent<Unit>();
-             NumericComponentS numericComponent = nowUnit.GetComponent<NumericComponentS>();
+             NumericComponentServer numericComponent = nowUnit.GetComponent<NumericComponentServer>();
              MonsterConfig monsterConfig = MonsterConfigCategory.Instance.Get(monster);
 
              //判定是否为成长怪物
@@ -234,7 +234,7 @@ namespace ET.Server
                  }
              }
 
-             NumericComponentS numericComponentMaster = matster.GetComponent<NumericComponentS>();
+             NumericComponentServer numericComponentMaster = matster.GetComponent<NumericComponentServer>();
              
              numericComponent.ApplyValue((int)NumericType.Base_MaxHp_Base, (int)(numericComponentMaster.GetAsInt(NumericType.Base_MaxHp_Base) * 0.5f), false);
              numericComponent.ApplyValue((int)NumericType.Base_MinAct_Base, (int)(numericComponentMaster.GetAsInt(NumericType.Base_MinAct_Base) * 0.5f), false);
@@ -252,7 +252,7 @@ namespace ET.Server
 
          public static void InitJiaYuanPet(this HeroDataComponentS self,  bool notice)
          {
-             NumericComponentS numericComponent = self.GetParent<Unit>().GetComponent<NumericComponentS>();
+             NumericComponentServer numericComponent = self.GetParent<Unit>().GetComponent<NumericComponentServer>();
              numericComponent.ApplyValue(NumericType.Now_MaxHp, 1, notice);
              numericComponent.ApplyValue(NumericType.Now_Hp, 1, notice);
          }
@@ -265,7 +265,7 @@ namespace ET.Server
          public static void InitMonsterInfo_Summon2(this HeroDataComponentS self, MonsterConfig monsterConfig, CreateMonsterInfo createMonsterInfo)
          {
              Unit nowUnit = self.GetParent<Unit>();
-             NumericComponentS numericComponent = nowUnit.GetComponent<NumericComponentS>();
+             NumericComponentServer numericComponent = nowUnit.GetComponent<NumericComponentServer>();
 
              int monsterlevel = 1;
              Unit masterUnit = nowUnit.GetParent<UnitComponent>().Get(createMonsterInfo.MasterID);
@@ -287,7 +287,7 @@ namespace ET.Server
              string[] attributeList_1 = summonInfo[1].Split(',');    //比列
              string[] attributeList_2 = summonInfo[2].Split(',');    //固定值
 
-             NumericComponentS masterNumberComponent = masterUnit.GetComponent<NumericComponentS>();
+             NumericComponentServer masterNumberComponent = masterUnit.GetComponent<NumericComponentServer>();
              numericComponent.ApplyValue((int)NumericType.Now_Lv, monsterlevel, false);
       
              //属性
@@ -305,7 +305,7 @@ namespace ET.Server
          public static void InitMonsterInfo(this HeroDataComponentS self, MonsterConfig monsterConfig, CreateMonsterInfo createMonsterInfo)
          {
              Unit nowUnit = self.GetParent<Unit>();
-             NumericComponentS numericComponent = nowUnit.GetComponent<NumericComponentS>();
+             NumericComponentServer numericComponent = nowUnit.GetComponent<NumericComponentServer>();
 
              float hpCoefficient = 1f;
              float ackCoefficient = 1f;
@@ -397,7 +397,7 @@ namespace ET.Server
          {
 
              Unit nowUnit = self.GetParent<Unit>();
-             NumericComponentS numericComponent = nowUnit.GetComponent<NumericComponentS>();
+             NumericComponentServer numericComponent = nowUnit.GetComponent<NumericComponentServer>();
              long newvalue = numericComponent.GetAsLong(numericType) + NumericTypeValue;
              numericComponent.ApplyValue(numericType, newvalue);
 
@@ -422,7 +422,7 @@ namespace ET.Server
          public static void BuffPropertyUpdate_Float(this HeroDataComponentS self, int numericType, float NumericTypeValue)
          {
              Unit nowUnit = self.GetParent<Unit>();
-             NumericComponentS numericComponent = nowUnit.GetComponent<NumericComponentS>();
+             NumericComponentServer numericComponent = nowUnit.GetComponent<NumericComponentServer>();
              float newvalue = numericComponent.GetAsFloat(numericType) + NumericTypeValue;
              numericComponent.ApplyValue(numericType, newvalue);
          }

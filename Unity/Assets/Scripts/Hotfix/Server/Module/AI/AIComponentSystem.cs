@@ -280,7 +280,7 @@ namespace ET
         public static void Begin(this AIComponent self)
         {
             self.Root().GetComponent<TimerComponent>().Remove(ref self.Timer);
-            NumericComponentS numericComponent = self.GetParent<Unit>().GetComponent<NumericComponentS>();
+            NumericComponentServer numericComponent = self.GetParent<Unit>().GetComponent<NumericComponentServer>();
             if (numericComponent.GetAsInt(NumericType.Now_Dead) != 0)
             {
                 return;

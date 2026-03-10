@@ -4,7 +4,7 @@ using Unity.Mathematics;
 
 namespace ET.Server
 {
-    [FriendOf(typeof (NumericComponentS))]
+    [FriendOf(typeof (NumericComponentServer))]
     [FriendOf(typeof (MoveComponent))]
     public static partial class MapMessageHelper
     {
@@ -35,7 +35,7 @@ namespace ET.Server
         public static UnitInfo CreateUnitInfo(Unit unit)
         {
             UnitInfo unitInfo = UnitInfo.Create();
-            NumericComponentS nc = unit.GetComponent<NumericComponentS>();
+            NumericComponentServer nc = unit.GetComponent<NumericComponentServer>();
             unitInfo.UnitId = unit.Id;
             unitInfo.ConfigId = unit.ConfigId;
             unitInfo.Type = (int)unit.Type();

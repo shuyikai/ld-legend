@@ -423,7 +423,7 @@ namespace ET.Server
 			for (int i = 0; i < units.Count; i++)
 			{
 				Unit unititem = units[i];
-				if (unititem.Type == UnitType.Pet && unititem.GetComponent<NumericComponentS>().GetAsInt(NumericType.Now_Dead) == 0)
+				if (unititem.Type == UnitType.Pet && unititem.GetComponent<NumericComponentServer>().GetAsInt(NumericType.Now_Dead) == 0)
 				{
 					petNumber++;
 				}
