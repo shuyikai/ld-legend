@@ -89,12 +89,9 @@ namespace ET.Client
 
             self.ShowBagInfos.Clear();
 
-
             int allNumber = bagComponentClient.GetBagShowCell(ItemLocType.ItemLocBag);
             // int maxCount = GlobalValueConfigCategory.Instance.BagMaxCapacity;
             self.ShowBagInfos.AddRange(bagComponentClient.GetItemsByType( ItemTypeEnum.ALL));
-            
-            self.ShowBagInfos.Add(new ItemInfo(){ ItemID = 1, ItemNum = 1});
             
             self.AddUIScrollItems(ref self.ScrollItemCommonItems, allNumber);
             self.View.E_BagItemsLoopVerticalScrollRect.SetVisible(true, allNumber);

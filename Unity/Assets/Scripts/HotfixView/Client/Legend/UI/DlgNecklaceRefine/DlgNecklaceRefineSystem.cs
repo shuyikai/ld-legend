@@ -69,7 +69,7 @@ namespace ET.Client
 		private static void OnItemTypeSet(this DlgNecklaceRefine self, int index)
 		{
 			self.CurrentItemType = index;
-			self.RefreshBagItems();
+			//self.RefreshBagItems();
 		}
 		
 		public static void RefreshBagItems(this DlgNecklaceRefine self)
