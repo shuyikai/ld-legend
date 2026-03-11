@@ -432,6 +432,23 @@ namespace ET.Client
      		}
      	}
 
+		public LoopVerticalScrollRect E_BagItemsLoopVerticalScrollRect
+		{
+			get
+			{
+				if (this.uiTransform == null)
+				{
+					Log.Error("uiTransform is null.");
+					return null;
+				}
+				if( this.m_E_BagItemsLoopVerticalScrollRect == null )
+				{
+					this.m_E_BagItemsLoopVerticalScrollRect = UIFindHelper.FindDeepChild<LoopVerticalScrollRect>(this.uiTransform.gameObject,"ScrollView2");
+				}
+				return this.m_E_BagItemsLoopVerticalScrollRect;
+			}
+		}
+		
 		public void DestroyWidget()
 		{
 			this.m_EG_SubViewRectTransform = null;
@@ -487,6 +504,7 @@ namespace ET.Client
 		private UnityEngine.UI.Image m_E_LockImage = null;
 		private UnityEngine.UI.Image m_E_ImageReceivedImage = null;
 		private UnityEngine.UI.Text m_E_CostGoldTxtText = null;
+		private LoopVerticalScrollRect m_E_BagItemsLoopVerticalScrollRect = null;
 		public Transform uiTransform = null;
 	}
 }
