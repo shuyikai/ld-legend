@@ -41,7 +41,7 @@ namespace ET.Client
             self.ShowBagInfos.Clear();
             foreach (RewardItem item in rewardItems)
             {
-                BagInfo bagInfo = BagInfo.Create();
+                ItemInfoProto bagInfo = ItemInfoProto.Create();
                 bagInfo.ItemID = item.ItemID;
                 bagInfo.ItemNum = item.ItemNum;
                 self.ShowBagInfos.Add(bagInfo);
@@ -65,7 +65,7 @@ namespace ET.Client
                     }
 
                     string[] it = item.Split(';');
-                    BagInfo bagInfo = BagInfo.Create();
+                    ItemInfoProto bagInfo = ItemInfoProto.Create();
                     bagInfo.ItemID = int.Parse(it[0]);
                     bagInfo.ItemNum = int.Parse(it[1]);
                     self.ShowBagInfos.Add(bagInfo);

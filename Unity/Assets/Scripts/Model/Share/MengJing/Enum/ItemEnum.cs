@@ -80,12 +80,9 @@ namespace ET
         public const int ItemLocEquip = 1;
        
         public const int ItemWareHouse1 = 2;
-        public const int ItemWareHouse2 = 3;
-        public const int ItemWareHouse3 = 4;
-        public const int ItemWareHouse4 = 5;
-        
+      
 
-        public const int  ItemLocMax = 20;
+        public const int  ItemLocMax = 3;
     }
     
     //道具装备位置
@@ -137,6 +134,7 @@ namespace ET
         Shop = 3,                   //商店查看属性
         Cangku = 4,                 //仓库查看属性
         CangkuBag = 5,             //仓库背包
+        NecklaceRefine = 6,
     }
 
 }

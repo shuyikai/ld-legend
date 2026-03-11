@@ -143,24 +143,7 @@ namespace ET.Client
      			return this.m_E_ItemDragEventTrigger;
      		}
      	}
-
-		public Image E_ItemQualityImage
-     	{
-     		get
-     		{
-     			if (this.uiTransform == null)
-     			{
-     				Log.Error("uiTransform is null.");
-     				return null;
-     			}
-     			if( this.m_E_ItemQualityImage == null )
-     			{
-		    		this.m_E_ItemQualityImage = UIFindHelper.FindDeepChild<Image>(this.uiTransform.gameObject,"E_ItemQuality");
-     			}
-     			return this.m_E_ItemQualityImage;
-     		}
-     	}
-
+		
 		public Image E_ItemIconImage
      	{
      		get
@@ -351,7 +334,6 @@ namespace ET.Client
 			this.m_E_ItemDragButton = null;
 			this.m_E_ItemDragImage = null;
 			this.m_E_ItemDragEventTrigger = null;
-			this.m_E_ItemQualityImage = null;
 			this.m_E_ItemIconImage = null;
 			this.m_E_ItemNumText = null;
 			this.m_E_ItemNameText = null;
@@ -372,7 +354,6 @@ namespace ET.Client
 		private Button m_E_ItemDragButton = null;
 		private Image m_E_ItemDragImage = null;
 		private EventTrigger m_E_ItemDragEventTrigger = null;
-		private Image m_E_ItemQualityImage = null;
 		private Image m_E_ItemIconImage = null;
 		private Text m_E_ItemNumText = null;
 		private Text m_E_ItemNameText = null;

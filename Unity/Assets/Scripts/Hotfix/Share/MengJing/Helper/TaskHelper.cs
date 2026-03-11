@@ -363,19 +363,6 @@ namespace ET
 
             return true;
         }
-
-        public static long GetJianDingValue(ItemInfo bagInfo, int type)
-        {
-            long value = 0;
-            for (int i = 0; i < bagInfo.HideProLists.Count; i++)
-            {
-                if (type == bagInfo.HideProLists[i].HideID)
-                {
-                    value += bagInfo.HideProLists[i].HideValue;
-                }
-            }
-
-            return value;
-        }
+        
     }
 }

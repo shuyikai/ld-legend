@@ -11,16 +11,13 @@ namespace ET
 		public int ItemNum { get; set; }
 		public string ItemPar { get; set; }
 		public int HideID { get; set; }
-		public string GemHole { get; set; }
 		public int Loc { get; set; }
-		public List<HideProList> HideProLists { get; set; } = new();
-		public List<HideProList> XiLianHideProLists { get; set; } = new();
-		public List<int> HideSkillLists { get; set; } = new();
+		public List<HideProList> JianDingProLists { get; set; } = new();
+		public int XiLianTimes { get; set; }
 		public bool isBinging { get; set; }
 		public string GetWay { get; set; }
-		public string GemIDNew { get; set; }
+		public int GemIDNew { get; set; }
 		public string MakePlayer { get; set; }
-		public int ItemType { get; set; }
 	}
 
 	[EntitySystemOf(typeof(ItemInfo))]
@@ -39,16 +36,13 @@ namespace ET
 			self.ItemNum = proto.ItemNum;
 			self.ItemPar = proto.ItemPar;
 			self.HideID = proto.HideID;
-			self.GemHole = proto.GemHole;
 			self.Loc = proto.Loc;
-			self.HideProLists = proto.HideProLists;
-			self.XiLianHideProLists = proto.XiLianHideProLists;
-			self.HideSkillLists = proto.HideSkillLists;
+			self.JianDingProLists = proto.JianDingProLists;
+			self.XiLianTimes = proto.XiLianTimes;
 			self.isBinging = proto.isBinging;
 			self.GetWay = proto.GetWay;
 			self.GemIDNew = proto.GemIDNew;
 			self.MakePlayer = proto.MakePlayer;
-			self.ItemType = proto.ItemType;
 		}
 
 		public static ItemInfoProto ToMessage(this ItemInfo self)
@@ -59,16 +53,13 @@ namespace ET
 			proto.ItemNum = self.ItemNum;
 			proto.ItemPar = self.ItemPar;
 			proto.HideID = self.HideID;
-			proto.GemHole = self.GemHole;
 			proto.Loc = self.Loc;
-			proto.HideProLists = self.HideProLists;
-			proto.XiLianHideProLists = self.XiLianHideProLists;
-			proto.HideSkillLists = self.HideSkillLists;
+			proto.JianDingProLists = self.JianDingProLists;
+			proto.XiLianTimes = self.XiLianTimes;
 			proto.isBinging = self.isBinging;
 			proto.GetWay = self.GetWay;
 			proto.GemIDNew = self.GemIDNew;
 			proto.MakePlayer = self.MakePlayer;
-			proto.ItemType = self.ItemType;
 			return proto;
 		}
 	}

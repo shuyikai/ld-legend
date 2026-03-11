@@ -102,11 +102,6 @@ namespace ET.Client
             self.EG_EquipSetHideRectTransform.gameObject.SetActive(value);
         }
 
-        public static void PlayShowIdelAnimate(this ES_EquipSet self, BagInfo bagInfo)
-        {
-            self.ES_ModelShow.PlayShowIdelAnimate();
-        }
-
         public static void ChangeWeapon(this ES_EquipSet self, ItemInfo bagInfo, int occ)
         {
             self.ES_ModelShow.ChangeWeapon(bagInfo, occ);

@@ -18,7 +18,7 @@ namespace ET
         
         public static string GetItemIcon(this ItemConfig self)
         {
-            return "1"; //self.OverLap;
+            return "000118"; 
         }
         
         public static string GetEquipIcon(this EquipConfig self)
@@ -147,17 +147,7 @@ namespace ET
 
             return (activatedMinValue, activatedMaxValue);
         }
-
-        /// <summary>
-        /// 套装属性
-        /// </summary>
-        /// <param name="bagInfos"></param>
-        /// <param name="occ"></param>
-        /// <returns></returns>
-        public static List<PropertyValue> GetSuiPros(List<BagInfo> bagComponent, int occ)
-        {
-            return new List<PropertyValue>();
-        }
+        
         
         public static int GetItemToNumericDataType(int itemid)
         {
@@ -236,23 +226,7 @@ namespace ET
 
             return costItems;
         }
-
-        public static List<int> GetGemIdList(ItemInfo bagInfo)
-        {
-            string[] gemIdInfos = bagInfo.GemIDNew.Split('_');
-            List<int> getIds = new List<int>();
-            for (int i = 0; i < gemIdInfos.Length; i++)
-            {
-                int getItemId = int.Parse(gemIdInfos[i]);
-                if (getItemId > 0)
-                {
-                    getIds.Add(getItemId);
-                }
-            }
-
-            return getIds;
-        }
-
+        
         //金币鉴定消费
         public static int GetJianDingCoin(int level)
         {

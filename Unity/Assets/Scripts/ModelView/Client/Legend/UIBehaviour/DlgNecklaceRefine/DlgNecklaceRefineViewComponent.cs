@@ -108,7 +108,24 @@ namespace ET.Client
      			return this.m_E_RefineBtnImage;
      		}
      	}
-
+		
+		public UnityEngine.UI.Text E_PutTipText
+		{
+			get
+			{
+				if (this.uiTransform == null)
+				{
+					Log.Error("uiTransform is null.");
+					return null;
+				}
+				if( this.m_E_PutTipText == null )
+				{
+					this.m_E_PutTipText = UIFindHelper.FindDeepChild<UnityEngine.UI.Text>(this.uiTransform.gameObject,"E_PutTip");
+				}
+				return this.m_E_PutTipText;
+			}
+		}
+		
 		public UnityEngine.UI.Text E_CostGoldTxtText
      	{
      		get
@@ -126,6 +143,26 @@ namespace ET.Client
      		}
      	}
 
+		public ES_CommonItem ES_CommonItem
+		{
+			get
+			{
+				if (this.uiTransform == null)
+				{
+					Log.Error("uiTransform is null.");
+					return null;
+				}
+				ES_CommonItem es = this.m_es_commonitem;
+				if( es == null )
+
+				{
+					Transform subTrans = UIFindHelper.FindDeepChild<Transform>(this.uiTransform.gameObject,"ES_CommonItem");
+					this.m_es_commonitem = this.AddChild<ES_CommonItem,Transform>(subTrans);
+				}
+				return this.m_es_commonitem;
+			}
+		}
+		
 		public LoopVerticalScrollRect E_BagItemsLoopVerticalScrollRect
 		{
 			get
@@ -153,6 +190,8 @@ namespace ET.Client
 			this.m_E_RefineBtnImage = null;
 			this.m_E_ImageReceivedImage = null;
 			this.m_E_CostGoldTxtText = null;
+			this.m_E_PutTipText = null;
+			this.m_es_commonitem = null;
 			this.uiTransform = null;
 		}
 
@@ -164,7 +203,9 @@ namespace ET.Client
 		private UnityEngine.UI.Image m_E_RefineBtnImage = null;
 		private UnityEngine.UI.Image m_E_ImageReceivedImage = null;
 		private UnityEngine.UI.Text m_E_CostGoldTxtText = null;
+		private UnityEngine.UI.Text m_E_PutTipText = null;
 		private LoopVerticalScrollRect m_E_BagItemsLoopVerticalScrollRect = null;
+		private EntityRef<ES_CommonItem> m_es_commonitem = null;
 		public Transform uiTransform = null;
 	}
 }

@@ -13,7 +13,7 @@ namespace ET.Client
 		public ItemInfo Baginfo { get; set; }
 		public string ItemNum { get; set; }
 		public int ItemID { get; set; }
-		public bool ShowTip { get; set; }
+
 		public ItemOperateEnum ItemOperateEnum { get; set; }
 		public Action<ItemInfo> ClickItemHandler { get; set; }
 		public Action<ItemInfo, PointerEventData> BeginDragHandler { get; set; }
@@ -202,31 +202,7 @@ namespace ET.Client
      			}
      		}
      	}
-
-		public UnityEngine.UI.Image E_ItemQualityImage
-     	{
-     		get
-     		{
-     			if (this.uiTransform == null)
-     			{
-     				Log.Error("uiTransform is null.");
-     				return null;
-     			}
-     			if (this.isCacheNode)
-     			{
-     				if( this.m_E_ItemQualityImage == null )
-     				{
-		    			this.m_E_ItemQualityImage = UIFindHelper.FindDeepChild<UnityEngine.UI.Image>(this.uiTransform.gameObject,"E_ItemQuality");
-     				}
-     				return this.m_E_ItemQualityImage;
-     			}
-     			else
-     			{
-		    		return UIFindHelper.FindDeepChild<UnityEngine.UI.Image>(this.uiTransform.gameObject,"E_ItemQuality");
-     			}
-     		}
-     	}
-
+		
 		public UnityEngine.UI.Image E_ItemIconImage
      	{
      		get
@@ -476,7 +452,6 @@ namespace ET.Client
 			this.m_E_ItemDragButton = null;
 			this.m_E_ItemDragImage = null;
 			this.m_E_ItemDragEventTrigger = null;
-			this.m_E_ItemQualityImage = null;
 			this.m_E_ItemIconImage = null;
 			this.m_E_ItemNumText = null;
 			this.m_E_ItemNameText = null;
@@ -498,7 +473,6 @@ namespace ET.Client
 		private UnityEngine.UI.Button m_E_ItemDragButton = null;
 		private UnityEngine.UI.Image m_E_ItemDragImage = null;
 		private UnityEngine.EventSystems.EventTrigger m_E_ItemDragEventTrigger = null;
-		private UnityEngine.UI.Image m_E_ItemQualityImage = null;
 		private UnityEngine.UI.Image m_E_ItemIconImage = null;
 		private UnityEngine.UI.Text m_E_ItemNumText = null;
 		private UnityEngine.UI.Text m_E_ItemNameText = null;

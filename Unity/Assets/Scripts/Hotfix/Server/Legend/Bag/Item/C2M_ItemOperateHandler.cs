@@ -139,9 +139,7 @@ namespace ET.Server
                             break;
                         case 140:
                             bagComponent.BagAddCellNumber[ItemLocType.ItemWareHouse1]++;
-                            bagComponent.BagAddCellNumber[ItemLocType.ItemWareHouse2]++;
-                            bagComponent.BagAddCellNumber[ItemLocType.ItemWareHouse3]++;
-                            bagComponent.BagAddCellNumber[ItemLocType.ItemWareHouse4]++;
+                       
                             //增加仓库格子
                             break;
                     }
@@ -174,20 +172,8 @@ namespace ET.Server
                     response.Error = ErrorCode.ERR_ModifyData;
                     return;
                 }
-
-                string[] gemids = useBagInfo.GemIDNew.Split('_');
-                ItemConfig itemConf = null;
-                for (int i = 0; i < gemids.Length; i++)
-                {
-                    if (gemids[i] == "0")
-                    {
-                        continue;
-                    }
-
-                    itemConf = ItemConfigCategory.Instance.Get(int.Parse(gemids[i]));
-                
-                }
-                
+                int gemids = useBagInfo.GemIDNew;
+               
             }
             
             //穿戴装备

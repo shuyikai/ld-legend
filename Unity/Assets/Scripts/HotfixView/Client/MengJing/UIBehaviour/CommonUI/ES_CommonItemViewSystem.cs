@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using TMPro;
 
 namespace ET.Client
 {
@@ -189,7 +190,6 @@ namespace ET.Client
             self.E_ItemDiImage.gameObject.SetActive(false);
             self.E_ItemClickButton.gameObject.SetActive(false);
             self.E_ItemDragButton.gameObject.SetActive(false);
-            self.E_ItemQualityImage.gameObject.SetActive(false);
             self.E_ItemIconImage.gameObject.SetActive(false);
             self.E_ItemNumText.gameObject.SetActive(false);
             self.E_ItemNameText.gameObject.SetActive(false);
@@ -205,16 +205,26 @@ namespace ET.Client
 
             if (bagInfo != null)
             {
+                string itemname = string.Empty;
+                string itemicon = string.Empty;
+                if (bagInfo.ItemID < UserDataType.EquipInitId)
+                {
+                    ItemConfig itemConfig = ItemConfigCategory.Instance.Get(bagInfo.ItemID);
+                    itemname = itemConfig.Name;
+                    itemicon = itemConfig.GetItemIcon();
+                }
+                else
+                {
+                    EquipConfig equipConfig = EquipConfigCategory.Instance.Get(bagInfo.ItemID);
+                    itemname = equipConfig.Name;
+                    itemicon = equipConfig.GetEquipIcon();
+                }
+
                 ResourcesLoaderComponent resourcesLoaderComponent = self.Root().GetComponent<ResourcesLoaderComponent>();
-                ItemConfig itemConfig = ItemConfigCategory.Instance.Get(bagInfo.ItemID);
-
-                self.E_ItemQualityImage.gameObject.SetActive(true);
-                self.E_ItemQualityImage.overrideSprite = resourcesLoaderComponent.LoadAssetSync<Sprite>(
-                    ABPathHelper.GetAtlasPath_2(ABAtlasTypes.ItemQualityIcon, FunctionUI.ItemQualiytoPath(1)));
-
+                
                 self.E_ItemIconImage.gameObject.SetActive(true);
                 self.E_ItemIconImage.overrideSprite =
-                        resourcesLoaderComponent.LoadAssetSync<Sprite>(ABPathHelper.GetAtlasPath_2(ABAtlasTypes.ItemIcon, itemConfig.GetItemIcon()));
+                        resourcesLoaderComponent.LoadAssetSync<Sprite>(ABPathHelper.GetAtlasPath_2(ABAtlasTypes.ItemIcon, itemicon));
 
                 self.E_ItemNumText.gameObject.SetActive(true);
                 self.E_ItemNumText.text = ItemViewHelp.ReturnNumStr(bagInfo.ItemNum);
@@ -223,7 +233,7 @@ namespace ET.Client
                 self.E_ItemClickButton.AddListener(self.OnClickUIItem);
 
                 //self.E_ItemNameText.gameObject.SetActive(true);
-                self.E_ItemNameText.text = itemConfig.Name;
+                self.E_ItemNameText.text = itemname;
                 self.ItemID  = bagInfo.ItemID;
                
                 if (!self.UseTextColor)

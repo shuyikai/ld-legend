@@ -218,13 +218,26 @@ namespace ET.Server
             int occTwo = unit.GetComponent<UserInfoComponentS>().GetOccTwo();
             for (int i = bagInfos.Count - 1; i >= 0; i--)
             {
-                if (!ItemConfigCategory.Instance.Contain(bagInfos[i].ItemID))
+                int itemid = bagInfos[i].ItemID;
+                if (itemid < UserDataType.EquipInitId)
                 {
-                    bagInfos[i].Dispose();
-                    bagInfos.RemoveAt(i);
-                    continue;
+                    if (!ItemConfigCategory.Instance.Contain(itemid))
+                    {
+                        bagInfos[i].Dispose();
+                        bagInfos.RemoveAt(i);
+                        continue;
+                    }
                 }
-
+                else
+                {
+                    if (!EquipConfigCategory.Instance.Contain(itemid))
+                    {
+                        bagInfos[i].Dispose();
+                        bagInfos.RemoveAt(i);
+                        continue;
+                    }
+                }
+                
                 if (bagInfos[i].ItemNum <= 0)
                 {
                     bagInfos[i].ItemNum = 1;
@@ -240,16 +253,10 @@ namespace ET.Server
             self.CheckValiedItem(self.GetItemByLoc(ItemLocType.ItemLocBag));
             self.CheckValiedItem(self.GetItemByLoc(ItemLocType.ItemLocEquip));
             self.CheckValiedItem(self.GetItemByLoc(ItemLocType.ItemWareHouse1));
-            self.CheckValiedItem(self.GetItemByLoc(ItemLocType.ItemWareHouse2));
-            self.CheckValiedItem(self.GetItemByLoc(ItemLocType.ItemWareHouse3));
-            self.CheckValiedItem(self.GetItemByLoc(ItemLocType.ItemWareHouse4));
             
             bagList.AddRange(self.GetItemByLoc(ItemLocType.ItemLocBag));
             bagList.AddRange(self.GetItemByLoc(ItemLocType.ItemLocEquip));
             bagList.AddRange(self.GetItemByLoc(ItemLocType.ItemWareHouse1));
-            bagList.AddRange(self.GetItemByLoc(ItemLocType.ItemWareHouse2));
-            bagList.AddRange(self.GetItemByLoc(ItemLocType.ItemWareHouse3));
-            bagList.AddRange(self.GetItemByLoc(ItemLocType.ItemWareHouse4));
             return bagList;
         }
 
@@ -544,8 +551,7 @@ namespace ET.Server
             useBagInfo.ItemNum = itemnumber;
             useBagInfo.Loc = itemlockType;
             useBagInfo.BagInfoID = IdGenerater.Instance.GenerateId();
-            useBagInfo.GemHole = "0_0_0_0";
-            useBagInfo.GemIDNew = "0_0_0_0";
+            useBagInfo.GemIDNew = 0;
             useBagInfo.GetWay = getType;
             self.GetItemByLoc(useBagInfo.Loc).Add(useBagInfo);
 
@@ -564,8 +570,7 @@ namespace ET.Server
             ItemConfig itemCof = ItemConfigCategory.Instance.Get(itemid);
             useBagInfo.Loc = (int)ItemLocType.ItemLocBag;
             useBagInfo.BagInfoID = IdGenerater.Instance.GenerateId();
-            useBagInfo.GemHole = "0_0_0_0";
-            useBagInfo.GemIDNew = "0_0_0_0";
+            useBagInfo.GemIDNew = 0;
             useBagInfo.GetWay = bagInfo.GetWay;
             useBagInfo.isBinging = bagInfo.isBinging;
             self.GetItemByLoc(useBagInfo.Loc).Add(useBagInfo);
@@ -780,8 +785,7 @@ namespace ET.Server
                     useBagInfo.ItemNum = (leftNum > maxPileSum) ? maxPileSum : leftNum;
                     useBagInfo.Loc = (int)itemLockType;
                     useBagInfo.BagInfoID = IdGenerater.Instance.GenerateId();
-                    useBagInfo.GemHole = "0_0_0_0";
-                    useBagInfo.GemIDNew = "0_0_0_0";
+                    useBagInfo.GemIDNew = 0;
                     useBagInfo.GetWay = getWay;
                     leftNum -= useBagInfo.ItemNum;
 

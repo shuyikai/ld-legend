@@ -124,14 +124,12 @@ namespace ET.Client
                     self.View.ES_RoleBag.uiTransform.gameObject.SetActive(true);
                     // self.View.E_ZodiacButton.gameObject.SetActive(true);
                     self.View.ES_EquipSet.uiTransform.gameObject.SetActive(true);
-                    self.View.ES_EquipSet.PlayShowIdelAnimate(null);
                     self.View.ES_EquipSet.EquipSetHide(true);
                     break;
                 case 1:
                 
                     // self.View.E_ZodiacButton.gameObject.SetActive(true);
                     self.View.ES_EquipSet.uiTransform.gameObject.SetActive(true);
-                    self.View.ES_EquipSet.PlayShowIdelAnimate(null);
                     self.View.ES_EquipSet.EquipSetHide(true);
                     break;
                 case 2:
@@ -139,7 +137,6 @@ namespace ET.Client
                     self.View.ES_RoleGem.OnUpdateUI();
                     // self.View.E_ZodiacButton.gameObject.SetActive(false);
                     self.View.ES_EquipSet.uiTransform.gameObject.SetActive(true);
-                    self.View.ES_EquipSet.PlayShowIdelAnimate(null);
                     self.View.ES_EquipSet.EquipSetHide(false);
                     break;
                 case 3:

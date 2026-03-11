@@ -181,32 +181,7 @@ namespace ET.Client
             double equip_Speed = 0;
             double equip_Lucky = 0;
 
-            // 换算总显示数值
-            if (baginfo.XiLianHideProLists != null)
-            {
-                for (int i = 0; i < baginfo.XiLianHideProLists.Count; i++)
-                {
-                    int hidePropertyType = baginfo.XiLianHideProLists[i].HideID;
-                    int hidePropertyValue = (int)baginfo.XiLianHideProLists[i].HideValue;
-
-                    switch (hidePropertyType)
-                    {
-                        case NumericType.Base_MaxHp_Base:
-                            equip_Hp = equip_Hp + hidePropertyValue;
-                            break;
-                        case NumericType.Base_MaxAct_Base:
-                            equip_MaxAct = equip_MaxAct + hidePropertyValue;
-                            break;
-                        case NumericType.Base_MaxDef_Base:
-                            equip_MaxDef = equip_MaxDef + hidePropertyValue;
-                            break;
-                        case NumericType.Base_MaxAdf_Base:
-                            equip_MaxAdf = equip_MaxAdf + hidePropertyValue;
-                            break;
-                    }
-                }
-            }
-
+           
             // 显示职业护甲加成
             string occShowStr = "";
             string textShow = "";
@@ -218,20 +193,7 @@ namespace ET.Client
                 textShow = langStr + "  " + equip_Hp + occShowStr;
 
                 bool ifHideProperty = false;
-                if (baginfo.XiLianHideProLists != null)
-                {
-                    for (int i = 0; i < baginfo.XiLianHideProLists.Count; i++)
-                    {
-                        int hidePropertyType = baginfo.XiLianHideProLists[i].HideID;
-                        int hidePropertyValue = (int)baginfo.XiLianHideProLists[i].HideValue;
-
-                        if (hidePropertyType == NumericType.Base_MaxHp_Base)
-                        {
-                            textShow = langStr + " ：" + equip_Hp + "(+" + hidePropertyValue + ")" + occShowStr + occShowStr;
-                            ifHideProperty = true;
-                        }
-                    }
-                }
+               
 
                 if (ifHideProperty)
                 {
@@ -250,21 +212,7 @@ namespace ET.Client
                 langStr = LanguageComponent.Instance.LoadLocalization("攻击");
                 textShow = langStr + " ：" + equip_MinAct + " - " + equip_MaxAct;
                 bool ifHideProperty = false;
-                if (baginfo.XiLianHideProLists != null)
-                {
-                    for (int i = 0; i < baginfo.XiLianHideProLists.Count; i++)
-                    {
-                        int hidePropertyType = baginfo.XiLianHideProLists[i].HideID;
-                        int hidePropertyValue = (int)baginfo.XiLianHideProLists[i].HideValue;
-
-                        if (hidePropertyType == NumericType.Base_MaxAct_Base)
-                        {
-                            textShow = langStr + " ：" + equip_MinAct + " - " + equip_MaxAct + "(+" + hidePropertyValue + ")" + occShowStr;
-                            ifHideProperty = true;
-                        }
-                    }
-                }
-
+               
                 if (ifHideProperty)
                 {
                     ShowPropertyText(textShow, "1", propertyGO, parentGO);
@@ -282,21 +230,7 @@ namespace ET.Client
                 langStr = LanguageComponent.Instance.LoadLocalization("防御");
                 textShow = langStr + " ：" + equip_MinDef + " - " + equip_MaxDef;
                 bool ifHideProperty = false;
-                if (baginfo.XiLianHideProLists != null)
-                {
-                    for (int i = 0; i < baginfo.XiLianHideProLists.Count; i++)
-                    {
-                        int hidePropertyType = baginfo.XiLianHideProLists[i].HideID;
-                        int hidePropertyValue = (int)baginfo.XiLianHideProLists[i].HideValue;
-
-                        if (hidePropertyType == NumericType.Base_MaxDef_Base)
-                        {
-                            textShow = langStr + " ：" + equip_MinDef + " - " + equip_MaxDef + "(+" + hidePropertyValue + ")" + occShowStr;
-                            ifHideProperty = true;
-                        }
-                    }
-                }
-
+                
                 if (ifHideProperty)
                 {
                     ShowPropertyText(textShow, "1", propertyGO, parentGO);
@@ -314,20 +248,7 @@ namespace ET.Client
                 langStr = LanguageComponent.Instance.LoadLocalization("魔防");
                 textShow = langStr + " ：" + equip_MinAdf + " - " + equip_MaxAdf;
                 bool ifHideProperty = false;
-                if (baginfo.XiLianHideProLists != null)
-                {
-                    for (int i = 0; i < baginfo.XiLianHideProLists.Count; i++)
-                    {
-                        int hidePropertyType = baginfo.XiLianHideProLists[i].HideID;
-                        int hidePropertyValue = (int)baginfo.XiLianHideProLists[i].HideValue;
-
-                        if (hidePropertyType == NumericType.Base_MaxAdf_Base)
-                        {
-                            textShow = langStr + " ：" + equip_MinAdf + " - " + equip_MaxAdf + "(+" + hidePropertyValue + ")" + occShowStr;
-                            ifHideProperty = true;
-                        }
-                    }
-                }
+               
 
                 if (ifHideProperty)
                 {
@@ -396,12 +317,7 @@ namespace ET.Client
                 ShowPropertyText(textShow, "6", propertyGO, parentGO);
                 properShowNum += 1;
             }
-            
-            //显示隐藏技能
-            if (baginfo.HideSkillLists != null)
-            {
-                
-            }
+
             
             // 显示描述
             if (equipConfig.Desc != "" && equipConfig.Desc != "0" && equipConfig.Desc != null)

@@ -181,18 +181,8 @@ namespace ET.Client
         
         //显示宝石
         float startPostionY = 0 - self.TitleBigHeight_234 - self.TitleMiniHeight_50 - self.TextItemHeight_40 * properShowNum;
-       
-        int gemNumber = 0;
-        if (!string.IsNullOrEmpty(self.BagInfo.GemHole) && self.BagInfo.GemHole != string.Empty)
-        {
-            Vector2 equipNeedvec2 = new Vector2(155.5f, startPostionY);
-            self.EG_UIEquipGemHoleSetRectTransform.gameObject.SetActive(true);
-            self.EG_UIEquipGemHoleSetRectTransform.GetComponent<RectTransform>().anchoredPosition = equipNeedvec2;
-        }
-        else
-        {
-            self.EG_UIEquipGemHoleSetRectTransform.gameObject.SetActive(false);
-        }
+
+        int gemNumber = self.BagInfo.GemIDNew > 0 ? 1 : 0;
 
         float gemHoleShowHeight = gemNumber > 0 ? 135f : -20;
 

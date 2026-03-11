@@ -7,6 +7,7 @@ using UnityEngine.UI;
 namespace ET.Client
 {
 	[FriendOf(typeof(Scroll_Item_CommonItem))]
+	[FriendOf(typeof(ES_CommonItem))]
 	[FriendOf(typeof(DlgNecklaceRefine))]
 	public static  class DlgNecklaceRefineSystem
 	{
@@ -17,8 +18,10 @@ namespace ET.Client
 			
 			self.View.E_FunctionSetBtnToggleGroup.AddListener(self.OnItemTypeSet);
 			self.View.E_BagItemsLoopVerticalScrollRect.AddItemRefreshListener(self.OnBagItemsRefresh);
+			self.View.E_RefineBtnButton.AddListener(self.OnClickRefineButtion);
 			
 			self.View.E_FunctionSetBtnToggleGroup.OnSelectIndex(0);
+			self.View.ES_CommonItem.uiTransform.gameObject.SetActive(false);
 		}
 
 		 private static void OnBagItemsRefresh(this DlgNecklaceRefine self, Transform transform, int index)
@@ -37,7 +40,7 @@ namespace ET.Client
 		     UserInfoComponentC userInfoComponent = self.Root().GetComponent<UserInfoComponentC>();
 		     int openell = bagComponent.GetBagTotalCell(ItemLocType.ItemLocBag);
 		     scrollItemCommonItem.UpdateUnLock(false);
-		     scrollItemCommonItem.Refresh(index < self.ShowBagInfos.Count ? self.ShowBagInfos[index] : null, ItemOperateEnum.Bag,
+		     scrollItemCommonItem.Refresh(index < self.ShowBagInfos.Count ? self.ShowBagInfos[index] : null, ItemOperateEnum.NecklaceRefine,
 			     self.UpdateSelect);
 		     ItemInfo bagInfo = scrollItemCommonItem.Baginfo;
 		     if (bagInfo == null)
@@ -58,18 +61,21 @@ namespace ET.Client
 					 scrollItemCommonItem.SetSelected(bagInfo);
 				 }
 			 }
+
+			 self.View.ES_CommonItem.uiTransform.gameObject.SetActive(true);
+			 self.View.E_PutTipText.gameObject.SetActive(false);
+			 self.View.ES_CommonItem.UpdateItem(bagInfo, ItemOperateEnum.None);
 		 }
 		 
 		 public static void OnClickImage_Lock(this DlgNecklaceRefine self)
 		 {
-			 
 			 return;
 		 }
         
 		private static void OnItemTypeSet(this DlgNecklaceRefine self, int index)
 		{
 			self.CurrentItemType = index;
-			//self.RefreshBagItems();
+			self.RefreshBagItems();
 		}
 		
 		public static void RefreshBagItems(this DlgNecklaceRefine self)
@@ -94,7 +100,11 @@ namespace ET.Client
 			self.View.E_BagItemsLoopVerticalScrollRect.SetVisible(true, allNumber);
 		}
 
-        
+		private static void OnClickRefineButtion(this DlgNecklaceRefine self)
+		{
+			Log.Debug($"OnClickRefineButtion");
+		}
+
 		private static  void OnCloseButton(this DlgNecklaceRefine self)
 		{
 			self.Root().GetComponent<UIComponent>().CloseWindow(WindowID.WindowID_NecklaceRefine);

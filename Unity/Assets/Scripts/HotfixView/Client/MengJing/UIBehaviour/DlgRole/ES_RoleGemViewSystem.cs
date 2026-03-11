@@ -148,23 +148,7 @@ namespace ET.Client
             self.ES_CommonItem.UpdateItem(info, ItemOperateEnum.None);
             self.ES_CommonItem.E_ItemNumText.gameObject.SetActive(false);
             self.ES_CommonItem.E_ItemNameText.gameObject.SetActive(true);
-
-            info.GemHole = string.IsNullOrEmpty(info.GemHole) ? "" : info.GemHole;
-            info.GemIDNew = string.IsNullOrEmpty(info.GemIDNew) ? "" : info.GemIDNew;
-            string[] gemHoles = info.GemHole.Split('_');
-            string[] gemIds = info.GemIDNew.Split('_');
-
-            for (int i = 0; i < 4; i++)
-            {
-                int gemHoleId = (gemHoles.Length > i && gemHoles[i] != "") ? int.Parse(gemHoles[i]) : 0;
-                int gemId = (gemIds.Length > i && gemIds[i] != "") ? int.Parse(gemIds[i]) : 0;
-
-                self.ItemDiList[i].SetActive(gemHoleId == 0);
-
-                ES_RoleGemHole esRoleGemHole = self.GemHoleList[i];
-                esRoleGemHole.OnUpdateUI(gemHoleId, gemId, i);
-                esRoleGemHole.SetClickHandler(self.OnSetHoleIndex);
-            }
+            
         }
 
         public static void OnSetHoleIndex(this ES_RoleGem self, int index)

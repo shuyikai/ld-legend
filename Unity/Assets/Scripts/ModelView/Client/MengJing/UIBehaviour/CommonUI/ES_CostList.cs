@@ -8,7 +8,7 @@ namespace ET.Client
 	[EnableMethod]
 	public  class ES_CostList : Entity,IAwake<Transform>,IDestroy,IUILogic
 	{
-		public List<BagInfo> ShowBagInfos = new();
+		public List<ItemInfoProto> ShowBagInfos = new();
 		public Dictionary<int, EntityRef<Scroll_Item_CommonCostItem>> ScrollItemCommonCostItems;
 		
 		public LoopVerticalScrollRect E_CostItemsLoopVerticalScrollRect
