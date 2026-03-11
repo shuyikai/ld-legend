@@ -66,7 +66,7 @@ namespace ET
 		/// <summary>类型</summary>
 		public int Type { get; set; }
 		/// <summary>坐标点</summary>
-		public string Position { get; set; }
+		public int[] Position { get; set; }
 		/// <summary>怪物ID</summary>
 		public int[] MonsterID { get; set; }
 		/// <summary>刷怪范围</summary>

@@ -138,8 +138,8 @@ namespace ET.Server
 			}
 			
 			int mtype = monsterPosition.Type;
-			string[] position = monsterPosition.Position.Split(',');
-
+			int[] positioninfo = monsterPosition.Position;
+			float3 vector3 = new float3(positioninfo[0]*0.01f, positioninfo[1]*0.01f, positioninfo[2]*0.01f);
 			switch (mtype)
 			{
 				case 0: //随机位置刷怪
@@ -148,12 +148,8 @@ namespace ET.Server
 					for (int c = 0; c < CreateNum; c++)
 					{
 						MonsterConfig monsterConfig = MonsterConfigCategory.Instance.Get(MonsterID);
-						float3 vector3 = new float3(float.Parse(position[0]), float.Parse(position[1]), float.Parse(position[2]));
-					
-						{
-							UnitFactory.CreateMonster(scene, monsterConfig.Id, vector3,
-								new CreateMonsterInfo() { Camp = monsterConfig.MonsterCamp, Rotation = monsterPosition.Create, });
-						}
+						UnitFactory.CreateMonster(scene, monsterConfig.Id, vector3,
+							new CreateMonsterInfo() { Camp = monsterConfig.MonsterCamp, Rotation = monsterPosition.Create, });
 					}
 					break;
 				case 2:
@@ -161,8 +157,8 @@ namespace ET.Server
 					{
 						float range = (float) monsterPosition.CreateRange;
 						MonsterConfig monsterConfig = MonsterConfigCategory.Instance.Get(MonsterID);
-						float3 vector3 = new float3(float.Parse(position[0]) + RandomHelper.RandomNumberFloat(-1 * range, range),
-							float.Parse(position[1]), float.Parse(position[2]) + RandomHelper.RandomNumberFloat(-1 * range, range));
+						vector3 = new float3(vector3[0] + RandomHelper.RandomNumberFloat(-1 * range, range),
+							vector3[1], vector3[2] + RandomHelper.RandomNumberFloat(-1 * range, range));
 						UnitFactory.CreateMonster(scene, MonsterID, vector3,
 							new CreateMonsterInfo() { Camp = monsterConfig.MonsterCamp, Rotation = monsterPosition.Create, });
 					}
@@ -190,8 +186,8 @@ namespace ET.Server
 					{
 						float range = (float) monsterPosition.CreateRange;
 						MonsterConfig monsterConfig = MonsterConfigCategory.Instance.Get(MonsterID);
-						float3 vector3 = new float3(float.Parse(position[0]) + RandomHelper.RandomNumberFloat(-1 * range, range),
-							float.Parse(position[1]), float.Parse(position[2]) + RandomHelper.RandomNumberFloat(-1 * range, range));
+						vector3 = new float3(vector3[0] + RandomHelper.RandomNumberFloat(-1 * range, range),
+							vector3[1] , vector3[2] + RandomHelper.RandomNumberFloat(-1 * range, range));
 						UnitFactory.CreateMonster(scene, MonsterID, vector3, new CreateMonsterInfo()
 						{
 							PlayerLevel = playerLv,

@@ -191,7 +191,7 @@ namespace ET.Server
             //10001   10002   2    - 71.46,0.34,-5.35   81000002       0           1       90    30,60
             MonsterPositionConfig monsterPosition = MonsterPositionConfigCategory.Instance.Get(monsterPos);
             int mtype = monsterPosition.Type;
-            string[] position = monsterPosition.Position.Split(',');
+            int[] positionlist = monsterPosition.Position;
             string[] refreshPar = monsterPosition.Par.Split(',');
             //Log.Debug($"野外怪定时刷新bbbbbb:  {self.DomainZone()}区：   MonsterID：{monsterPosition.MonsterID} ");
 
@@ -201,9 +201,9 @@ namespace ET.Server
                 {
                     MonsterId = monsterPosition.MonsterID[i],
                     NextTime = TimeHelper.ServerNow() + int.Parse(refreshPar[0]) * 1000,
-                    PositionX = float.Parse(position[0]),
-                    PositionY = float.Parse(position[1]),
-                    PositionZ = float.Parse(position[2]),
+                    PositionX = positionlist[0]*0.01f,
+                    PositionY = positionlist[1]*0.01f,
+                    PositionZ = positionlist[2]*0.01f,
                     Number = monsterPosition.CreateNum[i],
                     Range = (float)monsterPosition.CreateRange,
                     Interval = int.Parse(refreshPar[1]) * 1000,
@@ -239,16 +239,12 @@ namespace ET.Server
                 return;
             }
 
-            string[] position = monsterPosition.Position.Split(',');
+            int[] positioninfo = monsterPosition.Position;
             string[] refreshPar = monsterPosition.Par.Split('@'); //10,2@20,2@30,2@40,2@50,2@60,2
             
             
             List<float3> positionList = new List<float3>();
-            for (int i = 0; i < position.Length; i+=3)
-            {
-                positionList.Add(new float3(float.Parse(position[i]), float.Parse(position[i+1]), float.Parse(position[i+2])));
-            }
-            
+            positionList.Add(new float3(positioninfo[0]*0.1f, positioninfo[1]*0.1f, positioninfo[2]*0.1f));
 
             //Log.Debug($"野外怪定时刷新bbbbbb:  {self.DomainZone()}区：   MonsterID：{monsterPosition.MonsterID} ");
             
@@ -367,7 +363,7 @@ namespace ET.Server
             //5;-50,0,2;80002001;10,25;1230,203060
             MonsterPositionConfig monsterPosition = MonsterPositionConfigCategory.Instance.Get(monsterPos);
             int mtype = monsterPosition.Type;
-            string[] position = monsterPosition.Position.Split(',');
+            int[] positioninfo = monsterPosition.Position;
 
             string[] timers = monsterPosition.Par.Split(','); //1230,2030
             for (int t = 0; t < timers.Length; t++)
@@ -385,9 +381,9 @@ namespace ET.Server
                     {
                         MonsterId = monsterPosition.MonsterID[monster],
                         NextTime = TimeHelper.ServerNow() + leftTime,
-                        PositionX = float.Parse(position[0]),
-                        PositionY = float.Parse(position[1]),
-                        PositionZ = float.Parse(position[2]),
+                        PositionX = positioninfo[0]*0.01f,
+                        PositionY = positioninfo[1]*0.01f,
+                        PositionZ = positioninfo[2]*0.01f,
                         Number = monsterPosition.CreateNum[monster],
                         Range = (float)monsterPosition.CreateRange,
                         Interval = mtype == 5? TimeHelper.OneDay : -1,

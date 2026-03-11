@@ -16,8 +16,7 @@ namespace ET.Client
 
         public int NpcId;
         public HeadBarUI HeadBarUI;
-        public GameObject[] EffectComTask = new GameObject[2];
-
+ 
         public long TurtleTimer;
     }
 }

@@ -33,8 +33,6 @@ namespace ET.Client
             self.MainUnitEnter = false;
             self.MainUnitExit = false;
             self.EnterPassTime = 0;
-            self.EffectComTask[0] = null;
-            self.EffectComTask[1] = null;
             self.Unit = null;
 
             self.Unit = self.GetParent<Unit>();
@@ -63,12 +61,7 @@ namespace ET.Client
 
             NpcConfig npcConfig = NpcConfigCategory.Instance.Get(self.NpcId);
             self.UINpcName.transform.Find("Lab_NpcName").GetComponent<Text>().text = npcConfig.Name;
-
-            // 乌龟说话
-            if (ConfigData.TurtleList.Contains(self.NpcId))
-            {
-                self.WuGuiSay().Coroutine();
-            }
+            
         }
 
         [EntitySystem]
@@ -81,19 +74,6 @@ namespace ET.Client
                 UnityEngine.Object.Destroy(self.UINpcName);
                 self.UINpcName = null;
             }
-
-            if (self.EffectComTask[0] != null)
-            {
-                UnityEngine.Object.Destroy(self.EffectComTask[0]);
-            }
-
-            if (self.EffectComTask[1] != null)
-            {
-                UnityEngine.Object.Destroy(self.EffectComTask[1]);
-            }
-
-            self.EffectComTask[0] = null;
-            self.EffectComTask[1] = null;
         }
 
         public static void UpdateRewardName(this UINpcHpComponent self, List<string> names)
@@ -176,8 +156,6 @@ namespace ET.Client
             TaskComponentC taskComponent = self.Root().GetComponent<TaskComponentC>();
             List<TaskPro> taskProCompleted = taskComponent.GetCompltedTaskByNpc(self.NpcId);
             List<int> canGets = taskComponent.GetOpenTaskIds(self.NpcId);
-            self.ShowNpcEffect(0, 200001, canGets.Count > 0 && taskProCompleted.Count == 0);
-            self.ShowNpcEffect(1, 200002, taskProCompleted.Count > 0);
         }
         
 
@@ -201,33 +179,5 @@ namespace ET.Client
             self.UINpcName.gameObject.SetActive(true);
         }
         
-        public static void ShowNpcEffect(this UINpcHpComponent self, int type, int effectConfigId, bool show)
-        {
-            GameObject go = self.EffectComTask[type];
-            if (show)
-            {
-                if (go == null)
-                {
-                    EffectConfig effectConfig = EffectConfigCategory.Instance.Get(effectConfigId);
-                    Transform tParent = self.GetParent<Unit>().GetComponent<HeroTransformComponent>().GetTranform(effectConfig.SkillParentPosition);
-
-                    string path = StringBuilderHelper.GetEffectPathByConfig(effectConfig);
-                    GameObject prefab = self.Root().GetComponent<ResourcesLoaderComponent>().LoadAssetSync<GameObject>(path);
-                    go = UnityEngine.Object.Instantiate(prefab, tParent, true);
-
-                    go.transform.localPosition = new Vector3(0f, 0f, 0f);
-                    self.EffectComTask[type] = go;
-                }
-
-                go.SetActive(true);
-            }
-            else
-            {
-                if (go != null)
-                {
-                    go.SetActive(false);
-                }
-            }
-        }
     }
 }

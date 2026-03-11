@@ -190,17 +190,17 @@ namespace ET.Client
             for (int i = 0; i < monsterPosition.MonsterID.Length; i++)
             {
                 int monsterid = monsterPosition.MonsterID[i];
-                string[] position = monsterPosition.Position.Split(',');
+                int[] positionlist = monsterPosition.Position;
                 MonsterConfig monsterConfig = MonsterConfigCategory.Instance.Get(monsterid);
                 if (monsterConfig.MonsterType != (int)MonsterTypeEnum.Boss)
                 {
                     return monsterPosition.NextID;
                 }
 
-                Vector3 vector3 = new Vector3(float.Parse(position[0]), float.Parse(position[2]), 0);
+                Vector3 vector3 = new Vector3(positionlist[0]*0.01f,positionlist[1]*0.01f,positionlist[2]*0.01f);
                 self.InstantiateIcon(self.View.EG_bossIconRectTransform.gameObject, vector3, monsterConfig.MonsterName);
 
-                self.BossList.Add(monsterConfig.Id, new Vector3(float.Parse(position[0]), float.Parse(position[1]), float.Parse(position[2])));
+                self.BossList.Add(monsterConfig.Id, vector3);
 
             }
 
