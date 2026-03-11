@@ -7,6 +7,7 @@ using UnityEngine.UI;
 namespace ET.Client
 {
 	[FriendOf(typeof(DlgLdMain))]
+	[FriendOf(typeof(ES_MainSkill))]
 	[FriendOf(typeof(ES_JoystickMove))]
 	public static  class DlgLdMainSystem
 	{
@@ -15,7 +16,8 @@ namespace ET.Client
 		{
 			self.View.E_GMSendButtonButton.AddListener(self.OnClickGMSendButton);
 			self.View.E_BagBtnButton.AddListener(self.OnClickBagButton);
-			
+			self.View.E_TaskTeamSetBtnToggleGroup.AddListener(self.OnTaskTeamSetBtnToggle);
+			self.View.E_FunctionBtnButton.AddListener(self.OnFunctionButton);
 			
 			self.InitMainHero(MapTypeEnum.MainCityScene);
 			self.AfterEnterScene(MapTypeEnum.MainCityScene);
@@ -23,6 +25,19 @@ namespace ET.Client
 
 		public static void ShowWindow(this DlgLdMain self, Entity contextData = null)
 		{
+		}
+
+		private static void OnTaskTeamSetBtnToggle(this DlgLdMain self, int index)
+		{
+			self.View.EG_MainTaskRectTransform.gameObject.SetActive(index == 0);
+			self.View.EG_MainTeamRectTransform.gameObject.SetActive(index == 1);
+		}
+
+		private static void OnFunctionButton(this DlgLdMain self)
+		{
+			bool shoubuttion = self.View.EG_FunctionBtnListRectTransform.gameObject.activeSelf;
+			self.View.EG_FunctionBtnListRectTransform.gameObject.SetActive(!shoubuttion);
+			self.View.ES_MainSkill.uiTransform.gameObject.SetActive(shoubuttion);
 		}
 
 		public static void  OnClickGMSendButton(this DlgLdMain self)
@@ -117,6 +132,8 @@ namespace ET.Client
 					break;
 			}
 			UserInfoNetHelper.RequestUserInfoInit(self.Root()).Coroutine();
+			
+			self.View.E_TaskTeamSetBtnToggleGroup.OnSelectIndex(0);
 		}
 	}
 }

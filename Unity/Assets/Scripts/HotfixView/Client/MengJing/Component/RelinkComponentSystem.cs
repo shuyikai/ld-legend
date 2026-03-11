@@ -11,6 +11,7 @@ namespace ET.Client
         {
             self.Relink = false;
             
+            
             GameObject.Find("Global").GetComponent<Init>().OnApplicationFocusHandler = (bool value) => { self.OnApplicationFocusHandler(value); };
             GameObject.Find("Global").GetComponent<Init>().OnApplicationQuitHandler = () => { self.OnApplicationQuitHandler().Coroutine(); };
         }
