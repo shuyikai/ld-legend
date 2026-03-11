@@ -47,7 +47,7 @@ namespace ET.Client
 
             self.UpdateChuanSong(sceneTypeEnum);
             //刷新主界面
-            DlgMain dlgMain = self.Root().GetComponent<UIComponent>().GetDlgLogic<DlgMain>();
+            DlgLdMain dlgMain = self.Root().GetComponent<UIComponent>().GetDlgLogic<DlgLdMain>();
             dlgMain.AfterEnterScene(sceneTypeEnum);
         }
 

@@ -1,4 +1,6 @@
-﻿namespace ET.Client
+﻿using System.Collections.Generic;
+
+namespace ET.Client
 {
 	 [ComponentOf(typeof(UIBaseWindow))]
 	public  class DlgLdMain :Entity,IAwake,IUILogic
@@ -9,6 +11,6 @@
 		public EntityRef<Unit> unit;
 		public Unit MainUnit { get => this.unit; set => this.unit = value; }
 
-
+		public List<string> AssetList { get; set; } = new();
 	}
 }

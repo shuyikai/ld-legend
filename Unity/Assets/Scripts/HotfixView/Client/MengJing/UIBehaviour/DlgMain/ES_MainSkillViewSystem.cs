@@ -30,7 +30,7 @@ namespace ET.Client
 
         public static void OnButton_HorseButton(this ES_MainSkill self)
         {
-            self.Root().GetComponent<UIComponent>().GetDlgLogic<DlgMain>().OnCityHorseButton(true);
+            
         }
 
         private static void OnCityHorseButton(this ES_MainSkill self, bool showtip)
@@ -73,24 +73,12 @@ namespace ET.Client
             await ETTask.CompletedTask;
         }
 
-
         public static void OnArriveNpc(this ES_MainSkill self, Unit target)
         {
             if (target == null || target.IsDisposed)
             {
                 return;
             }
-
-            int zhuabutype = 0;
-            if (zhuabutype == 1)
-            {
-                self.Root().GetComponent<UIComponent>().GetDlgLogic<DlgMain>().View.ES_JoystickMove.uiTransform.gameObject.SetActive(false);
-                 UIComponent uiComponent = self.Root().GetComponent<UIComponent>();
-                 uiComponent.CurrentNpcId = target.ConfigId;
-                MJCameraComponent cameraComponent = self.Root().CurrentScene().GetComponent<MJCameraComponent>();
-   
-            }
-            
         }
 
         public static async ETTask MoveToNpc(this ES_MainSkill self, Unit target, Vector3 position)

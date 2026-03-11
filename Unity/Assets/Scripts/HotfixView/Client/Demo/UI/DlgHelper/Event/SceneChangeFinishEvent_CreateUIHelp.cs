@@ -11,7 +11,7 @@
             
              // scene.GetComponent<UIComponent>().ShowWindow(WindowID.WindowID_Helper);
              Log.Debug($"SceneChangeFinishEvent_CreateUIHelp");
-             scene.Root().GetComponent<UIComponent>().GetDlgLogic<DlgMain>()?.InitMainHero(args.SceneType);
+             scene.Root().GetComponent<UIComponent>().GetDlgLogic<DlgLdMain>()?.InitMainHero(args.SceneType);
              
              await ETTask.CompletedTask;
         }

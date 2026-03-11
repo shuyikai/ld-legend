@@ -15,7 +15,7 @@ namespace ET.Client
                 await uiComponent.ShowWindowAsync(WindowID.WindowID_Loading);
                 uiComponent.GetDlgLogic<DlgLoading>().OnInitUI(args.LastSceneType, args.SceneType, args. ChapterId);
 
-                DlgMain dlgMain = uiComponent.GetDlgLogic<DlgMain>();
+                DlgLdMain dlgMain = uiComponent.GetDlgLogic<DlgLdMain>();
                 if (dlgMain != null)
                 {
                     uiComponent.CloseWindow(WindowID.WindowID_MapBig);

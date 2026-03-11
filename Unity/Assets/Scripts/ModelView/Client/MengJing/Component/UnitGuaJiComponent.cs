@@ -12,7 +12,6 @@ namespace ET.Client
         public bool IfGuaJiRange;
         public bool IfGuaJiAutoUseItem;
         public List<int> skillXuHaoList;
-        public DlgMain UIMain { get; set; }
         public int XuHaoNum;
 
         public LockTargetComponent LockTargetComponent { get; set; }

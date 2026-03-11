@@ -78,8 +78,7 @@ namespace ET.Client
                 {
                     unit.GetComponent<FsmComponent>()?.ChangeState(FsmStateEnum.FsmDeathState);
                 }
-
-                DlgMain dlgMain = root.GetComponent<UIComponent>().GetDlgLogic<DlgMain>();
+                
                 if (unit.Type == UnitType.Monster && unit.GetMonsterType() == (int)MonsterTypeEnum.Boss)
                 {
                     unit.GetComponent<MonsterActRangeComponent>()?.OnDead();
@@ -152,7 +151,6 @@ namespace ET.Client
             
             root.GetComponent<LockTargetComponent>().LastLockId = 0;
             root.GetComponent<SkillIndicatorComponent>().OnSelfDead();
-            root.GetComponent<UIComponent>().GetDlgLogic<DlgMain>().OnSelfDead();
         }
 
         private async ETTask OnMonsterDead(Unit unit)

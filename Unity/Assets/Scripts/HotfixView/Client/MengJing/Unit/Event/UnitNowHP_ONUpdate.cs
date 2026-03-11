@@ -102,10 +102,7 @@ namespace ET.Client
                 //触发受击特效
                 FunctionEffect.PlayHitEffect(unitAttack, unitDefend, args.SkillID);
             }
-
-            //主界面血條
-            root.GetComponent<UIComponent>().GetDlgLogic<DlgMain>().OnUpdateHP(mapComponent.MapType, unitDefend, unitAttack, args.ChangeHpValue);
-
+            
             if (mapComponent.MapType == MapTypeEnum.BaoZang
                 && unitDefend.Type == UnitType.Player && unitDefend.MainHero
                 && unitAttack != null && unitAttack.Type == UnitType.Player)

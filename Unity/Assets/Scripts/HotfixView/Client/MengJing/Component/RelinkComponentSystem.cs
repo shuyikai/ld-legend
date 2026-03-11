@@ -24,40 +24,7 @@ namespace ET.Client
         public static void OnIosPaySuccessedCallback(this RelinkComponent self, string info)
         {
             //掉线
-            // SessionComponent sessionComponent = self.Root().GetComponent<SessionComponent>();
-            // AccountInfoComponent accountInfoComponent = self.Root().GetComponent<AccountInfoComponent>();
-            // if (sessionComponent == null)
-            // {
-            //     PlayerPrefsHelp.SetString("IOS_" + accountInfoComponent.CurrentRoleId.ToString(), info);
-            //     return;
-            // }
-            //
-            // Session session = sessionComponent.Session;
-            // if (session == null || session.IsDisposed)
-            // {
-            //     PlayerPrefsHelp.SetString("IOS_" + accountInfoComponent.CurrentRoleId.ToString(), info);
-            //     return;
-            // }
-            //
-            // MapComponent mapComponent = self.DomainScene().GetComponent<MapComponent>();
-            // if (mapComponent.SceneTypeEnum < (int)SceneTypeEnum.MainCityScene)
-            // {
-            //     PlayerPrefsHelp.SetString("IOS_" + accountInfoComponent.CurrentRoleId.ToString(), info);
-            //     return;
-            // }
-            //
-            // Receipt receipt = JsonHelper.FromJson<Receipt>(info);
-            // Log.Debug("payload[内购成功]:" + receipt.Payload);
-            //
-            // Unit unit = UnitHelper.GetMyUnitFromZoneScene(self.ZoneScene());
-            // C2R_IOSPayVerifyRequest request = new C2R_IOSPayVerifyRequest() { UnitId = unit.Id, payMessage = receipt.Payload };
-            // session.Call(request).Coroutine();
-            //
-            // UI uirecharget = UIHelper.GetUI(self.ZoneScene(), UIType.UIRecharge);
-            // if (uirecharget != null)
-            // {
-            //     uirecharget.GetComponent<UIRechargeComponent>().Loading.SetActive(false);
-            // }
+           
         }
 
         public static void OnIosPayFailCallback(this RelinkComponent self)
@@ -67,25 +34,7 @@ namespace ET.Client
 
         private static async ETTask OnApplicationQuitHandler(this RelinkComponent self)
         {
-            // SessionComponent sessionComponent = self.DomainScene().GetComponent<SessionComponent>();
-            // if (sessionComponent == null)
-            // {
-            //     return;
-            // }
-            //
-            // if (sessionComponent.Session == null || sessionComponent.Session.IsDisposed)
-            // {
-            //     return;
-            // }
-            //
-            // try
-            // {
-            //     await ETTask.CompletedTask;
-            // }
-            // catch (Exception e)
-            // {
-            //     Log.Debug(e.ToString());
-            // }
+           
 
             await ETTask.CompletedTask;
         }
@@ -136,39 +85,13 @@ namespace ET.Client
             }
             else
             {
-                DlgMain dlgMain = self.Root().GetComponent<UIComponent>().GetDlgLogic<DlgMain>();
+                DlgLdMain dlgMain = self.Root().GetComponent<UIComponent>().GetDlgLogic<DlgLdMain>();
                 if (dlgMain != null)
                 {
-                    dlgMain.OnApplicationFocusExit();
+                    //dlgMain.OnApplicationFocusExit();
                 }
             }
-            // if (value)
-            // {
-            //     MapComponent mapComponent = self.Root().GetComponent<MapComponent>();
-            //     if (mapComponent.SceneType == (int)SceneTypeEnum.LoginScene)
-            //     {
-            //         return;
-            //     }
-            //
-            //     SessionComponent sessionComponent = self.DomainScene().GetComponent<SessionComponent>();
-            //     if (sessionComponent == null)
-            //     {
-            //         return;
-            //     }
-            //
-            //     if (sessionComponent.Session == null || sessionComponent.Session.IsDisposed)
-            //     {
-            //         self.CheckRelink().Coroutine();
-            //     }
-            // }
-            // else
-            // {
-            //     DlgMain dlgMain = self.Root().GetComponent<UIComponent>().GetDlgLogic<DlgMain>();
-            //     if (dlgMain != null)
-            //     {
-            //         dlgMain.OnStopAction();
-            //     }
-            // }
+           
         }
 
         public static async ETTask CheckRelink(this RelinkComponent self)

@@ -407,8 +407,7 @@ namespace ET.Client
 
             if (uILayerScript.HideMainUI)
             {
-                DlgMain dlgMain = self.GetDlgLogic<DlgMain>();
-                dlgMain?.ShowMainUI(false);
+              
             }
 
             self.VisibleWindowsDic[(int)id] = baseWindow;
@@ -475,8 +474,7 @@ namespace ET.Client
 
             if (uILayerScript.HideMainUI)
             {
-                DlgMain dlgMain = self.GetDlgLogic<DlgMain>();
-                dlgMain?.ShowMainUI(true);
+
             }
             
             if (self.GuideUISet.Equals(windowId))

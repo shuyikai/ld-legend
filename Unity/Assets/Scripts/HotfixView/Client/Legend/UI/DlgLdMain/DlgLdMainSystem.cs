@@ -13,13 +13,80 @@ namespace ET.Client
 
 		public static void RegisterUIEvent(this DlgLdMain self)
 		{
-		 
+			self.View.E_GMSendButtonButton.AddListener(self.OnClickGMSendButton);
+			self.View.E_BagBtnButton.AddListener(self.OnClickBagButton);
+			
+			
+			self.InitMainHero(MapTypeEnum.MainCityScene);
+			self.AfterEnterScene(MapTypeEnum.MainCityScene);
 		}
 
 		public static void ShowWindow(this DlgLdMain self, Entity contextData = null)
 		{
 		}
 
+		public static void  OnClickGMSendButton(this DlgLdMain self)
+		{
+			string text = self.View.E_GMLabInputInputField.text;
+			if (string.IsNullOrEmpty(text))
+			{
+				return;
+			}
+
+			GMNetHelp.SendGmCommand(self.Root(), text);
+		}
+		
+		public static void OnClickBagButton(this DlgLdMain self)
+		{
+			self.Root().GetComponent<UIComponent>().ShowWindowAsync(WindowID.WindowID_Bag).Coroutine();
+		}
+		
+		public static void BeforeUnload(this DlgLdMain self)
+		{
+			ResourcesLoaderComponent resourcesLoaderComponent = self.Root().GetComponent<ResourcesLoaderComponent>();
+			for (int i = 0; i < self.AssetList.Count; i++)
+			{
+				resourcesLoaderComponent.UnLoadAsset(self.AssetList[i]);
+			}
+
+			self.AssetList.Clear();
+			self.AssetList = null;
+            
+			ReddotViewComponent redPointComponent = self.Root().GetComponent<ReddotViewComponent>();
+		}
+		
+		public static void InitMainHero(this DlgLdMain self, int sceneTypeEnum)
+		{
+			Log.Debug(($"DlgMain.InitMainHero"));
+			self.MainUnit = UnitHelper.GetMyUnitFromClientScene(self.Scene());
+			if (self.MainUnit == null)
+			{
+				return;
+			}
+
+			self.View.ES_JoystickMove.InitMainHero();
+			self.View.ES_MainSkill.InitMainHero();
+		}
+		
+		
+		public static void BeforeEnterScene(this DlgLdMain self, int lastScene)
+		{
+           
+			self.View.ES_JoystickMove.ResetUI(true);
+		}
+		
+		public static void DlgMainReset(this DlgLdMain self, int lastScene)
+		{
+			
+			//self.View.ES_JoystickMove.ResetUI(true);
+			
+			self.Root().GetComponent<SkillIndicatorComponent>().BeforeEnterScene();
+			self.Root().GetComponent<LockTargetComponent>().BeforeEnterScene();
+			self.Root().GetComponent<BattleMessageComponent>().CancelRideTargetUnit(0);
+			self.Root().GetComponent<BattleMessageComponent>().AttackSelfPlayer.Clear();
+			self.Root().RemoveComponent<UnitGuaJiComponent>();
+			self.Root().GetComponent<UIComponent>().CloseWindow(WindowID.WindowID_Chat);
+		}
 		 
 		/// <summary>
 		/// 返回myunit 并且场景加载完成 

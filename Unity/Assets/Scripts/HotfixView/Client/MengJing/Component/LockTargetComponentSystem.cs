@@ -168,7 +168,6 @@ namespace ET.Client
             if (unitTarget.Type == UnitType.Monster)
             {
                 MonsterConfig monsterConfig = MonsterConfigCategory.Instance.Get(unitTarget.ConfigId);
-                DlgMain dlgMain = self.Root().GetComponent<UIComponent>().GetDlgLogic<DlgMain>();
                 self.SetEffectSize((float)monsterConfig.SelectSize);
             }
             

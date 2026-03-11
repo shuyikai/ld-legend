@@ -21,11 +21,7 @@
             {
                 unit.GetComponent<GameObjectComponent>()?.OnRevive();
             }
-            if (unit.MainHero)
-            {
-                root.GetComponent<UIComponent>().GetDlgLogic<DlgMain>().OnSelfRevive();
-            }
-            
+  
             unit.GetComponent<FsmComponent>()?.ChangeState(FsmStateEnum.FsmIdleState);
             await ETTask.CompletedTask;
         }

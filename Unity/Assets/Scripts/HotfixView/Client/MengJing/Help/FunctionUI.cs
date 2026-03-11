@@ -55,7 +55,7 @@ namespace ET.Client
             UIComponent uiComponent = root.GetComponent<UIComponent>();
             uiComponent.CurrentNpcId = npcid;
             uiComponent.CurrentNpcUI = windowID;
-            root.GetComponent<UIComponent>().GetDlgLogic<DlgMain>().View.ES_JoystickMove.uiTransform.gameObject.SetActive(false);
+            root.GetComponent<UIComponent>().GetDlgLogic<DlgLdMain>().View.ES_JoystickMove.uiTransform.gameObject.SetActive(false);
 
             MJCameraComponent cameraComponent = root.CurrentScene().GetComponent<MJCameraComponent>();
             cameraComponent.SetBuildEnter(npc, CameraBuildType.Type_0, () => { OnBuildEnter(root, npcid, windowID); });
@@ -66,7 +66,7 @@ namespace ET.Client
             int FunctionId = NpcConfigCategory.Instance.Get(npcid).FuncitonID;
             FuntionConfig funtionOpenConfig = FuntionConfigCategory.Instance.Get(FunctionId);
 
-            root.GetComponent<UIComponent>().GetDlgLogic<DlgMain>().View.ES_JoystickMove.uiTransform.gameObject.SetActive(true);
+            root.GetComponent<UIComponent>().GetDlgLogic<DlgLdMain>().View.ES_JoystickMove.uiTransform.gameObject.SetActive(true);
 
             root.GetComponent<UIComponent>().ShowWindowAsync(windowID).Coroutine();
         }

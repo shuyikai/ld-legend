@@ -26,11 +26,11 @@
             if (unit.MainHero)
             {
                 MapViewHelper.OnMainHeroMove(unit);
-                unit.Root().GetComponent<UIComponent>().GetDlgLogic<DlgMain>()?.OnMainHeroMove();
+                //unit.Root().GetComponent<UIComponent>().GetDlgLogic<DlgLdMain>()?.OnMainHeroMove();
             }
             else
             {
-                unit.Root().GetComponent<UIComponent>().GetDlgLogic<DlgMain>()?.OnUnitChangePosition(unit);
+                //unit.Root().GetComponent<UIComponent>().GetDlgLogic<DlgLdMain>()?.OnUnitChangePosition(unit);
             }
             
             await ETTask.CompletedTask;
