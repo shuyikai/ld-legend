@@ -23,7 +23,7 @@ namespace ET.Client
         }
     }
     
-    [FriendOf(typeof(DlgMainViewComponent))]
+    [FriendOf(typeof(DlgLdMainViewComponent))]
     [FriendOf(typeof(DlgLoading))]
     public static class DlgLoadingSystem
     {
@@ -240,7 +240,7 @@ namespace ET.Client
 
         public static void UpdateMainUI(this DlgLoading self, int sceneTypeEnum)
         {
-            DlgMain dlgMain = self.Root().GetComponent<UIComponent>().GetDlgLogic<DlgMain>();
+            DlgLdMain dlgMain = self.Root().GetComponent<UIComponent>().GetDlgLogic<DlgLdMain>();
             dlgMain.AfterEnterScene(sceneTypeEnum);
             switch (sceneTypeEnum)
             {
@@ -300,7 +300,7 @@ namespace ET.Client
                     return;
                 }
 
-                DlgMain uimain = self.Root().GetComponent<UIComponent>().GetDlgLogic<DlgMain>();
+                DlgLdMain uimain = self.Root().GetComponent<UIComponent>().GetDlgLogic<DlgLdMain>();
                 if (uimain == null)
                 {
                     return;
@@ -311,14 +311,7 @@ namespace ET.Client
 
                 Camera camera = self.Root().GetComponent<GlobalComponent>().MainCamera.GetComponent<Camera>();
                 camera.GetComponent<Camera>().fieldOfView = 50;
-
-                //播放传送特效
-                if (sceneType != MapTypeEnum.MainCityScene
-                    && sceneType != MapTypeEnum.PetMelee
-                    && sceneType != MapTypeEnum.PetMatch)
-                {
-                    FunctionEffect.PlaySelfEffect(UnitHelper.GetMyUnitFromClientScene(self.Root()), 200004);
-                }
+                
 
                 Transform topTf = main.GetComponent<HeroTransformComponent>()?.GetTranform(PosType.Head)?.transform;
                 Transform mainTf = main.GetComponent<GameObjectComponent>()?.GameObject?.transform;

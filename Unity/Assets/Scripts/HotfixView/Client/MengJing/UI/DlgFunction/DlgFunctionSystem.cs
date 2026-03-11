@@ -99,14 +99,14 @@ namespace ET.Client
                 self.ExitCamera = false;
                 MJCameraComponent cameraComponent = root.CurrentScene().GetComponent<MJCameraComponent>();
                 UIComponent uiComponent = self.Root().GetComponent<UIComponent>();
-                uiComponent.HideWindow(WindowID.WindowID_Main);
+                uiComponent.HideWindow(WindowID.WindowID_LdMain);
                 //GlobalComponent globalComponent = self.Root().GetComponent<GlobalComponent>();
                 //globalComponent.BloodRoot.gameObject.SetActive(false);
                 cameraComponent.SetBuildEnter(UnitHelper.GetMyUnitFromClientScene(root), CameraBuildType.Type_4,
                     () =>
                     {
                         uiComponent.ShowWindow(WindowID.WindowID_Role);
-                        uiComponent.ShowWindow(WindowID.WindowID_Main);
+                        uiComponent.ShowWindow(WindowID.WindowID_LdMain);
                         //globalComponent.BloodRoot.gameObject.SetActive(true);
                     });
             }

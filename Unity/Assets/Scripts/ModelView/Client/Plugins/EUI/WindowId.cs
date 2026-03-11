@@ -43,5 +43,6 @@ namespace ET.Client
 		WindowID_Bag,						//背包
 		WindowID_EquipDuiBiTips,
 		WindowID_NecklaceRefine,			//项链洗练界面
+		WindowID_LdMain,
 	}
 }
