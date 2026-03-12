@@ -29,9 +29,15 @@ namespace ET.Client
             return ErrorCode.ERR_Success;
         }
 
+        /// <summary>
+        /// 道具和装备可以通用这个
+        /// </summary>
+        /// <param name="root"></param>
+        /// <param name="bagInfo"></param>
+        /// <param name="parinfo"></param>
+        /// <returns></returns>
         public static async ETTask<int> RequestSellItem(Scene root, ItemInfo bagInfo, string parinfo)
         {
-           
 
             C2M_ItemOperateRequest request = C2M_ItemOperateRequest.Create();
             request.OperateType = 2;
@@ -96,19 +102,7 @@ namespace ET.Client
 
             return response.Error;
         }
-
-        // 鉴定
-        public static async ETTask<int> RequestAppraisalItem(Scene root, ItemInfo bagInfo, long appID = 0)
-        {
-            C2M_ItemOperateRequest request = C2M_ItemOperateRequest.Create();
-            request.OperateType = 5;
-            request.OperateBagID = bagInfo.BagInfoID;
-            request.OperatePar = appID.ToString();
-
-            M2C_ItemOperateResponse response = (M2C_ItemOperateResponse)await root.GetComponent<ClientSenderCompnent>().Call(request);
-
-            return response.Error;
-        }
+        
 
         public static async ETTask RquestStoreBuy(Scene root, int sellId, int buyNum)
         {
@@ -216,5 +210,24 @@ namespace ET.Client
             return response;
         }
 
+        /// <summary>
+        /// 装备鉴定
+        /// </summary>
+        /// <param name="root"></param>
+        /// <param name="bagInfo"></param>
+        /// <returns></returns>
+        public static async ETTask<M2C_EquipIdentifyResponse> RequestEquipIdentify(Scene root, ItemInfo bagInfo)
+        {
+            C2M_EquipIdentifyRequest identifyRequest = C2M_EquipIdentifyRequest.Create();
+            identifyRequest.OperateBagID = bagInfo.BagInfoID;
+            M2C_EquipIdentifyResponse response = (M2C_EquipIdentifyResponse)await root.GetComponent<ClientSenderCompnent>().Call(identifyRequest);
+
+            if (response.Error != ErrorCode.ERR_Success)
+            {
+                //
+                return response;
+            }
+            return response;
+        }
     }
 }

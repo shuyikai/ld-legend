@@ -7,17 +7,6 @@ namespace ET.Client
 {
     public static class RobotHelper
     {
-        public static async ETTask JianDing(Scene root)
-        {
-            //可以鉴定的装备
-            List<ItemInfo> bagInfos = root.GetComponent<BagComponentClient>().GetCanJianDing();
-
-            //鉴定装备
-            foreach (ItemInfo bagInfo in bagInfos)
-            {
-                await BagClientNetHelper.RequestAppraisalItem(root, bagInfo);
-            }
-        }
 
         public static async ETTask WearEquip(Scene root)
         {

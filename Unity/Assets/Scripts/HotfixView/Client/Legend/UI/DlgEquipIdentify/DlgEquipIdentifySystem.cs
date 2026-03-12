@@ -14,10 +14,7 @@ namespace ET.Client
 
 		public static void RegisterUIEvent(this DlgEquipIdentify self)
 		{
-			self.CanIdetifyType.Clear();
-			self.CanIdetifyType.Add( EquipStdmodeEnum.Yifu_0 );
-			self.CanIdetifyType.Add( EquipStdmodeEnum.Wuqi_1 );
-			
+
 			self.View.E_CloseButtonButton.AddListener(self.OnCloseButton);
 			
 			self.View.E_FunctionSetBtnToggleGroup.AddListener(self.OnItemTypeSet);
@@ -84,7 +81,14 @@ namespace ET.Client
 			{
 				return;
 			}
-			
+
+			if (itemInfo.JianDingProLists.Count > 0)
+			{
+				string etip = LanguageComponent.Instance.LoadLocalization("该装备已鉴定过!");
+				FlyTipComponent.Instance.ShowFlyTip(etip);
+				return;
+			}
+
 			EquipConfig equipConfig = EquipConfigCategory.Instance.Get(itemInfo.ItemID);
 			Unit unit = UnitHelper.GetMyUnitFromClientScene(self.Root());
 			NumericComponentClient numericComponentClient = unit.GetComponent<NumericComponentClient>();
@@ -101,6 +105,12 @@ namespace ET.Client
 				return;
 			}
 
+			long instanceid = self.InstanceId;
+			M2C_EquipIdentifyResponse identifyResponse =  await BagClientNetHelper.RequestEquipIdentify(self.Root(), itemInfo);
+			if (identifyConfig== null || instanceid!= self.InstanceId)
+			{
+				return;
+			}
 		}
 
 		private static void ShowCostYuanbao(this DlgEquipIdentify self)
@@ -158,7 +168,7 @@ namespace ET.Client
 				}
 
 				EquipConfig equipConfig = EquipConfigCategory.Instance.Get(itemInfo.ItemID);
-				if (!self.CanIdetifyType.Contains((equipConfig.StdMode)))
+				if (!ConfigData.EquipIdentifyList.Contains((equipConfig.StdMode)))
 				{
 					continue;
 				}

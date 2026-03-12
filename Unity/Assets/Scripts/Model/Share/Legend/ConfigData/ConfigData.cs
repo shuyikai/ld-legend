@@ -19,6 +19,10 @@ namespace ET
 
         };
 
+        //可以鉴定的装备类型
+        [StaticField]
+        public static List<int> EquipIdentifyList = new List<int>() { EquipStdmodeEnum.Yifu_0, EquipStdmodeEnum.Wuqi_1 };
+
         [StaticField]
         //以下途径获取的道具为非绑定道具,其他途径为绑定道具
         public static Dictionary<int, string> ItemGetWayNameList = new Dictionary<int, string>

@@ -31,10 +31,7 @@ namespace ET
                 // 功能函数写在system，收发协议写在helper
 
                 // ！！！有问题的协议！！！
-
-                Console.WriteLine("检测背包有可鉴定装备 直接鉴定");
-                await RobotHelper.JianDing(root);
-
+                
                 Console.WriteLine("检测背包有可替换的装备 直接穿戴");
                 await RobotHelper.WearEquip(root);
 

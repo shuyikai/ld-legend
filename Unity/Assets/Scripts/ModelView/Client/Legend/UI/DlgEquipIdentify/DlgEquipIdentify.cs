@@ -7,10 +7,7 @@ namespace ET.Client
 	{
 
 		public DlgEquipIdentifyViewComponent View { get => this.GetComponent<DlgEquipIdentifyViewComponent>();}
-
-		public List<int> CanIdetifyType { get; set; } = new();
-
-		 
+		
 		public Dictionary<int, EntityRef<Scroll_Item_CommonItem>> ScrollItemCommonItems;
 		public List<ItemInfo> ShowBagInfos { get; set; } = new();
 
