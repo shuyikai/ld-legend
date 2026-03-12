@@ -442,18 +442,7 @@ namespace ET.Client
             {
                 return;
             }
-
-            if (self.CurrentNpcUI == windowId && showUnit)
-            {
-                 self.Root().CurrentScene().GetComponent<MJCameraComponent>().SetBuildExit(); 
-            }
-
-            if (self.CurrentNpcUI == windowId)
-            {
-                self.CurrentNpcId = 0;
-                self.CurrentNpcUI = 0;
-            }
-
+     
             UIBaseWindow baseWindow = self.VisibleWindowsDic[(int)windowId];
             UILayerScript uILayerScript = baseWindow.UIPrefabGameObject.GetComponent<UILayerScript>();
             if (uILayerScript.ShowHuoBi)
@@ -533,8 +522,6 @@ namespace ET.Client
             self.VisibleWindowsDic.Clear();
             self.StackWindowsQueue.Clear();
             self.UIBaseWindowlistCached.Clear();
-            self.CurrentNpcId = 0;
-            self.CurrentNpcUI = WindowID.WindowID_Invaild;
             self.GuideUISet = WindowID.WindowID_Invaild;
             self.OpenUIList.Clear();
         }

@@ -524,8 +524,6 @@ namespace ET.Client
            
             self.OnArriveToNpc();
             self.OnUnitToSpeak(newTarget);
-            
-            self.Root().GetComponent<UIComponent>().CloseWindow(WindowID.WindowID_MapBig);
         }
 
         public static void OnArriveToNpc(this OperaComponent self)
