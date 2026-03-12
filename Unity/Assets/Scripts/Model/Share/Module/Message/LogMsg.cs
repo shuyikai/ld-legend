@@ -16,7 +16,7 @@ namespace ET
             //OuterMessage.C2M_PathfindingResult,
             //OuterMessage.M2C_PathfindingResult,
             //OuterMessage.M2C_Stop,
-            OuterMessage.M2C_UnitNumericUpdate,
+            //OuterMessage.M2C_UnitNumericUpdate,
             OuterMessage.M2C_UnitNumericListUpdate,
             OuterMessage.M2C_UnitBuffRemove,
             OuterMessage.M2C_UnitBuffStatus,

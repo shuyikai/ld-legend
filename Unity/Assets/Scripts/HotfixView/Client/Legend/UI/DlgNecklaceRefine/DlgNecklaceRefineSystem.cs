@@ -18,7 +18,7 @@ namespace ET.Client
 			
 			self.View.E_FunctionSetBtnToggleGroup.AddListener(self.OnItemTypeSet);
 			self.View.E_BagItemsLoopVerticalScrollRect.AddItemRefreshListener(self.OnBagItemsRefresh);
-			self.View.E_RefineBtnButton.AddListener(self.OnClickRefineButtion);
+			self.View.E_RefineBtnButton.AddListenerAsync(self.OnClickRefineButtion);
 			
 			self.View.E_FunctionSetBtnToggleGroup.OnSelectIndex(0);
 			self.View.ES_CommonItem.uiTransform.gameObject.SetActive(false);
@@ -53,6 +53,7 @@ namespace ET.Client
 
 		 private static void UpdateSelect(this DlgNecklaceRefine self, ItemInfo bagInfo)
 		 {
+			 self.SelectEquipinfo = bagInfo;
 			 for (int i = 0; i < self.ScrollItemCommonItems.Keys.Count - 1; i++)
 			 {
 				 Scroll_Item_CommonItem scrollItemCommonItem = self.ScrollItemCommonItems[i];
@@ -65,8 +66,27 @@ namespace ET.Client
 			 self.View.ES_CommonItem.uiTransform.gameObject.SetActive(true);
 			 self.View.E_PutTipText.gameObject.SetActive(false);
 			 self.View.ES_CommonItem.UpdateItem(bagInfo, ItemOperateEnum.None);
+
+			 self.ShowCostYuanbao();
 		 }
-		 
+
+		 private static void ShowCostYuanbao(this DlgNecklaceRefine self)
+		 {
+			 if (self.SelectEquipinfo == null)
+			 {
+				 return;
+			 }
+
+			 int sucecctimes = self.SelectEquipinfo.RefineSuceTimes;
+			 EquipRefineInfo equipRefineInfo =  GlobalValueConfigCategory.Instance.GetEquipRefine(sucecctimes);
+			 if (equipRefineInfo == null)
+			 {
+				 return;
+			 }
+
+			 self.View.E_CostGoldTxtText.text = equipRefineInfo.CostYuanbao.ToString();
+		 }
+
 		 public static void OnClickImage_Lock(this DlgNecklaceRefine self)
 		 {
 			 return;
@@ -100,9 +120,32 @@ namespace ET.Client
 			self.View.E_BagItemsLoopVerticalScrollRect.SetVisible(true, allNumber);
 		}
 
-		private static void OnClickRefineButtion(this DlgNecklaceRefine self)
+		private static async ETTask OnClickRefineButtion(this DlgNecklaceRefine self)
 		{
 			Log.Debug($"OnClickRefineButtion");
+			if (self.SelectEquipinfo == null)
+			{
+				return;
+			}
+
+			long instanceid = self.InstanceId;
+			int loctype = self.CurrentItemType == 0 ? ItemLocType.ItemLocEquip : ItemLocType.ItemLocBag;
+			M2C_EquipRefineResponse refineResponse =  await BagClientNetHelper.RequestEquipRefine(self.Root(), self.SelectEquipinfo, loctype);
+			if (refineResponse == null || instanceid != self.InstanceId)
+			{
+				return;
+			}
+			if (string.IsNullOrEmpty(refineResponse.Message) || refineResponse.Message.Equals("0"))
+			{
+				FlyTipComponent.Instance.ShowFlyTip(LanguageComponent.Instance.LoadLocalization("洗练失败！"));
+				return;
+			}
+
+			using (zstring.Block())
+			{
+				string sucesstip = LanguageComponent.Instance.LoadLocalization($"恭喜你洗炼成功，幸运值+{0}！");
+				FlyTipComponent.Instance.ShowFlyTip(zstring.Format(sucesstip, refineResponse.Message));
+			}
 		}
 
 		private static  void OnCloseButton(this DlgNecklaceRefine self)

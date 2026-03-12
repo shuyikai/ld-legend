@@ -216,7 +216,7 @@ namespace ET.Client
                 string name = string.Empty;
                 string icon = string.Empty;
 
-                if (bagInfo.ItemID >= UserDataType.EquipInitId)
+                if (bagInfo.ItemID >= ItemDataType.EquipInitId)
                 {
                     EquipConfig equipConfig = EquipConfigCategory.Instance.Get(bagInfo.ItemID);
                     name = equipConfig.Name;
@@ -243,13 +243,10 @@ namespace ET.Client
                 self.E_ItemNameText.text = name;
                 self.ItemID = bagInfo.ItemID;
                 
-
                 if (!self.UseTextColor)
                 {
                     self.E_ItemNameText.color = FunctionUI.QualityReturnColorDi(1);
                 }
-
-                self.E_BindingImage.gameObject.SetActive(bagInfo.isBinging);
             }
             else
             {

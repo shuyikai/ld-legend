@@ -9,7 +9,7 @@ namespace ET.Client
         {
             int itemWidth = 462;
             
-            if (args.BagInfo.ItemID  >= UserDataType.EquipInitId)
+            if (args.BagInfo.ItemID  >= ItemDataType.EquipInitId)
             {
                 EquipConfig equipConfig = EquipConfigCategory.Instance.Get(args.BagInfo.ItemID);
                 int submode = equipConfig.StdMode;

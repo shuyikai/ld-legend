@@ -23,6 +23,22 @@ namespace ET.Client
 			self.AfterEnterScene(MapTypeEnum.MainCityScene);
 		}
 
+		public static void ShowUserInfo(this DlgLdMain self)
+		{
+			self.UpdateUserYuanbao();
+		}
+
+		public static void UpdateUserYuanbao(this DlgLdMain self)
+		{
+			NumericComponentClient numericComponentClient = self.MainUnit.GetComponent<NumericComponentClient>();
+			long yuanbao = numericComponentClient.GetAsLong(NumericType.Now_YuanBao);
+			
+			Log.Debug(($"DlgLdMain. UpdateUserYuanbao:  {yuanbao}"));
+
+			
+			self.View.E_YuanBaoNumberText.text = yuanbao.ToString();
+		}
+
 		public static void ShowWindow(this DlgLdMain self, Entity contextData = null)
 		{
 		}
@@ -134,6 +150,7 @@ namespace ET.Client
 			UserInfoNetHelper.RequestUserInfoInit(self.Root()).Coroutine();
 			
 			self.View.E_TaskTeamSetBtnToggleGroup.OnSelectIndex(0);
+			self.ShowUserInfo();
 		}
 	}
 }

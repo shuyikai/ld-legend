@@ -11,7 +11,7 @@ namespace ET
     /// 项链精炼信息实体
     /// </summary>
     [EnableClass]
-    public class NecklaceRefineInfo
+    public class EquipRefineInfo
     {
         public int CostYuanbao { get; set; } // 消耗元宝
         public int SuccessRate { get; set; } // 成功率（百分比/千分比，需结合业务）
@@ -27,8 +27,8 @@ namespace ET
         private const int NecklaceRefineConfigKey = 6;
     
         // 字段私有化，提供只读属性（封装性）
-        private Dictionary<int, NecklaceRefineInfo> _necklaceRefineConfig = new Dictionary<int, NecklaceRefineInfo>();
-        public IReadOnlyDictionary<int, NecklaceRefineInfo> NecklaceRefineConfig => _necklaceRefineConfig;
+        private Dictionary<int, EquipRefineInfo> _necklaceRefineConfig = new Dictionary<int, EquipRefineInfo>();
+        public IReadOnlyDictionary<int, EquipRefineInfo> NecklaceRefineConfig => _necklaceRefineConfig;
 
         // 背包初始容量（提取为独立字段）
         public int BagInitCapacity { get; private set; }
@@ -120,7 +120,7 @@ namespace ET
             }
 
             // 构建配置对象并加入字典
-            var refineInfo = new NecklaceRefineInfo
+            var refineInfo = new EquipRefineInfo
             {
                 CostYuanbao = costYuanBao,
                 SuccessRate = successRate,
@@ -144,7 +144,7 @@ namespace ET
         /// </summary>
         /// <param name="refineTimes">精炼次数</param>
         /// <returns>精炼配置（无则返回null）</returns>
-        public NecklaceRefineInfo GetNecklaceRefine(int refineTimes)
+        public EquipRefineInfo GetEquipRefineConfig(int refineTimes)
         {
             _necklaceRefineConfig.TryGetValue(refineTimes, out var refineInfo);
             return refineInfo;

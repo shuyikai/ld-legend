@@ -13,8 +13,8 @@ namespace ET
 		public int HideID { get; set; }
 		public int Loc { get; set; }
 		public List<HideProList> JianDingProLists { get; set; } = new();
-		public int XiLianTimes { get; set; }
-		public bool isBinging { get; set; }
+		public int RefineSuceTimes { get; set; }
+		public int RefineFailTimes { get; set; }
 		public string GetWay { get; set; }
 		public int GemIDNew { get; set; }
 		public string MakePlayer { get; set; }
@@ -38,8 +38,8 @@ namespace ET
 			self.HideID = proto.HideID;
 			self.Loc = proto.Loc;
 			self.JianDingProLists = proto.JianDingProLists;
-			self.XiLianTimes = proto.XiLianTimes;
-			self.isBinging = proto.isBinging;
+			self.RefineSuceTimes = proto.RefineSuceTimes;
+			self.RefineFailTimes = proto.RefineFailTimes;
 			self.GetWay = proto.GetWay;
 			self.GemIDNew = proto.GemIDNew;
 			self.MakePlayer = proto.MakePlayer;
@@ -55,8 +55,8 @@ namespace ET
 			proto.HideID = self.HideID;
 			proto.Loc = self.Loc;
 			proto.JianDingProLists = self.JianDingProLists;
-			proto.XiLianTimes = self.XiLianTimes;
-			proto.isBinging = self.isBinging;
+			proto.RefineSuceTimes = self.RefineSuceTimes;
+			proto.RefineFailTimes = self.RefineFailTimes;
 			proto.GetWay = self.GetWay;
 			proto.GemIDNew = self.GemIDNew;
 			proto.MakePlayer = self.MakePlayer;

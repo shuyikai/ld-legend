@@ -10,6 +10,18 @@ namespace ET.Client
 
 		public Dictionary<int, EntityRef<Scroll_Item_CommonItem>> ScrollItemCommonItems;
 		public List<ItemInfo> ShowBagInfos { get; set; } = new();
+
+		private EntityRef<ItemInfo> selectEquipinfo;
+
+		public ItemInfo SelectEquipinfo
+		{
+			get => selectEquipinfo;
+			set
+			{
+				this.selectEquipinfo = value;
+			}
+		}
+
 		public int CurrentItemType;
 
 	}

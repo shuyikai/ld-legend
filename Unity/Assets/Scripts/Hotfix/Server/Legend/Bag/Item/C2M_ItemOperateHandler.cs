@@ -204,9 +204,7 @@ namespace ET.Server
                 }
                 
                 Function_Fight.UnitUpdateProperty_Base(unit, true, true);
-                useBagInfo.isBinging = true;
                 m2c_bagUpdate.BagInfoUpdate.Add(useBagInfo.ToMessage());
-
             }
 
             //卸下装备

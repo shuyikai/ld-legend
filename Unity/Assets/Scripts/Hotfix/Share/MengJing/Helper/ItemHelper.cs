@@ -152,7 +152,7 @@ namespace ET
         public static int GetItemToNumericDataType(int itemid)
         {
             int userDataType = 0;
-            UserDataType.ItemToNumericData.TryGetValue(itemid, out userDataType);
+            ItemDataType.ItemToNumericData.TryGetValue(itemid, out userDataType);
            
             return userDataType;
         }
@@ -250,11 +250,7 @@ namespace ET
             {
                 int itemIda = a.ItemID;
                 int itemIdb = b.ItemID;
-                int isBinginga = a.isBinging ? 1 : 0;
-                int isBingingb = b.isBinging ? 1 : 0;
-                ItemConfig itemConfig_a = ItemConfigCategory.Instance.Get(itemIda);
-                ItemConfig itemConfig_b = ItemConfigCategory.Instance.Get(itemIdb);
-              
+
                 if (itemIda == itemIdb)
                 {
                     return b.ItemNum - a.ItemNum;

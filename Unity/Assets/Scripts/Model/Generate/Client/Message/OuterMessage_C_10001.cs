@@ -8591,13 +8591,16 @@ namespace ET
         public List<HideProList> JianDingProLists { get; set; } = new();
 
         /// <summary>
-        /// 洗练次数
+        /// 洗练成功次数
         /// </summary>
         [MemoryPackOrder(7)]
-        public int XiLianTimes { get; set; }
+        public int RefineSuceTimes { get; set; }
 
+        /// <summary>
+        /// 洗练失败次数  成功一次 失败次数清空
+        /// </summary>
         [MemoryPackOrder(8)]
-        public bool isBinging { get; set; }
+        public int RefineFailTimes { get; set; }
 
         /// <summary>
         /// 来源方式
@@ -8631,8 +8634,8 @@ namespace ET
             this.HideID = default;
             this.Loc = default;
             this.JianDingProLists.Clear();
-            this.XiLianTimes = default;
-            this.isBinging = default;
+            this.RefineSuceTimes = default;
+            this.RefineFailTimes = default;
             this.GetWay = default;
             this.GemIDNew = default;
             this.MakePlayer = default;

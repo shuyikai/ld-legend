@@ -23,8 +23,8 @@ namespace ET
         
         public const int ERR_TransferFailError = 200006;
         public const int ERR_EnterSonFubenError = 200008;
-        public const int ERR_GoldNotEnoughError = 200009;                           //金币不足
-        public const int ERR_DiamondNotEnoughError = 200010;                        //钻石不足
+        public const int ERR_JinbiNotEnoughError = 200009;                           //金币不足
+        public const int ERR_YunbaoNotEnoughError = 200010;                        //元宝不足
         public const int ERR_UnSafeSqlString = 200012;                              //非法字符串
         public const int ERR_EquipLvLimit = 200013;                                 //装备等级不足
         public const int ERR_BagIsFull = 200014;                                    //背包已满

@@ -59,9 +59,6 @@ namespace ET.Client
             Sprite sp2 = self.Root().GetComponent<ResourcesLoaderComponent>().LoadAssetSync<Sprite>(path2);
 
             self.E_EquipQualityImage.sprite = sp2;
-
-            //显示绑定
-            self.E_BangDingImage.gameObject.SetActive(bagInfo.isBinging);
         }
 
         private static void OnEquipButton(this ES_EquipItem self)

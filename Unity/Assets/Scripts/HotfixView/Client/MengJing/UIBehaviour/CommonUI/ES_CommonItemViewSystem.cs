@@ -207,7 +207,7 @@ namespace ET.Client
             {
                 string itemname = string.Empty;
                 string itemicon = string.Empty;
-                if (bagInfo.ItemID < UserDataType.EquipInitId)
+                if (bagInfo.ItemID < ItemDataType.EquipInitId)
                 {
                     ItemConfig itemConfig = ItemConfigCategory.Instance.Get(bagInfo.ItemID);
                     itemname = itemConfig.Name;
@@ -240,7 +240,6 @@ namespace ET.Client
                 {
                     self.E_ItemNameText.color = FunctionUI.QualityReturnColorDi(1);
                 }
-                self.E_BindingImage.gameObject.SetActive(bagInfo.isBinging);
             }
             else
             {

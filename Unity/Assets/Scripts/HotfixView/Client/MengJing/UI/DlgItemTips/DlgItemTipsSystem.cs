@@ -75,20 +75,6 @@ namespace ET.Client
                 self.View.E_ItemTypeText.text = zstring.Format("类型:{0}", itemTypename);
             }
 
-            //显示是否绑定
-            if (bagInfo.isBinging)
-            {
-                self.View.E_BangDingText.text = LanguageComponent.Instance.LoadLocalization("已绑定");
-                self.View.E_BangDingText.color = new Color(175f / 255f, 1, 6f / 255f);
-                self.View.E_BindingImage.gameObject.SetActive(true);
-            }
-            else
-            {
-                self.View.E_BangDingText.GetComponent<Text>().text = LanguageComponent.Instance.LoadLocalization("未绑定");
-                self.View.E_BangDingText.GetComponent<Text>().color = new Color(255f / 255f, 240f / 255f, 200f / 255f);
-                self.View.E_BindingImage.gameObject.SetActive(false);
-            }
-
             // 道具Icon
             string ItemIcon = itemConfig.GetItemIcon();
             sprite = resourcesLoaderComponent.LoadAssetSync<Sprite>(ABPathHelper.GetAtlasPath_2(ABAtlasTypes.ItemIcon, ItemIcon));

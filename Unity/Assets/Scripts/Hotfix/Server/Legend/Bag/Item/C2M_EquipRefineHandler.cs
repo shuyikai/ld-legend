@@ -6,7 +6,6 @@ namespace ET.Server
     {
         protected override async ETTask Run(Unit unit, C2M_EquipRefineRequest request, M2C_EquipRefineResponse response)
         {
-  
             //获取UserID及User数据
             BagComponentServer bagComponent = unit.GetComponent<BagComponentServer>();
             UserInfoComponentS userInfoComponent = unit.GetComponent<UserInfoComponentS>();
@@ -35,61 +34,50 @@ namespace ET.Server
                 return;
             }
 
-            if (useBagInfo.XiLianTimes >= 3)
+            if (useBagInfo.RefineSuceTimes >= 3)
             {
                 response.Error = ErrorCode.ERR_XiLianMaxError;
                 return;
             }
 
-            
+            EquipRefineInfo refineInfo = GlobalValueConfigCategory.Instance.GetEquipRefineConfig(useBagInfo.RefineSuceTimes);
+            if (refineInfo == null)
+            {
+                response.Error = ErrorCode.ERR_XiLianMaxError;
+                return;
+            }
+
+            NumericComponentServer numericComponentServer = unit.GetComponent<NumericComponentServer>();
+            if (numericComponentServer.GetAsLong(NumericType.Now_YuanBao) < refineInfo.CostYuanbao)
+            {
+                response.Error = ErrorCode.ERR_YunbaoNotEnoughError;
+                return;
+            }
+
+            bool sucess = false;
+            useBagInfo.RefineSuceTimes += 1;
+            if (refineInfo.SuccessRate * 0.01f >= RandomHelper.RandFloat01())
+            {
+                sucess = true;
+            }
+
+            if (refineInfo.BaoDiTimes <= useBagInfo.RefineFailTimes )
+            {
+                sucess = true;
+            }
+
+            if (sucess)
+            {
+                useBagInfo.RefineSuceTimes++;
+                useBagInfo.RefineFailTimes = 0;
+                response.Message = useBagInfo.RefineSuceTimes.ToString();
+            }
 
             //通知客户端背包刷新
             M2C_RoleBagUpdate m2c_bagUpdate = M2C_RoleBagUpdate.Create();
-            
-           //穿戴装备
-            if (request.OperateType == 1)
-            {
-                /*int error = ItemHelper.CanEquip(useBagInfo, useInfo);
-                if (error != 0)
-                {
-                    response.Error = error;
-                    return;
-                }*/
 
-                //获取之前的位置是否有装备
-                ItemInfo  beforeequip = bagComponent.GetEquipBySubType(ItemLocType.ItemLocEquip, weizhi);
-
-                if (beforeequip != null)
-                {
-                    bagComponent.OnChangeItemLoc(beforeequip, ItemLocType.ItemLocBag, ItemLocType.ItemLocEquip);
-                    bagComponent.OnChangeItemLoc(useBagInfo, ItemLocType.ItemLocEquip, ItemLocType.ItemLocBag);
-                    m2c_bagUpdate.BagInfoUpdate.Add(beforeequip.ToMessage());
-                }
-                else
-                {
-                    bagComponent.OnChangeItemLoc(useBagInfo, ItemLocType.ItemLocEquip, ItemLocType.ItemLocBag);
-                }
-                
-                Function_Fight.UnitUpdateProperty_Base(unit, true, true);
-                m2c_bagUpdate.BagInfoUpdate.Add(useBagInfo.ToMessage());
-            }
-
-            //卸下装备
-            if (request.OperateType == 2)
-            {
-                //判断背包格子是否足够
-                bool full = bagComponent.IsBagFullByLoc(ItemLocType.ItemLocBag);
-                if (full)
-                {
-                    response.Error = ErrorCode.ERR_BagIsFull;
-                    return;
-                }
-
-                bagComponent.OnChangeItemLoc(useBagInfo, ItemLocType.ItemLocBag, ItemLocType.ItemLocEquip);
-                Function_Fight.UnitUpdateProperty_Base(unit, true, true);
-                m2c_bagUpdate.BagInfoUpdate.Add(useBagInfo.ToMessage());
-            }
-            
+            m2c_bagUpdate.BagInfoUpdate.Add(useBagInfo.ToMessage());
+            Function_Fight.UnitUpdateProperty_Base(unit, true, true);
             MapMessageHelper.SendToClient(unit, m2c_bagUpdate);
             
             await ETTask.CompletedTask;

@@ -15,6 +15,12 @@
             Scene root = scene.Root();
             switch (args.NumericType)
             {
+                case NumericType.Now_YuanBao:
+                    Log.Debug(($"Unit_OnNumericUpdate. Now_YuanBao"));
+                    DlgLdMain dlgLdMain = scene.Root().GetComponent<UIComponent>().GetDlgLogic<DlgLdMain>();
+                    dlgLdMain?.UpdateUserYuanbao();
+                    break;
+                
                 case NumericType.Now_Hp:
                 case NumericType.Now_MaxHp:
                     NumericComponentClient numericComponentDefend = args.Defend.GetComponent<NumericComponentClient>();

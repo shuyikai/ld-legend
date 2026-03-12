@@ -87,9 +87,6 @@ namespace ET.Client
                     Sprite sp2 = self.Root().GetComponent<ResourcesLoaderComponent>().LoadAssetSync<Sprite>(path2);
 
                     self.E_EquipQualityImage.sprite = sp2;
-
-                    //显示绑定
-                    self.EG_BangDingRectTransform.gameObject.SetActive(bagInfo.isBinging);
                 }
                 else
                 {

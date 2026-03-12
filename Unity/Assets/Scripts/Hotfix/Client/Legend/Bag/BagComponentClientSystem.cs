@@ -24,43 +24,7 @@ namespace ET.Client
         private static void Destroy(this BagComponentClient self)
         {
         }
-
-        public static bool CheckAddItemData(this BagComponentClient self, string rewardItems)
-        {
-            int cellNumber = 0;
-            string[] needList = rewardItems.Split('@');
-            for (int i = 0; i < needList.Length; i++)
-            {
-                string[] itemInfo = needList[i].Split(';');
-                if (itemInfo.Length < 2)
-                {
-                    continue;
-                }
-
-                int itemId = int.Parse(itemInfo[0]);
-                int itemNum = int.Parse(itemInfo[1]);
-
-                if (itemId <= (int)UserDataType.Max)
-                {
-                    continue;
-                }
-
-                int ItemPileSum = ItemConfigCategory.Instance.Get(itemId).GetItemStackCount();
-                if (ItemPileSum == 1)
-                {
-                    cellNumber += itemNum;
-                }
-                else
-                {
-                    cellNumber += (int)(1f * itemNum / ItemPileSum);
-                    cellNumber += (itemNum % ItemPileSum > 0 ? 1 : 0);
-                }
-            }
-
-            return self.GetBagLeftCell(ItemLocType.ItemLocBag) >= cellNumber;
-        }
         
-
         public static void OnRecvItemSort(this BagComponentClient self, int itemEquipType)
         {
             List<ItemInfo> ItemTypeList = self.GetItemsByLoc(itemEquipType);
@@ -163,7 +127,7 @@ namespace ET.Client
         {
             string itemname = String.Empty;
             
-            if (bagInfo.ItemID > UserDataType.EquipInitId)
+            if (bagInfo.ItemID > ItemDataType.EquipInitId)
             {
                 EquipConfig equipConfig = EquipConfigCategory.Instance.Get(bagInfo.ItemID);
                 itemname = equipConfig.Name;

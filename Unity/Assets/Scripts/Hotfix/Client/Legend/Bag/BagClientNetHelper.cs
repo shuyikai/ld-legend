@@ -170,8 +170,28 @@ namespace ET.Client
             M2C_MedalExchangeResponse response = (M2C_MedalExchangeResponse)await root.GetComponent<ClientSenderCompnent>().Call(request);
             return response;
         }
-        
-        
+
+        /// <summary>
+        /// 向量洗练
+        /// </summary>
+        /// <param name="root"></param>
+        /// <param name="bagInfo"></param>
+        /// <param name="operatetype"></param>
+        /// <returns></returns>
+        public static async ETTask<M2C_EquipRefineResponse> RequestEquipRefine(Scene root, ItemInfo bagInfo, int operatetype)
+        {
+            C2M_EquipRefineRequest refineRequest = C2M_EquipRefineRequest.Create();
+            refineRequest.OperateBagID = bagInfo.BagInfoID;
+            refineRequest.OperateType = operatetype;
+            M2C_EquipRefineResponse response = (M2C_EquipRefineResponse)await root.GetComponent<ClientSenderCompnent>().Call(refineRequest);
+            if (response.Error != ErrorCode.ERR_Success)
+            {
+                //
+                return response;
+            }
+            return response;
+        }
+
         /// <summary>
         /// 穿戴脱下装备
         /// </summary>
@@ -190,6 +210,7 @@ namespace ET.Client
 
             if (response.Error != ErrorCode.ERR_Success)
             {
+                //
                 return response;
             }
             return response;

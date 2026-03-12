@@ -8,8 +8,8 @@ namespace ET.Client
         public static Dictionary<int, string> ErrorHints = new()
         {
             { ErrorCode.ERR_NetWorkError, "网络错误!" },
-            { ErrorCode.ERR_GoldNotEnoughError, "金币不足!" },
-            { ErrorCode.ERR_DiamondNotEnoughError, "钻石不足!" },
+            { ErrorCode.ERR_JinbiNotEnoughError, "金币不足!" },
+            { ErrorCode.ERR_YunbaoNotEnoughError, "元宝不足!" },
             { ErrorCode.ERR_UseSkillInCD1, "技能冷却中..." },
             { ErrorCode.ERR_UseSkillInCD2, "技能公共冷却中!" },
             { ErrorCode.ERR_UseSkillInCD3, "主动技能冷却中!" },

@@ -10,8 +10,7 @@
         public const int Now_Lv = 3002;  
         public const int Now_Dead = 3003;                                       //0活 1死
         public const int Occ = 3004;                                                //职业
-        public const int Now_Gold = 3005;                                               //元宝
-        
+       
         public const int ReviveTime = 3006;                                             //复活时间
         public const int MasterId = 3007;                                           //主人ID
         
@@ -35,6 +34,10 @@
         public const int AOI = 2025;
         public const int Now_Exp = 2026;
         public const int Now_Reputation = 2027;                                     //当前声望值
+        public const int Now_JinBi = 3028;                                         //金币
+        public const int Now_YuanBao = 3029;                                        //元宝
+        public const int Now_BoundJinBi = 3030;                                     //绑定金币
+        public const int Now_BoundYuanBao = 3031;                                   //绑定元宝
         
         public const int Max = 10000;
         

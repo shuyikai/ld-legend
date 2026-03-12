@@ -1967,11 +1967,12 @@ message ItemInfoProto
 	int32 HideID = 5;
 	int32 Loc = 6; //0背包 1装备
 	repeated HideProList JianDingProLists = 7;					//鉴定属性
-	int32 XiLianTimes = 8;           //洗练次数
-	bool isBinging = 9;
+	int32 RefineSuceTimes = 8;           //洗练成功次数
+	int32 RefineFailTimes = 9;           //洗练失败次数  成功一次 失败次数清空
 	string GetWay = 10; //来源方式
 	int32 GemIDNew = 11;	//对应的宝石ID
 	string MakePlayer = 12;					//制作玩家名字
+	
 }
 
 //洗练项链

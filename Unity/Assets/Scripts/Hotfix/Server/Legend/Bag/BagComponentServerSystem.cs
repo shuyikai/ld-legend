@@ -166,31 +166,6 @@ namespace ET.Server
             {
                 ItemInfo bagInfo = ItemTypeList[i];
 
-                //最大堆叠数量
-                ItemConfig itemCof = ItemConfigCategory.Instance.Get(bagInfo.ItemID);
-                if (bagInfo.ItemNum >= itemCof.GetItemStackCount())
-                {
-                    continue;
-                }
-
-                if (bagInfo.isBinging)
-                {
-                    if (!ItemSameList_1.ContainsKey(bagInfo.ItemID))
-                    {
-                        ItemSameList_1[bagInfo.ItemID] = new List<ItemInfo>();
-                    }
-
-                    ItemSameList_1[bagInfo.ItemID].Add(bagInfo);
-                }
-                else
-                {
-                    if (!ItemSameList_2.ContainsKey(bagInfo.ItemID))
-                    {
-                        ItemSameList_2[bagInfo.ItemID] = new List<ItemInfo>();
-                    }
-
-                    ItemSameList_2[bagInfo.ItemID].Add(bagInfo);
-                }
             }
 
             self.ZhengLiItemList(ItemSameList_1, m2c_bagUpdate);
@@ -219,7 +194,7 @@ namespace ET.Server
             for (int i = bagInfos.Count - 1; i >= 0; i--)
             {
                 int itemid = bagInfos[i].ItemID;
-                if (itemid < UserDataType.EquipInitId)
+                if (itemid < ItemDataType.EquipInitId)
                 {
                     if (!ItemConfigCategory.Instance.Contain(itemid))
                     {
@@ -567,7 +542,6 @@ namespace ET.Server
             useBagInfo.BagInfoID = IdGenerater.Instance.GenerateId();
             useBagInfo.GemIDNew = 0;
             useBagInfo.GetWay = bagInfo.GetWay;
-            useBagInfo.isBinging = bagInfo.isBinging;
             self.GetItemByLoc(useBagInfo.Loc).Add(useBagInfo);
 
             M2C_RoleBagUpdate m2c_bagUpdate = M2C_RoleBagUpdate.Create();
@@ -650,12 +624,12 @@ namespace ET.Server
                 int ItemPileSum = 0;
                 
                 int userDataType = ItemHelper.GetItemToNumericDataType(itemid);
-                if (userDataType != UserDataType.None)
+                if (userDataType != NumericType.Min)
                 {
                     continue;
                 }
                 
-                if (itemid >= UserDataType.EquipInitId)
+                if (itemid >= ItemDataType.EquipInitId)
                 {
                     ItemPileSum = 1;
                 }
@@ -718,7 +692,7 @@ namespace ET.Server
                 int itemid = rewardItems[i].ItemID;
                 int maxPileSum = 0;
                 
-                if (itemid >= UserDataType.EquipInitId)
+                if (itemid >= ItemDataType.EquipInitId)
                 {
                     maxPileSum = 1;
                 }

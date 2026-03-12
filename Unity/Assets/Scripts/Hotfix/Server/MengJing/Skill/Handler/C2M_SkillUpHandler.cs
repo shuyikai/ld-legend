@@ -20,7 +20,7 @@ namespace ET.Server
 			int nextSkillID = skillconf.NextSkillID;
 			if (nextSkillID == 0)
 			{
-				response.Error = ErrorCode.ERR_GoldNotEnoughError;     //错误码:技能达到最大等级
+				response.Error = ErrorCode.ERR_JinbiNotEnoughError;     //错误码:技能达到最大等级
 				return;
 			}
 
@@ -30,7 +30,7 @@ namespace ET.Server
 			int RoseSP = unitInfoComponent.GetSp();
 			if (/*unitInfoComponent.UserInfo.Gold < costGoldValue || */RoseSP < costSPValue)
 			{
-				response.Error = ErrorCode.ERR_GoldNotEnoughError;     //错误码:升级所需金币或者能量值不足
+				response.Error = ErrorCode.ERR_JinbiNotEnoughError;     //错误码:升级所需金币或者能量值不足
 				return;
 			}
 

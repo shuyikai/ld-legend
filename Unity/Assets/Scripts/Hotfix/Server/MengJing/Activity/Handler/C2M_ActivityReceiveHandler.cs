@@ -46,7 +46,7 @@ namespace ET.Server
 
                         if (!unit.GetComponent<BagComponentServer>().OnCostItemData(activityConfig.Par_2))
                         {
-                            response.Error = ErrorCode.ERR_DiamondNotEnoughError;
+                            response.Error = ErrorCode.ERR_YunbaoNotEnoughError;
          
                             return;
                         }
@@ -133,7 +133,7 @@ namespace ET.Server
                         }
                         else
                         {
-                            response.Error = ErrorCode.ERR_GoldNotEnoughError;
+                            response.Error = ErrorCode.ERR_JinbiNotEnoughError;
                         }
                         break;
                 }
