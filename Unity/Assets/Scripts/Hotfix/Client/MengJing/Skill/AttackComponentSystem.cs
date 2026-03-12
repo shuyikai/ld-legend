@@ -137,27 +137,12 @@ namespace ET.Client
         public static void SetComboSkill(this AttackComponent self, long timeNow)
         {
             int lastSkill = self.ComboSkillId;
-            if (timeNow - self.LastSkillTime > self.CombatEndTime)
-            {
-                self.ComboSkillId = self.SkillId;
-            }
-            else
-            {
-                self.ComboSkillId = SkillConfigCategory.Instance.Get(self.ComboSkillId).ComboSkillID;
-            }
-            if (self.ComboSkillId == 60000103 || self.ComboSkillId == 60000203)
-            {
-                self.ComboStartTime = 1250;
-                self.CombatEndTime = 2000;
-            }
-
+          
             if (self.ComboSkillId == 0)
             {
                 self.ComboSkillId = self.SkillList[0];
             }
-
-            int index = self.SkillList.IndexOf(self.ComboSkillId);
-            self.CDTime = self.SkillCDs[index];
+            self.CDTime = self.SkillCDs[0];
         }
 
         //连击

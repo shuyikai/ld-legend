@@ -55,7 +55,6 @@ namespace ET.Client
                 }
             }
 
-
             // string url = $"https://molongbanhao.weijinggame.com:30410/get_router?v={RandomGenerator.RandUInt32()}";
             //string url = $"https://www.weijinggame.com:30410/get_router?v={RandomGenerator.RandUInt32()}";
 

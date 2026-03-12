@@ -47,7 +47,9 @@ namespace ET.Client
 		     {
 		         return;
 		     }
-		     
+
+		     scrollItemCommonItem.E_ItemNameText.text = string.Empty;
+		     scrollItemCommonItem.E_ItemNumText.text = string.Empty;
 		     scrollItemCommonItem.E_UpTipImage.gameObject.SetActive(false); // 不显示箭头
 		 }
 
