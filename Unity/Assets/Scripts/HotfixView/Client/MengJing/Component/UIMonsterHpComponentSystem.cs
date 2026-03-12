@@ -174,9 +174,6 @@ namespace ET.Client
         public static void UpdateCampToMain(this UIMonsterHpComponent self, bool canAttack)
         {
             ReferenceCollector rc = self.GameObject.GetComponent<ReferenceCollector>();
-
-            string imageHp = canAttack ? ConfigData.UI_pro_4_2 : ConfigData.UI_pro_3_2;
-            Sprite sp = rc.Get<GameObject>(imageHp).GetComponent<Image>().sprite;
         }
 
         public static void OnLoadGameObject(this UIMonsterHpComponent self, GameObject gameObject, long formId)

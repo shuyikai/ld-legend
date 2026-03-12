@@ -344,25 +344,5 @@ namespace ET
             return taskRewards;
         }
         
-        /// <summary>
-        /// 福利活动，当天的任务是否全部完成
-        /// </summary>
-        /// <param name="completeids"></param>
-        /// <param name="day"></param>
-        /// <returns></returns>
-        public static bool IsDayTaskComplete(List<int> completeids, int day)
-        {
-            List<int> daytask = ConfigData.WelfareTaskList[day];
-            for (int i = 0; i < daytask.Count; i++)
-            {
-                if (!completeids.Contains(daytask[i]))
-                {
-                    return false;
-                }
-            }
-
-            return true;
-        }
-        
     }
 }

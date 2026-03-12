@@ -170,21 +170,6 @@ namespace ET.Client
 
             return false;
         }
-
-        public static List<int> GetPetEchoSkillList(this SkillSetComponentC self)
-        {
-            List<int> echoskills = new List<int>();
-            for (int i = 0; i < self.SkillList.Count; i++)
-            {
-                int skilid  = self.SkillList[i].SkillID;
-                if ( ConfigData.PetEchoSkill.Any(p=>p.Value == skilid) )
-                {
-                    echoskills.Add(skilid);
-                }
-            }
-
-            return echoskills;
-        }
         
         public static SkillPro GetBySkillID(this SkillSetComponentC self, int skillid)
         {

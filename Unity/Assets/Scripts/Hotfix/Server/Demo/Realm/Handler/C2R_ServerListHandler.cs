@@ -32,9 +32,8 @@ namespace ET.Server
                         }
                     }
                     
-                    string[] stringxxx = ServerLogHelper.GetNoticeNew().Split('@');
-                    response.NoticeVersion = stringxxx[0];
-                    response.NoticeText = stringxxx[1];
+                    response.NoticeVersion = "1.0.0";
+                    response.NoticeText = "测试";
                 }
             } 
             await ETTask.CompletedTask;

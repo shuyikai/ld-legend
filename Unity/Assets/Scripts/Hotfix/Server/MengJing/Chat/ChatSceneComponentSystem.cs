@@ -52,27 +52,6 @@ namespace ET.Server
             int second = dateTime.Second;
             int time1 = huor * 3600 + minute * 60 + second;
 
-            for (int i = 0; i < ConfigData.WorldSayList.Count; i++)
-            {
-                WorldSayConfig worldSayConfig = ConfigData.WorldSayList[i];
-
-                if (!worldSayConfig.OpenDay.Contains((int)dateTime.DayOfWeek) && worldSayConfig.OpenDay[0] != -1)
-                {
-                    continue;
-                }
-
-                int hour2 = worldSayConfig.Time / 100;
-                int minute2 = worldSayConfig.Time % 100;
-                int time2 = hour2 * 3600 + minute2 * 60;
-
-                int leftTime = time2 - time1;
-                if (leftTime > 0)
-                {
-                    worldSayConfig.ServerTime = serverTime + leftTime * 1000;
-                    self.WordSayList.Add(worldSayConfig);
-                }
-            }
-
             self.WordSayList.Sort(delegate(WorldSayConfig a, WorldSayConfig b) { return a.Time - b.Time; });
 
             self.StartTimer();

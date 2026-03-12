@@ -452,11 +452,7 @@ namespace ET.Client
                 if (!CommonHelp.IfNull(skillConfig.SkillAnimation))
                 {
                     int fsmType = skillConfig.ComboSkillID > 0 ? 5 : 4;
-                    if (ConfigData.NotCombatSkill.Contains(skillConfig.SkillAnimation))
-                    {
-                        fsmType = 4;
-                    }
-
+                
                     EventSystem.Instance.Publish(self.Root(), new FsmChange()
                     {
                         FsmHandlerType = fsmType,
@@ -503,20 +499,7 @@ namespace ET.Client
                 skillHandler.SetSkillState(SkillState.Finished);
             }
         }
-
-        public static bool HaveChongJi(this SkillManagerComponentC self)
-        {
-            int skillcnt = self.Skills.Count;
-            for (int i = skillcnt - 1; i >= 0; i--)
-            {
-                SkillC skillS = self.Skills[i];
-                if (skillS.SkillConf.GameObjectName == ConfigData.Skill_Other_ChongJi_1)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
+        
         
         public static void OnSkillSecondResult(this SkillManagerComponentC self, M2C_SkillSecondResult message)
         {

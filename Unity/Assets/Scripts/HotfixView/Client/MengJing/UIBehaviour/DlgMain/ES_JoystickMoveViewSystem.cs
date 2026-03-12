@@ -352,13 +352,8 @@ namespace ET.Client
             if (errorCode == ErrorCode.ERR_CanNotMove_Rigidity)
             {
                 SkillManagerComponentC skillManager = unit.GetComponent<SkillManagerComponentC>();
-                if (skillManager.HaveSkillType(ConfigData.Skill_XuanZhuan_Attack_2))
-                {
-                    self.checkTime = 100;
-                    self.lastSendTime = serverNow;
-                    self.lastDirection = direction;
-                    return;
-                }
+              
+                return;
             }
             if (errorCode!= ErrorCode.ERR_Success)
             {

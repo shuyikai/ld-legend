@@ -283,11 +283,6 @@ namespace ET.Server
             {
                 return ErrorCode.ERR_Success;
             }
-            
-            if (age < ConfigData.AgeLimit)
-            {
-                return ErrorCode.ERR_FangChengMi_Tip6;
-            }
             DateTime dateTime = TimeHelper.DateTimeNow();
             if (isHoliday)
             {

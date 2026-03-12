@@ -260,23 +260,6 @@ namespace ET.Client
 
             return color;
         }
-
-        //weizhi 0 -12
-        public static int GetItemSubtypeByWeizhi(int weizhi)
-        {
-            if (weizhi < 4)
-            {
-                return weizhi + 1;
-            }
-            else if (weizhi >= 4 && weizhi < 4 + ConfigData.EquipShiPingMax)
-            {
-                return 5;
-            }
-            else
-            {
-                return weizhi - (ConfigData.EquipShiPingMax - 2);
-            }
-            
-        }
+        
     }
 }

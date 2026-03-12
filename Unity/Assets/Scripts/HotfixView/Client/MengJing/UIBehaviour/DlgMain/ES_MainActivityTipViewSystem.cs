@@ -60,33 +60,7 @@ namespace ET.Client
             int minute = dateTime.Minute;
             int second = dateTime.Second;
             int time1 = hour * 3600 + minute * 60 + second; //当前时间
-
-            for (int i = 0; i < ConfigData.ActivityShowList.Count; i++)
-            {
-                ActivityTipConfig worldSayConfig = ConfigData.ActivityShowList[i];
-
-                if (!worldSayConfig.OpenDay.Contains((int)dateTime.DayOfWeek) && worldSayConfig.OpenDay[0] != -1)
-                {
-                    continue;
-                }
-
-                int hour2 = (int)worldSayConfig.OpenTime / 100;
-                int minute2 = (int)worldSayConfig.OpenTime % 100;
-                int time2 = hour2 * 3600 + minute2 * 60; //开始时间
-
-                int hour3 = (int)worldSayConfig.CloseTime / 100;
-                int minute3 = (int)worldSayConfig.CloseTime % 100;
-                int time3 = hour3 * 3600 + minute3 * 60; //结束时间
-
-                if (time1 > time3)
-                {
-                    continue;
-                }
-
-                worldSayConfig.OpenTime = serverTime + (time2 - time1) * 1000;
-                worldSayConfig.CloseTime = serverTime + (time3 - time1) * 1000;
-                self.ActivityShowList.Add(worldSayConfig);
-            }
+            
 
             self.ActivityShowList.Sort(delegate(ActivityTipConfig a, ActivityTipConfig b) { return (a.OpenTime > b.OpenTime ? 1 : 0); });
 

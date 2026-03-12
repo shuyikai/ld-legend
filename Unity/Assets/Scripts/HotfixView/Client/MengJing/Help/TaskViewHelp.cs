@@ -180,7 +180,7 @@ namespace ET.Client
             {
                 if ((taskConfig.TaskType == TaskTypeEnum.Ring || taskConfig.TaskType == TaskTypeEnum.Union ||
                         taskConfig.TaskType == TaskTypeEnum.System || taskConfig.TaskType == TaskTypeEnum.Daily ||
-                        taskConfig.TaskType == TaskTypeEnum.Treasure || ConfigData.TaskCompleteDirectly.Contains(taskPro.taskID))
+                        taskConfig.TaskType == TaskTypeEnum.Treasure )
                     && taskConfig.TargetType != TaskTargetType.GiveItem_10
                     && taskConfig.TargetType != TaskTargetType.GivePet_25)
                 {
@@ -1207,13 +1207,6 @@ namespace ET.Client
                 return 0;
             }
 
-            foreach (var VARIABLE in ConfigData.FubenToNpcList)
-            {
-                if (VARIABLE.Value.Contains(npcId))
-                {
-                    return VARIABLE.Key;
-                }
-            }
             return 0;
         }
 

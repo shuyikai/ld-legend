@@ -5,14 +5,7 @@ namespace ET
 {
     public static class MakeHelper
     {
-
-        public static string GetMakeTypeName(int makeType)
-        { 
-            string typeName =string.Empty;
-            ConfigData.MakeTypeName.TryGetValue(makeType, out typeName);   
-            return typeName;    
-        }
-
+        
         public static List<int> GetInitMakeList( int makeType)
         {
             string[] makeValue = GlobalValueConfigCategory.Instance.Get(43).Value.Split(';');

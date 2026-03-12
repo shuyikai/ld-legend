@@ -611,13 +611,6 @@ namespace ET.Server
             {
                 return;
             }
-
-            //self.BuffRemove(99001042);
-            //self.BuffRemove(99001031);
-            //self.BuffRemove(99001032);
-            //self.BuffRemove(99001011);
-            self.BuffRemoveList(ConfigData.BaoShiBuff);
-            
         }
 
         public static void InitBuff(this BuffManagerComponentS self, int sceneType)
@@ -654,14 +647,6 @@ namespace ET.Server
             if (unit.Type != UnitType.Player)
             {
                 return;
-            }
-
-            for (int i = 0; i < ConfigData.SoloBuffIds.Count; i++)
-            {
-                BuffData buffData_2 = new BuffData();
-                buffData_2.SkillId = 67000278;
-                buffData_2.BuffId = ConfigData.SoloBuffIds[i];
-                self.BuffFactory(buffData_2, unit, null);
             }
 
             //恢复血量

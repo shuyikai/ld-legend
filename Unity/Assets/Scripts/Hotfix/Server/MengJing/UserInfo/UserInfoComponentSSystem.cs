@@ -436,11 +436,9 @@ namespace ET.Server
             {
                 return;
             }
-
-            bool showlieopen = ConfigData.IsShowLieOpen;
+            
             MonsterConfig monsterConfig = MonsterConfigCategory.Instance.Get(beKill.ConfigId);
         
-
             NumericComponentServer numericComponent = main.GetComponent<NumericComponentServer>();
         }
 

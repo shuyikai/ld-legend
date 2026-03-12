@@ -16,12 +16,7 @@ namespace ET.Server
 
             for (int i = skillSetComponent.SkillList.Count - 1; i >= 0; i--)
             {
-                SkillPro skillPro = skillSetComponent.SkillList[i];
-                if (skillPro.SkillSource == SkillSourceEnum.PetEcho
-                    && !CommonHelperS.IsPetEchoSkill((skillPro.SkillID)))
-                {
-                    skillSetComponent.SkillList.RemoveAt(i);
-                }
+           
             }
             
             //强化技能可以激活

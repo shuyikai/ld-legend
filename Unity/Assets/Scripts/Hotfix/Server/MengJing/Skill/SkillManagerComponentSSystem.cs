@@ -438,14 +438,6 @@ namespace ET.Server
           public static bool HaveChongJi(this SkillManagerComponentS self)
           {
               int skillcnt = self.Skills.Count;
-              for (int i = skillcnt - 1; i >= 0; i--)
-              {
-                  SkillS skillS = self.Skills[i];
-                  if (skillS.SkillConf.GameObjectName == ConfigData.Skill_Other_ChongJi_1)
-                  {
-                      return true;
-                  }
-              }
               return false;
           }
 
@@ -462,10 +454,7 @@ namespace ET.Server
                   return false;
               }
               SkillConfig skillConfig = SkillConfigCategory.Instance.Get(skillId);
-              if (!SkillHelp.IsChongJiSkill(skillConfig.GameObjectName))
-              {
-                  return false;
-              }
+           
               return self.HaveChongJi();
           }
 
@@ -484,23 +473,15 @@ namespace ET.Server
                   {
                       continue;
                   }
-                  
-                  if (skillHandler.SkillConf.SkillName.Equals(ConfigData.Skill_XuanZhuan_Attack_2))
-                  {
-                      ifStop = true;
-                  }
-                  
-                  //打断
-                  if (ifStop)
-                  {
-                      skillHandler.SetSkillState(SkillState.Finished);
-                      M2C_SkillInterruptResult m2C_SkillInterruptResult = M2C_SkillInterruptResult.Create();
-                      m2C_SkillInterruptResult.UnitId = unit.Id;
-                      m2C_SkillInterruptResult.SkillId = skillHandler.SkillConf.Id;
 
-                      //MessageHelper.Broadcast(unit, m2C_SkillInterruptResult);
-                      MapMessageHelper.BroadcastSkill(unit, m2C_SkillInterruptResult);
-                  }
+                  //打断
+                  skillHandler.SetSkillState(SkillState.Finished);
+                  M2C_SkillInterruptResult m2C_SkillInterruptResult = M2C_SkillInterruptResult.Create();
+                  m2C_SkillInterruptResult.UnitId = unit.Id;
+                  m2C_SkillInterruptResult.SkillId = skillHandler.SkillConf.Id;
+
+                  //MessageHelper.Broadcast(unit, m2C_SkillInterruptResult);
+                  MapMessageHelper.BroadcastSkill(unit, m2C_SkillInterruptResult);
               }
           }
   
@@ -574,8 +555,7 @@ namespace ET.Server
                   self.Skills.Add(handlerList[i] );
               }
 
-
-                if (zhudong && !ConfigData.NOPassiveSkill.Contains(weaponSkillConfig.Id)  && !SkillHelp.IsChongJiSkill(weaponSkillConfig.GameObjectName))
+                if (zhudong)
               {
                   SkillPassiveComponent skillPassiveComponent = unit.GetComponent<SkillPassiveComponent>();
                   if (skillPassiveComponent == null)
@@ -925,35 +905,7 @@ namespace ET.Server
                   
                   SkillHandlerS aaiHandler = SkillDispatcherComponentS.Instance.Get(skillHandler.SkillConf.GameObjectName);
                   aaiHandler.OnUpdate(skillHandler, 0);
-                  
-                  if (!skillHandler.SkillConf.GameObjectName.Equals(ConfigData.Skill_Halo_2))
-                  {
-                      continue;
-                  }
-                  try
-                  {
-                      if (skillHandler.SkillConf.GameObjectName == ConfigData.Skill_Halo_2)
-                      {
-                          //skillHandler.Check_Map();
-                          // List<EntityRef<Unit>> entities = skillS.TheUnitFrom.GetParent<UnitComponent>().GetAll();
-                          // for (int i = 0; i < entities.Count; i++)
-                          // {
-                          //     Unit uniitem = entities[i];
-                          //     if (uniitem.Type != UnitType.Player)
-                          //     {
-                          //         continue;
-                          //     }
-                          //     if (skillS.TheUnitFrom.IsSameTeam(entities[i]))
-                          //     {
-                          //         skillS.OnCollisionUnit(entities[i]);
-                          //     }
-                          // }
-                      }
-                  }
-                  catch (Exception ex)
-                  {
-                      Log.Error(ex.ToString());
-                  }
+
               }
           }
 

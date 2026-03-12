@@ -20,7 +20,7 @@
                     showReddot = self.Root().GetComponent<ActivityComponentC>().HaveLoginReward();
                     break;
                 case ReddotType.WelfareTask:
-                    showReddot = self.Root().GetComponent<TaskComponentC>().HaveWelfareReward();
+                    showReddot = false;
                     break;
               
                 case ReddotType.RolePoint:

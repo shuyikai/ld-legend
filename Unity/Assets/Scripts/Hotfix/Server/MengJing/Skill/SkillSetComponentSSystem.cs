@@ -373,34 +373,9 @@ namespace ET.Server
                         }
                 }
             }
-
-            if (occ == 3)
-            {
-                for (int k = self.SkillList.Count - 1; k >= 0; k--)
-                {
-                    int skillId = self.SkillList[k].SkillID;
-                    if (ConfigData.HunterFarSkill.Contains(skillId)
-                        || ConfigData.HunterNearSkill.Contains(skillId))
-                    {
-                        self.SkillList.RemoveAt(k);
-                    }
-                }
-
-                int equipIndex = 0;
-                List<int> addskills = equipIndex == 0 ? ConfigData.HunterFarSkill: ConfigData.HunterNearSkill;
-                for (int i = 0; i < addskills.Count; i++)
-                {
-                     self.InitSkillPro(addskills[i], 0, (int)SkillSetEnum.Skill, (int)SkillSourceEnum.Equip);
-                }
-            }
+            
         }
-
-        public static void OnChangeEquipIndex(this SkillSetComponentS self, int equipIndex)
-        {
-            self.OnRemoveEquipSkill(ConfigData.HunterFarSkill, 0);
-            self.OnRemoveEquipSkill(ConfigData.HunterNearSkill, 0);
-            self.OnAddEquipSkill(equipIndex == 0 ? ConfigData.HunterFarSkill: ConfigData.HunterNearSkill   );
-        }
+        
         
         public static int SetSkillIdByPosition(this SkillSetComponentS self, C2M_SkillSet request)
         {
@@ -585,49 +560,7 @@ namespace ET.Server
 
             self.UpdateSkillSet();
         }
-
-        public static void UpdatePetEchoSkill(this SkillSetComponentS self, int totalcombat)
-        {
-            List<int> openlist = new List<int>();
-            for (int i = 0; i < ConfigData.PetEchoSkill.Count; i++)
-            {
-                if (ConfigData.PetEchoSkill[i].KeyId <= totalcombat)
-                {
-                    openlist.Add((int)ConfigData.PetEchoSkill[i].Value);
-                }
-            }
-            
-            List<int> remlist = new List<int>();    
-            for (int i = self.SkillList.Count - 1; i >= 0; i--)
-            {
-                SkillPro skillPro = self.SkillList[i];
-                if (skillPro.SkillSource != SkillSourceEnum.PetEcho)
-                {
-                    continue;
-                }
-
-                if (!openlist.Contains(skillPro.SkillID))
-                {
-                    remlist.Add(skillPro.SkillID);
-                }
-
-                if (openlist.Contains(skillPro.SkillID))
-                {
-                    openlist.Remove(skillPro.SkillID);  
-                }
-            }
-
-            foreach (int skillid in remlist)
-            {
-                self.OnRemoveSkillId(skillid, SkillSourceEnum.PetEcho, false );
-            }
-            foreach (int skillid in openlist)
-            {
-                self.InitSkillPro(skillid, 0, SkillSetEnum.Skill, SkillSourceEnum.PetEcho);
-            }
-            self.UpdateSkillSet();
-        }
-
+        
         public static void UpdateSkillSet(this SkillSetComponentS self)
         {
             Unit unit = self.GetParent<Unit>();

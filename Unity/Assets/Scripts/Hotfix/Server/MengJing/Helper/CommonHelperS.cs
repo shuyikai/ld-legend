@@ -24,20 +24,7 @@ namespace ET.Server
             }
             return false;
         }
-
-       public static bool IsPetEchoSkill( int skill)
-       {
-           List<KeyValuePairInt> petEchoSkill = ConfigData.PetEchoSkill;
-           for (int i = 0; i < petEchoSkill.Count; i++)
-           {
-               if (petEchoSkill[i].Value == skill)
-               {
-                   return true;
-               }
-           }
-
-           return false;
-       }
+        
 
        public static int GetWorldLv(int openserverDay)
         {

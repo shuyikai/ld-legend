@@ -84,13 +84,13 @@ namespace ET.Client
             for (int i = 0; i < self.ESEquipItems_1.Count; i++)
             {
                 ES_EquipItem equipItem = self.ESEquipItems_1[i];
-                equipItem.InitUI(FunctionUI.GetItemSubtypeByWeizhi(i));
+                //equipItem.InitUI(FunctionUI.GetItemSubtypeByWeizhi(i));
             }
 
             for (int i = 0; i < self.ESEquipItems_2.Count; i++)
             {
                 ES_EquipItem equipItem = self.ESEquipItems_2[i];
-                equipItem.InitUI(FunctionUI.GetItemSubtypeByWeizhi(i));
+                //equipItem.InitUI(FunctionUI.GetItemSubtypeByWeizhi(i));
             }
 
             self.RefreshEquip_1(equiplist_1, occ, itemOperateEnum);

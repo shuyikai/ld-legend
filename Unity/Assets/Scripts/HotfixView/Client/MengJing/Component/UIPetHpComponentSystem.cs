@@ -134,11 +134,7 @@ namespace ET.Client
             Unit mainUnit = UnitHelper.GetMyUnitFromClientScene(self.Root());
             bool canAttack = mainUnit.IsCanAttackUnit(unit);
             self.Img_HpValue = rc.Get<GameObject>("Img_HpValue");
-
-            string imageHp = canAttack ? ConfigData.UI_pro_4_2 : ConfigData.UI_pro_3_2;
-            Sprite sp = rc.Get<GameObject>(imageHp).GetComponent<Image>().sprite;
-            self.Img_HpValue.GetComponent<Image>().sprite = sp;
-
+    
             self.Lal_Name = rc.Get<GameObject>("Lal_Name");
             self.Lal_JiaZuName = rc.Get<GameObject>("Lal_JiaZuName");
             self.UIPosition = unit.GetComponent<HeroTransformComponent>().GetTranform(PosType.Head);

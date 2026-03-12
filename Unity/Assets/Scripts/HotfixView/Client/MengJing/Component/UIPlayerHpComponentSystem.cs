@@ -154,11 +154,7 @@ namespace ET.Client
 
         public static void UpdateCampToMain(this UIPlayerHpComponent self, bool canAttack )
         {
-            ReferenceCollector rc = self.GameObject.GetComponent<ReferenceCollector>();
-            self.Img_HpValue = rc.Get<GameObject>("Img_HpValue");
-            string imageHp = canAttack ?ConfigData.UI_pro_4_2 : ConfigData.UI_pro_3_2; 
-            Sprite sp = rc.Get<GameObject>(imageHp).GetComponent<Image>().sprite;
-            self.Img_HpValue.GetComponent<Image>().sprite = sp;
+
         }
 
         public static void OnLoadGameObject(this UIPlayerHpComponent self, GameObject gameObject, long formId)

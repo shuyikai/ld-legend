@@ -6,7 +6,6 @@ namespace ET.Server
     {
         protected override async ETTask Run(Unit unit, C2M_EquipRefineRequest request, M2C_EquipRefineResponse response)
         {
-            //获取UserID及User数据
             BagComponentServer bagComponent = unit.GetComponent<BagComponentServer>();
             UserInfoComponentS userInfoComponent = unit.GetComponent<UserInfoComponentS>();
             UserInfo useInfo = userInfoComponent.UserInfo;

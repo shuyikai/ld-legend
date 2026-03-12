@@ -9,7 +9,7 @@ namespace ET.Client
         {
             Unit npc = null;
             
-            float distance = ConfigData.NpcDialogDistance;
+            float distance = 10f;
             Unit main = UnitHelper.GetMyUnitFromClientScene(root);
             List<EntityRef<Unit>> units = root.CurrentScene().GetComponent<UnitComponent>().GetAll();
             for (int i = 0; i < units.Count; i++)

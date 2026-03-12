@@ -7,45 +7,6 @@ namespace ET.Server
 {
     public static class ServerLogHelper
     {
-
-        /// 每小时执行一次
-        /// </summary>
-        public static void CheckLogSize()
-        {
-            if (ConfigData.LogLevel == 0)
-            {
-                return;
-            }
-
-            string logFolderPath = "../Logs/";
-            
-            // 大于1G的日志直接删除
-            if (Directory.Exists(logFolderPath))
-            {
-                try
-                {
-                    string[] logFiles = Directory.GetFiles(logFolderPath, "*.log");
-                    foreach (string logFilePath in logFiles)
-                    {
-                        long fileSizeInBytes = new FileInfo(logFilePath).Length;
-                        
-                        if (fileSizeInBytes >= 1073741824) // 1G = 1024 * 1024 * 1024 = 1073741824
-                        {
-                            File.Delete(logFilePath);
-                            // File.WriteAllText(logFilePath, string.Empty); // 清空
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
-            }
-            else
-            {
-                Console.WriteLine("日志文件不存在!");
-            }
-        }
         
         public static void LogWarning(string msg, bool log = false)
         {
@@ -70,7 +31,6 @@ namespace ET.Server
             {
                 return;
             }
-          
         }
 
         public static void TrialBattleInfo(int zone, string loginfo)
@@ -81,14 +41,6 @@ namespace ET.Server
                 return;
             }
 
-            string log = $"{TimeHelper.DateTimeNow().ToString()}: {serverItem.ServerName} {loginfo}";
-            ConfigData.KillInfoList.Add(log);
-            if (ConfigData.KillInfoList.Count >= 10)
-            {
-                string filePath = "../Logs/WJ_KillPlayer.txt";
-                WriteLogList(ConfigData.KillInfoList, filePath);
-                ConfigData.KillInfoList.Clear();
-            }
         }
 
         public static void PetMingBattleInfo(int zone, string loginfo)
@@ -98,60 +50,12 @@ namespace ET.Server
             {
                 return;
             }
-
-            string log = $"{TimeHelper.DateTimeNow().ToString()}: {serverItem.ServerName} {loginfo}";
-            ConfigData.KillInfoList.Add(log);
-            if (ConfigData.KillInfoList.Count >= 10)
-            {
-                string filePath = "../Logs/WJ_KillPlayer.txt";
-                WriteLogList(ConfigData.KillInfoList, filePath);
-                ConfigData.KillInfoList.Clear();
-            }
         }
 
         
         public static string GetNoticeNew()
         {
-            long serverTime = TimeHelper.ServerNow();
-            if (serverTime - ConfigData.NoticeLastGetTime < TimeHelper.Minute * 10
-                && !string.IsNullOrEmpty(ConfigData.NoticeLastContent))
-            {
-                return ConfigData.NoticeLastContent;
-            }
-
-
-            string filePath = "../Logs/WJ_Notice.txt";
-            if (File.Exists(filePath))
-            {
-                StreamReader sr = new StreamReader(filePath, Encoding.Default);
-                string notice = string.Empty;
-                string content = string.Empty;
-                int index = 0;
-                while ((content = sr.ReadLine()) != null)
-                {
-                    if (index == 0)
-                    {
-                        notice = $"{content}";
-                    }
-                    if (index == 1)
-                    {
-                        notice += $"@{content}";
-                    }
-                    if (index >= 2)
-                    {
-                        notice += $"\r\n{content}";
-                    }
-                    index++;
-                }
-                ConfigData.NoticeLastContent = notice;
-            }
-            else
-            {
-                ConfigData.NoticeLastContent = "0@公告未配置";
-            }
-
-            ConfigData.NoticeLastGetTime = serverTime;
-            return ConfigData.NoticeLastContent;
+            return string.Empty;
         }
 
         public static string GetNotice()
@@ -189,17 +93,7 @@ namespace ET.Server
 
         public static void OnStopServer()
         {
-            string filePath = "../Logs/WJ_login.txt";
-            WriteLogList(ConfigData.LoginInfoList, filePath);
-            ConfigData.LoginInfoList.Clear();
-
-            filePath = "../Logs/WJ_ZuoBi.txt";
-            WriteLogList(ConfigData.ZuobiInfoList, filePath);
-            ConfigData.ZuobiInfoList.Clear();
-            
-            filePath = "../Logs/WJ_KillPlayer.txt";
-            WriteLogList(ConfigData.KillInfoList, filePath);
-            ConfigData.KillInfoList.Clear();
+ 
         }
 
         public static void WriteLogList(List<string> infolist, string filePath, bool add = true)
@@ -240,19 +134,7 @@ namespace ET.Server
      
         public static void LoginInfo(string log)
         {
-            if (ConfigData.LogLevel == 0)
-            {
-                return;
-            }
-            log = TimeHelper.DateTimeNow().ToString() + " " + log;
-            ConfigData.LoginInfoList.Add(log);
-            if (ConfigData.LoginInfoList.Count >= 100)
-            {
-                string filePath = "../Logs/WJ_login.txt";
-                WriteLogList(ConfigData.LoginInfoList, filePath);
-
-                ConfigData.LoginInfoList.Clear();
-            }
+            
         }
 
      
@@ -262,26 +144,13 @@ namespace ET.Server
             //{
             //    return;
             //}
-            log = TimeHelper.DateTimeNow().ToString() + " " + log;
-            ConfigData.ZuobiInfoList.Add(log);
-            if (ConfigData.ZuobiInfoList.Count >= 10)
-            {
-                string filePath = "../Logs/WJ_ZuoBi.txt";
-                WriteLogList(ConfigData.ZuobiInfoList, filePath);
-                ConfigData.ZuobiInfoList.Clear();
-            }
+          
         }
 
         public static void OnLineInfo(string log)
         {
             log = TimeHelper.DateTimeNow().ToString() + " " + log;
-            ConfigData.ZuobiInfoList.Add(log);
-            if (ConfigData.ZuobiInfoList.Count >= 10)
-            {
-                string filePath = "../Logs/WJ_ZuoBi.txt";
-                WriteLogList(ConfigData.ZuobiInfoList, filePath);
-                ConfigData.ZuobiInfoList.Clear();
-            }
+         
         }
 
         public static void PaiMaiInfo(string log)

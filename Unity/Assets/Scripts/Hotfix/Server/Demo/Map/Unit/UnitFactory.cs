@@ -366,12 +366,12 @@ namespace ET.Server
             }
 
             float dropAdd_Pro = 1;
-            if (bekill.IsBoss() && main != null && !CommonHelp.IsSeasonBoss(bekill.ConfigId ))
+            if (bekill.IsBoss() && main != null)
             {
                 
             }
 
-            if (!bekill.IsBoss() && ConfigData.IsShowLieOpen)
+            if (!bekill.IsBoss())
             {
                 dropAdd_Pro += 1f;
             }

@@ -15,8 +15,7 @@ namespace ET.Server
                 switch (request.LoadType)
                 {
                     case 1: //狩猎
-                        ConfigData.ShowLieOpen = request.LoadValue == "1";
-                        Console.WriteLine($" ConfigData.ShowLieOpen:  {ConfigData.ShowLieOpen}");
+                       
                         break;
                     case 2:  //世界等级
                         int zone = int.Parse(request.LoadValue);

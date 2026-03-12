@@ -760,11 +760,7 @@ namespace  ET
             
             SettingData.FindPathLog.Clear();
         }
-
-        public static bool IsSeasonBoss(int monsterid)
-        {
-            return ConfigData.SeasonBossId == monsterid;
-        }
+        
 
         public static void ReplaceList<T>(List<T> mainList, List<T> newList, int insertIndex)
         {

@@ -660,11 +660,6 @@ namespace ET.Client
             if (unit.Type == UnitType.Bullet)
             {
                 SkillConfig skillConfig = SkillConfigCategory.Instance.Get(unit.ConfigId);
-                if (skillConfig.GameObjectName.Equals(ConfigData.Skill_ComTargetMove_RangDamge_7))
-                {
-                    long masterid = unit.GetComponent<NumericComponentClient>().GetAsLong(NumericType.MasterId);
-                    unit.AddComponent<RoleBullet7Componnet>().OnBaseBulletInit(masterid);
-                }
             }
         }
 

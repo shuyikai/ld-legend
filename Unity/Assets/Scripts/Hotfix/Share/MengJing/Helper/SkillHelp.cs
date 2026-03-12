@@ -23,11 +23,7 @@ namespace ET
                 {"Act_13", 900 },
             };
         }
-
-        public static bool IsChongJiSkill(string skillname)
-        {
-            return skillname.Equals(ConfigData.Skill_Other_ChongJi_1);
-        }
+        
 
         public static bool havePassiveSkillType(int[] typelist, int passType)
         {

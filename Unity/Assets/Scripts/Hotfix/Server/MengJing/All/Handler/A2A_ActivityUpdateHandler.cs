@@ -149,8 +149,6 @@ namespace ET.Server
                     {
                         scene.GetComponent<FangChenMiComponentS>().CheckHoliday().Coroutine();
                     }
-
-                    ServerLogHelper.CheckLogSize();
                     break;
                 case SceneType.Realm:
                     if (hour == 0)
