@@ -27,8 +27,7 @@ namespace ET.Client
                 selfpet = true;
             }
 
-            if (mainScene && (SettingData.NoShowOther || UnitHelper.GetUnitList(currentScene, UnitType.Player).Count >= SettingData.NoShowPlayer)
-                && !mainHero && !selfpet)
+            if (mainScene && SettingData.NoShowOther && !mainHero && !selfpet)
             {
                 return null;
             }

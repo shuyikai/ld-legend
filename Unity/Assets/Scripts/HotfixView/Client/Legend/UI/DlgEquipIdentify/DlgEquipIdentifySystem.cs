@@ -84,8 +84,7 @@ namespace ET.Client
 
 			if (itemInfo.JianDingProLists.Count > 0)
 			{
-				string etip = LanguageComponent.Instance.LoadLocalization("该装备已鉴定过!");
-				FlyTipComponent.Instance.ShowFlyTip(etip);
+				HintHelp.ShowErrorHint(self.Root(), ErrorCode.ERR_AlreadyIdentyfy);
 				return;
 			}
 
