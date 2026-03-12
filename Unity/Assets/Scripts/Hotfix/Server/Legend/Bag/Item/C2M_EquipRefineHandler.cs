@@ -55,7 +55,6 @@ namespace ET.Server
             }
 
             bool sucess = false;
-            useBagInfo.RefineSuceTimes += 1;
             if (refineInfo.SuccessRate * 0.01f >= RandomHelper.RandFloat01())
             {
                 sucess = true;
@@ -71,6 +70,10 @@ namespace ET.Server
                 useBagInfo.RefineSuceTimes++;
                 useBagInfo.RefineFailTimes = 0;
                 response.Message = useBagInfo.RefineSuceTimes.ToString();
+            }
+            else
+            {
+                useBagInfo.RefineFailTimes += 1;
             }
 
             //通知客户端背包刷新

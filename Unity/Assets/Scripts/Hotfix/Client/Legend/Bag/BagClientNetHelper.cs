@@ -178,10 +178,10 @@ namespace ET.Client
         /// <param name="bagInfo"></param>
         /// <param name="operatetype"></param>
         /// <returns></returns>
-        public static async ETTask<M2C_EquipRefineResponse> RequestEquipRefine(Scene root, ItemInfo bagInfo, int operatetype)
+        public static async ETTask<M2C_EquipRefineResponse> RequestEquipRefine(Scene root, long bagInfoId, int operatetype)
         {
             C2M_EquipRefineRequest refineRequest = C2M_EquipRefineRequest.Create();
-            refineRequest.OperateBagID = bagInfo.BagInfoID;
+            refineRequest.OperateBagID = bagInfoId;
             refineRequest.OperateType = operatetype;
             M2C_EquipRefineResponse response = (M2C_EquipRefineResponse)await root.GetComponent<ClientSenderCompnent>().Call(refineRequest);
             if (response.Error != ErrorCode.ERR_Success)

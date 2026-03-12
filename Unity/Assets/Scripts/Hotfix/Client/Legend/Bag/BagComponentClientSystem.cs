@@ -44,7 +44,7 @@ namespace ET.Client
                 {
                     ItemInfo newInfo = self.AddChild<ItemInfo>();
                     newInfo.FromMessage(bagUpdate[i]);
-                    ItemInfo oldInfo = self.GetBagInfo(bagUpdate[i].BagInfoID);
+                    ItemInfo oldInfo = self.GetItemInfo(bagUpdate[i].BagInfoID);
                     if (oldInfo == null)
                     {
                         continue;
@@ -267,8 +267,22 @@ namespace ET.Client
 
             return null;
         }
+        
+        public static ItemInfo GetItemInfoByLoc(this BagComponentClient self, int loc, long id)
+        {
+            List<ItemInfo> baglist =  self.AllItemList[loc];
+            for (int k = 0; k < baglist.Count; k++)
+            {
+                if (baglist[k].BagInfoID == id)
+                {
+                    return baglist[k];
+                }
+            }
 
-        public static ItemInfo GetBagInfo(this BagComponentClient self, long id)
+            return null;
+        }
+
+        public static ItemInfo GetItemInfo(this BagComponentClient self, long id)
         {
             for (int i = 0; i < self.AllItemList.Count; i++)
             {

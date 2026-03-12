@@ -11,14 +11,14 @@ namespace ET.Client
 		public Dictionary<int, EntityRef<Scroll_Item_CommonItem>> ScrollItemCommonItems;
 		public List<ItemInfo> ShowBagInfos { get; set; } = new();
 
-		private EntityRef<ItemInfo> selectEquipinfo;
+		private long selectEquipId;
 
-		public ItemInfo SelectEquipinfo
+		public long SelectEquipId
 		{
-			get => selectEquipinfo;
+			get => this.selectEquipId;
 			set
 			{
-				this.selectEquipinfo = value;
+				this.selectEquipId = value;
 			}
 		}
 

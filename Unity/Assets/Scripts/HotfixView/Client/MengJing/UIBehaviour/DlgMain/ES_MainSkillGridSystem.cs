@@ -184,7 +184,7 @@ namespace ET.Client
             }
             else
             {
-                ItemInfo bagInfo = self.Root().GetComponent<BagComponentClient>().GetBagInfo(self.SkillPro.SkillID);
+                ItemInfo bagInfo = self.Root().GetComponent<BagComponentClient>().GetItemInfo(self.SkillPro.SkillID);
                 if (bagInfo == null)
                 {
                     return;

@@ -53,7 +53,7 @@ namespace ET.Client
 
 		 private static void UpdateSelect(this DlgNecklaceRefine self, ItemInfo bagInfo)
 		 {
-			 self.SelectEquipinfo = bagInfo;
+			 self.SelectEquipId = bagInfo.BagInfoID;
 			 for (int i = 0; i < self.ScrollItemCommonItems.Keys.Count - 1; i++)
 			 {
 				 Scroll_Item_CommonItem scrollItemCommonItem = self.ScrollItemCommonItems[i];
@@ -72,12 +72,20 @@ namespace ET.Client
 
 		 private static void ShowCostYuanbao(this DlgNecklaceRefine self)
 		 {
-			 if (self.SelectEquipinfo == null)
+			 if (self.SelectEquipId == null)
 			 {
 				 return;
 			 }
 
-			 int sucecctimes = self.SelectEquipinfo.RefineSuceTimes;
+			 BagComponentClient bagComponentClient = self.Root().GetComponent<BagComponentClient>();
+			 int loctype = self.CurrentItemType == 0 ? ItemLocType.ItemLocEquip : ItemLocType.ItemLocBag;
+			 ItemInfo itemInfo = bagComponentClient.GetItemInfoByLoc(loctype, self.SelectEquipId);
+			 if (itemInfo == null)
+			 {
+				 return;
+			 }
+
+			 int sucecctimes = itemInfo.RefineSuceTimes;
 			 EquipRefineInfo equipRefineInfo =  GlobalValueConfigCategory.Instance.GetEquipRefine(sucecctimes);
 			 if (equipRefineInfo == null)
 			 {
@@ -123,14 +131,15 @@ namespace ET.Client
 		private static async ETTask OnClickRefineButtion(this DlgNecklaceRefine self)
 		{
 			Log.Debug($"OnClickRefineButtion");
-			if (self.SelectEquipinfo == null)
+			if (self.SelectEquipId == 0)
 			{
 				return;
 			}
+			
 
 			long instanceid = self.InstanceId;
 			int loctype = self.CurrentItemType == 0 ? ItemLocType.ItemLocEquip : ItemLocType.ItemLocBag;
-			M2C_EquipRefineResponse refineResponse =  await BagClientNetHelper.RequestEquipRefine(self.Root(), self.SelectEquipinfo, loctype);
+			M2C_EquipRefineResponse refineResponse =  await BagClientNetHelper.RequestEquipRefine(self.Root(), self.SelectEquipId, loctype);
 			if (refineResponse == null || instanceid != self.InstanceId)
 			{
 				return;
