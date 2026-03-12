@@ -51,6 +51,8 @@ namespace ET.Server
                         NumericComponentServer numericComponentServer = unit.AddComponent<NumericComponentServer>();
                         numericComponentServer.ApplyValue(NumericType.Now_Speed, 60000, false); // 速度是6米每秒
                         numericComponentServer.ApplyValue(NumericType.AOI, 15000, false); // 视野15米
+                        numericComponentServer.ApplyValue(NumericType.Occ, createRoleInfo.PlayerOcc, false);
+                        numericComponentServer.ApplyValue(NumericType.Now_Lv, createRoleInfo.PlayerLv, false);
                     }
 
                     unit.AddDataComponent<TaskComponentS>();

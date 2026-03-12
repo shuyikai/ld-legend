@@ -113,16 +113,24 @@ namespace ET.Client
 			BagComponentClient bagComponentC = self.Root().GetComponent<BagComponentClient>();
 			
 			self.ShowBagInfos.Clear();
-			switch (self.CurrentItemType)
+			List<ItemInfo> itemInfos = bagComponentC.GetItemsByLoc(self.CurrentItemType == 0 ? 1 : 0);
+			
+			for (int i = 0; i < itemInfos.Count; i++)
 			{
-				case 0:
-				case 1:
-					self.ShowBagInfos.AddRange(bagComponentC.GetItemsByLoc(self.CurrentItemType==0?1:0));
-					break;
-				default:
-					break;
-			}
+				ItemInfo itemInfo = itemInfos[i];
+				if (itemInfo.ItemID < ItemDataType.EquipInitId)
+				{
+					continue;
+				}
 
+				EquipConfig equipConfig = EquipConfigCategory.Instance.Get(itemInfo.ItemID);
+				if (equipConfig.StdMode!= EquipStdmodeEnum.XiangLian_3)
+				{
+					continue;
+				}
+
+				self.ShowBagInfos.Add(itemInfo);
+			}
 			int allNumber = bagComponentC.GetBagShowCell(ItemLocType.ItemLocBag);
 			// int maxCount = GlobalValueConfigCategory.Instance.BagMaxCapacity;
 			

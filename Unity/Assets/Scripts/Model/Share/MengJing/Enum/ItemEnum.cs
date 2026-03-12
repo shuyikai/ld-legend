@@ -75,7 +75,8 @@ namespace ET
     11 鞋子*/
     public static class EquipStdmodeEnum
     {
-        public const int Yifu_1 = 1;
+        public const int Yifu_0 = 0;
+        public const int Wuqi_1 = 1;
         public const int XunZhang_2 = 2;
         public const int XiangLian_3 = 3;
         public const int Toukui_4 = 4;
