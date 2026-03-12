@@ -100,8 +100,7 @@ namespace ET.Client
 				HintHelp.ShowErrorHint(self.Root(), ErrorCode.ERR_YunbaoNotEnoughError);
 				return;
 			}
-			
-			
+
 		}
 
 		private static void ShowCostYuanbao(this DlgEquipIdentify self)
