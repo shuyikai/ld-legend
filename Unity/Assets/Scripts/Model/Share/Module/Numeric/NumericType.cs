@@ -134,7 +134,7 @@
         public const int Extra_Buff_ActSpeedPro_Add = Now_ActSpeedPro * 100 + 11;            //属性Buff附加加法
         public const int Extra_Buff_ActSpeedPro_Mul = Now_ActSpeedPro * 100 + 12;            //属性Buff附加乘法
         
-        public const int Now_CritRate = 1012;                                       //生命总值（最终计算结果赋值给这个Key）
+        public const int Now_CritRate = 1012;                                           //暴击总值（最终计算结果赋值给这个Key）
         public const int Base_CritRate_Base = Now_CritRate * 100 + 1;                  //基础累加值（属性累加）
         public const int Base_CritRate_Mul = Now_CritRate * 100 + 2;                   //基础乘法系数（属性乘法）
         public const int Base_CritRate_Add = Now_CritRate * 100 + 3;                   //基础附加值（属性附加）
