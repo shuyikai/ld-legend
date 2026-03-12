@@ -165,8 +165,7 @@ namespace ET.Client
         {
             BagComponentClient bagComponent = self.Root().GetComponent<BagComponentClient>();
             UserInfoComponentC userInfoComponent = self.Root().GetComponent<UserInfoComponentC>();
-            ItemInfo bagInfo = bagComponent.GetEquipBySubType(ItemLocType.ItemLocEquip, (int)ItemSubTypeEnum.Wuqi);
-            self.View.ES_EquipSet.ChangeWeapon(bagInfo, 1);
+         
         }
         
 

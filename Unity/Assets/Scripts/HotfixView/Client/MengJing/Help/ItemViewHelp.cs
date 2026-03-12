@@ -8,30 +8,6 @@ namespace ET.Client
     public static class ItemViewHelp
     {
         
-        public static string GetFumpProDesc(List<HideProList> hideProLists)
-        {
-            string fumopro = "";
-            for (int i = 0; i < hideProLists.Count; i++)
-            {
-                HideProList hideProList = hideProLists[i];
-                int showType = NumericHelp.GetNumericValueType(hideProList.HideID);
-                string attribute;
-                if (showType == 2) //浮点数
-                {
-                    float value = (float)hideProList.HideValue / 100f;
-                    attribute = $"{GetAttributeName(hideProList.HideID)} + " + value.ToString("0.##") + "%";
-                }
-                else //整数
-                {
-                    attribute = $"{GetAttributeName(hideProList.HideID)} + {hideProList.HideValue}";
-                }
-
-                fumopro += " " + attribute;
-            }
-
-            return fumopro;
-        }
-
         public static string GetAttributeDesc(string pro)
         {
             string attributeStr = string.Empty;
@@ -391,36 +367,6 @@ namespace ET.Client
             return go;
         }
         
-
-        public static string QualityReturnColorUI(int ItenQuality)
-        {
-            string color = "FFFFFF";
-            switch (ItenQuality)
-            {
-                case 1:
-                    color = "686868";
-                    break;
-
-                case 2:
-                    color = "47930F";
-                    break;
-                case 3:
-                    color = "108793";
-                    break;
-
-                case 4:
-                    color = "9D298C";
-                    break;
-                case 5:
-                    color = "9C2933";
-                    break;
-                case 6:
-                    color = "9C2933";
-                    break;
-            }
-
-            return color;
-        }
 
         public static string GetEquipSonType(string itemSubType)
         {

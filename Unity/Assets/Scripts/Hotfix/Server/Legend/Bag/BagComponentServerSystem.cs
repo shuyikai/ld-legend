@@ -459,12 +459,7 @@ namespace ET.Server
             Unit unit = self.GetParent<Unit>();
          
         }
-
-        public static int GetWuqiItemId(this BagComponentServer self)
-        {
-            ItemInfo bagInfo = self.GetEquipBySubType(ItemLocType.ItemLocEquip, (int)ItemSubTypeEnum.Wuqi);
-            return bagInfo != null ? bagInfo.ItemID : 0;
-        }
+        
 
         //字符串添加道具 
         public static bool OnAddItemData(this BagComponentServer self, string rewardItems, string getType, bool notice = true)

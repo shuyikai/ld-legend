@@ -1973,3 +1973,19 @@ message ItemInfoProto
 	int32 GemIDNew = 11;	//对应的宝石ID
 	string MakePlayer = 12;					//制作玩家名字
 }
+
+//洗练项链
+//ResponseType M2C_EquipRefineResponse
+message C2M_EquipRefineRequest // ILocationRequest
+{
+	int32 RpcId = 90;
+	int64 OperateBagID = 2;
+	int32 OperateType = 3;				// 1人物  2背包
+}
+
+message M2C_EquipRefineResponse // ILocationResponse
+{
+	int32 RpcId = 90;
+	string Message = 91;
+	int32 Error = 92;
+}

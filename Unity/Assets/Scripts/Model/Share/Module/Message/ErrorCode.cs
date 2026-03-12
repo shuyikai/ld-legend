@@ -119,5 +119,7 @@ namespace ET
         public const int ERR_PackageFrequent = 200084;                  //发包异常
         public const int ERR_EquipNotEnoughError = 200085;                           //装备不足
         public const int ERR_ReputationNotEnoughError = 200086;                           //声望不足
+        public const int ERR_EquipTypeError = 200087;                       //装备类型不符
+        public const int ERR_XiLianMaxError = 200088;    
     }
 }

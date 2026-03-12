@@ -190,16 +190,7 @@ namespace ET.Server
                 }
 
                 //获取之前的位置是否有装备
-                ItemInfo beforeequip = null;
-                if (weizhi == (int) ItemSubTypeEnum.Shiping)  // && !CommonHelp.IsBanHaoZone(unit.Zone()))
-                {
-                    List<ItemInfo> equipList = bagComponent.GetEquipListByWeizhi(ItemLocType.ItemLocEquip, weizhi);
-                    beforeequip = equipList.Count < ConfigData.EquipShiPingMax? null : equipList[0];
-                }
-                else
-                {
-                    beforeequip = bagComponent.GetEquipBySubType(ItemLocType.ItemLocEquip, weizhi);
-                }
+                ItemInfo beforeequip = bagComponent.GetEquipBySubType(ItemLocType.ItemLocEquip, weizhi);
 
                 if (beforeequip != null)
                 {
@@ -216,10 +207,6 @@ namespace ET.Server
                 useBagInfo.isBinging = true;
                 m2c_bagUpdate.BagInfoUpdate.Add(useBagInfo.ToMessage());
 
-                if (weizhi == (int) ItemSubTypeEnum.Wuqi)
-                {
-                    unit.GetComponent<SkillPassiveComponent>().OnTrigegerPassiveSkill(SkillPassiveTypeEnum.WandBuff_8, useBagInfo.ItemID);
-                }
             }
 
             //卸下装备

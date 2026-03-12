@@ -446,16 +446,7 @@ namespace ET.Client
 
                 int weizhi = 0;
                 //获取之前的位置是否有装备
-                ItemInfo beforeequip = null;
-                if (weizhi == (int)ItemSubTypeEnum.Shiping)
-                {
-                    List<ItemInfo> equipList = self.GetEquipListByWeizhi(weizhi);
-                    beforeequip = equipList.Count < ConfigData.EquipShiPingMax ? null : equipList[0];
-                }
-                else
-                {
-                    beforeequip = self.GetEquipBySubType(ItemLocType.ItemLocEquip, weizhi);
-                }
+                ItemInfo beforeequip = self.GetEquipBySubType(ItemLocType.ItemLocEquip, weizhi);
 
                 if (beforeequip == null)
                 {

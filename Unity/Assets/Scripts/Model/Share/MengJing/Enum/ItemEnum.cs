@@ -41,31 +41,7 @@ namespace ET
         public const int Gemstone = 4;
         public const int PetHeXin = 5;
     }
-
-    //装备类型细分
-    //0:通用
-    //1:剑
-    //2:刀
-    //3:法杖
-    //4:魔法书
-    //5:弓手
-    //11:布甲
-    //12:轻甲
-    //13:重甲
-    public static class ItemEquipType
-    {
-        public const int Common = 0;
-        public const int Sword = 1;
-        public const int Knife = 2;
-        public const int Wand = 3;
-        public const int Book = 4;
-        public const int Bow = 5;
-
-        public const int Bujia = 11;
-        public const int QingJia = 12;
-        public const int ZhongJia = 13;
-    }
-
+    
     //道具存放位置
     //0背包
     //1装备
@@ -85,31 +61,31 @@ namespace ET
         public const int  ItemLocMax = 3;
     }
     
-    //道具装备位置
-    //1 武器
-    //2 衣服
-    //3 护符
-    //4 戒指
-    //5 饰品
-    //6 鞋子
-    //7 裤子
-    //8 腰带
-    //9 手镯
-    //10 头盔
-    //11 项链
-    public enum ItemSubTypeEnum : int
+    /*0 衣服
+    1 武器
+    2 勋章
+    3 项链
+    4 头盔
+    5  右手镯
+    6  左手镯
+    7  右戒指
+    8  左戒指
+    9  符、毒药
+    10 腰带
+    11 鞋子*/
+    public static class EquipStdmodeEnum
     {
-        Wuqi    = 1,
-        Yifu    = 2,
-        Fuhu    = 3,
-        Jiezhi  =4,
-        Shiping =5,
-        Xiezi   =6,
-        Kuzi    =7,
-        Yaodai  =8,
-        Shouzhuo=9,
-        Toukui  =10,
-        Xianglian=11,
+        public const int Yifu_1 = 1;
+        public const int XunZhang_2 = 2;
+        public const int XiangLian_3 = 3;
+        public const int Toukui_4 = 4;
+        public const int Youshouzhuo_5 = 5;
+        public const int Zuoshouzhuo_6 = 6;
+        public const int Youjiezhi_7 = 7;
+        public const int Zuojiezhi_8 = 8;
+        public const int Fuwen_9 = 9;
+        public const int Yaodai_10 = 10;
+        public const int Xiezi_11 = 11;
     }
 
     //1:白色

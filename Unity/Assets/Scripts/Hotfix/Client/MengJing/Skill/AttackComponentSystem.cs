@@ -127,7 +127,7 @@ namespace ET.Client
             Unit unit = self.GetMainUnit();
             NumericComponentClient numericComponent = unit.GetComponent<NumericComponentClient>();
             float attackSpped = 1f + numericComponent.GetAsFloat(NumericType.Now_ActSpeedPro);
-            self.SkillCDs = EquipType == (int)ItemEquipType.Knife ? new List<int>() { 500, 1000, 1000 } : new List<int>() { 700, 700, 700 };
+            self.SkillCDs = new List<int>() { 700, 700, 700 };
             for (int i = 0; i < self.SkillCDs.Count; i++)
             {
                 self.SkillCDs[i] = (int)(self.SkillCDs[i] / attackSpped);
@@ -145,14 +145,6 @@ namespace ET.Client
             {
                 self.ComboSkillId = SkillConfigCategory.Instance.Get(self.ComboSkillId).ComboSkillID;
             }
-
-            int EquipType = UnitHelper.GetEquipType(self.Root());
-            if ((EquipType == (int)ItemEquipType.Sword
-                    || EquipType == (int)ItemEquipType.Common))
-            {
-                self.ComboSkillId = self.RandomGetSkill(lastSkill);
-            }
-
             if (self.ComboSkillId == 60000103 || self.ComboSkillId == 60000203)
             {
                 self.ComboStartTime = 1250;
@@ -172,24 +164,9 @@ namespace ET.Client
         public static void UpdateComboTime(this AttackComponent self)
         {
             int equipType = UnitHelper.GetEquipType(self.Root());
-            if (equipType == ItemEquipType.Sword)
-            {
-                //剑
-                self.ComboStartTime = 500;
-                self.CombatEndTime = 500;
-            }
-            else if (equipType == ItemEquipType.Knife)
-            {
-                //刀
-                self.ComboStartTime = 1000;
-                self.CombatEndTime = 2000;
-            }
-            else
-            {
-                //空手默认是剑
-                self.ComboStartTime = 500;
-                self.CombatEndTime = 500;
-            }
+            //空手默认是剑
+            self.ComboStartTime = 500;
+            self.CombatEndTime = 500;
         }
 
         public static int RandomGetSkill(this AttackComponent self, int lastSkill)
