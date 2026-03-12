@@ -333,5 +333,25 @@ namespace ET
 
             return 0;
         }
+
+        /// <summary>
+        /// 获取对应武器的装备鉴定配置
+        /// </summary>
+        /// <param name="occ"></param>
+        /// <param name="stdmode"></param>
+        /// <returns></returns>
+        public static EquipIdentifyConfig GetEquipIdentifyConfigByOccAndEquip(int occ, int stdmode)
+        {
+            Dictionary<int, EquipIdentifyConfig> allconfig = EquipIdentifyConfigCategory.Instance.GetAll();
+            foreach ((int id, EquipIdentifyConfig config) in allconfig)
+            {
+                if (config.occ == occ && config.StdMode == stdmode)
+                {
+                    return config;
+                }
+            }
+
+            return null;
+        }
     }
 }

@@ -2810,145 +2810,6 @@ namespace ET
     }
 
     [MemoryPackable]
-    [Message(OuterMessage.PaiMaiItemInfo)]
-    public partial class PaiMaiItemInfo : MessageObject
-    {
-        public static PaiMaiItemInfo Create(bool isFromPool = false)
-        {
-            return ObjectPool.Instance.Fetch(typeof(PaiMaiItemInfo), isFromPool) as PaiMaiItemInfo;
-        }
-
-        [MemoryPackOrder(0)]
-        public long Id { get; set; }
-
-        [MemoryPackOrder(1)]
-        public long UserId { get; set; }
-
-        [MemoryPackOrder(2)]
-        public ItemInfoProto BagInfo { get; set; }
-
-        [MemoryPackOrder(4)]
-        public int Price { get; set; }
-
-        [MemoryPackOrder(5)]
-        public string PlayerName { get; set; }
-
-        [MemoryPackOrder(6)]
-        public long SellTime { get; set; }
-
-        [MemoryPackOrder(7)]
-        public string Account { get; set; }
-
-        public override void Dispose()
-        {
-            if (!this.IsFromPool)
-            {
-                return;
-            }
-
-            this.Id = default;
-            this.UserId = default;
-            this.BagInfo = default;
-            this.Price = default;
-            this.PlayerName = default;
-            this.SellTime = default;
-            this.Account = default;
-
-            ObjectPool.Instance.Recycle(this);
-        }
-    }
-
-    [MemoryPackable]
-    [Message(OuterMessage.PaiMaiShopItemInfo)]
-    public partial class PaiMaiShopItemInfo : MessageObject
-    {
-        public static PaiMaiShopItemInfo Create(bool isFromPool = false)
-        {
-            return ObjectPool.Instance.Fetch(typeof(PaiMaiShopItemInfo), isFromPool) as PaiMaiShopItemInfo;
-        }
-
-        [MemoryPackOrder(0)]
-        public long Id { get; set; }
-
-        [MemoryPackOrder(1)]
-        public int ItemNumber { get; set; }
-
-        [MemoryPackOrder(2)]
-        public int PriceType { get; set; }
-
-        [MemoryPackOrder(3)]
-        public int Price { get; set; }
-
-        [MemoryPackOrder(4)]
-        public float PricePro { get; set; }
-
-        [MemoryPackOrder(5)]
-        public int BuyNum { get; set; }
-
-        public override void Dispose()
-        {
-            if (!this.IsFromPool)
-            {
-                return;
-            }
-
-            this.Id = default;
-            this.ItemNumber = default;
-            this.PriceType = default;
-            this.Price = default;
-            this.PricePro = default;
-            this.BuyNum = default;
-
-            ObjectPool.Instance.Recycle(this);
-        }
-    }
-
-    [MemoryPackable]
-    [Message(OuterMessage.PopularizeInfo)]
-    public partial class PopularizeInfo : MessageObject
-    {
-        public static PopularizeInfo Create(bool isFromPool = false)
-        {
-            return ObjectPool.Instance.Fetch(typeof(PopularizeInfo), isFromPool) as PopularizeInfo;
-        }
-
-        [MemoryPackOrder(0)]
-        public long UnitId { get; set; }
-
-        [MemoryPackOrder(1)]
-        public string Nmae { get; set; }
-
-        [MemoryPackOrder(2)]
-        public int Level { get; set; }
-
-        [MemoryPackOrder(3)]
-        public List<int> Rewards { get; set; } = new();
-
-        [MemoryPackOrder(4)]
-        public int Occ { get; set; }
-
-        [MemoryPackOrder(5)]
-        public int OccTwo { get; set; }
-
-        public override void Dispose()
-        {
-            if (!this.IsFromPool)
-            {
-                return;
-            }
-
-            this.UnitId = default;
-            this.Nmae = default;
-            this.Level = default;
-            this.Rewards.Clear();
-            this.Occ = default;
-            this.OccTwo = default;
-
-            ObjectPool.Instance.Recycle(this);
-        }
-    }
-
-    [MemoryPackable]
     [Message(OuterMessage.RankingInfo)]
     public partial class RankingInfo : MessageObject
     {
@@ -3491,38 +3352,6 @@ namespace ET
         }
     }
 
-    [MemoryPackable]
-    [Message(OuterMessage.FubenPassInfo)]
-    public partial class FubenPassInfo : MessageObject
-    {
-        public static FubenPassInfo Create(bool isFromPool = false)
-        {
-            return ObjectPool.Instance.Fetch(typeof(FubenPassInfo), isFromPool) as FubenPassInfo;
-        }
-
-        [MemoryPackOrder(0)]
-        public int FubenId { get; set; }
-
-        /// <summary>
-        /// 1 difficulty普通 2 挑战  3困难
-        /// </summary>
-        [MemoryPackOrder(1)]
-        public int Difficulty { get; set; }
-
-        public override void Dispose()
-        {
-            if (!this.IsFromPool)
-            {
-                return;
-            }
-
-            this.FubenId = default;
-            this.Difficulty = default;
-
-            ObjectPool.Instance.Recycle(this);
-        }
-    }
-
     // 道具[装备]更新
     [MemoryPackable]
     [Message(OuterMessage.M2C_RoleBagUpdate)]
@@ -3552,104 +3381,6 @@ namespace ET
             this.BagInfoAdd.Clear();
             this.BagInfoUpdate.Clear();
             this.BagInfoDelete.Clear();
-
-            ObjectPool.Instance.Recycle(this);
-        }
-    }
-
-    [MemoryPackable]
-    [Message(OuterMessage.C2M_BagInitRequest)]
-    [ResponseType(nameof(M2C_BagInitResponse))]
-    public partial class C2M_BagInitRequest : MessageObject, ILocationRequest
-    {
-        public static C2M_BagInitRequest Create(bool isFromPool = false)
-        {
-            return ObjectPool.Instance.Fetch(typeof(C2M_BagInitRequest), isFromPool) as C2M_BagInitRequest;
-        }
-
-        [MemoryPackOrder(89)]
-        public int RpcId { get; set; }
-
-        [MemoryPackOrder(92)]
-        public long ActorId { get; set; }
-
-        public override void Dispose()
-        {
-            if (!this.IsFromPool)
-            {
-                return;
-            }
-
-            this.RpcId = default;
-            this.ActorId = default;
-
-            ObjectPool.Instance.Recycle(this);
-        }
-    }
-
-    [MemoryPackable]
-    [Message(OuterMessage.M2C_BagInitResponse)]
-    public partial class M2C_BagInitResponse : MessageObject, ILocationResponse
-    {
-        public static M2C_BagInitResponse Create(bool isFromPool = false)
-        {
-            return ObjectPool.Instance.Fetch(typeof(M2C_BagInitResponse), isFromPool) as M2C_BagInitResponse;
-        }
-
-        [MemoryPackOrder(89)]
-        public int RpcId { get; set; }
-
-        [MemoryPackOrder(90)]
-        public string Message { get; set; }
-
-        [MemoryPackOrder(91)]
-        public int Error { get; set; }
-
-        [MemoryPackOrder(0)]
-        public List<ItemInfoProto> BagInfos { get; set; } = new();
-
-        [MemoryPackOrder(1)]
-        public List<int> QiangHuaLevel { get; set; } = new();
-
-        [MemoryPackOrder(2)]
-        public List<int> QiangHuaFails { get; set; } = new();
-
-        /// <summary>
-        /// int32 BagAddedCell = 4;
-        /// </summary>
-        [MemoryPackOrder(4)]
-        public List<int> WarehouseAddedCell { get; set; } = new();
-
-        [MemoryPackOrder(5)]
-        public List<int> FashionActiveIds { get; set; } = new();
-
-        [MemoryPackOrder(6)]
-        public List<int> FashionEquipList { get; set; } = new();
-
-        [MemoryPackOrder(7)]
-        public int SeasonJingHePlan { get; set; }
-
-        [MemoryPackOrder(8)]
-        public List<int> AdditionalCellNum { get; set; } = new();
-
-        public override void Dispose()
-        {
-            if (!this.IsFromPool)
-            {
-                return;
-            }
-
-            this.RpcId = default;
-            this.Message = default;
-            this.Error = default;
-            this.BagInfos.Clear();
-            this.QiangHuaLevel.Clear();
-            this.QiangHuaFails.Clear();
-            this.WarehouseAddedCell.Clear();
-            this.FashionActiveIds.Clear();
-            this.FashionEquipList.Clear();
-            this.SeasonJingHePlan = default;
-            this.AdditionalCellNum.Clear();
 
             ObjectPool.Instance.Recycle(this);
         }
@@ -3730,7 +3461,7 @@ namespace ET
         }
     }
 
-    // 穿戴装备
+    // 道具操作
     [MemoryPackable]
     [Message(OuterMessage.C2M_ItemOperateRequest)]
     [ResponseType(nameof(M2C_ItemOperateResponse))]
@@ -4589,230 +4320,6 @@ namespace ET
             this.ApplyList.Clear();
             this.Blacklist.Clear();
             this.FriendChats.Clear();
-
-            ObjectPool.Instance.Recycle(this);
-        }
-    }
-
-    [MemoryPackable]
-    [Message(OuterMessage.C2M_SkillCmd)]
-    [ResponseType(nameof(M2C_SkillCmd))]
-    public partial class C2M_SkillCmd : MessageObject, ILocationRequest
-    {
-        public static C2M_SkillCmd Create(bool isFromPool = false)
-        {
-            return ObjectPool.Instance.Fetch(typeof(C2M_SkillCmd), isFromPool) as C2M_SkillCmd;
-        }
-
-        [MemoryPackOrder(89)]
-        public int RpcId { get; set; }
-
-        [MemoryPackOrder(92)]
-        public long ActorId { get; set; }
-
-        [MemoryPackOrder(0)]
-        public int SkillID { get; set; }
-
-        [MemoryPackOrder(1)]
-        public long TargetID { get; set; }
-
-        [MemoryPackOrder(2)]
-        public int TargetAngle { get; set; }
-
-        [MemoryPackOrder(3)]
-        public float TargetDistance { get; set; }
-
-        [MemoryPackOrder(4)]
-        public int WeaponSkillID { get; set; }
-
-        [MemoryPackOrder(5)]
-        public int ItemId { get; set; }
-
-        [MemoryPackOrder(6)]
-        public float SingValue { get; set; }
-
-        [MemoryPackOrder(9)]
-        public long PetId { get; set; }
-
-        public override void Dispose()
-        {
-            if (!this.IsFromPool)
-            {
-                return;
-            }
-
-            this.RpcId = default;
-            this.ActorId = default;
-            this.SkillID = default;
-            this.TargetID = default;
-            this.TargetAngle = default;
-            this.TargetDistance = default;
-            this.WeaponSkillID = default;
-            this.ItemId = default;
-            this.SingValue = default;
-            this.PetId = default;
-
-            ObjectPool.Instance.Recycle(this);
-        }
-    }
-
-    [MemoryPackable]
-    [Message(OuterMessage.M2C_SkillCmd)]
-    public partial class M2C_SkillCmd : MessageObject, ILocationResponse
-    {
-        public static M2C_SkillCmd Create(bool isFromPool = false)
-        {
-            return ObjectPool.Instance.Fetch(typeof(M2C_SkillCmd), isFromPool) as M2C_SkillCmd;
-        }
-
-        [MemoryPackOrder(89)]
-        public int RpcId { get; set; }
-
-        [MemoryPackOrder(90)]
-        public int Error { get; set; }
-
-        [MemoryPackOrder(91)]
-        public string Message { get; set; }
-
-        [MemoryPackOrder(0)]
-        public long CDEndTime { get; set; }
-
-        [MemoryPackOrder(1)]
-        public long PublicCDTime { get; set; }
-
-        public override void Dispose()
-        {
-            if (!this.IsFromPool)
-            {
-                return;
-            }
-
-            this.RpcId = default;
-            this.Error = default;
-            this.Message = default;
-            this.CDEndTime = default;
-            this.PublicCDTime = default;
-
-            ObjectPool.Instance.Recycle(this);
-        }
-    }
-
-    [MemoryPackable]
-    [Message(OuterMessage.M2C_UnitUseSkill)]
-    public partial class M2C_UnitUseSkill : MessageObject, IMessage
-    {
-        public static M2C_UnitUseSkill Create(bool isFromPool = false)
-        {
-            return ObjectPool.Instance.Fetch(typeof(M2C_UnitUseSkill), isFromPool) as M2C_UnitUseSkill;
-        }
-
-        [MemoryPackOrder(89)]
-        public int RpcId { get; set; }
-
-        [MemoryPackOrder(92)]
-        public long ActorId { get; set; }
-
-        [MemoryPackOrder(93)]
-        public long UnitId { get; set; }
-
-        /// <summary>
-        /// 表现用
-        /// </summary>
-        [MemoryPackOrder(0)]
-        public int SkillID { get; set; }
-
-        /// <summary>
-        /// 用来角色转向
-        /// </summary>
-        [MemoryPackOrder(2)]
-        public int TargetAngle { get; set; }
-
-        /// <summary>
-        /// 技能列表[一个技能可以同时触发多个技能]
-        /// </summary>
-        [MemoryPackOrder(3)]
-        public List<SkillInfo> SkillInfos { get; set; } = new();
-
-        [MemoryPackOrder(5)]
-        public int ItemId { get; set; }
-
-        [MemoryPackOrder(6)]
-        public long CDEndTime { get; set; }
-
-        [MemoryPackOrder(7)]
-        public long PublicCDTime { get; set; }
-
-        public override void Dispose()
-        {
-            if (!this.IsFromPool)
-            {
-                return;
-            }
-
-            this.RpcId = default;
-            this.ActorId = default;
-            this.UnitId = default;
-            this.SkillID = default;
-            this.TargetAngle = default;
-            this.SkillInfos.Clear();
-            this.ItemId = default;
-            this.CDEndTime = default;
-            this.PublicCDTime = default;
-
-            ObjectPool.Instance.Recycle(this);
-        }
-    }
-
-    [MemoryPackable]
-    [Message(OuterMessage.SkillSetInfo)]
-    public partial class SkillSetInfo : MessageObject
-    {
-        public static SkillSetInfo Create(bool isFromPool = false)
-        {
-            return ObjectPool.Instance.Fetch(typeof(SkillSetInfo), isFromPool) as SkillSetInfo;
-        }
-
-        [MemoryPackOrder(0)]
-        public List<SkillPro> SkillList { get; set; } = new();
-
-        [MemoryPackOrder(4)]
-        public int TianFuPlan { get; set; }
-
-        public override void Dispose()
-        {
-            if (!this.IsFromPool)
-            {
-                return;
-            }
-
-            this.SkillList.Clear();
-            this.TianFuPlan = default;
-
-            ObjectPool.Instance.Recycle(this);
-        }
-    }
-
-    // 技能天赋更新
-    [MemoryPackable]
-    [Message(OuterMessage.M2C_SkillSetMessage)]
-    public partial class M2C_SkillSetMessage : MessageObject, IMessage
-    {
-        public static M2C_SkillSetMessage Create(bool isFromPool = false)
-        {
-            return ObjectPool.Instance.Fetch(typeof(M2C_SkillSetMessage), isFromPool) as M2C_SkillSetMessage;
-        }
-
-        [MemoryPackOrder(0)]
-        public SkillSetInfo SkillSetInfo { get; set; }
-
-        public override void Dispose()
-        {
-            if (!this.IsFromPool)
-            {
-                return;
-            }
-
-            this.SkillSetInfo = default;
 
             ObjectPool.Instance.Recycle(this);
         }
@@ -8407,6 +7914,328 @@ namespace ET
 
     // 处理框架自带的协议 上面用到的协议都移到下面来
     // Legend--------------------------------------------------------------------------------------------
+    [MemoryPackable]
+    [Message(OuterMessage.C2M_SkillCmd)]
+    [ResponseType(nameof(M2C_SkillCmd))]
+    public partial class C2M_SkillCmd : MessageObject, ILocationRequest
+    {
+        public static C2M_SkillCmd Create(bool isFromPool = false)
+        {
+            return ObjectPool.Instance.Fetch(typeof(C2M_SkillCmd), isFromPool) as C2M_SkillCmd;
+        }
+
+        [MemoryPackOrder(89)]
+        public int RpcId { get; set; }
+
+        [MemoryPackOrder(92)]
+        public long ActorId { get; set; }
+
+        [MemoryPackOrder(0)]
+        public int SkillID { get; set; }
+
+        [MemoryPackOrder(1)]
+        public long TargetID { get; set; }
+
+        [MemoryPackOrder(2)]
+        public int TargetAngle { get; set; }
+
+        [MemoryPackOrder(3)]
+        public float TargetDistance { get; set; }
+
+        [MemoryPackOrder(4)]
+        public int WeaponSkillID { get; set; }
+
+        [MemoryPackOrder(5)]
+        public int ItemId { get; set; }
+
+        [MemoryPackOrder(6)]
+        public float SingValue { get; set; }
+
+        [MemoryPackOrder(9)]
+        public long PetId { get; set; }
+
+        public override void Dispose()
+        {
+            if (!this.IsFromPool)
+            {
+                return;
+            }
+
+            this.RpcId = default;
+            this.ActorId = default;
+            this.SkillID = default;
+            this.TargetID = default;
+            this.TargetAngle = default;
+            this.TargetDistance = default;
+            this.WeaponSkillID = default;
+            this.ItemId = default;
+            this.SingValue = default;
+            this.PetId = default;
+
+            ObjectPool.Instance.Recycle(this);
+        }
+    }
+
+    [MemoryPackable]
+    [Message(OuterMessage.M2C_SkillCmd)]
+    public partial class M2C_SkillCmd : MessageObject, ILocationResponse
+    {
+        public static M2C_SkillCmd Create(bool isFromPool = false)
+        {
+            return ObjectPool.Instance.Fetch(typeof(M2C_SkillCmd), isFromPool) as M2C_SkillCmd;
+        }
+
+        [MemoryPackOrder(89)]
+        public int RpcId { get; set; }
+
+        [MemoryPackOrder(90)]
+        public int Error { get; set; }
+
+        [MemoryPackOrder(91)]
+        public string Message { get; set; }
+
+        [MemoryPackOrder(0)]
+        public long CDEndTime { get; set; }
+
+        [MemoryPackOrder(1)]
+        public long PublicCDTime { get; set; }
+
+        public override void Dispose()
+        {
+            if (!this.IsFromPool)
+            {
+                return;
+            }
+
+            this.RpcId = default;
+            this.Error = default;
+            this.Message = default;
+            this.CDEndTime = default;
+            this.PublicCDTime = default;
+
+            ObjectPool.Instance.Recycle(this);
+        }
+    }
+
+    [MemoryPackable]
+    [Message(OuterMessage.M2C_UnitUseSkill)]
+    public partial class M2C_UnitUseSkill : MessageObject, IMessage
+    {
+        public static M2C_UnitUseSkill Create(bool isFromPool = false)
+        {
+            return ObjectPool.Instance.Fetch(typeof(M2C_UnitUseSkill), isFromPool) as M2C_UnitUseSkill;
+        }
+
+        [MemoryPackOrder(89)]
+        public int RpcId { get; set; }
+
+        [MemoryPackOrder(92)]
+        public long ActorId { get; set; }
+
+        [MemoryPackOrder(93)]
+        public long UnitId { get; set; }
+
+        /// <summary>
+        /// 表现用
+        /// </summary>
+        [MemoryPackOrder(0)]
+        public int SkillID { get; set; }
+
+        /// <summary>
+        /// 用来角色转向
+        /// </summary>
+        [MemoryPackOrder(2)]
+        public int TargetAngle { get; set; }
+
+        /// <summary>
+        /// 技能列表[一个技能可以同时触发多个技能]
+        /// </summary>
+        [MemoryPackOrder(3)]
+        public List<SkillInfo> SkillInfos { get; set; } = new();
+
+        [MemoryPackOrder(5)]
+        public int ItemId { get; set; }
+
+        [MemoryPackOrder(6)]
+        public long CDEndTime { get; set; }
+
+        [MemoryPackOrder(7)]
+        public long PublicCDTime { get; set; }
+
+        public override void Dispose()
+        {
+            if (!this.IsFromPool)
+            {
+                return;
+            }
+
+            this.RpcId = default;
+            this.ActorId = default;
+            this.UnitId = default;
+            this.SkillID = default;
+            this.TargetAngle = default;
+            this.SkillInfos.Clear();
+            this.ItemId = default;
+            this.CDEndTime = default;
+            this.PublicCDTime = default;
+
+            ObjectPool.Instance.Recycle(this);
+        }
+    }
+
+    [MemoryPackable]
+    [Message(OuterMessage.SkillSetInfo)]
+    public partial class SkillSetInfo : MessageObject
+    {
+        public static SkillSetInfo Create(bool isFromPool = false)
+        {
+            return ObjectPool.Instance.Fetch(typeof(SkillSetInfo), isFromPool) as SkillSetInfo;
+        }
+
+        [MemoryPackOrder(0)]
+        public List<SkillPro> SkillList { get; set; } = new();
+
+        [MemoryPackOrder(4)]
+        public int TianFuPlan { get; set; }
+
+        public override void Dispose()
+        {
+            if (!this.IsFromPool)
+            {
+                return;
+            }
+
+            this.SkillList.Clear();
+            this.TianFuPlan = default;
+
+            ObjectPool.Instance.Recycle(this);
+        }
+    }
+
+    // 技能天赋更新
+    [MemoryPackable]
+    [Message(OuterMessage.M2C_SkillSetMessage)]
+    public partial class M2C_SkillSetMessage : MessageObject, IMessage
+    {
+        public static M2C_SkillSetMessage Create(bool isFromPool = false)
+        {
+            return ObjectPool.Instance.Fetch(typeof(M2C_SkillSetMessage), isFromPool) as M2C_SkillSetMessage;
+        }
+
+        [MemoryPackOrder(0)]
+        public SkillSetInfo SkillSetInfo { get; set; }
+
+        public override void Dispose()
+        {
+            if (!this.IsFromPool)
+            {
+                return;
+            }
+
+            this.SkillSetInfo = default;
+
+            ObjectPool.Instance.Recycle(this);
+        }
+    }
+
+    [MemoryPackable]
+    [Message(OuterMessage.C2M_BagInitRequest)]
+    [ResponseType(nameof(M2C_BagInitResponse))]
+    public partial class C2M_BagInitRequest : MessageObject, ILocationRequest
+    {
+        public static C2M_BagInitRequest Create(bool isFromPool = false)
+        {
+            return ObjectPool.Instance.Fetch(typeof(C2M_BagInitRequest), isFromPool) as C2M_BagInitRequest;
+        }
+
+        [MemoryPackOrder(89)]
+        public int RpcId { get; set; }
+
+        [MemoryPackOrder(92)]
+        public long ActorId { get; set; }
+
+        public override void Dispose()
+        {
+            if (!this.IsFromPool)
+            {
+                return;
+            }
+
+            this.RpcId = default;
+            this.ActorId = default;
+
+            ObjectPool.Instance.Recycle(this);
+        }
+    }
+
+    [MemoryPackable]
+    [Message(OuterMessage.M2C_BagInitResponse)]
+    public partial class M2C_BagInitResponse : MessageObject, ILocationResponse
+    {
+        public static M2C_BagInitResponse Create(bool isFromPool = false)
+        {
+            return ObjectPool.Instance.Fetch(typeof(M2C_BagInitResponse), isFromPool) as M2C_BagInitResponse;
+        }
+
+        [MemoryPackOrder(89)]
+        public int RpcId { get; set; }
+
+        [MemoryPackOrder(90)]
+        public string Message { get; set; }
+
+        [MemoryPackOrder(91)]
+        public int Error { get; set; }
+
+        [MemoryPackOrder(0)]
+        public List<ItemInfoProto> BagInfos { get; set; } = new();
+
+        [MemoryPackOrder(1)]
+        public List<int> QiangHuaLevel { get; set; } = new();
+
+        [MemoryPackOrder(2)]
+        public List<int> QiangHuaFails { get; set; } = new();
+
+        /// <summary>
+        /// int32 BagAddedCell = 4;
+        /// </summary>
+        [MemoryPackOrder(4)]
+        public List<int> WarehouseAddedCell { get; set; } = new();
+
+        [MemoryPackOrder(5)]
+        public List<int> FashionActiveIds { get; set; } = new();
+
+        [MemoryPackOrder(6)]
+        public List<int> FashionEquipList { get; set; } = new();
+
+        [MemoryPackOrder(7)]
+        public int SeasonJingHePlan { get; set; }
+
+        [MemoryPackOrder(8)]
+        public List<int> AdditionalCellNum { get; set; } = new();
+
+        public override void Dispose()
+        {
+            if (!this.IsFromPool)
+            {
+                return;
+            }
+
+            this.RpcId = default;
+            this.Message = default;
+            this.Error = default;
+            this.BagInfos.Clear();
+            this.QiangHuaLevel.Clear();
+            this.QiangHuaFails.Clear();
+            this.WarehouseAddedCell.Clear();
+            this.FashionActiveIds.Clear();
+            this.FashionEquipList.Clear();
+            this.SeasonJingHePlan = default;
+            this.AdditionalCellNum.Clear();
+
+            ObjectPool.Instance.Recycle(this);
+        }
+    }
+
     // 勋章兑换
     [MemoryPackable]
     [Message(OuterMessage.C2M_MedalExchangeRequest)]
@@ -8719,6 +8548,77 @@ namespace ET
         }
     }
 
+    // 装备鉴定
+    [MemoryPackable]
+    [Message(OuterMessage.C2M_EquipIdentifyRequest)]
+    [ResponseType(nameof(M2C_EquipIdentifyResponse))]
+    public partial class C2M_EquipIdentifyRequest : MessageObject, ILocationRequest
+    {
+        public static C2M_EquipIdentifyRequest Create(bool isFromPool = false)
+        {
+            return ObjectPool.Instance.Fetch(typeof(C2M_EquipIdentifyRequest), isFromPool) as C2M_EquipIdentifyRequest;
+        }
+
+        [MemoryPackOrder(89)]
+        public int RpcId { get; set; }
+
+        [MemoryPackOrder(1)]
+        public long OperateBagID { get; set; }
+
+        /// <summary>
+        /// 1人物  2背包
+        /// </summary>
+        [MemoryPackOrder(2)]
+        public int OperateType { get; set; }
+
+        public override void Dispose()
+        {
+            if (!this.IsFromPool)
+            {
+                return;
+            }
+
+            this.RpcId = default;
+            this.OperateBagID = default;
+            this.OperateType = default;
+
+            ObjectPool.Instance.Recycle(this);
+        }
+    }
+
+    [MemoryPackable]
+    [Message(OuterMessage.M2C_EquipIdentifyResponse)]
+    public partial class M2C_EquipIdentifyResponse : MessageObject, ILocationResponse
+    {
+        public static M2C_EquipIdentifyResponse Create(bool isFromPool = false)
+        {
+            return ObjectPool.Instance.Fetch(typeof(M2C_EquipIdentifyResponse), isFromPool) as M2C_EquipIdentifyResponse;
+        }
+
+        [MemoryPackOrder(89)]
+        public int RpcId { get; set; }
+
+        [MemoryPackOrder(90)]
+        public string Message { get; set; }
+
+        [MemoryPackOrder(91)]
+        public int Error { get; set; }
+
+        public override void Dispose()
+        {
+            if (!this.IsFromPool)
+            {
+                return;
+            }
+
+            this.RpcId = default;
+            this.Message = default;
+            this.Error = default;
+
+            ObjectPool.Instance.Recycle(this);
+        }
+    }
+
     public static class OuterMessage
     {
         public const ushort HttpGetRouterResponse = 10002;
@@ -8794,156 +8694,154 @@ namespace ET
         public const ushort MysteryItemInfo = 10072;
         public const ushort ChatInfo = 10073;
         public const ushort MailInfo = 10074;
-        public const ushort PaiMaiItemInfo = 10075;
-        public const ushort PaiMaiShopItemInfo = 10076;
-        public const ushort PopularizeInfo = 10077;
-        public const ushort RankingInfo = 10078;
-        public const ushort ServerInfo = 10079;
-        public const ushort ServerMailItem = 10080;
-        public const ushort UnionInfo = 10081;
-        public const ushort UnionPlayerInfo = 10082;
-        public const ushort A2C_Disconnect = 10083;
-        public const ushort G2C_SecondLogin = 10084;
-        public const ushort UserInfoProto = 10085;
-        public const ushort M2C_RoleDataUpdate = 10086;
-        public const ushort M2C_RoleDataBroadcast = 10087;
-        public const ushort SkillPro = 10088;
-        public const ushort FubenPassInfo = 10089;
-        public const ushort M2C_RoleBagUpdate = 10090;
-        public const ushort C2M_BagInitRequest = 10091;
-        public const ushort M2C_BagInitResponse = 10092;
-        public const ushort C2M_PickItemRequest = 10093;
-        public const ushort M2C_PickItemResponse = 10094;
-        public const ushort C2M_ItemOperateRequest = 10095;
-        public const ushort M2C_ItemOperateResponse = 10096;
-        public const ushort C2M_ItemSortRequest = 10097;
-        public const ushort C2M_ItemSplitRequest = 10098;
-        public const ushort M2C_ItemSplitResponse = 10099;
-        public const ushort SkillInfo = 10100;
-        public const ushort M2C_UnitNumericListUpdate = 10101;
-        public const ushort C2M_UserInfoInitRequest = 10102;
-        public const ushort M2C_UserInfoInitResponse = 10103;
-        public const ushort FriendInfo = 10104;
-        public const ushort C2F_FriendApplyReplyRequest = 10105;
-        public const ushort F2C_FriendApplyReplyResponse = 10106;
-        public const ushort C2F_FriendBlacklistRequest = 10107;
-        public const ushort F2C_FriendBlacklistResponse = 10108;
-        public const ushort C2F_FriendApplyRequest = 10109;
-        public const ushort F2C_FriendApplyResponse = 10110;
-        public const ushort C2F_FriendChatRead = 10111;
-        public const ushort F2C_FriendChatRead = 10112;
-        public const ushort C2F_FriendDeleteRequest = 10113;
-        public const ushort F2C_FriendDeleteResponse = 10114;
-        public const ushort C2F_FriendInfoRequest = 10115;
-        public const ushort F2C_FriendInfoResponse = 10116;
-        public const ushort C2M_SkillCmd = 10117;
-        public const ushort M2C_SkillCmd = 10118;
-        public const ushort M2C_UnitUseSkill = 10119;
-        public const ushort SkillSetInfo = 10120;
-        public const ushort M2C_SkillSetMessage = 10121;
-        public const ushort C2Chat_GetChatRequest = 10122;
-        public const ushort Chat2C_GetChatResponse = 10123;
-        public const ushort C2C_SendChatRequest = 10124;
-        public const ushort C2C_SendChatResponse = 10125;
-        public const ushort M2C_SyncChatInfo = 10126;
-        public const ushort TaskPro = 10127;
-        public const ushort M2C_TaskUpdate = 10128;
-        public const ushort C2M_SkillSet = 10129;
-        public const ushort M2C_SkillSet = 10130;
-        public const ushort C2M_TaskCommitRequest = 10131;
-        public const ushort M2C_TaskCommitResponse = 10132;
-        public const ushort C2M_TaskGetRequest = 10133;
-        public const ushort M2C_TaskGetResponse = 10134;
-        public const ushort C2M_TaskGiveUpRequest = 10135;
-        public const ushort M2C_TaskGiveUpResponse = 10136;
-        public const ushort C2M_TaskInitRequest = 10137;
-        public const ushort M2C_TaskInitResponse = 10138;
-        public const ushort C2M_SkillInitRequest = 10139;
-        public const ushort M2C_SkillInitResponse = 10140;
-        public const ushort C2M_SkillInterruptRequest = 10141;
-        public const ushort M2C_SkillInterruptResult = 10142;
-        public const ushort C2M_SkillOperation = 10143;
-        public const ushort M2C_SkillOperation = 10144;
-        public const ushort C2M_SkillUp = 10145;
-        public const ushort M2C_SkillUp = 10146;
-        public const ushort M2C_UnitNumericUpdate = 10147;
-        public const ushort M2C_FriendApplyResult = 10148;
-        public const ushort C2M_UnitStateUpdate = 10149;
-        public const ushort M2C_UnitStateUpdate = 10150;
-        public const ushort M2C_UnitBuffUpdate = 10151;
-        public const ushort M2C_UnitBuffRemove = 10152;
-        public const ushort M2C_UnitBuffStatus = 10153;
-        public const ushort M2C_SkillSecondResult = 10154;
-        public const ushort TokenRecvive = 10155;
-        public const ushort C2M_StoreBuyRequest = 10156;
-        public const ushort M2C_StoreBuyResponse = 10157;
-        public const ushort Actor_TransferRequest = 10158;
-        public const ushort Actor_TransferResponse = 10159;
-        public const ushort M2C_HorseNoticeInfo = 10160;
-        public const ushort M2C_ZeroClock = 10161;
-        public const ushort UnionListItem = 10162;
-        public const ushort C2U_UnionListRequest = 10163;
-        public const ushort U2C_UnionListResponse = 10164;
-        public const ushort C2U_UnionApplyRequest = 10165;
-        public const ushort U2C_UnionApplyResponse = 10166;
-        public const ushort M2C_UnionApplyResult = 10167;
-        public const ushort C2U_UnionApplyListRequest = 10168;
-        public const ushort U2C_UnionApplyListResponse = 10169;
-        public const ushort C2U_UnionApplyReplyRequest = 10170;
-        public const ushort U2C_UnionApplyReplyResponse = 10171;
-        public const ushort C2U_UnionJingXuanRequest = 10172;
-        public const ushort U2C_UnionJingXuanResponse = 10173;
-        public const ushort C2U_UnionKickOutRequest = 10174;
-        public const ushort U2C_UnionKickOutResponse = 10175;
-        public const ushort C2U_UnionUpgradeRequest = 10176;
-        public const ushort U2C_UnionUpgradeResponse = 10177;
-        public const ushort C2U_UnionMyInfoRequest = 10178;
-        public const ushort U2C_UnionMyInfoResponse = 10179;
-        public const ushort C2U_UnionOperatateRequest = 10180;
-        public const ushort U2C_UnionOperatateResponse = 10181;
-        public const ushort C2U_UnionRaceInfoRequest = 10182;
-        public const ushort U2C_UnionRaceInfoResponse = 10183;
-        public const ushort C2M_BlackAccountRequest = 10184;
-        public const ushort M2C_BlackAccountResponse = 10185;
-        public const ushort C2M_ReceiveMailRequest = 10186;
-        public const ushort M2C_ReceiveMailResponse = 10187;
-        public const ushort C2E_ReceiveMailRequest = 10188;
-        public const ushort E2C_ReceiveMailResponse = 10189;
-        public const ushort C2E_GetAllMailRequest = 10190;
-        public const ushort E2C_GetAllMailResponse = 10191;
-        public const ushort C2M_GameSettingRequest = 10192;
-        public const ushort M2C_GameSettingResponse = 10193;
-        public const ushort C2M_GMCustomRequest = 10194;
-        public const ushort M2C_GMCustomResponse = 10195;
-        public const ushort C2M_GuideUpdateRequest = 10196;
-        public const ushort M2C_GuideUpdateResponse = 10197;
-        public const ushort C2M_ModifyNameRequest = 10198;
-        public const ushort M2C_ModifyNameResponse = 10199;
-        public const ushort C2M_ReddotReadRequest = 10200;
-        public const ushort M2C_ReddotReadResponse = 10201;
-        public const ushort C2M_RefreshUnitRequest = 10202;
-        public const ushort C2M_UnitInfoRequest = 10203;
-        public const ushort M2C_UnitInfoResponse = 10204;
-        public const ushort C2R_DBServerInfoRequest = 10205;
-        public const ushort R2C_DBServerInfoResponse = 10206;
-        public const ushort C2M_ActivityInfoRequest = 10207;
-        public const ushort M2C_ActivityInfoResponse = 10208;
-        public const ushort C2M_ActivityReceiveRequest = 10209;
-        public const ushort M2C_ActivityReceiveResponse = 10210;
-        public const ushort M2C_UpdateUserInfoMessage = 10211;
-        public const ushort Actor_SendReviveRequest = 10212;
-        public const ushort Actor_SendReviveResponse = 10213;
-        public const ushort C2M_HorseRideRequest = 10214;
-        public const ushort M2C_HorseRideResponse = 10215;
-        public const ushort C2M_HorseFightRequest = 10216;
-        public const ushort M2C_HorseFightResponse = 10217;
-        public const ushort TestServerInfoProto = 10218;
-        public const ushort C2M_MedalExchangeRequest = 10219;
-        public const ushort M2C_MedalExchangeResponse = 10220;
-        public const ushort C2M_EquipWearRequest = 10221;
-        public const ushort M2C__EquipWearResponse = 10222;
-        public const ushort ItemInfoProto = 10223;
-        public const ushort C2M_EquipRefineRequest = 10224;
-        public const ushort M2C_EquipRefineResponse = 10225;
+        public const ushort RankingInfo = 10075;
+        public const ushort ServerInfo = 10076;
+        public const ushort ServerMailItem = 10077;
+        public const ushort UnionInfo = 10078;
+        public const ushort UnionPlayerInfo = 10079;
+        public const ushort A2C_Disconnect = 10080;
+        public const ushort G2C_SecondLogin = 10081;
+        public const ushort UserInfoProto = 10082;
+        public const ushort M2C_RoleDataUpdate = 10083;
+        public const ushort M2C_RoleDataBroadcast = 10084;
+        public const ushort SkillPro = 10085;
+        public const ushort M2C_RoleBagUpdate = 10086;
+        public const ushort C2M_PickItemRequest = 10087;
+        public const ushort M2C_PickItemResponse = 10088;
+        public const ushort C2M_ItemOperateRequest = 10089;
+        public const ushort M2C_ItemOperateResponse = 10090;
+        public const ushort C2M_ItemSortRequest = 10091;
+        public const ushort C2M_ItemSplitRequest = 10092;
+        public const ushort M2C_ItemSplitResponse = 10093;
+        public const ushort SkillInfo = 10094;
+        public const ushort M2C_UnitNumericListUpdate = 10095;
+        public const ushort C2M_UserInfoInitRequest = 10096;
+        public const ushort M2C_UserInfoInitResponse = 10097;
+        public const ushort FriendInfo = 10098;
+        public const ushort C2F_FriendApplyReplyRequest = 10099;
+        public const ushort F2C_FriendApplyReplyResponse = 10100;
+        public const ushort C2F_FriendBlacklistRequest = 10101;
+        public const ushort F2C_FriendBlacklistResponse = 10102;
+        public const ushort C2F_FriendApplyRequest = 10103;
+        public const ushort F2C_FriendApplyResponse = 10104;
+        public const ushort C2F_FriendChatRead = 10105;
+        public const ushort F2C_FriendChatRead = 10106;
+        public const ushort C2F_FriendDeleteRequest = 10107;
+        public const ushort F2C_FriendDeleteResponse = 10108;
+        public const ushort C2F_FriendInfoRequest = 10109;
+        public const ushort F2C_FriendInfoResponse = 10110;
+        public const ushort C2Chat_GetChatRequest = 10111;
+        public const ushort Chat2C_GetChatResponse = 10112;
+        public const ushort C2C_SendChatRequest = 10113;
+        public const ushort C2C_SendChatResponse = 10114;
+        public const ushort M2C_SyncChatInfo = 10115;
+        public const ushort TaskPro = 10116;
+        public const ushort M2C_TaskUpdate = 10117;
+        public const ushort C2M_SkillSet = 10118;
+        public const ushort M2C_SkillSet = 10119;
+        public const ushort C2M_TaskCommitRequest = 10120;
+        public const ushort M2C_TaskCommitResponse = 10121;
+        public const ushort C2M_TaskGetRequest = 10122;
+        public const ushort M2C_TaskGetResponse = 10123;
+        public const ushort C2M_TaskGiveUpRequest = 10124;
+        public const ushort M2C_TaskGiveUpResponse = 10125;
+        public const ushort C2M_TaskInitRequest = 10126;
+        public const ushort M2C_TaskInitResponse = 10127;
+        public const ushort C2M_SkillInitRequest = 10128;
+        public const ushort M2C_SkillInitResponse = 10129;
+        public const ushort C2M_SkillInterruptRequest = 10130;
+        public const ushort M2C_SkillInterruptResult = 10131;
+        public const ushort C2M_SkillOperation = 10132;
+        public const ushort M2C_SkillOperation = 10133;
+        public const ushort C2M_SkillUp = 10134;
+        public const ushort M2C_SkillUp = 10135;
+        public const ushort M2C_UnitNumericUpdate = 10136;
+        public const ushort M2C_FriendApplyResult = 10137;
+        public const ushort C2M_UnitStateUpdate = 10138;
+        public const ushort M2C_UnitStateUpdate = 10139;
+        public const ushort M2C_UnitBuffUpdate = 10140;
+        public const ushort M2C_UnitBuffRemove = 10141;
+        public const ushort M2C_UnitBuffStatus = 10142;
+        public const ushort M2C_SkillSecondResult = 10143;
+        public const ushort TokenRecvive = 10144;
+        public const ushort C2M_StoreBuyRequest = 10145;
+        public const ushort M2C_StoreBuyResponse = 10146;
+        public const ushort Actor_TransferRequest = 10147;
+        public const ushort Actor_TransferResponse = 10148;
+        public const ushort M2C_HorseNoticeInfo = 10149;
+        public const ushort M2C_ZeroClock = 10150;
+        public const ushort UnionListItem = 10151;
+        public const ushort C2U_UnionListRequest = 10152;
+        public const ushort U2C_UnionListResponse = 10153;
+        public const ushort C2U_UnionApplyRequest = 10154;
+        public const ushort U2C_UnionApplyResponse = 10155;
+        public const ushort M2C_UnionApplyResult = 10156;
+        public const ushort C2U_UnionApplyListRequest = 10157;
+        public const ushort U2C_UnionApplyListResponse = 10158;
+        public const ushort C2U_UnionApplyReplyRequest = 10159;
+        public const ushort U2C_UnionApplyReplyResponse = 10160;
+        public const ushort C2U_UnionJingXuanRequest = 10161;
+        public const ushort U2C_UnionJingXuanResponse = 10162;
+        public const ushort C2U_UnionKickOutRequest = 10163;
+        public const ushort U2C_UnionKickOutResponse = 10164;
+        public const ushort C2U_UnionUpgradeRequest = 10165;
+        public const ushort U2C_UnionUpgradeResponse = 10166;
+        public const ushort C2U_UnionMyInfoRequest = 10167;
+        public const ushort U2C_UnionMyInfoResponse = 10168;
+        public const ushort C2U_UnionOperatateRequest = 10169;
+        public const ushort U2C_UnionOperatateResponse = 10170;
+        public const ushort C2U_UnionRaceInfoRequest = 10171;
+        public const ushort U2C_UnionRaceInfoResponse = 10172;
+        public const ushort C2M_BlackAccountRequest = 10173;
+        public const ushort M2C_BlackAccountResponse = 10174;
+        public const ushort C2M_ReceiveMailRequest = 10175;
+        public const ushort M2C_ReceiveMailResponse = 10176;
+        public const ushort C2E_ReceiveMailRequest = 10177;
+        public const ushort E2C_ReceiveMailResponse = 10178;
+        public const ushort C2E_GetAllMailRequest = 10179;
+        public const ushort E2C_GetAllMailResponse = 10180;
+        public const ushort C2M_GameSettingRequest = 10181;
+        public const ushort M2C_GameSettingResponse = 10182;
+        public const ushort C2M_GMCustomRequest = 10183;
+        public const ushort M2C_GMCustomResponse = 10184;
+        public const ushort C2M_GuideUpdateRequest = 10185;
+        public const ushort M2C_GuideUpdateResponse = 10186;
+        public const ushort C2M_ModifyNameRequest = 10187;
+        public const ushort M2C_ModifyNameResponse = 10188;
+        public const ushort C2M_ReddotReadRequest = 10189;
+        public const ushort M2C_ReddotReadResponse = 10190;
+        public const ushort C2M_RefreshUnitRequest = 10191;
+        public const ushort C2M_UnitInfoRequest = 10192;
+        public const ushort M2C_UnitInfoResponse = 10193;
+        public const ushort C2R_DBServerInfoRequest = 10194;
+        public const ushort R2C_DBServerInfoResponse = 10195;
+        public const ushort C2M_ActivityInfoRequest = 10196;
+        public const ushort M2C_ActivityInfoResponse = 10197;
+        public const ushort C2M_ActivityReceiveRequest = 10198;
+        public const ushort M2C_ActivityReceiveResponse = 10199;
+        public const ushort M2C_UpdateUserInfoMessage = 10200;
+        public const ushort Actor_SendReviveRequest = 10201;
+        public const ushort Actor_SendReviveResponse = 10202;
+        public const ushort C2M_HorseRideRequest = 10203;
+        public const ushort M2C_HorseRideResponse = 10204;
+        public const ushort C2M_HorseFightRequest = 10205;
+        public const ushort M2C_HorseFightResponse = 10206;
+        public const ushort TestServerInfoProto = 10207;
+        public const ushort C2M_SkillCmd = 10208;
+        public const ushort M2C_SkillCmd = 10209;
+        public const ushort M2C_UnitUseSkill = 10210;
+        public const ushort SkillSetInfo = 10211;
+        public const ushort M2C_SkillSetMessage = 10212;
+        public const ushort C2M_BagInitRequest = 10213;
+        public const ushort M2C_BagInitResponse = 10214;
+        public const ushort C2M_MedalExchangeRequest = 10215;
+        public const ushort M2C_MedalExchangeResponse = 10216;
+        public const ushort C2M_EquipWearRequest = 10217;
+        public const ushort M2C__EquipWearResponse = 10218;
+        public const ushort ItemInfoProto = 10219;
+        public const ushort C2M_EquipRefineRequest = 10220;
+        public const ushort M2C_EquipRefineResponse = 10221;
+        public const ushort C2M_EquipIdentifyRequest = 10222;
+        public const ushort M2C_EquipIdentifyResponse = 10223;
     }
 }

@@ -1,8 +1,8 @@
 {"dict": [
-[1, {"_t":"EquipIdentifyConfig","_id":1,"EffectType":1,"IfFollowCollider":0,"StdMode":0,"CostYuanbao":3000,"Attribute":"100203|100|500"}],
-[2, {"_t":"EquipIdentifyConfig","_id":2,"EffectType":1,"IfFollowCollider":0,"StdMode":1,"CostYuanbao":3000,"Attribute":"100203|100|500"}],
-[3, {"_t":"EquipIdentifyConfig","_id":3,"EffectType":1,"IfFollowCollider":0,"StdMode":0,"CostYuanbao":3000,"Attribute":"100203|100|500"}],
-[4, {"_t":"EquipIdentifyConfig","_id":4,"EffectType":1,"IfFollowCollider":0,"StdMode":1,"CostYuanbao":3000,"Attribute":"100203|100|500"}],
-[5, {"_t":"EquipIdentifyConfig","_id":5,"EffectType":1,"IfFollowCollider":0,"StdMode":0,"CostYuanbao":3000,"Attribute":"100203|100|500"}],
-[6, {"_t":"EquipIdentifyConfig","_id":6,"EffectType":1,"IfFollowCollider":0,"StdMode":1,"CostYuanbao":3000,"Attribute":"100203|100|500"}],
+[1, {"_t":"EquipIdentifyConfig","_id":1,"occ":1,"StdMode":0,"CostYuanbao":3000,"Attribute":"100203|100|500"}],
+[2, {"_t":"EquipIdentifyConfig","_id":2,"occ":1,"StdMode":1,"CostYuanbao":3000,"Attribute":"100203|100|500"}],
+[3, {"_t":"EquipIdentifyConfig","_id":3,"occ":2,"StdMode":0,"CostYuanbao":3000,"Attribute":"100203|100|500"}],
+[4, {"_t":"EquipIdentifyConfig","_id":4,"occ":2,"StdMode":1,"CostYuanbao":3000,"Attribute":"100203|100|500"}],
+[5, {"_t":"EquipIdentifyConfig","_id":5,"occ":3,"StdMode":0,"CostYuanbao":3000,"Attribute":"100203|100|500"}],
+[6, {"_t":"EquipIdentifyConfig","_id":6,"occ":3,"StdMode":1,"CostYuanbao":3000,"Attribute":"100203|100|500"}],
 ]}

@@ -625,36 +625,6 @@ message MailInfo
 	int64  BuyPlayerId = 9;
 }
 
-message PaiMaiItemInfo
-{
-	int64 Id = 1;
-	int64 UserId = 2;
-	ItemInfoProto BagInfo = 3;			
-	int32 Price = 5;
-	string PlayerName = 6;
-	int64 SellTime = 7;
-	string  Account = 8;
-}
-
-message PaiMaiShopItemInfo
-{
-	int64 Id = 1;
-	int32 ItemNumber = 2; 
-	int32 PriceType = 3;
-	int32 Price = 4;
-	float PricePro = 5;
-	int32 BuyNum = 6;
-}
-
-message PopularizeInfo
-{
-	int64 UnitId = 1;
-	string Nmae = 2;
-	int32 Level = 3;
-	repeated int32 Rewards = 4;
-	int32 Occ = 5;
-	int32 OccTwo = 6;
-}
 
 message RankingInfo
 {
@@ -739,8 +709,7 @@ message UserInfoProto
     string Name = 2;
 
     int32 RobotId = 11;
-
-   
+		
     string UnionName = 17;
 
     int64 UserId = 18;
@@ -776,11 +745,6 @@ message SkillPro
     int32 SkillSource = 5; //1职业技能 2装备技能 3天赋技能 4 精灵技能 5 套装技能
 }
 
-message FubenPassInfo
-{
-	int32 FubenId = 1;
-	int32 Difficulty = 2;			//1 difficulty普通 2 挑战  3困难
-}
 
 //道具[装备]更新
 message M2C_RoleBagUpdate // IMessage
@@ -789,30 +753,6 @@ message M2C_RoleBagUpdate // IMessage
 	repeated ItemInfoProto BagInfoUpdate = 2;
 	repeated ItemInfoProto BagInfoDelete = 3;
 }
-
-//ResponseType M2C_BagInitResponse
-message C2M_BagInitRequest // ILocationRequest
-{
-	int32 RpcId = 90;
-	int64 ActorId = 93;
-}
-
-message M2C_BagInitResponse  // ILocationResponse
-{
-	int32 RpcId = 90;
-	string Message = 91;
-	int32 Error = 92;
-	repeated ItemInfoProto BagInfos = 1;
-	repeated int32 QiangHuaLevel = 2;
-	repeated int32 QiangHuaFails = 3;
-	//int32 BagAddedCell = 4;
-	repeated int32 WarehouseAddedCell = 5;
-	repeated int32 FashionActiveIds = 6;
-	repeated int32 FashionEquipList = 7;
-	int32 SeasonJingHePlan = 8;
-	repeated int32 AdditionalCellNum = 9;
-}
-
 
 //拾取道具
 //ResponseType M2C_PickItemResponse
@@ -831,7 +771,7 @@ message M2C_PickItemResponse // ILocationResponse
 	repeated int64 RemoveIds = 1; //不存在的掉落
 }
 
-//穿戴装备
+//道具操作
 //ResponseType M2C_ItemOperateResponse
 message C2M_ItemOperateRequest // ILocationRequest
 {
@@ -1030,59 +970,6 @@ message F2C_FriendInfoResponse // IFriendActorResponse
 	repeated FriendInfo ApplyList = 3;
 	repeated FriendInfo Blacklist = 4;
 	repeated ChatInfo FriendChats = 5;
-}
-
-//ResponseType M2C_SkillCmd
-message C2M_SkillCmd // ILocationRequest
-{
-    int32 RpcId = 90;
-    int64 ActorId = 93;
-    int32 SkillID = 1;
-    int64 TargetID = 2;
-    int32 TargetAngle = 3;
-    float TargetDistance = 4;
-    int32 WeaponSkillID = 5;
-    int32 ItemId = 6;
-	  float SingValue = 7;
-		int64 PetId = 10;
-}
-
-message M2C_SkillCmd // ILocationResponse
-{
-
-	int32 RpcId = 90;
-	int32 Error = 91;
-	string Message = 92;
-	int64 CDEndTime = 1;
-	int64 PublicCDTime = 2;
-}
-
-message M2C_UnitUseSkill // IMessage
-{
-	int32 RpcId = 90;
-	int64 ActorId = 93;
-
-	int64 UnitId = 94;
-	int32 SkillID = 1;				//表现用
-
-	int32 TargetAngle = 3;				//用来角色转向
-	repeated SkillInfo SkillInfos = 4;		//技能列表[一个技能可以同时触发多个技能]
-	int32 ItemId = 6;
-	int64 CDEndTime = 7;
-	int64 PublicCDTime = 8;
-}
-
-
-message SkillSetInfo
-{
-	repeated SkillPro SkillList = 1;
-	int32 TianFuPlan = 5;
-}
-
-//技能天赋更新
-message M2C_SkillSetMessage	// IMessage
-{
-	SkillSetInfo SkillSetInfo = 1;
 }
 
 //ResponseType Chat2C_GetChatResponse
@@ -1924,6 +1811,82 @@ message TestServerInfoProto
 //处理框架自带的协议 上面用到的协议都移到下面来
 //Legend--------------------------------------------------------------------------------------------
 
+//ResponseType M2C_SkillCmd
+message C2M_SkillCmd // ILocationRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+	int32 SkillID = 1;
+	int64 TargetID = 2;
+	int32 TargetAngle = 3;
+	float TargetDistance = 4;
+	int32 WeaponSkillID = 5;
+	int32 ItemId = 6;
+	float SingValue = 7;
+	int64 PetId = 10;
+}
+
+message M2C_SkillCmd // ILocationResponse
+{
+
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	int64 CDEndTime = 1;
+	int64 PublicCDTime = 2;
+}
+
+message M2C_UnitUseSkill // IMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+
+	int64 UnitId = 94;
+	int32 SkillID = 1;				//表现用
+
+	int32 TargetAngle = 3;				//用来角色转向
+	repeated SkillInfo SkillInfos = 4;		//技能列表[一个技能可以同时触发多个技能]
+	int32 ItemId = 6;
+	int64 CDEndTime = 7;
+	int64 PublicCDTime = 8;
+}
+
+
+message SkillSetInfo
+{
+	repeated SkillPro SkillList = 1;
+	int32 TianFuPlan = 5;
+}
+
+//技能天赋更新
+message M2C_SkillSetMessage	// IMessage
+{
+	SkillSetInfo SkillSetInfo = 1;
+}
+
+//ResponseType M2C_BagInitResponse
+message C2M_BagInitRequest // ILocationRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+}
+
+message M2C_BagInitResponse  // ILocationResponse
+{
+	int32 RpcId = 90;
+	string Message = 91;
+	int32 Error = 92;
+	repeated ItemInfoProto BagInfos = 1;
+	repeated int32 QiangHuaLevel = 2;
+	repeated int32 QiangHuaFails = 3;
+	//int32 BagAddedCell = 4;
+	repeated int32 WarehouseAddedCell = 5;
+	repeated int32 FashionActiveIds = 6;
+	repeated int32 FashionEquipList = 7;
+	int32 SeasonJingHePlan = 8;
+	repeated int32 AdditionalCellNum = 9;
+}
+
 //勋章兑换
 //ResponseType M2C_MedalExchangeResponse
 message C2M_MedalExchangeRequest    // ILocationRequest
@@ -1972,7 +1935,6 @@ message ItemInfoProto
 	string GetWay = 10; //来源方式
 	int32 GemIDNew = 11;	//对应的宝石ID
 	string MakePlayer = 12;					//制作玩家名字
-	
 }
 
 //洗练项链
@@ -1991,3 +1953,20 @@ message M2C_EquipRefineResponse // ILocationResponse
 	int32 Error = 92;
 	int32 RefineSucessTimes = 1;
 }
+
+//装备鉴定
+//ResponseType M2C_EquipIdentifyResponse
+message C2M_EquipIdentifyRequest // ILocationRequest
+{
+	int32 RpcId = 90;
+	int64 OperateBagID = 2;
+	int32 OperateType = 3;				// 1人物  2背包
+}
+
+message M2C_EquipIdentifyResponse // ILocationResponse
+{
+	int32 RpcId = 90;
+	string Message = 91;
+	int32 Error = 92;
+}
+

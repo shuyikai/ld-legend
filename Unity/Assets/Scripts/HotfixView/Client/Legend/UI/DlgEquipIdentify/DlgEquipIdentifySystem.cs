@@ -77,6 +77,30 @@ namespace ET.Client
 
 		private static async ETTask OnClickRefineButtion(this DlgEquipIdentify self)
 		{
+			BagComponentClient bagComponentClient = self.Root().GetComponent<BagComponentClient>();
+			int loctype = self.CurrentItemType == 0 ? ItemLocType.ItemLocEquip : ItemLocType.ItemLocBag;
+			ItemInfo itemInfo = bagComponentClient.GetItemInfoByLoc(loctype, self.SelectEquipId);
+			if (itemInfo == null)
+			{
+				return;
+			}
+			
+			EquipConfig equipConfig = EquipConfigCategory.Instance.Get(itemInfo.ItemID);
+			Unit unit = UnitHelper.GetMyUnitFromClientScene(self.Root());
+			NumericComponentClient numericComponentClient = unit.GetComponent<NumericComponentClient>();
+			int occ = numericComponentClient.GetAsInt(NumericType.Occ);
+			EquipIdentifyConfig identifyConfig =  ItemHelper.GetEquipIdentifyConfigByOccAndEquip(occ, equipConfig.StdMode);
+			if (identifyConfig == null)
+			{
+				return;
+			}
+
+			if (numericComponentClient.GetAsLong(NumericType.Now_YuanBao) <identifyConfig.CostYuanbao )
+			{
+				HintHelp.ShowErrorHint(self.Root(), ErrorCode.ERR_YunbaoNotEnoughError);
+				return;
+			}
+			
 			
 		}
 
@@ -94,15 +118,22 @@ namespace ET.Client
 			{
 				return;
 			}
-
+			
+			EquipConfig equipConfig = EquipConfigCategory.Instance.Get(itemInfo.ItemID);
 			Unit unit = UnitHelper.GetMyUnitFromClientScene(self.Root());
 			NumericComponentClient numericComponentClient = unit.GetComponent<NumericComponentClient>();
 			int occ = numericComponentClient.GetAsInt(NumericType.Occ);
-			int level = numericComponentClient.GetAsInt(NumericType.Now_Lv);
-			
-			Log.Debug($"occ:  {occ}   {level}");
-	
-			self.View.E_CostGoldTxtText.text = "xxx";
+		  	 EquipIdentifyConfig identifyConfig =  ItemHelper.GetEquipIdentifyConfigByOccAndEquip(occ, equipConfig.StdMode);
+		     if (identifyConfig == null)
+		     {
+			     return;
+		     }
+
+		     string etip = LanguageComponent.Instance.LoadLocalization("消耗元宝:{0}");
+		     using (zstring.Block())
+		     {
+			     self.View.E_CostGoldTxtText.text =  zstring.Format(etip, identifyConfig.CostYuanbao);
+		     }
 		}
 		
 		private static void OnItemTypeSet(this DlgEquipIdentify self, int index)

@@ -20,17 +20,10 @@
             {
                 return;
             }
-            if (code == ErrorCode.ERR_CanNotMove_NetWait 
-                || code == ErrorCode.ERR_CanNotMove_Rigidity
-                || code == ErrorCode.ERR_CanNotMove_Speed
-                || code == ErrorCode.ERR_CanNotUseSkill_NetWait)
-            {
-                return ;
-            }
-
+            
             string hintStr = code.ToString();
             ErrorViewData.ErrorHints.TryGetValue(code, out hintStr);
-            EventSystem.Instance.Publish(root, new ShowFlyTip() { Type = 1, Str = string.IsNullOrEmpty(hintStr) ? code.ToString() : hintStr });
+            EventSystem.Instance.Publish(root, new ShowFlyTip() { Type = 0, Str = string.IsNullOrEmpty(hintStr) ? code.ToString() : hintStr });
         }
 
         public static void ShowHint(Scene root, string str, int type = 0)

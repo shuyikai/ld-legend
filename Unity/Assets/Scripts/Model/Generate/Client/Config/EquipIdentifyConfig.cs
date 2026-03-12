@@ -61,10 +61,8 @@ namespace ET
 	{
 		/// <summary>Id</summary>
 		public int Id { get; set; }
-		/// <summary>特效类型</summary>
-		public int EffectType { get; set; }
-		/// <summary>特效是否跟随绑定</summary>
-		public int IfFollowCollider { get; set; }
+		/// <summary>职业</summary>
+		public int occ { get; set; }
 		/// <summary>装备类型</summary>
 		public int StdMode { get; set; }
 		/// <summary>消耗元宝</summary>

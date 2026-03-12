@@ -3871,9 +3871,6 @@ namespace ET
         [MemoryPackOrder(92)]
         public long ActorId { get; set; }
 
-        [MemoryPackOrder(0)]
-        public PaiMaiItemInfo PaiMaiItemInfo { get; set; }
-
         public override void Dispose()
         {
             if (!this.IsFromPool)
@@ -3883,7 +3880,6 @@ namespace ET
 
             this.RpcId = default;
             this.ActorId = default;
-            this.PaiMaiItemInfo = default;
 
             ObjectPool.Instance.Recycle(this);
         }
@@ -3907,9 +3903,6 @@ namespace ET
         [MemoryPackOrder(91)]
         public string Message { get; set; }
 
-        [MemoryPackOrder(0)]
-        public PaiMaiItemInfo PaiMaiItemInfo { get; set; }
-
         public override void Dispose()
         {
             if (!this.IsFromPool)
@@ -3920,7 +3913,6 @@ namespace ET
             this.RpcId = default;
             this.Error = default;
             this.Message = default;
-            this.PaiMaiItemInfo = default;
 
             ObjectPool.Instance.Recycle(this);
         }
@@ -3942,9 +3934,6 @@ namespace ET
         [MemoryPackOrder(92)]
         public long ActorId { get; set; }
 
-        [MemoryPackOrder(1)]
-        public PaiMaiItemInfo PaiMaiItemInfo { get; set; }
-
         public override void Dispose()
         {
             if (!this.IsFromPool)
@@ -3954,7 +3943,6 @@ namespace ET
 
             this.RpcId = default;
             this.ActorId = default;
-            this.PaiMaiItemInfo = default;
 
             ObjectPool.Instance.Recycle(this);
         }

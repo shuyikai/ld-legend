@@ -18,10 +18,6 @@ namespace ET.Server
         /// 我推广的人
         /// </summary>
         public long BePopularizeId{ get; set; }
-
-        /// <summary>
-        /// 我的推广人
-        /// </summary>
-        public List<PopularizeInfo> MyPopularizeList{ get; set; } = new List<PopularizeInfo> { };
+        
     }
 }
