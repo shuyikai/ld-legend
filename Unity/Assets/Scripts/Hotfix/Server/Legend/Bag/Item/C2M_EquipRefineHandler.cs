@@ -54,6 +54,8 @@ namespace ET.Server
                 return;
             }
 
+            numericComponentServer.ApplyChange( NumericType.Now_YuanBao, -1 * refineInfo.CostYuanbao );
+            
             bool sucess = false;
             if (refineInfo.SuccessRate * 0.01f >= RandomHelper.RandFloat01())
             {

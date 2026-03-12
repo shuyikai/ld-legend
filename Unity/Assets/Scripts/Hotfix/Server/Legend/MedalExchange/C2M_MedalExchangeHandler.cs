@@ -25,12 +25,20 @@ namespace ET.Server
 
 
             MedalExchangeConfig medalExchangeConfig = MedalExchangeConfigCategory.Instance.Get(request.MedalId);
-            
+
+            NumericComponentServer numericComponentServer = unit.GetComponent<NumericComponentServer>();
+            if (numericComponentServer.GetAsLong(NumericType.Now_Reputation) < medalExchangeConfig.CostReputation)
+            {
+                response.Error = ErrorCode.ERR_ReputationNotEnoughError;
+                return;
+            }
+
             if (!string.IsNullOrEmpty(medalExchangeConfig.CostItems))
             {
                 bagComponents.OnCostItemData(medalExchangeConfig.CostItems);
             }
             
+            numericComponentServer.ApplyChange( NumericType.Now_Reputation, -1 * medalExchangeConfig.CostReputation );
             bagComponents.OnAddItemData($"{medalExchangeConfig.ItemId};1", $"{ItemGetWay.MedalExchange}_{TimeHelper.ServerNow()}");
             
             await ETTask.CompletedTask;
