@@ -1989,4 +1989,5 @@ message M2C_EquipRefineResponse // ILocationResponse
 	int32 RpcId = 90;
 	string Message = 91;
 	int32 Error = 92;
+	int32 RefineSucessTimes = 1;
 }

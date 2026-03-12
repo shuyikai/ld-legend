@@ -8700,6 +8700,9 @@ namespace ET
         [MemoryPackOrder(91)]
         public int Error { get; set; }
 
+        [MemoryPackOrder(0)]
+        public int RefineSucessTimes { get; set; }
+
         public override void Dispose()
         {
             if (!this.IsFromPool)
@@ -8710,6 +8713,7 @@ namespace ET
             this.RpcId = default;
             this.Message = default;
             this.Error = default;
+            this.RefineSucessTimes = default;
 
             ObjectPool.Instance.Recycle(this);
         }

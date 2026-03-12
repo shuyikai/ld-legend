@@ -60,7 +60,7 @@ namespace ET.Server
                 sucess = true;
             }
 
-            if (refineInfo.BaoDiTimes <= useBagInfo.RefineFailTimes )
+            if (useBagInfo.RefineFailTimes  >= refineInfo.BaoDiTimes)
             {
                 sucess = true;
             }
@@ -69,11 +69,12 @@ namespace ET.Server
             {
                 useBagInfo.RefineSuceTimes++;
                 useBagInfo.RefineFailTimes = 0;
-                response.Message = useBagInfo.RefineSuceTimes.ToString();
+                response.RefineSucessTimes = useBagInfo.RefineSuceTimes;
             }
             else
             {
                 useBagInfo.RefineFailTimes += 1;
+                response.RefineSucessTimes = 0;
             }
 
             //通知客户端背包刷新

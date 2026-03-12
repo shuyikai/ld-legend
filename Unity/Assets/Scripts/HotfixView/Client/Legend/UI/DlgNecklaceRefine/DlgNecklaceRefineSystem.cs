@@ -146,7 +146,7 @@ namespace ET.Client
 			{
 				return;
 			}
-			if (string.IsNullOrEmpty(refineResponse.Message) || refineResponse.Message.Equals("0"))
+			if (refineResponse.RefineSucessTimes <= 0)
 			{
 				FlyTipComponent.Instance.ShowFlyTip(LanguageComponent.Instance.LoadLocalization("洗练失败！"));
 				return;
@@ -154,9 +154,11 @@ namespace ET.Client
 
 			using (zstring.Block())
 			{
-				string sucesstip = LanguageComponent.Instance.LoadLocalization($"恭喜你洗炼成功，幸运值+{0}！");
-				FlyTipComponent.Instance.ShowFlyTip(zstring.Format(sucesstip, refineResponse.Message));
+				string sucesstip = LanguageComponent.Instance.LoadLocalization("恭喜你洗炼成功，幸运值+{0}！");
+				FlyTipComponent.Instance.ShowFlyTip(zstring.Format(sucesstip, refineResponse.RefineSucessTimes));
 			}
+			
+			self.ShowCostYuanbao();
 		}
 
 		private static  void OnCloseButton(this DlgNecklaceRefine self)
