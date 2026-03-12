@@ -216,10 +216,11 @@ namespace ET.Client
         /// <param name="root"></param>
         /// <param name="bagInfo"></param>
         /// <returns></returns>
-        public static async ETTask<M2C_EquipIdentifyResponse> RequestEquipIdentify(Scene root, ItemInfo bagInfo)
+        public static async ETTask<M2C_EquipIdentifyResponse> RequestEquipIdentify(Scene root, ItemInfo bagInfo, int loctype)
         {
             C2M_EquipIdentifyRequest identifyRequest = C2M_EquipIdentifyRequest.Create();
             identifyRequest.OperateBagID = bagInfo.BagInfoID;
+            identifyRequest.OperateType = loctype;
             M2C_EquipIdentifyResponse response = (M2C_EquipIdentifyResponse)await root.GetComponent<ClientSenderCompnent>().Call(identifyRequest);
 
             if (response.Error != ErrorCode.ERR_Success)

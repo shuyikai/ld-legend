@@ -105,8 +105,10 @@ namespace ET.Client
 				return;
 			}
 
+			Log.Debug($"roott:  {self.Root().Id}  {self.Root().Name}");
+			
 			long instanceid = self.InstanceId;
-			M2C_EquipIdentifyResponse identifyResponse =  await BagClientNetHelper.RequestEquipIdentify(self.Root(), itemInfo);
+			M2C_EquipIdentifyResponse identifyResponse =  await BagClientNetHelper.RequestEquipIdentify(self.Root(), itemInfo, loctype);
 			if (identifyConfig== null || instanceid!= self.InstanceId)
 			{
 				return;

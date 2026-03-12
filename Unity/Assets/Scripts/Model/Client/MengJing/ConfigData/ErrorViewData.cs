@@ -45,6 +45,8 @@ namespace ET.Client
             { ErrorCode.ERR_BagIsFull, "背包已满!" },
             { ErrorCode.ERR_ItemNotEnoughError, "道具不足!" },
             { ErrorCode.ERR_EquipNotEnoughError, "装备不足!" },
+            { ErrorCode.ERR_AlreadyIdentyfy, "该装备已经鉴定过!" },
+            
             { ErrorCode.ERR_ReputationNotEnoughError, "声望不足!" },
             {
                 ErrorCode.ERR_FangChengMi_Tip1,

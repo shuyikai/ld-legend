@@ -20,7 +20,7 @@
             {
                 return;
             }
-            
+            Log.Debug(($"ShowErrorHint:  {root.Id}   {root.Name}"));
             string hintStr = code.ToString();
             ErrorViewData.ErrorHints.TryGetValue(code, out hintStr);
             EventSystem.Instance.Publish(root, new ShowFlyTip() { Type = 0, Str = string.IsNullOrEmpty(hintStr) ? code.ToString() : hintStr });

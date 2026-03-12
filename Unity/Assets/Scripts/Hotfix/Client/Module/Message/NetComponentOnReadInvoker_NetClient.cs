@@ -16,11 +16,18 @@ namespace ET.Client
             {
                 case IResponse response:
                 {
+                    if (response.Error > 0)
+                    { 
+                        Log.Debug(($"netclient response.Error > 0:  {session.Root().Id}   {session.Root().Name}"));
+                       HintHelp.ShowErrorHint(session.Root(), response.Error);
+                    }
+
                     session.OnResponse(response);
                     break;
                 }
                 case ISessionMessage:
                 {
+                   
                     MessageSessionDispatcher.Instance.Handle(session, message);
                     break;
                 }
