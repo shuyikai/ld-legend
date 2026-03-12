@@ -18,9 +18,13 @@
                 case NumericType.Now_YuanBao:
                     Log.Debug(($"Unit_OnNumericUpdate. Now_YuanBao"));
                     DlgLdMain dlgLdMain = scene.Root().GetComponent<UIComponent>().GetDlgLogic<DlgLdMain>();
-                    dlgLdMain?.UpdateUserYuanbao();
+                    dlgLdMain?.UpdateUserYuanbao(args.NewValue - args.OldValue);
                     break;
-                
+                case NumericType.Now_Reputation:
+                    Log.Debug(($"Unit_OnNumericUpdate. Now_Reputation"));
+                    dlgLdMain = scene.Root().GetComponent<UIComponent>().GetDlgLogic<DlgLdMain>();
+                    dlgLdMain?.UpdateReputation(args.NewValue - args.OldValue);
+                    break;
                 case NumericType.Now_Hp:
                 case NumericType.Now_MaxHp:
                     NumericComponentClient numericComponentDefend = args.Defend.GetComponent<NumericComponentClient>();

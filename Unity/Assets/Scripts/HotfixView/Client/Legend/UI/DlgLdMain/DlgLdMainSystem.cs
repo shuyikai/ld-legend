@@ -25,18 +25,42 @@ namespace ET.Client
 
 		public static void ShowUserInfo(this DlgLdMain self)
 		{
-			self.UpdateUserYuanbao();
+			self.UpdateUserYuanbao(0);
 		}
 
-		public static void UpdateUserYuanbao(this DlgLdMain self)
+		public static void UpdateUserYuanbao(this DlgLdMain self, long addvalue)
 		{
 			NumericComponentClient numericComponentClient = self.MainUnit.GetComponent<NumericComponentClient>();
 			long yuanbao = numericComponentClient.GetAsLong(NumericType.Now_YuanBao);
-			
 			Log.Debug(($"DlgLdMain. UpdateUserYuanbao:  {yuanbao}"));
-
-			
 			self.View.E_YuanBaoNumberText.text = yuanbao.ToString();
+
+			if (addvalue <= 0)
+			{
+				return;
+			}
+
+			string etip = LanguageComponent.Instance.LoadLocalization("获取{0}元宝");
+			using (zstring.Block())
+			{
+				string tip = zstring.Format(etip, addvalue);
+				FlyTipComponent.Instance.ShowFlyTip(tip);
+			}
+		}
+
+		public static void UpdateReputation(this DlgLdMain self, long addvalue)
+		{
+			if (addvalue <= 0)
+			{
+				return;
+			}
+
+			string etip = LanguageComponent.Instance.LoadLocalization("获取{0}声望");
+			using (zstring.Block())
+			{
+				string tip = zstring.Format(etip, addvalue);
+				FlyTipComponent.Instance.ShowFlyTip(tip);
+			}
 		}
 
 		public static void ShowWindow(this DlgLdMain self, Entity contextData = null)
