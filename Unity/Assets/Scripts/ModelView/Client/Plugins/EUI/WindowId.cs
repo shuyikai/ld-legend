@@ -45,5 +45,6 @@ namespace ET.Client
 		WindowID_NecklaceRefine,			//项链洗练界面
 		WindowID_LdMain,
 		WindowID_EquipIdentify,
+		WindowID_Gem,
 	}
 }
