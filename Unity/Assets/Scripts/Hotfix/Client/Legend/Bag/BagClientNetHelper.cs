@@ -28,26 +28,6 @@ namespace ET.Client
             bagComponentClient.BagAddCellNumber = response.AdditionalCellNum;
             return ErrorCode.ERR_Success;
         }
-
-        /// <summary>
-        /// 道具和装备可以通用这个
-        /// </summary>
-        /// <param name="root"></param>
-        /// <param name="bagInfo"></param>
-        /// <param name="parinfo"></param>
-        /// <returns></returns>
-        public static async ETTask<int> RequestSellItem(Scene root, ItemInfo bagInfo, string parinfo)
-        {
-
-            C2M_ItemOperateRequest request = C2M_ItemOperateRequest.Create();
-            request.OperateType = 2;
-            request.OperateBagID = bagInfo.BagInfoID;
-            request.OperatePar = $"{bagInfo.ItemID}_{parinfo}";
-
-            M2C_ItemOperateResponse response = (M2C_ItemOperateResponse)await root.GetComponent<ClientSenderCompnent>().Call(request);
-
-            return response.Error;
-        }
         
 
         public static async ETTask<M2C_ItemOperateResponse> RequestUseItem(Scene root, ItemInfo bagInfo, string parinfo = "")
@@ -264,6 +244,25 @@ namespace ET.Client
                 return combingResponse;
             }
             return combingResponse;
+        }
+        
+        
+        /// <summary>
+        /// 道具和装备可以通用这个
+        /// </summary>
+        /// <param name="root"></param>
+        /// <param name="bagInfo"></param>
+        /// <param name="parinfo"></param>
+        /// <returns></returns>
+        public static async ETTask<int> RequestSellItem(Scene root, ItemInfo bagInfo, string parinfo)
+        {
+            C2M_ItemOperateRequest request = C2M_ItemOperateRequest.Create();
+            request.OperateType = 1;
+            request.OperateBagID = bagInfo.BagInfoID;
+
+            M2C_ItemOperateResponse response = (M2C_ItemOperateResponse)await root.GetComponent<ClientSenderCompnent>().Call(request);
+
+            return response.Error;
         }
     }
 }

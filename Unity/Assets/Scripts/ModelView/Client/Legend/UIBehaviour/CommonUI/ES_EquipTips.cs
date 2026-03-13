@@ -35,57 +35,6 @@ namespace ET.Client
      		}
      	}
 
-		public UnityEngine.UI.Image E_QualityBgImage
-     	{
-     		get
-     		{
-     			if (this.uiTransform == null)
-     			{
-     				Log.Error("uiTransform is null.");
-     				return null;
-     			}
-     			if( this.m_E_QualityBgImage == null )
-     			{
-		    		this.m_E_QualityBgImage = UIFindHelper.FindDeepChild<UnityEngine.UI.Image>(this.uiTransform.gameObject,"E_Back/E_QualityBg");
-     			}
-     			return this.m_E_QualityBgImage;
-     		}
-     	}
-
-		public UnityEngine.UI.Image E_QualityLineImage
-     	{
-     		get
-     		{
-     			if (this.uiTransform == null)
-     			{
-     				Log.Error("uiTransform is null.");
-     				return null;
-     			}
-     			if( this.m_E_QualityLineImage == null )
-     			{
-		    		this.m_E_QualityLineImage = UIFindHelper.FindDeepChild<UnityEngine.UI.Image>(this.uiTransform.gameObject,"E_Back/E_QualityLine");
-     			}
-     			return this.m_E_QualityLineImage;
-     		}
-     	}
-
-		public UnityEngine.UI.Image E_EquipQualityImage
-     	{
-     		get
-     		{
-     			if (this.uiTransform == null)
-     			{
-     				Log.Error("uiTransform is null.");
-     				return null;
-     			}
-     			if( this.m_E_EquipQualityImage == null )
-     			{
-		    		this.m_E_EquipQualityImage = UIFindHelper.FindDeepChild<UnityEngine.UI.Image>(this.uiTransform.gameObject,"E_Back/E_EquipQuality");
-     			}
-     			return this.m_E_EquipQualityImage;
-     		}
-     	}
-
 		public UnityEngine.UI.Image E_EquipIconImage
      	{
      		get
@@ -628,9 +577,6 @@ namespace ET.Client
 		public void DestroyWidget()
 		{
 			this.m_E_BackImage = null;
-			this.m_E_QualityBgImage = null;
-			this.m_E_QualityLineImage = null;
-			this.m_E_EquipQualityImage = null;
 			this.m_E_EquipIconImage = null;
 			this.m_E_EquipNameText = null;
 			this.m_E_EquipTypeSonText = null;
@@ -666,9 +612,6 @@ namespace ET.Client
 		}
 
 		private UnityEngine.UI.Image m_E_BackImage = null;
-		private UnityEngine.UI.Image m_E_QualityBgImage = null;
-		private UnityEngine.UI.Image m_E_QualityLineImage = null;
-		private UnityEngine.UI.Image m_E_EquipQualityImage = null;
 		private UnityEngine.UI.Image m_E_EquipIconImage = null;
 		private UnityEngine.UI.Text m_E_EquipNameText = null;
 		private UnityEngine.UI.Text m_E_EquipTypeSonText = null;

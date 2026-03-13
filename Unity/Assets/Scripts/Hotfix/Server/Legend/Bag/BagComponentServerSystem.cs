@@ -1000,7 +1000,6 @@ namespace ET.Server
             if (bagInfo.ItemNum >= number)
             {
                 bagInfo.ItemNum -= number;
-
                 if (bagInfo.ItemNum <= 0)
                 {
                     bagInfos.Remove(bagInfo);

@@ -6,6 +6,17 @@ using UnityEngine.UI;
 
 namespace ET.Client
 {
+	
+	[Event(SceneType.Demo)]
+	public class DataUpdate_BagItemUpdate_Refresh : AEvent<Scene, BagItemUpdate>
+	{
+		protected override async ETTask Run(Scene scene, BagItemUpdate args)
+		{
+			scene.GetComponent<UIComponent>().GetDlgLogic<DlgBag>()?.RefreshBagItems();
+			await ETTask.CompletedTask;
+		}
+	}
+	
     [FriendOf(typeof(Scroll_Item_CommonItem))]
 	[FriendOf(typeof(DlgBag))]
 	public static  class DlgBagSystem

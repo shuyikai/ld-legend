@@ -54,9 +54,21 @@ namespace ET.Client
 
 		private static async ETTask OnSellButton(this ES_EquipTips self)
 		{
-			await ETTask.CompletedTask;
+			long instanceid = self.InstanceId;
+			await BagClientNetHelper.RequestEquipWear(self.Root(), self.BagInfo, 1);
+			if (instanceid != self.InstanceId)
+			{
+				return;
+			}
+
+			self.OnClickCloseButton();
 		}
-		
+
+		private static void OnClickCloseButton(this ES_EquipTips self)
+		{
+			self.Root().GetComponent<UIComponent>().CloseWindow(WindowID.WindowID_EquipDuiBiTips);
+		}
+
 		private static async ETTask OnTakeButton(this ES_EquipTips self)
 		{
 			
@@ -94,22 +106,15 @@ namespace ET.Client
 
         // 背部
         string qualityiconLine = FunctionUI.ItemQualityLine(1);
-        string path = ABPathHelper.GetAtlasPath_2(ABAtlasTypes.ItemQualityIcon, qualityiconLine);
-        Sprite sp = resourcesLoaderComponent.LoadAssetSync<Sprite>(path);
-        self.E_QualityLineImage.sprite = sp;
         string qualityiconBack = FunctionUI.ItemQualityBack(1);
-        path = ABPathHelper.GetAtlasPath_2(ABAtlasTypes.ItemQualityIcon, qualityiconBack);
-        sp = resourcesLoaderComponent.LoadAssetSync<Sprite>(path);
-        self.E_QualityBgImage.sprite = sp;
-
+        
         // 道具Icon
-        path = ABPathHelper.GetAtlasPath_2(ABAtlasTypes.ItemIcon, itemConfig.GetEquipIcon());
-        sp = resourcesLoaderComponent.LoadAssetSync<Sprite>(path);
+        string path = ABPathHelper.GetAtlasPath_2(ABAtlasTypes.ItemIcon, itemConfig.GetEquipIcon());
+        Sprite sp = resourcesLoaderComponent.LoadAssetSync<Sprite>(path);
         self.E_EquipIconImage.sprite = sp;
         string qualityiconStr = FunctionUI.ItemQualiytoPath(1);
         path = ABPathHelper.GetAtlasPath_2(ABAtlasTypes.ItemQualityIcon, qualityiconStr);
         sp = resourcesLoaderComponent.LoadAssetSync<Sprite>(path);
-        self.E_EquipQualityImage.sprite = sp;
 
         // 道具名字
         self.E_EquipNameText.text = itemConfig.Name;
