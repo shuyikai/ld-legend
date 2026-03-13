@@ -19,12 +19,12 @@ namespace ET.Client
 
 		private static void OnGemCombingButton(this DlgGem self)
 		{
-			
+			//self.Root().GetComponent<UIComponent>().ShowWindow(WindowID.g);
 		}
 
 		private static void OnGGemInlayButton(this DlgGem self)
 		{
-			
+			//self.Root().GetComponent<UIComponent>().ShowWindow(WindowID.WindowID_Gem);
 		}
 
 		private static void OnCloseButton(this DlgGem self)
