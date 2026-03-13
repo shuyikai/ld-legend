@@ -130,8 +130,6 @@ namespace ET.Server
                         indexstr = indexstr + $"recover: {recoverTili}";
                         Log.Debug(indexstr);
                     }
-                    
-                    unit.GetComponent<HeroDataComponentS>().OnLoginCheck(currentTime - lastLoginTime);
                 }
             }
             else

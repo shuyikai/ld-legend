@@ -76,7 +76,6 @@ namespace ET.Client
         {
             { NumericType.Now_MaxHp, new NumericAttribute() { Name = "生命", Icon = "ProType_2" } },
             { NumericType.Now_MaxAct, new NumericAttribute() { Name = "攻击", Icon = "ProType_1" } },
-            { NumericType.Now_Mage, new NumericAttribute() { Name = "魔法", Icon = "ProType_6" } },
             { NumericType.Now_MaxDef, new NumericAttribute() { Name = "物防", Icon = "ProType_4" } },
             { NumericType.Now_MaxAdf, new NumericAttribute() { Name = "魔防", Icon = "ProType_5" } },
             { NumericType.Now_MinAct, new NumericAttribute() { Name = "最小攻击", Icon = string.Empty } },

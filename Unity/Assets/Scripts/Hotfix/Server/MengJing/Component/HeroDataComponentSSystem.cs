@@ -28,18 +28,8 @@ namespace ET.Server
                  numericComponent.ApplyValue(NumericType.Now_Hp, numericComponent.GetAsInt(NumericType.Now_MaxHp), false);
                  numericComponent.ApplyValue(NumericType.Now_Dead, 0, false);
              }
-
-       
          }
-
-         public static void OnLoginCheck(this HeroDataComponentS self, long passTime)
-         {
-             Unit unit = self.GetParent<Unit>();
-             NumericComponentServer numericComponentServer = unit.GetComponent<NumericComponentServer>();
-
-         }
-
-
+         
          public static void OnLogin(this HeroDataComponentS self, int robotId)
          {
              Unit unit = self.GetParent<Unit>();
@@ -48,6 +38,11 @@ namespace ET.Server
              numericComponent.ApplyValue((int)NumericType.Now_Stall, 0, false);
              numericComponent.ApplyValue((int)NumericType.TeamId, 0, false);
              numericComponent.ApplyValue((int)NumericType.Now_Hp, numericComponent.GetAsLong((int)NumericType.Now_MaxHp), false);
+
+             if (numericComponent.GetAsFloat(NumericType.Now_Speed) < 1f)
+             {
+                 numericComponent.ApplyValue(NumericType.Now_Speed, 50000, false);
+             }
          }
          
          private static void HeroDataApplyValue(this HeroDataComponentS self, int ntype, long value, List<int> keylist)

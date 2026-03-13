@@ -161,7 +161,6 @@ namespace ET.Server
             AddUpdateProDicList(NumericType.Base_MaxHp_Base, 100000, UpdateProDicList);
             AddUpdateProDicList(NumericType.Base_MinAct_Base, 0, UpdateProDicList);
             AddUpdateProDicList(NumericType.Base_MaxAct_Base, 0, UpdateProDicList);
-            AddUpdateProDicList(NumericType.Base_Mage_Base, 0, UpdateProDicList);
             AddUpdateProDicList(NumericType.Base_MinDef_Base, 0, UpdateProDicList);
             AddUpdateProDicList(NumericType.Base_MaxDef_Base, 0, UpdateProDicList);
             AddUpdateProDicList(NumericType.Base_MinAdf_Base, 0, UpdateProDicList);
