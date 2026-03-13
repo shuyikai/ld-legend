@@ -8,7 +8,7 @@ namespace ET.Server
         {
             BagComponentServer bagComponent = unit.GetComponent<BagComponentServer>();
             UserInfoComponentS userInfoComponent = unit.GetComponent<UserInfoComponentS>();
-            UserInfo useInfo = userInfoComponent.UserInfo;
+            
             long bagInfoID = request.OperateBagID;
             int locType =request.OperateType;
 

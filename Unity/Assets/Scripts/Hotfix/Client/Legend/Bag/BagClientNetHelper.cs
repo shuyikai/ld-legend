@@ -248,5 +248,22 @@ namespace ET.Client
             }
             return response;
         }
+
+        public static async ETTask<M2C_GemInlayResponse> RequestGemInlay(Scene root, long equipid, long gemid, int loctype)
+        {
+            C2M_GemInlayRequest inlayRequest = C2M_GemInlayRequest.Create();
+            inlayRequest.EquipId = equipid;
+            inlayRequest.GemId = gemid;
+            inlayRequest.OperateType = loctype;
+            
+            M2C_GemInlayResponse combingResponse = (M2C_GemInlayResponse)await root.GetComponent<ClientSenderCompnent>().Call(inlayRequest);
+
+            if (combingResponse.Error != ErrorCode.ERR_Success)
+            {
+                //
+                return combingResponse;
+            }
+            return combingResponse;
+        }
     }
 }

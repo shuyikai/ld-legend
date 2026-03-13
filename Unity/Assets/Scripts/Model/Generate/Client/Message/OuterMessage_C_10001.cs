@@ -8617,6 +8617,81 @@ namespace ET
         }
     }
 
+    // 宝石镶嵌
+    [MemoryPackable]
+    [Message(OuterMessage.C2M_GemInlayRequest)]
+    [ResponseType(nameof(M2C_GemInlayResponse))]
+    public partial class C2M_GemInlayRequest : MessageObject, ILocationRequest
+    {
+        public static C2M_GemInlayRequest Create(bool isFromPool = false)
+        {
+            return ObjectPool.Instance.Fetch(typeof(C2M_GemInlayRequest), isFromPool) as C2M_GemInlayRequest;
+        }
+
+        [MemoryPackOrder(89)]
+        public int RpcId { get; set; }
+
+        [MemoryPackOrder(0)]
+        public long EquipId { get; set; }
+
+        [MemoryPackOrder(1)]
+        public long GemId { get; set; }
+
+        /// <summary>
+        /// 1人物  2背包
+        /// </summary>
+        [MemoryPackOrder(2)]
+        public int OperateType { get; set; }
+
+        public override void Dispose()
+        {
+            if (!this.IsFromPool)
+            {
+                return;
+            }
+
+            this.RpcId = default;
+            this.EquipId = default;
+            this.GemId = default;
+            this.OperateType = default;
+
+            ObjectPool.Instance.Recycle(this);
+        }
+    }
+
+    [MemoryPackable]
+    [Message(OuterMessage.M2C_GemInlayResponse)]
+    public partial class M2C_GemInlayResponse : MessageObject, ILocationResponse
+    {
+        public static M2C_GemInlayResponse Create(bool isFromPool = false)
+        {
+            return ObjectPool.Instance.Fetch(typeof(M2C_GemInlayResponse), isFromPool) as M2C_GemInlayResponse;
+        }
+
+        [MemoryPackOrder(89)]
+        public int RpcId { get; set; }
+
+        [MemoryPackOrder(90)]
+        public string Message { get; set; }
+
+        [MemoryPackOrder(91)]
+        public int Error { get; set; }
+
+        public override void Dispose()
+        {
+            if (!this.IsFromPool)
+            {
+                return;
+            }
+
+            this.RpcId = default;
+            this.Message = default;
+            this.Error = default;
+
+            ObjectPool.Instance.Recycle(this);
+        }
+    }
+
     public static class OuterMessage
     {
         public const ushort HttpGetRouterResponse = 10002;
@@ -8841,5 +8916,7 @@ namespace ET
         public const ushort M2C_EquipIdentifyResponse = 10221;
         public const ushort C2M_GemCombingRequest = 10222;
         public const ushort M2C_GemCombingResponse = 10223;
+        public const ushort C2M_GemInlayRequest = 10224;
+        public const ushort M2C_GemInlayResponse = 10225;
     }
 }

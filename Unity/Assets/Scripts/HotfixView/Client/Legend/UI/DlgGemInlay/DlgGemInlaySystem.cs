@@ -20,6 +20,9 @@ namespace ET.Client
 			self.View.E_RefineBtnButton.AddListenerAsync(self.OnClickRefineButtion);
 			
 			self.View.E_FunctionSetBtnToggleGroup.OnSelectIndex(0);
+			
+			self.View.ES_CommonItem_1.SetVisible(false);
+			self.View.ES_CommonItem_2.SetVisible(false);
 		}
 
 		public static void ShowWindow(this DlgGemInlay self, Entity contextData = null)
@@ -27,7 +30,46 @@ namespace ET.Client
 		}
 
 		private static async ETTask OnClickRefineButtion(this DlgGemInlay self)
-		{
+		{	
+			if(self.SelectEquipId == 0)
+			{
+				return;
+			}
+
+			if (self.SelectGemId == 0)
+			{
+				return;
+			}
+
+			int loctype = self.CurrentItemType == 0 ? 1 : 0;
+			BagComponentClient bagComponentClient = self.Root().GetComponent<BagComponentClient>();
+			ItemInfo equipinfo = bagComponentClient.GetItemInfoByLoc(loctype, self.SelectEquipId);
+			if (equipinfo == null)
+			{
+				return;
+			}
+
+			if (equipinfo.GemIDNew > 0)
+			{
+				/*string etitle =  LanguageComponent.Instance.LoadLocalization("镶嵌宝石");
+				string etip = LanguageComponent.Instance.LoadLocalization("该装备已经镶嵌宝石，是否继续镶嵌!");
+				PopupTipHelp.OpenPopupTip_2(self.Root(), etitle, etip, () =>
+						{
+							///
+						})
+						.Coroutine();*/
+			}
+
+			long instanceid = self.InstanceId;
+			await BagClientNetHelper.RequestGemInlay(self.Root(), self.SelectEquipId, self.SelectGemId, loctype);
+			if (instanceid != self.InstanceId)
+			{
+				return;
+			}
+
+			self.SelectGemId = 0;
+			self.UpdateLeftinfo();
+			
 			Log.Debug($"OnClickRefineButtion");
 			await ETTask.CompletedTask;
 		}
@@ -43,10 +85,6 @@ namespace ET.Client
 			}
 		     
 			Scroll_Item_CommonItem scrollItemCommonItem = self.ScrollItemCommonItems[index].BindTrans(transform);
-
-			BagComponentClient bagComponent = self.Root().GetComponent<BagComponentClient>();
-			UserInfoComponentC userInfoComponent = self.Root().GetComponent<UserInfoComponentC>();
-			int openell = bagComponent.GetBagTotalCell(ItemLocType.ItemLocBag);
 			scrollItemCommonItem.UpdateUnLock(false);
 			scrollItemCommonItem.Refresh(index < self.ShowBagInfos.Count ? self.ShowBagInfos[index] : null, ItemOperateEnum.NecklaceRefine,
 				self.UpdateSelect);
@@ -63,7 +101,7 @@ namespace ET.Client
 		
 		private static void UpdateSelect(this DlgGemInlay self, ItemInfo bagInfo)
 		{
-			//self.SelectEquipId = bagInfo.BagInfoID;
+	
 			for (int i = 0; i < self.ScrollItemCommonItems.Keys.Count - 1; i++)
 			{
 				Scroll_Item_CommonItem scrollItemCommonItem = self.ScrollItemCommonItems[i];
@@ -73,11 +111,67 @@ namespace ET.Client
 				}
 			}
 
-			/*self.View.ES_CommonItem.uiTransform.gameObject.SetActive(true);
-			self.View.E_PutTipText.gameObject.SetActive(false);
-			self.View.ES_CommonItem.UpdateItem(bagInfo, ItemOperateEnum.None);
+			if (bagInfo.ItemID >= ItemDataType.EquipInitId)
+			{
+				self.SelectEquipId = bagInfo.BagInfoID;
+				
+				self.View.ES_CommonItem_1.SetVisible(true);
+				self.View.ES_CommonItem_1.UpdateItem(bagInfo, ItemOperateEnum.None);
+				self.View.E_PutTip1Text.gameObject.SetActive(false);
+			}
+			else
+			{
+				self.SelectGemId = bagInfo.BagInfoID;
+			}
+			
+			self.UpdateLeftinfo();
+		}
 
-			self.ShowCostYuanbao();*/
+		private static void UpdateLeftinfo(this DlgGemInlay self)
+		{
+			int loctype = self.CurrentItemType == 0 ? 1 : 0;
+			BagComponentClient bagComponentClient = self.Root().GetComponent<BagComponentClient>();
+			ItemInfo equipinfo = bagComponentClient.GetItemInfoByLoc(loctype, self.SelectEquipId);
+			int xiangqiangem = 0;
+			if (equipinfo != null)
+			{
+				self.View.ES_CommonItem_1.SetVisible(true);
+				self.View.ES_CommonItem_1.UpdateItem(equipinfo, ItemOperateEnum.None);
+				self.View.E_PutTip1Text.gameObject.SetActive(false);
+				xiangqiangem = equipinfo.GemIDNew;
+			}
+			else
+			{
+				self.View.ES_CommonItem_1.SetVisible(false);
+				self.View.E_PutTip1Text.gameObject.SetActive(true);
+			}
+
+			string etip = LanguageComponent.Instance.LoadLocalization("已镶嵌：");
+			if (xiangqiangem != 0)
+			{
+				ItemConfig itemConfig = ItemConfigCategory.Instance.Get(xiangqiangem);
+				etip += itemConfig.Name;
+			}
+			else
+			{
+				etip +=  LanguageComponent.Instance.LoadLocalization("无");
+			}
+
+			self.View.E_CostGoldTxtText.text = etip;
+
+			ItemInfo gemino = bagComponentClient.GetItemInfoByLoc(ItemLocType.ItemLocBag, self.SelectGemId);
+			if (gemino != null)
+			{
+				self.View.ES_CommonItem_2.SetVisible(true);
+				self.View.ES_CommonItem_2.UpdateItem(gemino, ItemOperateEnum.None);
+				self.View.E_PutTip2Text.gameObject.SetActive(false);
+			}
+			else
+			{
+				self.View.ES_CommonItem_2.SetVisible(false);
+				self.View.E_PutTip2Text.gameObject.SetActive(false);
+			}
+
 		}
 
 		private static void OnItemTypeSet(this DlgGemInlay self, int index)

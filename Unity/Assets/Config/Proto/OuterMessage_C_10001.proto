@@ -1970,3 +1970,20 @@ message M2C_GemCombingResponse // ILocationResponse
 	int32 Error = 92;
 	int32 GemId = 1;
 }
+
+//宝石镶嵌
+//ResponseType M2C_GemInlayResponse
+message C2M_GemInlayRequest // ILocationRequest
+{
+	int32 RpcId = 90;
+	int64 EquipId = 1;
+	int64 GemId = 2;
+	int32 OperateType = 3;				// 1人物  2背包
+}
+
+message M2C_GemInlayResponse // ILocationResponse
+{
+	int32 RpcId = 90;
+	string Message = 91;
+	int32 Error = 92;
+}

@@ -79,6 +79,11 @@ namespace ET.Client
             self.ClickItemHandler = action;
         }
 
+        public static void SetVisible(this ES_CommonItem self, bool vi)
+        {
+            self.uiTransform.gameObject.SetActive(vi);
+        }
+
         public static void OnClickUIItem(this ES_CommonItem self)
         {
             if (self.Baginfo == null)
