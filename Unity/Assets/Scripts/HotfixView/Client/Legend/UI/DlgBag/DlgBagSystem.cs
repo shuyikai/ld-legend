@@ -24,13 +24,12 @@ namespace ET.Client
 
 		public static void RegisterUIEvent(this DlgBag self)
 		{
-			self.View.E_ItemTypeSetToggleGroup.AddListener(self.OnItemTypeSet);
 			self.View.E_BagItemsLoopVerticalScrollRect.AddItemRefreshListener(self.OnBagItemsRefresh);
             self.View.E_CloseButtonButton.AddListener(self.OnCloseButton);
 
 			self.View.E_ZhengLiButton.AddListenerAsync(self.OnZhengLiButton);
 
-			self.View.E_ItemTypeSetToggleGroup.OnSelectIndex(0);
+			self.OnItemTypeSet(0);
 		}
 
 		public static void ShowWindow(this DlgBag self, Entity contextData = null)

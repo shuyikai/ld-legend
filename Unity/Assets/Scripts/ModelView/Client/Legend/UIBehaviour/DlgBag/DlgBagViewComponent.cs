@@ -58,23 +58,6 @@ namespace ET.Client
      		}
      	}
 
-		public UnityEngine.UI.ToggleGroup E_ItemTypeSetToggleGroup
-     	{
-     		get
-     		{
-     			if (this.uiTransform == null)
-     			{
-     				Log.Error("uiTransform is null.");
-     				return null;
-     			}
-     			if( this.m_E_ItemTypeSetToggleGroup == null )
-     			{
-		    		this.m_E_ItemTypeSetToggleGroup = UIFindHelper.FindDeepChild<UnityEngine.UI.ToggleGroup>(this.uiTransform.gameObject,"E_ItemTypeSet");
-     			}
-     			return this.m_E_ItemTypeSetToggleGroup;
-     		}
-     	}
-
 		public UnityEngine.UI.Button E_ZhengLiButton
      	{
      		get
@@ -216,7 +199,6 @@ namespace ET.Client
 			this.m_EG_SubViewRectTransform = null;
 			this.m_E_CloseButtonButton = null;
 			this.m_E_CloseButtonImage = null;
-			this.m_E_ItemTypeSetToggleGroup = null;
 			this.m_E_ZhengLiButton = null;
 			this.m_E_ZhengLiImage = null;
 			this.m_E_CangKuButton = null;
@@ -231,7 +213,6 @@ namespace ET.Client
 		private UnityEngine.RectTransform m_EG_SubViewRectTransform = null;
 		private UnityEngine.UI.Button m_E_CloseButtonButton = null;
 		private UnityEngine.UI.Image m_E_CloseButtonImage = null;
-		private UnityEngine.UI.ToggleGroup m_E_ItemTypeSetToggleGroup = null;
 		private UnityEngine.UI.Button m_E_ZhengLiButton = null;
 		private UnityEngine.UI.Image m_E_ZhengLiImage = null;
 		private UnityEngine.UI.Button m_E_CangKuButton = null;
