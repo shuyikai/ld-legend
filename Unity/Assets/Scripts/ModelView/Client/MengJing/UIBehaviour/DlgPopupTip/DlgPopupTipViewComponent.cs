@@ -58,23 +58,6 @@ namespace ET.Client
      		}
      	}
 
-		public UnityEngine.UI.Image E_CloseImage
-     	{
-     		get
-     		{
-     			if (this.uiTransform == null)
-     			{
-     				Log.Error("uiTransform is null.");
-     				return null;
-     			}
-     			if( this.m_E_CloseImage == null )
-     			{
-		    		this.m_E_CloseImage = UIFindHelper.FindDeepChild<UnityEngine.UI.Image>(this.uiTransform.gameObject,"Center/E_Close");
-     			}
-     			return this.m_E_CloseImage;
-     		}
-     	}
-
 		public UnityEngine.UI.Button E_TrueButton
      	{
      		get
@@ -148,7 +131,6 @@ namespace ET.Client
 			this.m_E_TitleText = null;
 			this.m_E_ContentText = null;
 			this.m_E_CloseButton = null;
-			this.m_E_CloseImage = null;
 			this.m_E_TrueButton = null;
 			this.m_E_TrueImage = null;
 			this.m_E_FalseButton = null;
@@ -159,7 +141,6 @@ namespace ET.Client
 		private UnityEngine.UI.Text m_E_TitleText = null;
 		private UnityEngine.UI.Text m_E_ContentText = null;
 		private UnityEngine.UI.Button m_E_CloseButton = null;
-		private UnityEngine.UI.Image m_E_CloseImage = null;
 		private UnityEngine.UI.Button m_E_TrueButton = null;
 		private UnityEngine.UI.Image m_E_TrueImage = null;
 		private UnityEngine.UI.Button m_E_FalseButton = null;

@@ -17,7 +17,7 @@ namespace ET.Client
 			
 			self.View.E_FunctionSetBtnToggleGroup.AddListener(self.OnItemTypeSet);
 			self.View.E_BagItemsLoopVerticalScrollRect.AddItemRefreshListener(self.OnBagItemsRefresh);
-			self.View.E_RefineBtnButton.AddListenerAsync(self.OnClickRefineButtion);
+			self.View.E_RefineBtnButton.AddListener(self.OnClickRefineButtion);
 			
 			self.View.E_FunctionSetBtnToggleGroup.OnSelectIndex(0);
 			
@@ -29,7 +29,7 @@ namespace ET.Client
 		{
 		}
 
-		private static async ETTask OnClickRefineButtion(this DlgGemInlay self)
+		private static  void OnClickRefineButtion(this DlgGemInlay self)
 		{	
 			if(self.SelectEquipId == 0)
 			{
@@ -41,27 +41,25 @@ namespace ET.Client
 				return;
 			}
 
-			int loctype = self.CurrentItemType == 0 ? 1 : 0;
 			BagComponentClient bagComponentClient = self.Root().GetComponent<BagComponentClient>();
-			ItemInfo equipinfo = bagComponentClient.GetItemInfoByLoc(loctype, self.SelectEquipId);
+			ItemInfo equipinfo = bagComponentClient.GetItemInfoByRoleAndbag( self.SelectEquipId);
 			if (equipinfo == null)
 			{
 				return;
 			}
 
-			if (equipinfo.GemIDNew > 0)
-			{
-				/*string etitle =  LanguageComponent.Instance.LoadLocalization("镶嵌宝石");
-				string etip = LanguageComponent.Instance.LoadLocalization("该装备已经镶嵌宝石，是否继续镶嵌!");
-				PopupTipHelp.OpenPopupTip_2(self.Root(), etitle, etip, () =>
-						{
-							///
-						})
-						.Coroutine();*/
-			}
+			string etip = LanguageComponent.Instance.LoadLocalization("止挂机工作室转移装备、材料，该装备加工后将变为绑定，是否继续？");
+			PopupTipHelp.OpenPopupTip(self.Root(), string.Empty, etip, () =>
+					{
+						self.RequestGemInlay().Coroutine();
+					})
+					.Coroutine();
+		}
 
+		private static async ETTask RequestGemInlay(this DlgGemInlay self )
+		{
 			long instanceid = self.InstanceId;
-			await BagClientNetHelper.RequestGemInlay(self.Root(), self.SelectEquipId, self.SelectGemId, loctype);
+			await BagClientNetHelper.RequestGemInlay(self.Root(), self.SelectEquipId, self.SelectGemId, 0);
 			if (instanceid != self.InstanceId)
 			{
 				return;
@@ -69,8 +67,6 @@ namespace ET.Client
 
 			self.SelectGemId = 0;
 			self.UpdateLeftinfo();
-			
-			Log.Debug($"OnClickRefineButtion");
 			await ETTask.CompletedTask;
 		}
 
@@ -129,9 +125,8 @@ namespace ET.Client
 
 		private static void UpdateLeftinfo(this DlgGemInlay self)
 		{
-			int loctype = self.CurrentItemType == 0 ? 1 : 0;
 			BagComponentClient bagComponentClient = self.Root().GetComponent<BagComponentClient>();
-			ItemInfo equipinfo = bagComponentClient.GetItemInfoByLoc(loctype, self.SelectEquipId);
+			ItemInfo equipinfo = bagComponentClient.GetItemInfoByRoleAndbag(self.SelectEquipId);
 			int xiangqiangem = 0;
 			if (equipinfo != null)
 			{

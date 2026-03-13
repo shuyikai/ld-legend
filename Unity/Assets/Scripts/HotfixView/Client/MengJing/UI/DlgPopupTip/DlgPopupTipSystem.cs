@@ -8,7 +8,6 @@ namespace ET.Client
     {
         public static void RegisterUIEvent(this DlgPopupTip self)
         {
-            self.View.E_CloseButton.AddListener(self.OnCloseButton);
             self.View.E_TrueButton.AddListener(self.OnTrueButton);
             self.View.E_FalseButton.AddListener(self.OnFalseButton);
         }

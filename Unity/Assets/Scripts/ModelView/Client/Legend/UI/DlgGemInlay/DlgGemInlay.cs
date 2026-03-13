@@ -39,6 +39,9 @@ namespace ET.Client
 			}
 		}
 		
+		/// <summary>
+		/// 当前切页
+		/// </summary>
 		public int CurrentItemType;
 		
 	}

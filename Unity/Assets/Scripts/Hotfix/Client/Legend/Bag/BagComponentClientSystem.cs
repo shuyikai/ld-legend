@@ -267,7 +267,30 @@ namespace ET.Client
 
             return null;
         }
-        
+
+        /// <summary>
+        /// 从角色身上和背包里面获取装备
+        /// </summary>
+        /// <param name="self"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public static ItemInfo GetItemInfoByRoleAndbag(this BagComponentClient self, long id)
+        {
+            List<ItemInfo> itemlist = new List<ItemInfo>();
+            itemlist.AddRange(self.AllItemList[ItemLocType.ItemLocBag]);
+            itemlist.AddRange(self.AllItemList[ItemLocType.ItemLocEquip]);
+           
+            for (int k = 0; k < itemlist.Count; k++)
+            {
+                if (itemlist[k].BagInfoID == id)
+                {
+                    return itemlist[k];
+                }
+            }
+
+            return null;
+        }
+
         public static ItemInfo GetItemInfoByLoc(this BagComponentClient self, int loc, long id)
         {
             List<ItemInfo> baglist =  self.AllItemList[loc];

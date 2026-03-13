@@ -308,6 +308,30 @@ namespace ET.Server
             return number;
         }
 
+        /// <summary>
+        /// 从角色身上和背包里面获取装备
+        /// </summary>
+        /// <param name="self"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public static ItemInfo GetItemInfoByRoleAndbag(this BagComponentServer self, long id)
+        {
+            List<ItemInfo> itemlist = new List<ItemInfo>();
+            itemlist.AddRange(self.AllItemList[ItemLocType.ItemLocBag]);
+            itemlist.AddRange(self.AllItemList[ItemLocType.ItemLocEquip]);
+
+            for (int k = 0; k < itemlist.Count; k++)
+            {
+                if (itemlist[k].BagInfoID == id)
+                {
+                    return itemlist[k];
+                }
+            }
+
+            return null;
+        }
+
+
         //根据ID获取对应的背包数据
         public static ItemInfo GetItemByLoc(this BagComponentServer self, int itemLocType, long bagId)
         {

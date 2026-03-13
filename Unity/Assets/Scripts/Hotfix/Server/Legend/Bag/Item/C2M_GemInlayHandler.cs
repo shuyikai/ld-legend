@@ -18,8 +18,8 @@ namespace ET.Server
                 return;
             }
             
-            int locType =request.OperateType;
-            ItemInfo equipIteminfo = bagComponent.GetItemByLoc(locType, request.EquipId);
+          
+            ItemInfo equipIteminfo = bagComponent.GetItemInfoByRoleAndbag( request.EquipId);
             if (equipIteminfo == null)
             {
                 response.Error = ErrorCode.ERR_ItemNotExist;
