@@ -8553,6 +8553,70 @@ namespace ET
         }
     }
 
+    // 宝石合成
+    [MemoryPackable]
+    [Message(OuterMessage.C2M_GemCombingRequest)]
+    [ResponseType(nameof(M2C_GemCombingResponse))]
+    public partial class C2M_GemCombingRequest : MessageObject, ILocationRequest
+    {
+        public static C2M_GemCombingRequest Create(bool isFromPool = false)
+        {
+            return ObjectPool.Instance.Fetch(typeof(C2M_GemCombingRequest), isFromPool) as C2M_GemCombingRequest;
+        }
+
+        [MemoryPackOrder(89)]
+        public int RpcId { get; set; }
+
+        public override void Dispose()
+        {
+            if (!this.IsFromPool)
+            {
+                return;
+            }
+
+            this.RpcId = default;
+
+            ObjectPool.Instance.Recycle(this);
+        }
+    }
+
+    [MemoryPackable]
+    [Message(OuterMessage.M2C_GemCombingResponse)]
+    public partial class M2C_GemCombingResponse : MessageObject, ILocationResponse
+    {
+        public static M2C_GemCombingResponse Create(bool isFromPool = false)
+        {
+            return ObjectPool.Instance.Fetch(typeof(M2C_GemCombingResponse), isFromPool) as M2C_GemCombingResponse;
+        }
+
+        [MemoryPackOrder(89)]
+        public int RpcId { get; set; }
+
+        [MemoryPackOrder(90)]
+        public string Message { get; set; }
+
+        [MemoryPackOrder(91)]
+        public int Error { get; set; }
+
+        [MemoryPackOrder(0)]
+        public int GemId { get; set; }
+
+        public override void Dispose()
+        {
+            if (!this.IsFromPool)
+            {
+                return;
+            }
+
+            this.RpcId = default;
+            this.Message = default;
+            this.Error = default;
+            this.GemId = default;
+
+            ObjectPool.Instance.Recycle(this);
+        }
+    }
+
     public static class OuterMessage
     {
         public const ushort HttpGetRouterResponse = 10002;
@@ -8775,5 +8839,7 @@ namespace ET
         public const ushort M2C_EquipRefineResponse = 10219;
         public const ushort C2M_EquipIdentifyRequest = 10220;
         public const ushort M2C_EquipIdentifyResponse = 10221;
+        public const ushort C2M_GemCombingRequest = 10222;
+        public const ushort M2C_GemCombingResponse = 10223;
     }
 }

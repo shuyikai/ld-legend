@@ -1955,3 +1955,18 @@ message M2C_EquipIdentifyResponse // ILocationResponse
 	string Message = 91;
 	int32 Error = 92;
 }
+
+//宝石合成
+//ResponseType M2C_GemCombingResponse
+message C2M_GemCombingRequest // ILocationRequest
+{
+	int32 RpcId = 90;		
+}
+
+message M2C_GemCombingResponse // ILocationResponse
+{
+	int32 RpcId = 90;
+	string Message = 91;
+	int32 Error = 92;
+	int32 GemId = 1;
+}

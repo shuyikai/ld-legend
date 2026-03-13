@@ -13,7 +13,8 @@ namespace ET
         /// <returns></returns>
         public static int GetItemStackCount(this ItemConfig self)
         {
-            return 1; //self.OverLap;
+            //0 不能堆叠
+            return self.OverLap == 0 ? 1 : self.OverLap;
         }
         
         public static string GetItemIcon(this ItemConfig self)

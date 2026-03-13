@@ -578,11 +578,6 @@ namespace ET.Server
             string[] getWayInfo = getWay.Split('_');
             int getType = int.Parse(getWayInfo[0]);
             Unit unit = self.GetParent<Unit>();
-            bool isRobot = unit.GetComponent<UserInfoComponentS>().IsRobot();
-            if (isRobot && getType == ItemGetWay.PickItem)
-            {
-                return true;
-            }
 
             List<RewardItem> rewardItems = new List<RewardItem>();
             for (int i = rewardItems_init.Count - 1; i >= 0; i--)
@@ -636,7 +631,6 @@ namespace ET.Server
                 else
                 {
                     ItemConfig itemCof = ItemConfigCategory.Instance.Get(itemid);
-                    ItemPileSum = gm  ? 1000000 : itemCof.GetItemStackCount();
                     ItemPileSum = itemCof.GetItemStackCount();
                 }
                 
@@ -700,7 +694,7 @@ namespace ET.Server
                 {
                     //最大堆叠数量
                     ItemConfig itemCof = ItemConfigCategory.Instance.Get(itemID);
-                    maxPileSum  = gm ? 10000000 : itemCof.GetItemStackCount();
+                    maxPileSum  = itemCof.GetItemStackCount();
                 }
                 if (leftNum >= 99)
                 {
@@ -800,7 +794,7 @@ namespace ET.Server
             return true;
         }
 
-        public static bool CheckCostItem(this BagComponentServer self, List<RewardItem> rewardItems)
+        public static bool CheckNeedItem(this BagComponentServer self, List<RewardItem> rewardItems)
         {
             for (int i = 0; i < rewardItems.Count; i++)
             {

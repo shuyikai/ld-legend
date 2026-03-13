@@ -16,6 +16,7 @@ namespace ET
         public const int PickItem = 5;                  //拾取道具
         public const int StoreBuy = 6;              //商店购买
         public const int Activity = 7;                  //活动通用。。
+        public const int Combing = 8;               //合成
 
         //以下途径获取的道具绑定道具,其他途径为非绑定道具
         [StaticField]

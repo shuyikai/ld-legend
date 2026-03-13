@@ -230,5 +230,23 @@ namespace ET.Client
             }
             return response;
         }
+
+        /// <summary>
+        /// 宝石合成
+        /// </summary>
+        /// <param name="root"></param>
+        /// <returns></returns>
+        public static async ETTask<M2C_GemCombingResponse> RequestGemCombing(Scene root)
+        {
+            C2M_GemCombingRequest request = C2M_GemCombingRequest.Create();
+            M2C_GemCombingResponse response = (M2C_GemCombingResponse)await root.GetComponent<ClientSenderCompnent>().Call(request);
+
+            if (response.Error != ErrorCode.ERR_Success)
+            {
+                //
+                return response;
+            }
+            return response;
+        }
     }
 }

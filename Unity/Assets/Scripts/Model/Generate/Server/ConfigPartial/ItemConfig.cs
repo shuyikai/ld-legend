@@ -10,7 +10,7 @@ namespace ET
         
         public override void EndInit()
         {
-
+            GemListConfig();
         }
 
         private void GemListConfig()
