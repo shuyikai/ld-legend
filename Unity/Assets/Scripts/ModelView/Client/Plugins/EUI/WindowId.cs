@@ -47,5 +47,6 @@ namespace ET.Client
 		WindowID_EquipIdentify,
 		WindowID_Gem,
 		WindowID_GemCombing,
+		WindowID_GemInlay,
 	}
 }

@@ -25,7 +25,7 @@ namespace ET.Client
 
 		private static void OnGGemInlayButton(this DlgGem self)
 		{
-			//self.Root().GetComponent<UIComponent>().ShowWindow(WindowID.WindowID_Gem);
+			self.Root().GetComponent<UIComponent>().ShowWindow(WindowID.WindowID_GemInlay);
 			
 			self.OnCloseButton();
 		}
