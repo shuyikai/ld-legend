@@ -8383,6 +8383,12 @@ namespace ET
         [MemoryPackOrder(11)]
         public string MakePlayer { get; set; }
 
+        /// <summary>
+        /// 0未绑定  1已绑定
+        /// </summary>
+        [MemoryPackOrder(12)]
+        public int BindState { get; set; }
+
         public override void Dispose()
         {
             if (!this.IsFromPool)
@@ -8402,6 +8408,7 @@ namespace ET
             this.GetWay = default;
             this.GemIDNew = default;
             this.MakePlayer = default;
+            this.BindState = default;
 
             ObjectPool.Instance.Recycle(this);
         }

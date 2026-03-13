@@ -27,6 +27,7 @@ namespace ET.Server
             }
 
             equipIteminfo.GemIDNew = geminfo.ItemID;
+            equipIteminfo.BindState = 1;
             bagComponent.OnCostItemData(new List<long>(){request.GemId});
             
             //通知客户端背包刷新

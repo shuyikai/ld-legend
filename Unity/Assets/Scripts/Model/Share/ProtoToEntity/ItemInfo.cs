@@ -18,6 +18,7 @@ namespace ET
 		public string GetWay { get; set; }
 		public int GemIDNew { get; set; }
 		public string MakePlayer { get; set; }
+		public int BindState { get; set; }
 	}
 
 	[EntitySystemOf(typeof(ItemInfo))]
@@ -43,6 +44,7 @@ namespace ET
 			self.GetWay = proto.GetWay;
 			self.GemIDNew = proto.GemIDNew;
 			self.MakePlayer = proto.MakePlayer;
+			self.BindState = proto.BindState;
 		}
 
 		public static ItemInfoProto ToMessage(this ItemInfo self)
@@ -60,6 +62,7 @@ namespace ET
 			proto.GetWay = self.GetWay;
 			proto.GemIDNew = self.GemIDNew;
 			proto.MakePlayer = self.MakePlayer;
+			proto.BindState = self.BindState;
 			return proto;
 		}
 	}

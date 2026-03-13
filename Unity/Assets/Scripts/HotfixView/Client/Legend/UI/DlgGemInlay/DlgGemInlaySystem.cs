@@ -65,6 +65,11 @@ namespace ET.Client
 				return;
 			}
 
+			string etip1 = LanguageComponent.Instance.LoadLocalization("镶嵌成功!");
+			FlyTipComponent.Instance.ShowFlyTip(etip1);
+			etip1 = LanguageComponent.Instance.LoadLocalization("成功充值100元，为防止挂机该装备已绑定!");
+			FlyTipComponent.Instance.ShowFlyTip(etip1);
+			
 			self.SelectGemId = 0;
 			self.UpdateLeftinfo();
 			await ETTask.CompletedTask;
