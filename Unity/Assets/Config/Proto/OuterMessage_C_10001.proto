@@ -1289,24 +1289,6 @@ message M2C_StoreBuyResponse	// ILocationResponse
 	int32 Error = 92;
 }
 
-//ResponseType Actor_TransferResponse
-message Actor_TransferRequest // ILocationRequest
-{
-	int32 RpcId = 90;
-	int64 ActorId = 93;
-	int32 SceneType = 1;
-	int32 SceneId = 2;
-	int32 Difficulty = 5;
-	string paramInfo = 6;
-}
-
-message Actor_TransferResponse // ILocationResponse
-{
-	int32 RpcId = 90;
-	int32 Error = 91;
-	string Message = 92;
-}
-
 message M2C_HorseNoticeInfo // IMessage
 {
 	int32 RpcId = 90;
@@ -1524,21 +1506,6 @@ message U2C_UnionRaceInfoResponse // IUnionActorResponse
 	int64 TotalDonation = 2;
 }
 
-
-//ResponseType M2C_BlackAccountResponse
-message C2M_BlackAccountRequest // IRequest
-{
-	int32 RpcId = 90;
-	string Account = 1;
-	string Password = 2;
-}
-
-message M2C_BlackAccountResponse // IResponse
-{
-	int32 RpcId = 90;
-	int32 Error = 91;
-	string Message = 92;
-}
 
 //ResponseType M2C_ReceiveMailResponse
 message C2M_ReceiveMailRequest // ILocationRequest
@@ -1887,6 +1854,25 @@ message M2C_BagInitResponse  // ILocationResponse
 	repeated int32 AdditionalCellNum = 9;
 }
 
+//切换地图
+//ResponseType Actor_TransferResponse
+message Actor_TransferRequest // ILocationRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+	int32 SceneType = 1;
+	int32 SceneId = 2;
+	int32 Difficulty = 5;
+	string paramInfo = 6;
+}
+
+message Actor_TransferResponse // ILocationResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
 //勋章兑换
 //ResponseType M2C_MedalExchangeResponse
 message C2M_MedalExchangeRequest    // ILocationRequest
@@ -1969,4 +1955,3 @@ message M2C_EquipIdentifyResponse // ILocationResponse
 	string Message = 91;
 	int32 Error = 92;
 }
-

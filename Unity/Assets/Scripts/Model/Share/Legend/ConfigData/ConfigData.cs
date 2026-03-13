@@ -6,6 +6,13 @@ namespace ET
 {
     public static class ConfigData
     {
+
+
+        /// <summary>
+        /// 宝石合成材料
+        /// </summary>
+        public const string GemCombineMaterial = "13006;10";
+        
         [StaticField]
         public static int LogLevel = 2;
         
