@@ -58,6 +58,24 @@ namespace ET.Client
      		}
      	}
 
+		public LoopVerticalScrollRect E_BagItemsLoopVerticalScrollRect
+		{
+			get
+			{
+				if (this.uiTransform == null)
+				{
+					Log.Error("uiTransform is null.");
+					return null;
+				}
+				if( this.m_E_BagItemsLoopVerticalScrollRect == null )
+				{
+					this.m_E_BagItemsLoopVerticalScrollRect = UIFindHelper.FindDeepChild<LoopVerticalScrollRect>(this.uiTransform.gameObject,"ScrollView2");
+				}
+				return this.m_E_BagItemsLoopVerticalScrollRect;
+			}
+		}
+
+		
 		public UnityEngine.UI.ToggleGroup E_FunctionSetBtnToggleGroup
      	{
      		get
@@ -208,6 +226,7 @@ namespace ET.Client
 			this.m_E_FunctionSetBtnToggleGroup = null;
 			this.m_E_RefineBtnButton = null;
 			this.m_E_RefineBtnImage = null;
+			this.m_E_BagItemsLoopVerticalScrollRect = null;
 			this.m_es_commonitem_1 = null;
 			this.m_es_commonitem_2 = null;
 			this.m_E_CostGoldTxtText = null;
@@ -222,6 +241,7 @@ namespace ET.Client
 		private UnityEngine.UI.ToggleGroup m_E_FunctionSetBtnToggleGroup = null;
 		private UnityEngine.UI.Button m_E_RefineBtnButton = null;
 		private UnityEngine.UI.Image m_E_RefineBtnImage = null;
+		private LoopVerticalScrollRect m_E_BagItemsLoopVerticalScrollRect = null;
 		private EntityRef<ES_CommonItem> m_es_commonitem_1 = null;
 		private EntityRef<ES_CommonItem> m_es_commonitem_2 = null;
 		private UnityEngine.UI.Text m_E_CostGoldTxtText = null;

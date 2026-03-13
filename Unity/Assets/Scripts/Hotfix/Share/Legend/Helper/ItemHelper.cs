@@ -19,12 +19,17 @@ namespace ET
         
         public static string GetItemIcon(this ItemConfig self)
         {
-            return "000118"; 
+            if (self.StdMode == 42)
+            {
+                return "000642";
+            }
+
+            return self.Looks; 
         }
         
         public static string GetEquipIcon(this EquipConfig self)
         {
-            return "10000101"; //self.OverLap;
+            return self.Looks;
         }
 
         public static List<ItemInfoProto> GetRewardItems_2(string needitems)

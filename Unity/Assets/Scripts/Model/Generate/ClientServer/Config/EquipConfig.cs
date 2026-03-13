@@ -76,7 +76,7 @@ namespace ET
 		/// <summary>暂留</summary>
 		public int Reserved { get; set; }
 		/// <summary>背包显示</summary>
-		public int Looks { get; set; }
+		public string Looks { get; set; }
 		/// <summary>持久度</summary>
 		public int DuraMax { get; set; }
 		/// <summary>属性 (职业#属性ID#属性值|职业#属性ID#属性值)</summary>
