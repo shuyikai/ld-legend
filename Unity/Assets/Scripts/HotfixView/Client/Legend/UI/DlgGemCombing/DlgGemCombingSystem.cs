@@ -48,6 +48,7 @@ namespace ET.Client
 				ItemID = combingResponse.GemId,
 				ItemNum = 1
 			}, ItemOperateEnum.None);
+			self.UpdateBaoshiCaiiao();
 		}
 
 		public static void ShowWindow(this DlgGemCombing self, Entity contextData = null)

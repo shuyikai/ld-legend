@@ -33,7 +33,7 @@ namespace ET.Server
             int gemindex =  RandomHelper.RandomNumber(0, gemlist.Count);
             response.GemId = gemlist[gemindex];
             bagComponent.OnAddItemData($"{response.GemId };1", $"{ItemGetWay.Combing}_{TimeHelper.ServerNow()}");
-
+            bagComponent.OnCostItemData(ConfigData.GemCombineMaterial);
             await ETTask.CompletedTask;
         }
     }
