@@ -57,58 +57,7 @@ namespace ET.Client
      			return this.m_E_BackImage;
      		}
      	}
-
-		public Image E_QulityBgImage
-     	{
-     		get
-     		{
-     			if (this.uiTransform == null)
-     			{
-     				Log.Error("uiTransform is null.");
-     				return null;
-     			}
-     			if( this.m_E_QulityBgImage == null )
-     			{
-		    		this.m_E_QulityBgImage = UIFindHelper.FindDeepChild<Image>(this.uiTransform.gameObject,"E_Back/E_QulityBg");
-     			}
-     			return this.m_E_QulityBgImage;
-     		}
-     	}
-
-		public Image E_QualityLineImage
-     	{
-     		get
-     		{
-     			if (this.uiTransform == null)
-     			{
-     				Log.Error("uiTransform is null.");
-     				return null;
-     			}
-     			if( this.m_E_QualityLineImage == null )
-     			{
-		    		this.m_E_QualityLineImage = UIFindHelper.FindDeepChild<Image>(this.uiTransform.gameObject,"E_Back/E_QualityLine");
-     			}
-     			return this.m_E_QualityLineImage;
-     		}
-     	}
-
-		public Image E_ItemQualityImage
-     	{
-     		get
-     		{
-     			if (this.uiTransform == null)
-     			{
-     				Log.Error("uiTransform is null.");
-     				return null;
-     			}
-     			if( this.m_E_ItemQualityImage == null )
-     			{
-		    		this.m_E_ItemQualityImage = UIFindHelper.FindDeepChild<Image>(this.uiTransform.gameObject,"E_Back/CommonItem/E_ItemQuality");
-     			}
-     			return this.m_E_ItemQualityImage;
-     		}
-     	}
-
+		
 		public Image E_ItemIconImage
      	{
      		get
@@ -227,40 +176,7 @@ namespace ET.Client
      			return this.m_E_BangDingText;
      		}
      	}
-
-		public Text E_FuLingText
-     	{
-     		get
-     		{
-     			if (this.uiTransform == null)
-     			{
-     				Log.Error("uiTransform is null.");
-     				return null;
-     			}
-     			if( this.m_E_FuLingText == null )
-     			{
-		    		this.m_E_FuLingText = UIFindHelper.FindDeepChild<Text>(this.uiTransform.gameObject,"E_Back/E_FuLing");
-     			}
-     			return this.m_E_FuLingText;
-     		}
-     	}
-
-		public Text E_FuLingDesText
-     	{
-     		get
-     		{
-     			if (this.uiTransform == null)
-     			{
-     				Log.Error("uiTransform is null.");
-     				return null;
-     			}
-     			if( this.m_E_FuLingDesText == null )
-     			{
-		    		this.m_E_FuLingDesText = UIFindHelper.FindDeepChild<Text>(this.uiTransform.gameObject,"E_Back/E_FuLingDes");
-     			}
-     			return this.m_E_FuLingDesText;
-     		}
-     	}
+		
 
 		public RectTransform EG_BagOpenSetRectTransform
      	{
@@ -380,40 +296,7 @@ namespace ET.Client
      			return this.m_E_SplitImage;
      		}
      	}
-
-		public Button E_PlanButton
-     	{
-     		get
-     		{
-     			if (this.uiTransform == null)
-     			{
-     				Log.Error("uiTransform is null.");
-     				return null;
-     			}
-     			if( this.m_E_PlanButton == null )
-     			{
-		    		this.m_E_PlanButton = UIFindHelper.FindDeepChild<Button>(this.uiTransform.gameObject,"E_Back/EG_BagOpenSet/E_Plan");
-     			}
-     			return this.m_E_PlanButton;
-     		}
-     	}
-
-		public Image E_PlanImage
-     	{
-     		get
-     		{
-     			if (this.uiTransform == null)
-     			{
-     				Log.Error("uiTransform is null.");
-     				return null;
-     			}
-     			if( this.m_E_PlanImage == null )
-     			{
-		    		this.m_E_PlanImage = UIFindHelper.FindDeepChild<Image>(this.uiTransform.gameObject,"E_Back/EG_BagOpenSet/E_Plan");
-     			}
-     			return this.m_E_PlanImage;
-     		}
-     	}
+		
 
 		public Button E_StoreHouseButton
      	{
@@ -590,9 +473,6 @@ namespace ET.Client
 			this.m_E_BGButton = null;
 			this.m_E_BGImage = null;
 			this.m_E_BackImage = null;
-			this.m_E_QulityBgImage = null;
-			this.m_E_QualityLineImage = null;
-			this.m_E_ItemQualityImage = null;
 			this.m_E_ItemIconImage = null;
 			this.m_E_BindingImage = null;
 			this.m_E_ItemNameText = null;
@@ -600,8 +480,6 @@ namespace ET.Client
 			this.m_E_ItemLvText = null;
 			this.m_E_ItemDesText = null;
 			this.m_E_BangDingText = null;
-			this.m_E_FuLingText = null;
-			this.m_E_FuLingDesText = null;
 			this.m_EG_BagOpenSetRectTransform = null;
 			this.m_E_SellButton = null;
 			this.m_E_SellImage = null;
@@ -609,8 +487,6 @@ namespace ET.Client
 			this.m_E_UseImage = null;
 			this.m_E_SplitButton = null;
 			this.m_E_SplitImage = null;
-			this.m_E_PlanButton = null;
-			this.m_E_PlanImage = null;
 			this.m_E_StoreHouseButton = null;
 			this.m_E_StoreHouseImage = null;
 			this.m_E_HuiShouButton = null;
@@ -627,9 +503,6 @@ namespace ET.Client
 		private Button m_E_BGButton = null;
 		private Image m_E_BGImage = null;
 		private Image m_E_BackImage = null;
-		private Image m_E_QulityBgImage = null;
-		private Image m_E_QualityLineImage = null;
-		private Image m_E_ItemQualityImage = null;
 		private Image m_E_ItemIconImage = null;
 		private Image m_E_BindingImage = null;
 		private Text m_E_ItemNameText = null;
@@ -637,8 +510,6 @@ namespace ET.Client
 		private Text m_E_ItemLvText = null;
 		private Text m_E_ItemDesText = null;
 		private Text m_E_BangDingText = null;
-		private Text m_E_FuLingText = null;
-		private Text m_E_FuLingDesText = null;
 		private RectTransform m_EG_BagOpenSetRectTransform = null;
 		private Button m_E_SellButton = null;
 		private Image m_E_SellImage = null;
@@ -646,8 +517,6 @@ namespace ET.Client
 		private Image m_E_UseImage = null;
 		private Button m_E_SplitButton = null;
 		private Image m_E_SplitImage = null;
-		private Button m_E_PlanButton = null;
-		private Image m_E_PlanImage = null;
 		private Button m_E_StoreHouseButton = null;
 		private Image m_E_StoreHouseImage = null;
 		private Button m_E_HuiShouButton = null;

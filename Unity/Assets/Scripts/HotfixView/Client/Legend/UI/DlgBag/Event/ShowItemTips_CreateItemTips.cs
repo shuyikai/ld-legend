@@ -26,7 +26,7 @@ namespace ET.Client
             }
             else
             {
-                ItemConfig itemConfig = ItemConfigCategory.Instance.Get(args.BagInfo.ItemID);
+               
                 UIComponent uiComponent = root.GetComponent<UIComponent>();
                 await uiComponent.ShowWindowAsync(WindowID.WindowID_ItemTips);
                 uiComponent.GetDlgLogic<DlgItemTips>().SetPosition(ReturnX(root, args, itemWidth));

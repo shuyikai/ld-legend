@@ -16,7 +16,6 @@ namespace ET.Client
             self.View.E_SellButton.AddListenerAsync(self.OnSellButton);
             self.View.E_UseButton.AddListenerAsync(self.OnUseButton);
             self.View.E_SplitButton.AddListenerAsync(self.OnSplitButton);
-            self.View.E_PlanButton.AddListener(self.OnPlanButton);
             self.View.E_StoreHouseButton.AddListener(self.OnStoreHouseButton);
             self.View.E_HuiShouButton.AddListener(self.OnHuiShouButton);
             self.View.E_HuiShouCancleButton.AddListener(self.OnHuiShouCancleButton);
@@ -52,16 +51,9 @@ namespace ET.Client
 
             ResourcesLoaderComponent resourcesLoaderComponent = self.Root().GetComponent<ResourcesLoaderComponent>();
 
-            string qualityiconLine = FunctionUI.ItemQualityLine(1);
-            string path = ABPathHelper.GetAtlasPath_2(ABAtlasTypes.ItemQualityIcon, qualityiconLine);
-            Sprite sprite = resourcesLoaderComponent.LoadAssetSync<Sprite>(path);
-            self.View.E_QualityLineImage.sprite = sprite;
-
             string qualityiconBack = FunctionUI.ItemQualityBack(1);
-            path = ABPathHelper.GetAtlasPath_2(ABAtlasTypes.ItemQualityIcon, qualityiconBack);
-            sprite = resourcesLoaderComponent.LoadAssetSync<Sprite>(path);
-            self.View.E_QulityBgImage.sprite = sprite;
-
+            string path = ABPathHelper.GetAtlasPath_2(ABAtlasTypes.ItemQualityIcon, qualityiconBack);
+            
             // 类型描述
             string itemTypename = "消耗品";
           
@@ -77,12 +69,8 @@ namespace ET.Client
 
             // 道具Icon
             string ItemIcon = itemConfig.GetItemIcon();
-            sprite = resourcesLoaderComponent.LoadAssetSync<Sprite>(ABPathHelper.GetAtlasPath_2(ABAtlasTypes.ItemIcon, ItemIcon));
-            self.View.E_ItemIconImage.sprite = sprite;
             string ItemQuality = FunctionUI.ItemQualiytoPath(1);
-            sprite = resourcesLoaderComponent.LoadAssetSync<Sprite>(ABPathHelper.GetAtlasPath_2(ABAtlasTypes.ItemQualityIcon, ItemQuality));
-            self.View.E_ItemQualityImage.sprite = sprite;
-
+       
             //显示道具信息
             self.View.E_ItemNameText.text = itemConfig.Name;
             self.View.E_ItemNameText.color = FunctionUI.QualityReturnColor(1);
@@ -120,8 +108,6 @@ namespace ET.Client
             self.View.E_XieXiaGemButton.gameObject.SetActive(false);
             self.View.E_UseButton.gameObject.SetActive(false);
             self.View.E_SplitButton.gameObject.SetActive(false);
-            self.View.E_FuLingText.gameObject.SetActive(false);
-            self.View.E_FuLingDesText.gameObject.SetActive(false);
             self.View.E_SellButton.gameObject.SetActive(false);
             self.View.E_StoreHouseButton.gameObject.SetActive(false);
             self.View.E_PutBagButton.gameObject.SetActive(false);
@@ -185,7 +171,6 @@ namespace ET.Client
 
         private static async ETTask OnSellButton(this DlgItemTips self)
         {
-          
             self.OnCloseTips();
         }
 
