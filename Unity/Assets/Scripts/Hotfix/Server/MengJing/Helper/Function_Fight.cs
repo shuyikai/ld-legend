@@ -80,43 +80,8 @@ namespace ET.Server
             numericComponent.ApplyValue(NumericType.Extra_Buff_Speed_Mul, 0, notice);
             numericComponent.ApplyValue(NumericType.Base_Speed_Base, 100000, notice);
         }
-
-        /// <summary>
-        /// 小恶魔
-        /// </summary>
-        /// <param name="unit"></param>
-        /// <param name="notice"></param>
-        public static void UnitUpdateProperty_DemonLittle(Unit unit, bool notice)
-        {
-            NumericComponentServer numericComponent = unit.GetComponent<NumericComponentServer>();
-            numericComponent.ApplyValue(NumericType.Base_Speed_Mul, 0, notice);
-            numericComponent.ApplyValue(NumericType.Base_Speed_Add, 0, notice);
-            numericComponent.ApplyValue(NumericType.Extra_Buff_Speed_Add, 0, notice);
-            numericComponent.ApplyValue(NumericType.Extra_Buff_Speed_Mul, 0, notice);
-            numericComponent.ApplyValue(NumericType.Base_Speed_Base, 80000, notice);
-        }
-
-        /// <summary>
-        /// 幽灵
-        /// </summary>
-        /// <param name="unit"></param>
-        /// <param name="notice"></param>
-        public static void UnitUpdateProperty_DemonGhost(Unit unit, bool notice)
-        {
-            NumericComponentServer numericComponent = unit.GetComponent<NumericComponentServer>();
-            numericComponent.ApplyValue(NumericType.Base_Speed_Mul, 0, notice);
-            numericComponent.ApplyValue(NumericType.Base_Speed_Add, 0, notice);
-            numericComponent.ApplyValue(NumericType.Extra_Buff_Speed_Add, 0, notice);
-            numericComponent.ApplyValue(NumericType.Extra_Buff_Speed_Mul, 0, notice);
-            numericComponent.ApplyValue(NumericType.Base_Speed_Base, 50000, notice);
-        }
-
-        private static int GetPoint(int basic, int roleLv)
-        {
-            //每升一级属性+1所以这里有加成
-            return basic + roleLv * 2;
-        }
-
+        
+        
         /// <summary>
         /// 更新基础的属性
         /// ItemInfo itemInfo 不为空则只是用来模拟计算战力。。。。。 itemInfo.BagInfoID 用来返回战力

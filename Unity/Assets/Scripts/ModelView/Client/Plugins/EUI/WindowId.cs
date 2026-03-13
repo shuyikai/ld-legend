@@ -48,5 +48,6 @@ namespace ET.Client
 		WindowID_Gem,
 		WindowID_GemCombing,
 		WindowID_GemInlay,
+		WindowID_EquipStrength,
 	}
 }

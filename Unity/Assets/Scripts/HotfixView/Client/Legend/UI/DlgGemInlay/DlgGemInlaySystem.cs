@@ -199,7 +199,7 @@ namespace ET.Client
 				//背包 示全部装备 和 宝石
 				if (self.CurrentItemType == 1)
 				{
-					if (itemInfo.ItemID < ItemDataType.EquipInitId && ItemConfigCategory.Instance.GemList.Contains(itemInfo.ItemID))
+					if (itemInfo.ItemID < ItemDataType.EquipInitId && !ItemConfigCategory.Instance.GemList.Contains(itemInfo.ItemID))
 					{
 						continue;
 					}

@@ -3,4 +3,5 @@
 [1002, {"_t":"FuntionConfig","_id":1002,"Name":"WindowID_NecklaceRefine","ConditionType":[1],"ConditionParam":[1],"OpenTime":"","OpenDay":[-1],"IfOpen":"0","SceneId":0,"CreateMonsterPosi":[]}],
 [1003, {"_t":"FuntionConfig","_id":1003,"Name":"WindowID_EquipIdentify","ConditionType":[1],"ConditionParam":[1],"OpenTime":"","OpenDay":[-1],"IfOpen":"0","SceneId":0,"CreateMonsterPosi":[]}],
 [1004, {"_t":"FuntionConfig","_id":1004,"Name":"WindowID_Gem","ConditionType":[1],"ConditionParam":[1],"OpenTime":"","OpenDay":[-1],"IfOpen":"0","SceneId":0,"CreateMonsterPosi":[]}],
+[1005, {"_t":"FuntionConfig","_id":1005,"Name":"WindowID_EquipStrength","ConditionType":[1],"ConditionParam":[1],"OpenTime":"","OpenDay":[-1],"IfOpen":"0","SceneId":0,"CreateMonsterPosi":[]}],
 ]}
