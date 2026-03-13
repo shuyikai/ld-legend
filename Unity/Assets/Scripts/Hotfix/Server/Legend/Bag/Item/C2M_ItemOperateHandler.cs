@@ -58,7 +58,7 @@ namespace ET.Server
                     //出售道具
                     numericComponentS.ApplyChange(NumericType.Now_JinBi, sellgold);
                     bagComponent.OnCostItemData(useiteminfo, ItemLocType.ItemLocBag, useiteminfo.ItemNum);
-                    m2c_bagUpdate.BagInfoUpdate.Add(useiteminfo.ToMessage());
+                    m2c_bagUpdate.BagInfoDelete.Add(useiteminfo.ToMessage());
                     break;
             }
 

@@ -55,7 +55,7 @@ namespace ET.Client
 		private static async ETTask OnSellButton(this ES_EquipTips self)
 		{
 			long instanceid = self.InstanceId;
-			await BagClientNetHelper.RequestEquipWear(self.Root(), self.BagInfo, 1);
+			await BagClientNetHelper.RequestSellItem(self.Root(), self.BagInfo, string.Empty);
 			if (instanceid != self.InstanceId)
 			{
 				return;

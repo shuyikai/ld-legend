@@ -171,42 +171,15 @@ namespace ET.Client
 
         private static async ETTask OnSellButton(this DlgItemTips self)
         {
+            await BagClientNetHelper.RequestSellItem(self.Root(), self.BagInfo, string.Empty);
+            
             self.OnCloseTips();
         }
 
         private static async ETTask OnUseButton(this DlgItemTips self)
         {
-            //发送消息
-            //判断当前技能是否再CD状态
-            UserInfoComponentC userInfoComponent = self.Root().GetComponent<UserInfoComponentC>();
-            ItemConfig itemConfig = ItemConfigCategory.Instance.Get(self.BagInfo.ItemID);
-            string usrPar = "";
-            
-            long instanceid = self.InstanceId;
-            M2C_ItemOperateResponse response = await BagClientNetHelper.RequestUseItem(self.Root(), self.BagInfo, usrPar);
-
-            if (response != null && response.Error == ErrorCode.ERR_Success)
-            {
-                FlyTipComponent.Instance.ShowFlyTip(LanguageComponent.Instance.LoadLocalization("道具使用成功!"));
-
-                if (response.RewardList.Count > 0)
-                {
-                    await self.Root().GetComponent<UIComponent>().ShowWindowAsync(WindowID.WindowID_CommonReward);
-                    DlgCommonReward dlgCommonReward = self.Root().GetComponent<UIComponent>().GetDlgLogic<DlgCommonReward>();
-                    dlgCommonReward.OnUpdateUI(response.RewardList);
-                }
-            }
-            
-            //播放音效
-            CommonViewHelper.PlayUIMusic("10010");
-
-            if (instanceid == self.InstanceId)
-            {
-              
-
-                //注销Tips
-                self.OnCloseTips();
-            }
+            //注销Tips
+            self.OnCloseTips();
         }
 
         private static void RequestXiangQianGem(this DlgItemTips self, string usrPar)
