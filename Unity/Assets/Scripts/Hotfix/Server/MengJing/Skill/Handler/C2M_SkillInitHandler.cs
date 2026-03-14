@@ -19,24 +19,6 @@ namespace ET.Server
            
             }
             
-            //强化技能可以激活
-            bool haveqianghuaskill = false;
-            if (!haveqianghuaskill)
-            {
-                int[] baseSkilllist = OccupationConfigCategory.Instance.Get(occ).BaseSkill;
-                for (int i = 0; i < baseSkilllist.Length; i++)
-                {
-                    if (skillSetComponent.GetBySkillID(baseSkilllist[i]) != null)
-                    {
-                        continue;
-                    }
-
-                    SkillPro SkillPro = SkillPro.Create();
-                    SkillPro.SkillID = baseSkilllist[i];
-                    skillSetComponent.SkillList.Add(SkillPro);
-                }
-            }
-
             //刷新转职技能
             if (occTwo != 0)
             {

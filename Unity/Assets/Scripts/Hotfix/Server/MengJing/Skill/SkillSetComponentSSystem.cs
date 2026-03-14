@@ -15,34 +15,6 @@ namespace ET.Server
             self.TianFuPlan = 0;
             self.TianFuList1.Clear();
             self.TianFuList2.Clear();
-
-            if (self.SkillList.Count == 0)
-            {
-                int[] SkillList = OccupationConfigCategory.Instance.Get(self.GetParent<Unit>().GetComponent<UserInfoComponentS>().GetOcc()).InitSkillID;
-                for (int i = 0; i < SkillList.Length; i++)
-                {
-                    if (i == 0)
-                    {
-                       self.InitSkillPro(SkillList[i], 1,SkillSetEnum.Skill,SkillSourceEnum.Skill  );
-                    }
-                    else
-                    {
-                        self.InitSkillPro(SkillList[i], 0,SkillSetEnum.Skill,SkillSourceEnum.Skill  );
-                    }
-                }
-
-                /*string initItem = GlobalValueConfigCategory.Instance.Get(9).Value;
-                string[] needList = initItem.Split('@');
-                self.InitSkillPro(int.Parse(needList[0].Split(';')[0]), 9, SkillSetEnum.Item, SkillSourceEnum.Skill);
-                self.InitSkillPro(int.Parse(needList[1].Split(';')[0]), 10, SkillSetEnum.Item, SkillSourceEnum.Skill);*/
-            }
-
-            int robotId = self.GetParent<Unit>().GetComponent<UserInfoComponentS>().GetRobotId();
-            if (robotId != 0)
-            {
-                RobotConfig robotConfig = RobotConfigCategory.Instance.Get(robotId);
-                self.OnChangeOccTwoRequest(robotConfig.OccTwo);
-            }
         }
         
         [EntitySystem]
@@ -332,20 +304,7 @@ namespace ET.Server
 
         public static void CheckInitSkill(this SkillSetComponentS self, int occ)
         {
-            int[] SkillList = OccupationConfigCategory.Instance.Get(occ).InitSkillID;
-            for (int i = SkillList.Length - 1; i >= 0 ; i--)
-            {
-                if (!SkillConfigCategory.Instance.Contain(SkillList[i]))
-                {
-                    Console.WriteLine($"技能未配置：ID{SkillList[i]}");
-                    continue;
-                }
-
-                if (self.GetBySkillID(SkillList[i])  == null)
-                {
-                     self.InitSkillPro(SkillList[i], 0,SkillSetEnum.Skill,SkillSourceEnum.Skill  );
-                }
-            }            
+                   
         }
 
         public static void OnLogin(this SkillSetComponentS self, int occ)
@@ -505,60 +464,6 @@ namespace ET.Server
 
             self.UpdateSkillSet();
             return sp;
-        }
-        
-
-        /// <summary>
-        /// ���ü��ܵ�
-        /// </summary>
-        /// <param name="self"></param>
-        public static void OnSkillReset(this SkillSetComponentS self)
-        {
-            List<int> skilllist = new List<int>();
-            UserInfoComponentS userInfoComponent = self.GetParent<Unit>().GetComponent<UserInfoComponentS>();
-            int[] initskill = OccupationConfigCategory.Instance.Get(userInfoComponent.GetOcc()).InitSkillID;
-            int[] baseSkill = OccupationConfigCategory.Instance.Get(userInfoComponent.GetOcc()).BaseSkill;
-            skilllist.AddRange(initskill);
-            skilllist.AddRange(baseSkill);
-            if (userInfoComponent.GetOccTwo() != 0)
-            {
-                int[] twoskill = OccupationTwoConfigCategory.Instance.Get(userInfoComponent.GetOccTwo()).ShowTalentSkill;
-                skilllist.AddRange(twoskill);
-            }
-
-            for (int i = 0; i < skilllist.Count; i++)
-            {
-                int skillId = skilllist[i];
-                int whileNumber = 0;
-
-                while (skillId != 0)
-                {
-                    whileNumber++;
-                    if (whileNumber >= 100)
-                    {
-                        Log.Error("whileNumber >= 100");
-                        break;
-                    }
-
-                    try
-                    {
-                        SkillPro skillPro = self.GetBySkillID(skillId);
-                        if (skillPro != null)
-                        {
-                            skillPro.SkillID = skilllist[i];
-                            skillPro.SkillPosition = 0;
-                            break;
-                        }
-                        skillId = SkillConfigCategory.Instance.Get(skillId).NextSkillID;
-                    }
-                    catch (Exception ex)
-                    {
-                        Log.Error(ex.ToString());
-                    }
-                }
-            }
-
-            self.UpdateSkillSet();
         }
         
         public static void UpdateSkillSet(this SkillSetComponentS self)

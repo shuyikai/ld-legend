@@ -420,11 +420,7 @@ namespace ET.Client
         public static void LoadEquipment(this ChangeEquipHelper self, GameObject target, List<int> fashionids, int occ)
         {
             OccupationConfig occupationConfig = OccupationConfigCategory.Instance.Get(occ);
-            if (occupationConfig.ChangeEquip == 0)
-            {
-                return;
-            }
-
+           
             self.Occ = occ;
             self.LoadCompleted = false;
             self.gameObjects.Clear();
@@ -445,13 +441,7 @@ namespace ET.Client
               
             }
 
-            for (int i = 0; i < occupationConfig.FashionBase.Length; i++)
-            {
-                if (!self.FashionBase.ContainsKey(occupationConfig.FashionBase[i]))
-                {
-                    self.FashionBase.Add(occupationConfig.FashionBase[i], 0);
-                }
-            }
+           
 
             foreach (var item in self.FashionBase)
             {
