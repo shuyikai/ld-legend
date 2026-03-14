@@ -192,6 +192,11 @@ namespace ET.Client
             //uiParticle = uiParticle.gameObject.AddComponent<Coffee.UIExtensions.UIParticle>();
         }
 
+        public static void UpdateStrenghtLv(this Scroll_Item_CommonItem self, int strengthlv)
+        {
+            self.E_StrenghtLvTxt.text = strengthlv.ToString();
+        }
+
         public static void UpdateItem(this Scroll_Item_CommonItem self, ItemInfo bagInfo, ItemOperateEnum itemOperateEnum)
         {
             self.Baginfo = bagInfo;

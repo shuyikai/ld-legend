@@ -104,7 +104,7 @@ namespace ET.Client
      			}
      			if( this.m_E_RefineBtnButton == null )
      			{
-		    		this.m_E_RefineBtnButton = UIFindHelper.FindDeepChild<UnityEngine.UI.Button>(this.uiTransform.gameObject,"Content/E_RefineBtn");
+		    		this.m_E_RefineBtnButton = UIFindHelper.FindDeepChild<UnityEngine.UI.Button>(this.uiTransform.gameObject,"Content/EG_Tpi1/E_RefineBtn");
      			}
      			return this.m_E_RefineBtnButton;
      		}
@@ -121,7 +121,7 @@ namespace ET.Client
      			}
      			if( this.m_E_RefineBtnImage == null )
      			{
-		    		this.m_E_RefineBtnImage = UIFindHelper.FindDeepChild<UnityEngine.UI.Image>(this.uiTransform.gameObject,"Content/E_RefineBtn");
+		    		this.m_E_RefineBtnImage = UIFindHelper.FindDeepChild<UnityEngine.UI.Image>(this.uiTransform.gameObject,"Content/EG_Tpi1/E_RefineBtn");
      			}
      			return this.m_E_RefineBtnImage;
      		}
@@ -138,7 +138,7 @@ namespace ET.Client
      			}
      			if( this.m_E_AttriBtnButton == null )
      			{
-		    		this.m_E_AttriBtnButton = UIFindHelper.FindDeepChild<UnityEngine.UI.Button>(this.uiTransform.gameObject,"Content/E_AttriBtn");
+		    		this.m_E_AttriBtnButton = UIFindHelper.FindDeepChild<UnityEngine.UI.Button>(this.uiTransform.gameObject,"Content/EG_Tpi1/E_AttriBtn");
      			}
      			return this.m_E_AttriBtnButton;
      		}
@@ -194,7 +194,7 @@ namespace ET.Client
      			if( es == null )
 
      			{
-		    	   Transform subTrans = UIFindHelper.FindDeepChild<Transform>(this.uiTransform.gameObject,"Content/ES_CostItem");
+		    	   Transform subTrans = UIFindHelper.FindDeepChild<Transform>(this.uiTransform.gameObject,"Content/EG_Tpi1/ES_CostItem");
 		    	   this.m_es_costitem = this.AddChild<ES_CostItem,Transform>(subTrans);
      			}
      			return this.m_es_costitem;
@@ -231,7 +231,7 @@ namespace ET.Client
      			}
      			if( this.m_E_SucessRateTxtText == null )
      			{
-		    		this.m_E_SucessRateTxtText = UIFindHelper.FindDeepChild<UnityEngine.UI.Text>(this.uiTransform.gameObject,"Content/E_SucessRateTxt");
+		    		this.m_E_SucessRateTxtText = UIFindHelper.FindDeepChild<UnityEngine.UI.Text>(this.uiTransform.gameObject,"Content/EG_Tpi1/E_SucessRateTxt");
      			}
      			return this.m_E_SucessRateTxtText;
      		}
@@ -248,7 +248,7 @@ namespace ET.Client
      			}
      			if( this.m_E_CostGoldTxtText == null )
      			{
-		    		this.m_E_CostGoldTxtText = UIFindHelper.FindDeepChild<UnityEngine.UI.Text>(this.uiTransform.gameObject,"Content/E_CostGoldTxt");
+		    		this.m_E_CostGoldTxtText = UIFindHelper.FindDeepChild<UnityEngine.UI.Text>(this.uiTransform.gameObject,"Content/EG_Tpi1/E_CostGoldTxt");
      			}
      			return this.m_E_CostGoldTxtText;
      		}
@@ -271,6 +271,40 @@ namespace ET.Client
      		}
      	}
 
+		public UnityEngine.RectTransform EG_Tpi1RectTransform
+		{
+			get
+			{
+				if (this.uiTransform == null)
+				{
+					Log.Error("uiTransform is null.");
+					return null;
+				}
+				if( this.m_EG_Tpi1RectTransform == null )
+				{
+					this.m_EG_Tpi1RectTransform = UIFindHelper.FindDeepChild<UnityEngine.RectTransform>(this.uiTransform.gameObject,"Content/EG_Tpi1");
+				}
+				return this.m_EG_Tpi1RectTransform;
+			}
+		}
+		
+		public UnityEngine.RectTransform EG_Tpi2RectTransform
+		{
+			get
+			{
+				if (this.uiTransform == null)
+				{
+					Log.Error("uiTransform is null.");
+					return null;
+				}
+				if( this.m_EG_Tpi2RectTransform == null )
+				{
+					this.m_EG_Tpi2RectTransform = UIFindHelper.FindDeepChild<UnityEngine.RectTransform>(this.uiTransform.gameObject,"Content/EG_Tpi2");
+				}
+				return this.m_EG_Tpi2RectTransform;
+			}
+		}
+
 		public UnityEngine.UI.Image E_AttriImagedi
 		{
 			get
@@ -287,6 +321,7 @@ namespace ET.Client
 				return this.m_E_AttriImagedi;
 			}
 		}
+		
 
 		public UnityEngine.UI.Button[] E_AttriButtonlist
 		{
@@ -331,6 +366,8 @@ namespace ET.Client
 			this.m_E_PutTipText = null;
 			this.m_E_AttriImagedi = null;
 			this.m_E_AttriButtonlist = null;
+			this.m_EG_Tpi1RectTransform = null;
+			this.m_EG_Tpi2RectTransform = null;
 			this.uiTransform = null;
 		}
 
@@ -352,6 +389,8 @@ namespace ET.Client
 		private const int AttriButtonNumber = 8;
 		private UnityEngine.UI.Image m_E_AttriImagedi = null;
 		private UnityEngine.UI.Button[] m_E_AttriButtonlist = null;
+		private UnityEngine.RectTransform m_EG_Tpi1RectTransform = null;
+		private UnityEngine.RectTransform m_EG_Tpi2RectTransform = null;
 		public Transform uiTransform = null;
 	}
 }

@@ -191,6 +191,13 @@ namespace ET.Client
 				return;
 			}
 
+			/*foreach (Scroll_Item_CommonItem item in self.ScrollItemCommonItems.Values)
+			{
+				if (item.uiTransform !=null && item.Baginfo.BagInfoID == itemInfo.BagInfoID)
+				{
+					item.UpdateStrenghtLv(response.NewStrengthLv);
+				}
+			}*/
 			string etip = string.Empty;
 			if (oldstrengthlv < response.NewStrengthLv)
 			{
@@ -295,6 +302,8 @@ namespace ET.Client
 				string tip = LanguageComponent.Instance.LoadLocalization("已强化到最大等级！");
 				self.View.ES_CostItem.SetVisible(false);
 				self.View.E_SucessRateTxtText.text = tip;
+				self.View.EG_Tpi1RectTransform.gameObject.SetActive(false);
+				self.View.EG_Tpi2RectTransform.gameObject.SetActive(true);
 				return;
 			}
 			
@@ -319,6 +328,8 @@ namespace ET.Client
 			
 			self.View.ES_CostItem.SetVisible(true);
 			self.View.ES_CostItem.UpdateItem(costitemid, costneednumber, false);
+			self.View.EG_Tpi1RectTransform.gameObject.SetActive(true);
+			self.View.EG_Tpi2RectTransform.gameObject.SetActive(false);
 			float preferredWidth = self.View.ES_CostItem.E_ItemNumText.preferredWidth;
 
 			using (zstring.Block())
