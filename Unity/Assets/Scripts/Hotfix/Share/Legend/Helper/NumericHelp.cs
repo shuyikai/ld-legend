@@ -8,57 +8,18 @@ namespace ET
 
 
         /// <summary>
-        /// 1 标识整数  2表示浮点数
+        /// 1 标识整数  2表示浮点数 万分比 策划配置*10000
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
         public static int GetNumericValueType(int key)
         {
-            if (key == 1009)
-            {
-                return 2;
-            }
-
-            if (key == 3001)
-            {
+            //最后排除
+            int value = 1;
+            NumericData.NumericValueType.TryGetValue(key, out value);
+            if (value == 0)
                 return 1;
-            }
-
-            //增加
-            if (key >= 200001 && key < 300000)
-            {
-                return 2;
-            }
-
-            if (key >= 2001 && key < 3000 || key >= 200001 && key < 300000)
-                    //if (key >= 1001 && key < 3000)
-            {
-                return 2;
-            }
-            else
-            {
-                if (key >= 100000 && key < 200000)
-                {
-                    string str = key.ToString().Substring(key.ToString().Length - 1, 1);
-                    if (str == "2")
-                    {
-                        return 2;
-                    }
-                    else
-                    {
-                        return 1;
-                    }
-                }
-
-                //最后排除
-                int value = 1;
-                NumericData.NumericValueType.TryGetValue(key, out value);
-                if (value == 0)
-                    return 1;
-                return value;
-
-                //return 0;
-            }
+            return value;
         }
 
         public static void GetProList(string prolist, List<PropertyValue> proList)

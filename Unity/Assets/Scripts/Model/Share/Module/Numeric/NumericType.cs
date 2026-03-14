@@ -63,20 +63,21 @@
         //public const int Now_MaxHp = 1002;  // 生命总值根Key
         // 核心：所有计算合并为一行，代入具体数值（结果=1640）
         //long nowPropertyValue = (long)((1000 * (1 + 0.2f) + 200) * (1 + 0.1f) + 100);
+
+        public const int Now_MaxAct = 1003;         //攻击上限
+        public const int Base_MaxAct_Base = Now_MaxAct * 100 + 1;                 //属性累加
+        public const int Base_MaxAct_Mul = Now_MaxAct * 100 + 2;                  //属性乘法
+        public const int Base_MaxAct_Add = Now_MaxAct * 100 + 3;                  //属性附加
+        public const int Extra_Buff_MaxAct_Add = Now_MaxAct * 100 + 11;           //属性Buff附加加法
+        public const int Extra_Buff_MaxAct_Mul = Now_MaxAct * 100 + 12;           //属性Buff附加乘法
         
-        public const int Now_MinAct = 1003;         //最低攻击
+        public const int Now_MinAct = 1004;         //攻击下限
         public const int Base_MinAct_Base = Now_MinAct * 100 + 1;                 //属性累加
         public const int Base_MinAct_Mul = Now_MinAct * 100 + 2;                  //属性乘法
         public const int Base_MinAct_Add = Now_MinAct * 100 + 3;                  //属性附加
         public const int Extra_Buff_MinAct_Add = Now_MinAct * 100 + 11;           //属性Buff附加加法
         public const int Extra_Buff_MinAct_Mul = Now_MinAct * 100 + 12;           //属性Buff附加乘法
 
-        public const int Now_MaxAct = 1004;         //最高攻击
-        public const int Base_MaxAct_Base = Now_MaxAct * 100 + 1;                 //属性累加
-        public const int Base_MaxAct_Mul = Now_MaxAct * 100 + 2;                  //属性乘法
-        public const int Base_MaxAct_Add = Now_MaxAct * 100 + 3;                  //属性附加
-        public const int Extra_Buff_MaxAct_Add = Now_MaxAct * 100 + 11;           //属性Buff附加加法
-        public const int Extra_Buff_MaxAct_Mul = Now_MaxAct * 100 + 12;           //属性Buff附加乘法
         
         public const int Now_Speed = 1005;          //当前移动速度
         public const int Base_Speed_Base = Now_Speed * 100 + 1;                 //属性累加
@@ -107,15 +108,14 @@
         public const int Extra_Buff_MinDef_Mul = Now_MinDef * 100 + 12;           //属性Buff附加乘法
 
 
-        public const int Now_MaxAdf = 1008;         //魔御上限
+        public const int Now_MaxAdf = 1008;         //魔防上限
         public const int Base_MaxAdf_Base = Now_MaxAdf * 100 + 1;                 //属性累加
         public const int Base_MaxAdf_Mul = Now_MaxAdf * 100 + 2;                  //属性乘法
         public const int Base_MaxAdf_Add = Now_MaxAdf * 100 + 3;                  //属性附加
         public const int Extra_Buff_MaxAdf_Add = Now_MaxAdf * 100 + 11;           //属性Buff附加加法
         public const int Extra_Buff_MaxAdf_Mul = Now_MaxAdf * 100 + 12;           //属性Buff附加乘法
-
         
-        public const int Now_MinAdf = 1009;         //魔御下限
+        public const int Now_MinAdf = 1009;         //魔防下限
         public const int Base_MinAdf_Base = Now_MinAdf * 100 + 1;                 //属性累加
         public const int Base_MinAdf_Mul = Now_MinAdf * 100 + 2;                  //属性乘法
         public const int Base_MinAdf_Add = Now_MinAdf * 100 + 3;                  //属性附加
@@ -158,5 +158,49 @@
         public const int Base_CriDamgeAdd_Pro_Add = Now_CriDamgeAdd_Pro * 100 + 3;                   //属性附加
         public const int Extra_Buff_CriDamgeAdd_Pro_Add = Now_CriDamgeAdd_Pro * 100 + 11;            //属性Buff附加加法
         public const int Extra_Buff_CriDamgeAdd_Pro_Mul = Now_CriDamgeAdd_Pro * 100 + 12;            //属性Buff附加乘法
+    
+    
+        public const int Now_MaxTsc = 1014;         //道术上限
+        public const int Base_MaxTsc_Base = Now_MaxTsc * 100 + 1;                 //属性累加
+        public const int Base_MaxTsc_Mul = Now_MaxTsc * 100 + 2;                  //属性乘法
+        public const int Base_MaxTsc_Add = Now_MaxTsc * 100 + 3;                  //属性附加
+        public const int Extra_Buff_MaxTsc_Add = Now_MaxTsc * 100 + 11;           //属性Buff附加加法
+        public const int Extra_Buff_MaxTsc_Mul = Now_MaxTsc * 100 + 12;           //属性Buff附加乘法
+
+        public const int Now_MinTsc = 1015;         //道术下限
+        public const int Base_MinTsc_Base = Now_MinTsc * 100 + 1;                 //属性累加
+        public const int Base_MinTsc_Mul = Now_MinTsc * 100 + 2;                  //属性乘法
+        public const int Base_MinTsc_Add = Now_MinTsc * 100 + 3;                  //属性附加
+        public const int Extra_Buff_MinTsc_Add = Now_MinTsc * 100 + 11;           //属性Buff附加加法
+        public const int Extra_Buff_MinTsc_Mul = Now_MinTsc * 100 + 12;           //属性Buff附加乘法
+        
+        public const int Now_HitRate = 1016;         //准确 命中率
+        public const int Base_HitRate_Base = Now_HitRate * 100 + 1;                 //属性累加
+        public const int Base_HitRate_Mul = Now_HitRate * 100 + 2;                  //属性乘法
+        public const int Base_HitRate_Add = Now_HitRate * 100 + 3;                  //属性附加
+        public const int Extra_Buff_HitRate_Add = Now_HitRate * 100 + 11;           //属性Buff附加加法
+        public const int Extra_Buff_HitRate_Mul = Now_HitRate * 100 + 12;           //属性Buff附加乘法
+        
+        public const int Now_MaxMac = 1017;         //魔法上限
+        public const int Base_MaxMac_Base = Now_MaxMac * 100 + 1;                 //属性累加
+        public const int Base_MaxMac_Mul = Now_MaxMac * 100 + 2;                  //属性乘法
+        public const int Base_MaxMac_Add = Now_MaxMac * 100 + 3;                  //属性附加
+        public const int Extra_Buff_MaxMac_Add = Now_MaxMac * 100 + 11;           //属性Buff附加加法
+        public const int Extra_Buff_MaxMac_Mul = Now_MaxMac * 100 + 12;           //属性Buff附加乘法
+
+ 
+        public const int Now_MinMac = 1018;         //魔法下限
+        public const int Base_MinMac_Base = Now_MinMac * 100 + 1;                 //属性累加
+        public const int Base_MinMac_Mul = Now_MinMac * 100 + 2;                  //属性乘法
+        public const int Base_MinMac_Add = Now_MinMac * 100 + 3;                  //属性附加
+        public const int Extra_Buff_MinMac_Add = Now_MinMac * 100 + 11;           //属性Buff附加加法
+        public const int Extra_Buff_MinMac_Mul = Now_MinMac * 100 + 12;           //属性Buff附加乘法
+        
+        public const int Now_Lifesteal = 1019;         //吸血百分比
+        public const int Base_Lifesteal_Base = Now_Lifesteal * 100 + 1;                 //属性累加
+        public const int Base_Lifesteal_Mul = Now_Lifesteal * 100 + 2;                  //属性乘法
+        public const int Base_Lifesteal_Add = Now_Lifesteal * 100 + 3;                  //属性附加
+        public const int Extra_Buff_Lifesteal_Add = Now_Lifesteal * 100 + 11;           //属性Buff附加加法
+        public const int Extra_Buff_Lifesteal_Mul = Now_Lifesteal * 100 + 12;           //属性Buff附加乘法
     }
 }

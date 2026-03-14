@@ -12,7 +12,14 @@ namespace ET.Client
 
 		public static void RegisterUIEvent(this DlgEquipStrength self)
 		{
-		 
+			self.View.E_CloseButtonButton.AddListener(self.OnCloseButton);
+		}
+		
+		
+		
+		private static void OnCloseButton(this DlgEquipStrength self)
+		{
+			self.Root().GetComponent<UIComponent>().CloseWindow(WindowID.WindowID_EquipStrength);
 		}
 
 		public static void ShowWindow(this DlgEquipStrength self, Entity contextData = null)
