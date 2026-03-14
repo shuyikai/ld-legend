@@ -286,7 +286,7 @@ namespace ET.Client
 			{
 				self.View.ES_CommonItem.SetVisible(false);
 			}
-
+			self.View.EG_AttriSelectRectTransform.gameObject.SetActive(false);
 			self.UpdateCostInfo();
 			self.UpdateAttributtonlist();
 			self.UpdateAttriSelectText();
