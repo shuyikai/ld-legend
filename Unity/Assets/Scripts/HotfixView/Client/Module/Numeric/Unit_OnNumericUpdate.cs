@@ -19,6 +19,10 @@
                     DlgLdMain dlgLdMain = scene.Root().GetComponent<UIComponent>().GetDlgLogic<DlgLdMain>();
                     dlgLdMain?.UpdateUserYuanbao(args.NewValue - args.OldValue);
                     break;
+                case NumericType.Now_JinBi:
+                    dlgLdMain = scene.Root().GetComponent<UIComponent>().GetDlgLogic<DlgLdMain>();
+                    dlgLdMain?.UpdateUserJinbi(args.NewValue - args.OldValue);
+                    break;
                 case NumericType.Now_Reputation:
                     dlgLdMain = scene.Root().GetComponent<UIComponent>().GetDlgLogic<DlgLdMain>();
                     dlgLdMain?.UpdateReputation(args.NewValue - args.OldValue);

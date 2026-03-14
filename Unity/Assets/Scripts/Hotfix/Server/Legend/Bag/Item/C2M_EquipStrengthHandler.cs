@@ -61,11 +61,13 @@ namespace ET.Server
             //通知客户端背包刷新
             M2C_RoleBagUpdate m2c_bagUpdate = M2C_RoleBagUpdate.Create();
 
-            if (RandomHelper.RandFloat01() <= equipStrenghtConfig.SucessRate)
+            if (RandomHelper.RandFloat01() * 100 <= equipStrenghtConfig.SucessRate)
             {
                 useBagInfo.StrengthLevel++;
                 useBagInfo.StrengthAttrId = int.Parse(attrilist[request.StrengthAttriItem - 1]);
             }
+
+            response.NewStrengthLv = useBagInfo.StrengthLevel;
             //跳点机制
             m2c_bagUpdate.BagInfoUpdate.Add(useBagInfo.ToMessage());
             

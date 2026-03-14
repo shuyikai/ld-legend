@@ -43,8 +43,42 @@ namespace ET.Client
 		private static void OnClickAttriButtonList(this DlgEquipStrength self, int index)
 		{
 			self.SelectAttriItem = index;
+
+			self.UpdateAttriSelectText();
 			self.OnClickAttriBtnButton();
 			Log.Debug(($"OnClickAttriButtonList:  {index}"));
+		}
+
+		private static void UpdateAttriSelectText(this DlgEquipStrength self)
+		{
+			Text attributtontext = self.View.E_AttriBtnButton.transform.Find("Text").GetComponent<Text>();
+			
+			if (self.SelectEquipId == 0 || self.SelectAttriItem == 0)
+			{
+				attributtontext.text = LanguageComponent.Instance.LoadLocalization("强化属性选择");
+				return;
+			}
+			
+			BagComponentClient bagComponentClient = self.Root().GetComponent<BagComponentClient>();
+			ItemInfo itemInfo = bagComponentClient.GetItemInfoByRoleAndbag( self.SelectEquipId);
+			if (itemInfo == null)
+			{
+				return;
+			}
+
+			EquipConfig equipConfig = EquipConfigCategory.Instance.Get(itemInfo.ItemID);
+			string attriinfo = EquipStrenghtConfigCategory.Instance.GetEquipStrenghtAttr(equipConfig.StdMode);
+			string[] attrilist = attriinfo.Split("|");
+			int attrinumber = attrilist.Length;
+
+			if (self.SelectAttriItem < 0 || self.SelectAttriItem >= attrinumber)
+			{
+				self.SelectAttriItem = 0;
+				return;
+			}
+			
+			int attribuid = int.Parse(attrilist[self.SelectAttriItem - 1]);
+			attributtontext.text = ItemViewHelp.GetAttributeName(attribuid);
 		}
 
 		private static void OnClickAttriBtnButton(this DlgEquipStrength self)
@@ -123,19 +157,53 @@ namespace ET.Client
 				return;
 			}
 
+			if (itemInfo.StrengthLevel >= 7)
+			{
+				FlyTipComponent.Instance.ShowFlyTip(LanguageComponent.Instance.LoadLocalization("已达到最大强化等级！"));
+				return;
+			}
+
 			if (self.SelectAttriItem <= 0)
 			{
 				FlyTipComponent.Instance.ShowFlyTip(LanguageComponent.Instance.LoadLocalization("请先选择需要强化的属性！"));
 				return;
 			}
 
+			Unit unit = UnitHelper.GetMyUnitFromClientScene(self.Root());
+			EquipStrenghtConfig equipStrenghtConfig = EquipStrenghtConfigCategory.Instance.GetLeveStrenghtConfig(itemInfo.StrengthLevel+1);
+
+			if (!bagComponentClient.CheckNeedItem(equipStrenghtConfig.CostItems))
+			{
+				FlyTipComponent.Instance.ShowFlyTip(LanguageComponent.Instance.LoadLocalization("玄铁矿不足！"));
+				return;
+			}
+			NumericComponentClient numericComponentc = unit.GetComponent<NumericComponentClient>();
+			if (numericComponentc.GetAsLong(NumericType.Now_JinBi) < equipStrenghtConfig.CostJinbi)
+			{
+				FlyTipComponent.Instance.ShowFlyTip(LanguageComponent.Instance.LoadLocalization("金币不足！"));
+				return;
+			}
+			int oldstrengthlv = itemInfo.StrengthLevel;
 			long instanceid = self.InstanceId;
 			M2C_EquipStrengthResponse response = await BagClientNetHelper.RequestEquipStrenght(self.Root(), itemInfo, self.SelectAttriItem);
 			if (instanceid != self.InstanceId || response == null)
 			{
 				return;
 			}
-			
+
+			string etip = string.Empty;
+			if (oldstrengthlv < response.NewStrengthLv)
+			{
+				etip  = LanguageComponent.Instance.LoadLocalization("强化成功，当前强化等级+");
+			}
+			else
+			{
+				etip  = LanguageComponent.Instance.LoadLocalization("强化失败，当前强化等级+");
+			}
+
+			etip += response.NewStrengthLv;
+			FlyTipComponent.Instance.ShowFlyTip(etip);
+
 			self.UpdateLeftInfo();
 		}
 
@@ -179,6 +247,7 @@ namespace ET.Client
 
 		private static void UpdateSelect(this DlgEquipStrength self, ItemInfo bagInfo)
 		{
+			self.SelectAttriItem = 0;
 			self.SelectEquipId = bagInfo.BagInfoID;
 			
 			for (int i = 0; i < self.ScrollItemCommonItems.Keys.Count - 1; i++)
@@ -213,6 +282,7 @@ namespace ET.Client
 
 			self.UpdateCostInfo();
 			self.UpdateAttributtonlist();
+			self.UpdateAttriSelectText();
 		}
 		
 		private static void UpdateCostInfo(this DlgEquipStrength self )
@@ -249,6 +319,7 @@ namespace ET.Client
 			
 			self.View.ES_CostItem.SetVisible(true);
 			self.View.ES_CostItem.UpdateItem(costitemid, costneednumber, false);
+			float preferredWidth = self.View.ES_CostItem.E_ItemNumText.preferredWidth;
 
 			using (zstring.Block())
 			{
@@ -256,6 +327,7 @@ namespace ET.Client
 				string tip2 = LanguageComponent.Instance.LoadLocalization("金币");
 				string etip = zstring.Format("+ {0}{1}", tip1, tip2);
 				self.View.E_CostGoldTxtText.text = etip;
+				self.View.E_CostGoldTxtText.GetComponent<RectTransform>().localPosition = new Vector2(-90f + preferredWidth, -25f);
 				self.View.E_SucessRateTxtText.text  = zstring.Format("{0}%", sucessrate);
 			}
 		}

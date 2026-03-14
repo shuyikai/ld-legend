@@ -26,6 +26,27 @@ namespace ET.Client
 		public static void ShowUserInfo(this DlgLdMain self)
 		{
 			self.UpdateUserYuanbao(0);
+			self.UpdateUserJinbi(0);
+		}
+
+		public static void UpdateUserJinbi(this DlgLdMain self, long addvalue)
+		{
+			NumericComponentClient numericComponentClient = self.MainUnit.GetComponent<NumericComponentClient>();
+			long yuanbao = numericComponentClient.GetAsLong(NumericType.Now_JinBi);
+			Log.Debug(($"DlgLdMain. UpdateUserYuanbao:  {yuanbao}"));
+			self.View.E_JinbiNumberText.text = yuanbao.ToString();
+
+			if (addvalue <= 0)
+			{
+				return;
+			}
+
+			string etip = LanguageComponent.Instance.LoadLocalization("获取{0}金币");
+			using (zstring.Block())
+			{
+				string tip = zstring.Format(etip, addvalue);
+				FlyTipComponent.Instance.ShowFlyTip(tip);
+			}
 		}
 
 		public static void UpdateUserYuanbao(this DlgLdMain self, long addvalue)
