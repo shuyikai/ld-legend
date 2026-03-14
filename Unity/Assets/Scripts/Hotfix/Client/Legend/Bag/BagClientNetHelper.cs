@@ -270,10 +270,11 @@ namespace ET.Client
             return response.Error;
         }
 
-        public static async ETTask<M2C_EquipStrengthResponse> RequestEquipStrenght(Scene root, ItemInfo itemInfo)
+        public static async ETTask<M2C_EquipStrengthResponse> RequestEquipStrenght(Scene root, ItemInfo itemInfo, int strenghtattri)
         {
             C2M_EquipStrengthRequest c2MEquipStrenghtRequest = C2M_EquipStrengthRequest.Create();
             c2MEquipStrenghtRequest.OperateBagID = itemInfo.BagInfoID;
+            c2MEquipStrenghtRequest.StrengthAttriItem = strenghtattri;
             M2C_EquipStrengthResponse response =
                     (M2C_EquipStrengthResponse)await root.GetComponent<ClientSenderCompnent>().Call(c2MEquipStrenghtRequest);
             return response;

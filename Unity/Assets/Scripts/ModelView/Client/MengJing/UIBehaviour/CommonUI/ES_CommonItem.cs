@@ -178,6 +178,23 @@ namespace ET.Client
      		}
      	}
 
+		public Text E_StrenghtLvTxt
+		{
+			get
+			{
+				if (this.uiTransform == null)
+				{
+					Log.Error("uiTransform is null.");
+					return null;
+				}
+				if( this.m_E_StrenghtLvTxt == null )
+				{
+					this.m_E_StrenghtLvTxt = UIFindHelper.FindDeepChild<Text>(this.uiTransform.gameObject,"E_StrenghtLvTxt");
+				}
+				return this.m_E_StrenghtLvTxt;
+			}
+		}
+
 		public Text E_ItemNameText
      	{
      		get
@@ -229,92 +246,7 @@ namespace ET.Client
      		}
      	}
 
-		public Image E_UpTipImage
-     	{
-     		get
-     		{
-     			if (this.uiTransform == null)
-     			{
-     				Log.Error("uiTransform is null.");
-     				return null;
-     			}
-     			if( this.m_E_UpTipImage == null )
-     			{
-		    		this.m_E_UpTipImage = UIFindHelper.FindDeepChild<Image>(this.uiTransform.gameObject,"E_UpTip");
-     			}
-     			return this.m_E_UpTipImage;
-     		}
-     	}
-
-		public Image E_ProtectImage
-     	{
-     		get
-     		{
-     			if (this.uiTransform == null)
-     			{
-     				Log.Error("uiTransform is null.");
-     				return null;
-     			}
-     			if( this.m_E_ProtectImage == null )
-     			{
-		    		this.m_E_ProtectImage = UIFindHelper.FindDeepChild<Image>(this.uiTransform.gameObject,"E_Protect");
-     			}
-     			return this.m_E_ProtectImage;
-     		}
-     	}
-
-		public Button E_LockButton
-     	{
-     		get
-     		{
-     			if (this.uiTransform == null)
-     			{
-     				Log.Error("uiTransform is null.");
-     				return null;
-     			}
-     			if( this.m_E_LockButton == null )
-     			{
-		    		this.m_E_LockButton = UIFindHelper.FindDeepChild<Button>(this.uiTransform.gameObject,"E_Lock");
-     			}
-     			return this.m_E_LockButton;
-     		}
-     	}
-
-		public Image E_LockImage
-     	{
-     		get
-     		{
-     			if (this.uiTransform == null)
-     			{
-     				Log.Error("uiTransform is null.");
-     				return null;
-     			}
-     			if( this.m_E_LockImage == null )
-     			{
-		    		this.m_E_LockImage = UIFindHelper.FindDeepChild<Image>(this.uiTransform.gameObject,"E_Lock");
-     			}
-     			return this.m_E_LockImage;
-     		}
-     	}
-
-		public Image E_ImageReceived
-		{
-			get
-			{
-				if (this.uiTransform == null)
-				{
-					Log.Error("uiTransform is null.");
-					return null;
-				}
-				if( this.m_E_ImageReceived == null )
-				{
-					this.m_E_ImageReceived = UIFindHelper.FindDeepChild<Image>(this.uiTransform.gameObject,"E_ImageReceived");
-				}
-				return this.m_E_ImageReceived;
-			}
-		}
-
-		    public Transform UITransform
+		 public Transform UITransform
          {
      	    get
      	    {
@@ -339,11 +271,7 @@ namespace ET.Client
 			this.m_E_ItemNameText = null;
 			this.m_E_XuanZhongImage = null;
 			this.m_E_BindingImage = null;
-			this.m_E_UpTipImage = null;
-			this.m_E_ProtectImage = null;
-			this.m_E_LockButton = null;
-			this.m_E_LockImage = null;
-			this.m_E_ImageReceived = null;
+			this.m_E_StrenghtLvTxt = null;
 			this.uiTransform = null;
 		}
 
@@ -359,11 +287,7 @@ namespace ET.Client
 		private Text m_E_ItemNameText = null;
 		private Image m_E_XuanZhongImage = null;
 		private Image m_E_BindingImage = null;
-		private Image m_E_UpTipImage = null;
-		private Image m_E_ProtectImage = null;
-		private Button m_E_LockButton = null;
-		private Image m_E_LockImage = null;
-		private Image m_E_ImageReceived = null;
+		private Text m_E_StrenghtLvTxt = null;
 		public Transform uiTransform = null;
 	}
 }

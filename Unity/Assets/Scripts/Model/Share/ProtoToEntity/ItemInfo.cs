@@ -20,6 +20,7 @@ namespace ET
 		public string MakePlayer { get; set; }
 		public int BindState { get; set; }
 		public int StrengthLevel { get; set; }
+		public int StrengthAttrId { get; set; }
 	}
 
 	[EntitySystemOf(typeof(ItemInfo))]
@@ -47,6 +48,7 @@ namespace ET
 			self.MakePlayer = proto.MakePlayer;
 			self.BindState = proto.BindState;
 			self.StrengthLevel = proto.StrengthLevel;
+			self.StrengthAttrId = proto.StrengthAttrId;
 		}
 
 		public static ItemInfoProto ToMessage(this ItemInfo self)
@@ -66,6 +68,7 @@ namespace ET
 			proto.MakePlayer = self.MakePlayer;
 			proto.BindState = self.BindState;
 			proto.StrengthLevel = self.StrengthLevel;
+			proto.StrengthAttrId = self.StrengthAttrId;
 			return proto;
 		}
 	}

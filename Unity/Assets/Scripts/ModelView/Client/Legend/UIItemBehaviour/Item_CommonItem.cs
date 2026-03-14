@@ -251,6 +251,30 @@ namespace ET.Client
      		}
      	}
 
+		public UnityEngine.UI.Text E_StrenghtLvTxt
+		{
+			get
+			{
+				if (this.uiTransform == null)
+				{
+					Log.Error("uiTransform is null.");
+					return null;
+				}
+				if (this.isCacheNode)
+				{
+					if( this.m_E_StrenghtLvTxt == null )
+					{
+						this.m_E_StrenghtLvTxt = UIFindHelper.FindDeepChild<UnityEngine.UI.Text>(this.uiTransform.gameObject,"E_StrenghtLvTxt");
+					}
+					return this.m_E_StrenghtLvTxt;
+				}
+				else
+				{
+					return UIFindHelper.FindDeepChild<UnityEngine.UI.Text>(this.uiTransform.gameObject,"E_StrenghtLvTxt");
+				}
+			}
+		}
+
 		public UnityEngine.UI.Text E_ItemNameText
      	{
      		get
@@ -323,125 +347,6 @@ namespace ET.Client
      		}
      	}
 
-		public UnityEngine.UI.Image E_UpTipImage
-     	{
-     		get
-     		{
-     			if (this.uiTransform == null)
-     			{
-     				Log.Error("uiTransform is null.");
-     				return null;
-     			}
-     			if (this.isCacheNode)
-     			{
-     				if( this.m_E_UpTipImage == null )
-     				{
-		    			this.m_E_UpTipImage = UIFindHelper.FindDeepChild<UnityEngine.UI.Image>(this.uiTransform.gameObject,"E_UpTip");
-     				}
-     				return this.m_E_UpTipImage;
-     			}
-     			else
-     			{
-		    		return UIFindHelper.FindDeepChild<UnityEngine.UI.Image>(this.uiTransform.gameObject,"E_UpTip");
-     			}
-     		}
-     	}
-
-		public UnityEngine.UI.Image E_ProtectImage
-     	{
-     		get
-     		{
-     			if (this.uiTransform == null)
-     			{
-     				Log.Error("uiTransform is null.");
-     				return null;
-     			}
-     			if (this.isCacheNode)
-     			{
-     				if( this.m_E_ProtectImage == null )
-     				{
-		    			this.m_E_ProtectImage = UIFindHelper.FindDeepChild<UnityEngine.UI.Image>(this.uiTransform.gameObject,"E_Protect");
-     				}
-     				return this.m_E_ProtectImage;
-     			}
-     			else
-     			{
-		    		return UIFindHelper.FindDeepChild<UnityEngine.UI.Image>(this.uiTransform.gameObject,"E_Protect");
-     			}
-     		}
-     	}
-
-		public UnityEngine.UI.Button E_LockButton
-     	{
-     		get
-     		{
-     			if (this.uiTransform == null)
-     			{
-     				Log.Error("uiTransform is null.");
-     				return null;
-     			}
-     			if (this.isCacheNode)
-     			{
-     				if( this.m_E_LockButton == null )
-     				{
-		    			this.m_E_LockButton = UIFindHelper.FindDeepChild<UnityEngine.UI.Button>(this.uiTransform.gameObject,"E_Lock");
-     				}
-     				return this.m_E_LockButton;
-     			}
-     			else
-     			{
-		    		return UIFindHelper.FindDeepChild<UnityEngine.UI.Button>(this.uiTransform.gameObject,"E_Lock");
-     			}
-     		}
-     	}
-
-		public UnityEngine.UI.Image E_LockImage
-     	{
-     		get
-     		{
-     			if (this.uiTransform == null)
-     			{
-     				Log.Error("uiTransform is null.");
-     				return null;
-     			}
-     			if (this.isCacheNode)
-     			{
-     				if( this.m_E_LockImage == null )
-     				{
-		    			this.m_E_LockImage = UIFindHelper.FindDeepChild<UnityEngine.UI.Image>(this.uiTransform.gameObject,"E_Lock");
-     				}
-     				return this.m_E_LockImage;
-     			}
-     			else
-     			{
-		    		return UIFindHelper.FindDeepChild<UnityEngine.UI.Image>(this.uiTransform.gameObject,"E_Lock");
-     			}
-     		}
-     	}
-
-		public UnityEngine.UI.Image E_ImageReceivedImage
-     	{
-     		get
-     		{
-     			if (this.uiTransform == null)
-     			{
-     				Log.Error("uiTransform is null.");
-     				return null;
-     			}
-     			if (this.isCacheNode)
-     			{
-     				if( this.m_E_ImageReceivedImage == null )
-     				{
-		    			this.m_E_ImageReceivedImage = UIFindHelper.FindDeepChild<UnityEngine.UI.Image>(this.uiTransform.gameObject,"E_ImageReceived");
-     				}
-     				return this.m_E_ImageReceivedImage;
-     			}
-     			else
-     			{
-		    		return UIFindHelper.FindDeepChild<UnityEngine.UI.Image>(this.uiTransform.gameObject,"E_ImageReceived");
-     			}
-     		}
-     	}
 
 		public void DestroyWidget()
 		{
@@ -457,11 +362,7 @@ namespace ET.Client
 			this.m_E_ItemNameText = null;
 			this.m_E_XuanZhongImage = null;
 			this.m_E_BindingImage = null;
-			this.m_E_UpTipImage = null;
-			this.m_E_ProtectImage = null;
-			this.m_E_LockButton = null;
-			this.m_E_LockImage = null;
-			this.m_E_ImageReceivedImage = null;
+			this.m_E_StrenghtLvTxt = null;
 			this.uiTransform = null;
 			this.DataId = 0;
 		}
@@ -478,11 +379,7 @@ namespace ET.Client
 		private UnityEngine.UI.Text m_E_ItemNameText = null;
 		private UnityEngine.UI.Image m_E_XuanZhongImage = null;
 		private UnityEngine.UI.Image m_E_BindingImage = null;
-		private UnityEngine.UI.Image m_E_UpTipImage = null;
-		private UnityEngine.UI.Image m_E_ProtectImage = null;
-		private UnityEngine.UI.Button m_E_LockButton = null;
-		private UnityEngine.UI.Image m_E_LockImage = null;
-		private UnityEngine.UI.Image m_E_ImageReceivedImage = null;
+		private UnityEngine.UI.Text m_E_StrenghtLvTxt = null;
 		public Transform uiTransform = null;
 	}
 }

@@ -13,6 +13,8 @@ namespace ET.Client
 
 
 		public long SelectEquipId;
+
+		public int SelectAttriItem;
 		
 		public int CurrentItemType;
 	}

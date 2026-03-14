@@ -18,7 +18,6 @@ namespace ET.Client
             self.E_ItemDiButton.AddListener(self.OnItemDiButton);
             self.E_ItemClickButton.AddListener(self.OnItemClickButton);
             self.E_ItemDragButton.AddListener(self.OnItemDragButton);
-            self.E_LockButton.AddListener(self.OnLockButton);
         }
 
         [EntitySystem]
@@ -125,11 +124,6 @@ namespace ET.Client
             self.E_ItemIconImage.sprite = sp;
         }
 
-        public static void UpdateUnLock(this ES_CommonItem self, bool actived)
-        {
-            self.E_LockImage.gameObject.SetActive(!actived);
-        }
-
         public static void SetCurrentHouse(this ES_CommonItem self, int currentHouse)
         {
             self.CurrentHouse = currentHouse;
@@ -192,6 +186,7 @@ namespace ET.Client
             self.ShowTip = true;
             self.CurrentHouse = -1;
 
+            self.E_StrenghtLvTxt.text = string.Empty;
             self.E_ItemDiImage.gameObject.SetActive(false);
             self.E_ItemClickButton.gameObject.SetActive(false);
             self.E_ItemDragButton.gameObject.SetActive(false);
@@ -200,13 +195,6 @@ namespace ET.Client
             self.E_ItemNameText.gameObject.SetActive(false);
             self.E_XuanZhongImage.gameObject.SetActive(false);
             self.E_BindingImage.gameObject.SetActive(false);
-            self.E_UpTipImage.gameObject.SetActive(false);
-            self.E_ProtectImage.gameObject.SetActive(false);
-            self.E_LockButton.gameObject.SetActive(false);
-            if (self.E_ImageReceived != null)
-            {
-                self.E_ImageReceived.gameObject.SetActive(false);
-            }
 
             if (bagInfo != null)
             {
@@ -236,6 +224,7 @@ namespace ET.Client
 
                 self.E_ItemClickButton.gameObject.SetActive(true);
                 self.E_ItemClickButton.AddListener(self.OnClickUIItem);
+                self.E_StrenghtLvTxt.text = bagInfo.StrengthLevel > 0 ? bagInfo.StrengthLevel.ToString(): string.Empty;
 
                 //self.E_ItemNameText.gameObject.SetActive(true);
                 self.E_ItemNameText.text = itemname;

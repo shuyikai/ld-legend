@@ -28,7 +28,7 @@ namespace ET.Client
 			Button[] buttonlist = self.View.E_AttriButtonlist;
 			for (int i = 0; i < buttonlist.Length; i++)
 			{
-				int index = i;
+				int index = i+1;
 				buttonlist[i].AddListener(() =>
 				{
 					self.OnClickAttriButtonList(index);
@@ -42,6 +42,8 @@ namespace ET.Client
 
 		private static void OnClickAttriButtonList(this DlgEquipStrength self, int index)
 		{
+			self.SelectAttriItem = index;
+			self.OnClickAttriBtnButton();
 			Log.Debug(($"OnClickAttriButtonList:  {index}"));
 		}
 
@@ -96,7 +98,7 @@ namespace ET.Client
 			{
 				buttonlist[i].gameObject.SetActive(true);
 				Text buttontext = buttonlist[i].transform.Find("Text").GetComponent<Text>();
-				int numerictype = int.Parse(strenghtlist[0]);
+				int numerictype = int.Parse(strenghtlist[i]);
 				buttontext.text = ItemViewHelp.GetAttributeName(numerictype);
 			}
 
@@ -109,6 +111,7 @@ namespace ET.Client
 		{
 			if (self.SelectEquipId == 0)
 			{
+				FlyTipComponent.Instance.ShowFlyTip(LanguageComponent.Instance.LoadLocalization("请先放入装备！"));
 				return;
 			}
 
@@ -116,16 +119,23 @@ namespace ET.Client
 			ItemInfo itemInfo = bagComponentClient.GetItemInfoByRoleAndbag( self.SelectEquipId);
 			if (itemInfo == null)
 			{
+				FlyTipComponent.Instance.ShowFlyTip(LanguageComponent.Instance.LoadLocalization("请先放入装备！"));
+				return;
+			}
+
+			if (self.SelectAttriItem <= 0)
+			{
+				FlyTipComponent.Instance.ShowFlyTip(LanguageComponent.Instance.LoadLocalization("请先选择需要强化的属性！"));
 				return;
 			}
 
 			long instanceid = self.InstanceId;
-			M2C_EquipStrengthResponse response = await BagClientNetHelper.RequestEquipStrenght(self.Root(), itemInfo);
+			M2C_EquipStrengthResponse response = await BagClientNetHelper.RequestEquipStrenght(self.Root(), itemInfo, self.SelectAttriItem);
 			if (instanceid != self.InstanceId || response == null)
 			{
 				return;
 			}
-
+			
 			self.UpdateLeftInfo();
 		}
 
@@ -191,34 +201,37 @@ namespace ET.Client
 		{
 			BagComponentClient bagComponentClient = self.Root().GetComponent<BagComponentClient>();
 			ItemInfo itemInfo = bagComponentClient.GetItemInfoByRoleAndbag( self.SelectEquipId);
-			if (itemInfo == null)
+			if (itemInfo != null)
 			{
-				self.UpdateCostInfo();
-				return;
-			}
-			
-			self.View.ES_CommonItem.UpdateItem(itemInfo, ItemOperateEnum.None);
-			if (itemInfo.StrengthLevel >= 7)
-			{
-				string tip = LanguageComponent.Instance.LoadLocalization("已强化到最大等级！");
-				self.View.ES_CostItem.SetVisible(false);
-				self.View.E_SucessRateTxtText.text = tip;
+				self.View.ES_CommonItem.SetVisible(true);
+				self.View.ES_CommonItem.UpdateItem(itemInfo, ItemOperateEnum.None);
 			}
 			else
 			{
-				self.UpdateCostInfo();
-				self.UpdateAttributtonlist();
+				self.View.ES_CommonItem.SetVisible(false);
 			}
+
+			self.UpdateCostInfo();
+			self.UpdateAttributtonlist();
 		}
 		
 		private static void UpdateCostInfo(this DlgEquipStrength self )
 		{
+			BagComponentClient bagComponentClient = self.Root().GetComponent<BagComponentClient>();
+			ItemInfo itemInfo = bagComponentClient.GetItemInfoByRoleAndbag( self.SelectEquipId);
+			
+			if (itemInfo != null && itemInfo.StrengthLevel >= 7)
+			{
+				string tip = LanguageComponent.Instance.LoadLocalization("已强化到最大等级！");
+				self.View.ES_CostItem.SetVisible(false);
+				self.View.E_SucessRateTxtText.text = tip;
+				return;
+			}
+			
 			int costitemid =13005;
 			int costneednumber = 0;
 			int costjinbi = 0;
 			int sucessrate = 0;
-			BagComponentClient bagComponentClient = self.Root().GetComponent<BagComponentClient>();
-			ItemInfo itemInfo = bagComponentClient.GetItemInfoByRoleAndbag( self.SelectEquipId);
 			if (itemInfo == null)
 			{
 				costneednumber = 0;
@@ -233,7 +246,6 @@ namespace ET.Client
 				sucessrate = strenghtConfig.SucessRate;
 				costjinbi = strenghtConfig.CostJinbi;
 			}
-
 			
 			self.View.ES_CostItem.SetVisible(true);
 			self.View.ES_CostItem.UpdateItem(costitemid, costneednumber, false);
@@ -259,10 +271,6 @@ namespace ET.Client
 			}
 		     
 			Scroll_Item_CommonItem scrollItemCommonItem = self.ScrollItemCommonItems[index].BindTrans(transform);
-
-			BagComponentClient bagComponent = self.Root().GetComponent<BagComponentClient>();
-			UserInfoComponentC userInfoComponent = self.Root().GetComponent<UserInfoComponentC>();
-			int openell = bagComponent.GetBagTotalCell(ItemLocType.ItemLocBag);
 			scrollItemCommonItem.UpdateUnLock(false);
 			scrollItemCommonItem.Refresh(index < self.ShowBagInfos.Count ? self.ShowBagInfos[index] : null, ItemOperateEnum.NecklaceRefine,
 				self.UpdateSelect);
@@ -274,7 +282,6 @@ namespace ET.Client
 
 			scrollItemCommonItem.E_ItemNameText.text = string.Empty;
 			scrollItemCommonItem.E_ItemNumText.text = string.Empty;
-			scrollItemCommonItem.E_UpTipImage.gameObject.SetActive(false); // 不显示箭头
 		}
 
 		

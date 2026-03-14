@@ -27,8 +27,20 @@ namespace ET.Server
                 response.Error = ErrorCode.ERR_StrengthMax;
                 return;
             }
-            
-            EquipStrenghtConfig equipStrenghtConfig = EquipStrenghtConfigCategory.Instance.GetLeveStrenghtConfig(useBagInfo.StrengthLevel);
+
+            EquipConfig equipConfig = EquipConfigCategory.Instance.Get(useBagInfo.ItemID);
+
+            string attriinfo = EquipStrenghtConfigCategory.Instance.GetEquipStrenghtAttr(equipConfig.StdMode);
+            string[] attrilist = attriinfo.Split("|");
+            int attrinumber = attrilist.Length;
+
+            if (request.StrengthAttriItem <= 0 || request.StrengthAttriItem >= attrinumber)
+            {
+                Log.Error($"request.StrengthAttriItem <= 0 || request.StrengthAttriItem >= attrinumber");
+                request.StrengthAttriItem = 1;
+            }
+
+            EquipStrenghtConfig equipStrenghtConfig = EquipStrenghtConfigCategory.Instance.GetLeveStrenghtConfig(useBagInfo.StrengthLevel+1);
 
             NumericComponentServer numericComponentS = unit.GetComponent<NumericComponentServer>();
             if (numericComponentS.GetAsLong(NumericType.Now_JinBi) < equipStrenghtConfig.CostJinbi)
@@ -52,6 +64,7 @@ namespace ET.Server
             if (RandomHelper.RandFloat01() <= equipStrenghtConfig.SucessRate)
             {
                 useBagInfo.StrengthLevel++;
+                useBagInfo.StrengthAttrId = int.Parse(attrilist[request.StrengthAttriItem - 1]);
             }
             //跳点机制
             m2c_bagUpdate.BagInfoUpdate.Add(useBagInfo.ToMessage());

@@ -48,7 +48,6 @@ namespace ET.Client
 
 			scrollItemCommonItem.E_ItemNameText.text = string.Empty;
 			scrollItemCommonItem.E_ItemNumText.text = string.Empty;
-			scrollItemCommonItem.E_UpTipImage.gameObject.SetActive(false); // 不显示箭头
 		}
 
 		private static void UpdateSelect(this DlgEquipIdentify self, ItemInfo bagInfo)

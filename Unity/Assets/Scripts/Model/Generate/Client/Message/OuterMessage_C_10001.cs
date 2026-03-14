@@ -8309,6 +8309,9 @@ namespace ET
         [MemoryPackOrder(13)]
         public int StrengthLevel { get; set; }
 
+        [MemoryPackOrder(14)]
+        public int StrengthAttrId { get; set; }
+
         public override void Dispose()
         {
             if (!this.IsFromPool)
@@ -8330,6 +8333,7 @@ namespace ET
             this.MakePlayer = default;
             this.BindState = default;
             this.StrengthLevel = default;
+            this.StrengthAttrId = default;
 
             ObjectPool.Instance.Recycle(this);
         }
@@ -8723,6 +8727,9 @@ namespace ET
         [MemoryPackOrder(1)]
         public long OperateBagID { get; set; }
 
+        [MemoryPackOrder(2)]
+        public int StrengthAttriItem { get; set; }
+
         public override void Dispose()
         {
             if (!this.IsFromPool)
@@ -8732,6 +8739,7 @@ namespace ET
 
             this.RpcId = default;
             this.OperateBagID = default;
+            this.StrengthAttriItem = default;
 
             ObjectPool.Instance.Recycle(this);
         }

@@ -1904,6 +1904,7 @@ message ItemInfoProto
 	string MakePlayer = 12;					//制作玩家名字
 	int32  BindState = 13;          //0未绑定  1已绑定
 	int32 StrengthLevel = 14;				//强化等级
+	int32 StrengthAttrId = 15;
 }
 
 //洗练项链
@@ -1997,6 +1998,7 @@ message C2M_EquipStrengthRequest // ILocationRequest
 {
 	int32 RpcId = 90;
 	int64 OperateBagID = 2;
+	int32 StrengthAttriItem = 3;
 }
 
 message M2C_EquipStrengthResponse // ILocationResponse

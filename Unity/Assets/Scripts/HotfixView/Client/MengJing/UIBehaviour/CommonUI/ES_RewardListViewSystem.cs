@@ -95,20 +95,6 @@ namespace ET.Client
             }
         }
 
-        public static void ShowReceived(this ES_RewardList self, bool recv)
-        {
-            foreach (var commonitem in self.ScrollItemCommonItems)
-            {
-                Scroll_Item_CommonItem itemCommonItem = commonitem.Value;
-                if (itemCommonItem == null || itemCommonItem.uiTransform == null)
-                {
-                    continue;
-                }
-
-                itemCommonItem.E_ImageReceivedImage.gameObject.SetActive(recv);
-            }
-        }
-
         public static void Refresh(this ES_RewardList self, string rewarfItems, float scale = 1f, bool showNumber = true, bool showName = false,
         int getWay = 0)
         {
