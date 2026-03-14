@@ -28,14 +28,14 @@ namespace ET.Client
             bagComponentClient.BagAddCellNumber = response.AdditionalCellNum;
             return ErrorCode.ERR_Success;
         }
-        
+
 
         public static async ETTask<M2C_ItemOperateResponse> RequestUseItem(Scene root, ItemInfo bagInfo, string parinfo = "")
         {
             UserInfoComponentC infoComponent = root.GetComponent<UserInfoComponentC>();
 
             ItemConfig itemConfig = ItemConfigCategory.Instance.Get(bagInfo.ItemID);
-            
+
             C2M_ItemOperateRequest request = C2M_ItemOperateRequest.Create();
             request.OperateType = 1;
             request.OperateBagID = bagInfo.BagInfoID;
@@ -48,7 +48,7 @@ namespace ET.Client
                 return response;
             }
 
- 
+
 
             return response;
         }
@@ -82,7 +82,7 @@ namespace ET.Client
 
             return response.Error;
         }
-        
+
 
         public static async ETTask RquestStoreBuy(Scene root, int sellId, int buyNum)
         {
@@ -111,7 +111,7 @@ namespace ET.Client
             M2C_StoreBuyResponse response = (M2C_StoreBuyResponse)await root.GetComponent<ClientSenderCompnent>().Call(request);
             if (response.Error == ErrorCode.ERR_Success)
             {
-              
+
             }
         }
 
@@ -126,7 +126,7 @@ namespace ET.Client
 
         public static async ETTask<M2C_GameSettingResponse> GameSetting(Scene root, List<KeyValuePair> gameSettingInfos)
         {
-         
+
             EventSystem.Instance.Publish(root, new SettingUpdate());
 
             C2M_GameSettingRequest request = C2M_GameSettingRequest.Create();
@@ -163,6 +163,7 @@ namespace ET.Client
                 //
                 return response;
             }
+
             return response;
         }
 
@@ -187,6 +188,7 @@ namespace ET.Client
                 //
                 return response;
             }
+
             return response;
         }
 
@@ -208,6 +210,7 @@ namespace ET.Client
                 //
                 return response;
             }
+
             return response;
         }
 
@@ -226,6 +229,7 @@ namespace ET.Client
                 //
                 return response;
             }
+
             return response;
         }
 
@@ -235,7 +239,7 @@ namespace ET.Client
             inlayRequest.EquipId = equipid;
             inlayRequest.GemId = gemid;
             inlayRequest.OperateType = loctype;
-            
+
             M2C_GemInlayResponse combingResponse = (M2C_GemInlayResponse)await root.GetComponent<ClientSenderCompnent>().Call(inlayRequest);
 
             if (combingResponse.Error != ErrorCode.ERR_Success)
@@ -243,10 +247,11 @@ namespace ET.Client
                 //
                 return combingResponse;
             }
+
             return combingResponse;
         }
-        
-        
+
+
         /// <summary>
         /// 道具和装备可以通用这个
         /// </summary>
@@ -263,6 +268,15 @@ namespace ET.Client
             M2C_ItemOperateResponse response = (M2C_ItemOperateResponse)await root.GetComponent<ClientSenderCompnent>().Call(request);
 
             return response.Error;
+        }
+
+        public static async ETTask<M2C_EquipStrengthResponse> RequestEquipStrenght(Scene root, ItemInfo itemInfo)
+        {
+            C2M_EquipStrengthRequest c2MEquipStrenghtRequest = C2M_EquipStrengthRequest.Create();
+            c2MEquipStrenghtRequest.OperateBagID = itemInfo.BagInfoID;
+            M2C_EquipStrengthResponse response =
+                    (M2C_EquipStrengthResponse)await root.GetComponent<ClientSenderCompnent>().Call(c2MEquipStrenghtRequest);
+            return response;
         }
     }
 }

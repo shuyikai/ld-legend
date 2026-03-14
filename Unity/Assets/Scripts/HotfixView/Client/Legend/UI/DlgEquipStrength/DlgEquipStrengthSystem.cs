@@ -35,6 +35,8 @@ namespace ET.Client
 				});
 			}
 			
+			self.View.ES_CostItem.SetVisible(false);
+			
 			self.View.E_FunctionSetBtnToggleGroup.OnSelectIndex(0);
 		}
 
@@ -105,12 +107,32 @@ namespace ET.Client
 
 		private static async ETTask OnClickRefineButtion(this DlgEquipStrength self)
 		{
-			Log.Debug($"点击强化按钮");
+			if (self.SelectEquipId == 0)
+			{
+				return;
+			}
+
+			BagComponentClient bagComponentClient = self.Root().GetComponent<BagComponentClient>();
+			ItemInfo itemInfo = bagComponentClient.GetItemInfoByRoleAndbag( self.SelectEquipId);
+			if (itemInfo == null)
+			{
+				return;
+			}
+
+			long instanceid = self.InstanceId;
+			M2C_EquipStrengthResponse response = await BagClientNetHelper.RequestEquipStrenght(self.Root(), itemInfo);
+			if (instanceid != self.InstanceId || response == null)
+			{
+				return;
+			}
+
+			self.UpdateLeftInfo();
 		}
 
 		private static void OnItemTypeSet(this DlgEquipStrength self, int index)
 		{
 			self.CurrentItemType = index;
+			self.UpdateLeftInfo();
 			self.RefreshBagItems();
 		}
 		
@@ -130,7 +152,7 @@ namespace ET.Client
 				}
 
 				EquipConfig equipConfig = EquipConfigCategory.Instance.Get(itemInfo.ItemID);
-				if (equipConfig.StdMode!= EquipStdmodeEnum.XiangLian_3)
+				if (equipConfig.StdMode > EquipStdmodeEnum.Xiezi_11)
 				{
 					continue;
 				}
@@ -171,29 +193,58 @@ namespace ET.Client
 			ItemInfo itemInfo = bagComponentClient.GetItemInfoByRoleAndbag( self.SelectEquipId);
 			if (itemInfo == null)
 			{
+				self.UpdateCostInfo();
 				return;
 			}
 			
 			self.View.ES_CommonItem.UpdateItem(itemInfo, ItemOperateEnum.None);
-
-			EquipStrenghtConfig strenghtConfig = EquipStrenghtConfigCategory.Instance.GetLeveStrenghtConfig(itemInfo.StrengthLevel+1);
-
-			self.UpdateCostInfo(strenghtConfig);
-			self.UpdateAttributtonlist();
+			if (itemInfo.StrengthLevel >= 7)
+			{
+				string tip = LanguageComponent.Instance.LoadLocalization("已强化到最大等级！");
+				self.View.ES_CostItem.SetVisible(false);
+				self.View.E_SucessRateTxtText.text = tip;
+			}
+			else
+			{
+				self.UpdateCostInfo();
+				self.UpdateAttributtonlist();
+			}
 		}
 		
-		private static void UpdateCostInfo(this DlgEquipStrength self, EquipStrenghtConfig strenghtConfig )
+		private static void UpdateCostInfo(this DlgEquipStrength self )
 		{
-			string[] costitem = strenghtConfig.CostItem.Split(";");
-			self.View.ES_CostItem.UpdateItem(int.Parse(costitem[0]), int.Parse(costitem[1]), false);
+			int costitemid =13005;
+			int costneednumber = 0;
+			int costjinbi = 0;
+			int sucessrate = 0;
+			BagComponentClient bagComponentClient = self.Root().GetComponent<BagComponentClient>();
+			ItemInfo itemInfo = bagComponentClient.GetItemInfoByRoleAndbag( self.SelectEquipId);
+			if (itemInfo == null)
+			{
+				costneednumber = 0;
+				sucessrate = 0;
+			}
+			else
+			{
+				EquipStrenghtConfig strenghtConfig = EquipStrenghtConfigCategory.Instance.GetLeveStrenghtConfig(itemInfo.StrengthLevel+1);
+				string[] costitem = strenghtConfig.CostItems.Split(";");
+				costitemid = int.Parse(costitem[0]);
+				costneednumber = int.Parse(costitem[1]);
+				sucessrate = strenghtConfig.SucessRate;
+				costjinbi = strenghtConfig.CostJinbi;
+			}
+
+			
+			self.View.ES_CostItem.SetVisible(true);
+			self.View.ES_CostItem.UpdateItem(costitemid, costneednumber, false);
 
 			using (zstring.Block())
 			{
-				string tip1 = ItemViewHelp.ReturnNumStr(strenghtConfig.CostJubin);
+				string tip1 = ItemViewHelp.ReturnNumStr(costjinbi);
 				string tip2 = LanguageComponent.Instance.LoadLocalization("金币");
 				string etip = zstring.Format("+ {0}{1}", tip1, tip2);
 				self.View.E_CostGoldTxtText.text = etip;
-				self.View.E_SucessRateTxtText.text  = zstring.Format("{0}%", strenghtConfig.SucessRate);
+				self.View.E_SucessRateTxtText.text  = zstring.Format("{0}%", sucessrate);
 			}
 		}
 

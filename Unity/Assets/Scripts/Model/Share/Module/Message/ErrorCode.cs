@@ -122,5 +122,6 @@ namespace ET
         public const int ERR_EquipTypeError = 200087;                       //装备类型不符
         public const int ERR_XiLianMaxError = 200088;                        //已达到洗练最大次数
         public const int ERR_AlreadyIdentyfy = 200089;                          //该装备已经鉴定
+        public const int ERR_StrengthMax = 200090;                              //已达到强化最大等级
     }
 }

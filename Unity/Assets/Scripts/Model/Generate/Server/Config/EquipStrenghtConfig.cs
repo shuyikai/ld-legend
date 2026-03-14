@@ -72,9 +72,9 @@ namespace ET
 		/// <summary>跳点机制</summary>
 		public string JumpPoint { get; set; }
 		/// <summary>所需金币</summary>
-		public int CostJubin { get; set; }
+		public int CostJinbi { get; set; }
 		/// <summary>所需道具</summary>
-		public string CostItem { get; set; }
+		public string CostItems { get; set; }
 
 	}
 }

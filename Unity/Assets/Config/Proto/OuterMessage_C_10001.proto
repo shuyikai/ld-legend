@@ -1991,3 +1991,18 @@ message M2C_ItemOperateResponse // ILocationResponse
 	repeated RewardItem RewardList = 2;
 }
 
+//装备强化
+//ResponseType M2C_EquipStrengthResponse
+message C2M_EquipStrengthRequest // ILocationRequest
+{
+	int32 RpcId = 90;
+	int64 OperateBagID = 2;
+}
+
+message M2C_EquipStrengthResponse // ILocationResponse
+{
+	int32 RpcId = 90;
+	string Message = 91;
+	int32 Error = 92;
+}
+
