@@ -181,7 +181,7 @@ namespace ET.Client
 			self.UpdateCostInfo(strenghtConfig);
 			self.UpdateAttributtonlist();
 		}
-
+		
 		private static void UpdateCostInfo(this DlgEquipStrength self, EquipStrenghtConfig strenghtConfig )
 		{
 			string[] costitem = strenghtConfig.CostItem.Split(";");
@@ -193,6 +193,7 @@ namespace ET.Client
 				string tip2 = LanguageComponent.Instance.LoadLocalization("金币");
 				string etip = zstring.Format("+ {0}{1}", tip1, tip2);
 				self.View.E_CostGoldTxtText.text = etip;
+				self.View.E_SucessRateTxtText.text  = zstring.Format("{0}%", strenghtConfig.SucessRate);
 			}
 		}
 

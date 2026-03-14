@@ -34,7 +34,7 @@ namespace ET.Client
             }
 
             //显示颜色
-            self.E_ItemNumText.color = (itemNum < bagComponent.GetItemNumber(itemId)) ? Color.green : new Color(255f / 255f, 135f / 255f, 81f / 255f);
+            self.E_ItemNumText.color = (itemNum < bagComponent.GetItemNumber(itemId)) ? Color.red : new Color(255f / 255f, 135f / 255f, 81f / 255f);
             string path = ABPathHelper.GetAtlasPath_2(ABAtlasTypes.ItemIcon, itemConfig.GetItemIcon());
             Sprite sp = self.Root().GetComponent<ResourcesLoaderComponent>().LoadAssetSync<Sprite>(path);
             self.E_ItemIconImage.sprite = sp;
