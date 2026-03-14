@@ -27,7 +27,7 @@ namespace ET
         private const int NecklaceRefineConfigKey = 6;
     
         // 字段私有化，提供只读属性（封装性）
-        private Dictionary<int, EquipRefineInfo> _necklaceRefineConfig = new Dictionary<int, EquipRefineInfo>();
+        private readonly Dictionary<int, EquipRefineInfo> _necklaceRefineConfig = new Dictionary<int, EquipRefineInfo>();
         public IReadOnlyDictionary<int, EquipRefineInfo> NecklaceRefineConfig => _necklaceRefineConfig;
 
         // 背包初始容量（提取为独立字段）

@@ -11,6 +11,8 @@ namespace ET
         
         public override void EndInit()
         {
+            MedalTypeList.Clear();
+            
             foreach (MedalExchangeConfig exchangeConfig in this.GetAll().Values)
             {
                 int bigtype = exchangeConfig.BigType;

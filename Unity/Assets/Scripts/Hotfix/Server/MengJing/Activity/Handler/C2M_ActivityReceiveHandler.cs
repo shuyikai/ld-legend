@@ -59,13 +59,7 @@ namespace ET.Server
                         int curDay = activityComponent.TotalSignNumber;
                         long serverNow = TimeHelper.ServerNow();
                         bool isSign = CommonHelp.GetDayByTime(serverNow) == CommonHelp.GetDayByTime(activityComponent.LastSignTime);
-                        int maxSignNumber = ActivityConfigCategory.Instance.GetNumByType((int)ActivityEnum.Type_23);
-
-                        if (activityComponent.TotalSignNumber < maxSignNumber && !isSign)
-                        {
-                            curDay++;
-                        }
-                        
+                      
                         if (curDay < int.Parse(activityConfig.Par_1))
                         {
                             response.Error = ErrorCode.ERR_ModifyData;

@@ -21,15 +21,6 @@ namespace ET.Server
             
             //强化技能可以激活
             bool haveqianghuaskill = false;
-            for (int i = 0; i < skillSetComponent.SkillList.Count; i++)
-            {
-                if (SkillHelp.IsQiangHuaSkill(occ, skillSetComponent.SkillList[i].SkillID))
-                {
-                    haveqianghuaskill = true;
-                    break;
-                }
-            }
-
             if (!haveqianghuaskill)
             {
                 int[] baseSkilllist = OccupationConfigCategory.Instance.Get(occ).BaseSkill;
@@ -59,7 +50,7 @@ namespace ET.Server
                 int removeSkillIndex = 0;
                 for (int i = 0; i < skillSetComponent.SkillList.Count; i++)
                 {
-                    int initskillid = SkillConfigCategory.Instance.GetInitSkill(skillSetComponent.SkillList[i].SkillID);
+                    int initskillid = skillSetComponent.SkillList[i].SkillID;
                     if (initskillid == 0)
                     {
                         continue;
@@ -101,16 +92,7 @@ namespace ET.Server
             List<int> allskill = new List<int>();
             for (int i = skillSetComponent.SkillList.Count - 1; i >= 0; i--)
             {
-                int baseskill = SkillConfigCategory.Instance.GetInitSkill(skillSetComponent.SkillList[i].SkillID);
-                if (allskill.Contains(baseskill))
-                {
-                    Console.WriteLine($"重复技能ID: {skillSetComponent.SkillList[i].SkillID}");
-                    skillSetComponent.SkillList.RemoveAt(i);
-                }
-                else
-                {
-                    allskill.Add(baseskill);
-                }
+                
             }
 
             List<KeyValuePairInt> tianfulist1 = new List<KeyValuePairInt>();

@@ -10,6 +10,8 @@ namespace ET
         
         public override void EndInit()
         {
+            gemList.Clear();
+            
             GemListConfig();
         }
 

@@ -10,6 +10,9 @@ namespace ET
 
         public override void EndInit()
         {
+            NpcIdList.Clear();
+            
+            
             foreach (SceneConfig sceneConfig in this.GetAll().Values)
             {
                 if (sceneConfig.Id == 101)

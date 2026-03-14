@@ -369,11 +369,6 @@ namespace ET.Server
              {
                  self.ActTargetTemporaryAddPro = 0;      //清空
              }
-             if (ishit) 
-             {
-                 self.SkillFirstHurtTime = TimeHelper.ServerNow();
-                 self.TheUnitFrom.GetComponent<SkillManagerComponentS>().CheckSkillSecond(self, uu.Id);
-             }
              return ishit;
          }
 

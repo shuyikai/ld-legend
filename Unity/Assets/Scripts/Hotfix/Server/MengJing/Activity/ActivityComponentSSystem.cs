@@ -109,35 +109,6 @@ namespace ET.Server
                 }
             }
 
-            // 周期重置签到活动
-            if (self.TotalSignNumber >= ActivityConfigCategory.Instance.GetNumByType((int)ActivityEnum.Type_23))
-            {
-                self.TotalSignNumber = 0;
-                for (int i = self.ActivityReceiveIds.Count - 1; i >= 0; i--)
-                {
-                    ActivityConfig activityConfig = ActivityConfigCategory.Instance.Get(self.ActivityReceiveIds[i]);
-                    if (activityConfig.ActivityType == (int)ActivityEnum.Type_23 || 
-                        activityConfig.ActivityType == (int)ActivityEnum.Type_26)
-                    {
-                        self.ActivityReceiveIds.RemoveAt(i);
-                    }
-                }
-            }
-            if (self.TotalSignNumber_VIP >= ActivityConfigCategory.Instance.GetNumByType((int)ActivityEnum.Type_25))
-            {
-                self.TotalSignNumber_VIP = 0;
-                for (int i = self.ActivityReceiveIds.Count - 1; i >= 0; i--)
-                {
-                    ActivityConfig activityConfig = ActivityConfigCategory.Instance.Get(self.ActivityReceiveIds[i]);
-                    if (activityConfig.ActivityType == (int)ActivityEnum.Type_25 || 
-                        activityConfig.ActivityType == (int)ActivityEnum.Type_27)
-                    {
-                        self.ActivityReceiveIds.RemoveAt(i);
-                    }
-                }
-            }
-
-
         }
 
     }

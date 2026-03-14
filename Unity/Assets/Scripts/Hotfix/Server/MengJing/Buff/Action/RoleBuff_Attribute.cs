@@ -183,15 +183,7 @@ namespace ET.Server
                     buffS.TheUnitBelongto.GetComponent<SkillPassiveComponent>().AddPassiveSkill(buffS.mBuffConfig.buffParameterType);
                     break;
                 case 5: //驱散
-                    //(buffParameterValue2  ) 需要提前解析要移除的buffid。拓展SkillBuffConfig 放在ConfigPartial
-                    List<int> relieveBuffs = SkillBuffConfigCategory.Instance.GetRelieveBuffs(buffS.mBuffConfig.Id);
-                    if (relieveBuffs != null && relieveBuffs.Count > 0)
-                    {
-                        foreach (int buffId in relieveBuffs)
-                        {
-                            buffS.TheUnitBelongto.GetComponent<BuffManagerComponentS>().BuffRemoveByUnit(0, buffId);
-                        }
-                    }
+                  
 
                     break;
                 case 6: //一次性技能

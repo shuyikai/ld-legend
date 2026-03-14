@@ -173,13 +173,7 @@ namespace ET.Client
             {
                 int skillId = self.SkillBaseConfig.Id;
                 SkillManagerComponentC skillManagerComponent = myUnit.GetComponent<SkillManagerComponentC>();
-                if (self.SkillSecond == 1)
-                {
-                    //用二段技能
-                    skillId = (int)SkillConfigCategory.Instance.BuffSecondSkill[skillId].Value2;
-                    skillManagerComponent.AddSkillSecond(self.SkillBaseConfig.Id, skillId);
-                }
-
+              
                 skillManagerComponent.SendUseSkill(skillId, 0, angle, targetId, distance).Coroutine();
             }
             else
@@ -369,12 +363,7 @@ namespace ET.Client
         public static async ETTask ShowSkillSecondCD(this ES_MainSkillGrid self, int skillId)
         {
             KeyValuePairLong4 keyValuePairLong = null;
-            SkillConfigCategory.Instance.BuffSecondSkill.TryGetValue(skillId, out keyValuePairLong);
-            if (keyValuePairLong == null)
-            {
-                return;
-            }
-
+            
             long allTime = SkillBuffConfigCategory.Instance.Get((int)keyValuePairLong.KeyId).BuffTime;
             long passTime = 0;
             while (true)

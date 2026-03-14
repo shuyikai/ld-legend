@@ -74,7 +74,7 @@ namespace ET.Client
 
 		 private static void ShowCostYuanbao(this DlgNecklaceRefine self)
 		 {
-			 if (self.SelectEquipId == null)
+			 if (self.SelectEquipId == 0)
 			 {
 				 return;
 			 }

@@ -47,43 +47,6 @@ namespace ET.Server
               Unit unit = self.GetParent<Unit>();
               List<SkillInfo> skillInfos = new List<SkillInfo>();
               
-              if (self.SkillSecond.ContainsKey(skillcmd.SkillID))
-              {
-                  //有对应的buff才能触发二段斩
-                  int buffId = (int)SkillConfigCategory.Instance.BuffSecondSkill[self.SkillSecond[skillcmd.SkillID]].KeyId;
-
-                  List<EntityRef<Unit>> allDefend = unit.GetParent<UnitComponent>().GetAll();
-                  for (int defend = 0; defend < allDefend.Count; defend++)
-                  {
-                      Unit unitdefend = allDefend[defend];
-                      BuffManagerComponentS buffManagerComponent = unitdefend.GetComponent<BuffManagerComponentS>();
-                      if (buffManagerComponent == null || unitdefend.Id == unit.Id) //|| allDefend[defend].Id == request.TargetID 
-                      {
-                          continue;
-                      }
-                      int buffNum = buffManagerComponent.GetBuffSourceNumber(unit.Id, buffId);
-                      if (buffNum <= 0)
-                      {
-                          continue;
-                      }
-                 
-                      buffManagerComponent.BuffRemoveByUnit(0, buffId);
-                      float3 direction = unitdefend.Position - unit.Position;
-                      float ange = math.degrees(math.atan2(direction.x, direction.z));
-                      SkillInfo skillInfo = SkillInfo.Create();
-                      skillInfo.TargetAngle =  (int)math.floor(ange);
-                      float3 targetPosition = unitdefend.Position;
-                      skillInfo.WeaponSkillID = weaponSkill;
-                      skillInfo.PosX = targetPosition.x;
-                      skillInfo.PosY = targetPosition.y;
-                      skillInfo.PosZ = targetPosition.z;
-                      skillInfo.TargetID = skillcmd.TargetID;
-                      skillInfos.Add(skillInfo);
-                  }
-
-                  return skillInfos;
-              }
-              
               SkillConfig skillConfig = SkillConfigCategory.Instance.Get(weaponSkill);
               Unit target = unit.GetParent<UnitComponent>().Get(skillcmd.TargetID);
             
@@ -917,50 +880,6 @@ namespace ET.Server
           {
               self.SkillCDs.Clear();
               self.OnDispose();
-          }
-
-          /// <summary>
-          /// 二段斩第一技能结束
-          /// </summary>
-          /// <param name="self"></param>
-          /// <param name="skillConfig"></param>
-          public static void CheckSkillSecond(this SkillManagerComponentS self, SkillS skillHandler, long hurtId) 
-          {
-              KeyValuePairLong4 keyValuePairLong = null;
-              SkillConfigCategory.Instance.BuffSecondSkill.TryGetValue(skillHandler.SkillConf.Id, out keyValuePairLong);
-              if (keyValuePairLong == null)
-              {
-                  return;
-              }
-              
-              UnitComponent unitComponent = self.Scene().GetComponent<UnitComponent>();
-              Unit target = unitComponent.Get(hurtId);
-              if (target == null)
-              {
-                  return;
-              }
-
-              if (target.GetComponent<NumericComponentServer>().GetAsInt(NumericType.Now_Dead) == 1)
-              {
-                  return;
-              }
-              
-              ///攻击到目标则暂时清除CD
-              SkillCDItem skillCDItem = null;
-              self.SkillCDs.TryGetValue(skillHandler.SkillConf.Id, out skillCDItem);
-              if (skillCDItem != null && skillCDItem.CDEndTime!= 0)
-              {
-                  skillCDItem.CDEndTime = 0;
-                  //有伤害才同步 打断CD. 只同步一次
-                  //有伤害才同步 打断CD. 只同步一次
-                  M2C_SkillSecondResult request = M2C_SkillSecondResult.Create();
-                  request.UnitId = self.Id;
-                  request.SkillId = skillHandler.SkillConf.Id;
-                  request.HurtIds .Add(hurtId); 
-                  MapMessageHelper.SendToClient(self.GetParent<Unit>(), request);
-              }
-
-              self.SkillSecond[(int)(keyValuePairLong.Value2)] =  skillHandler.SkillConf.Id;//702-302
           }
 
           public static void CheckEndSkill(this SkillManagerComponentS self, int endSkillId)

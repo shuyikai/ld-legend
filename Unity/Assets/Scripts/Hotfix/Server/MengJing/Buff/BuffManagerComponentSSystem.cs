@@ -563,13 +563,7 @@ namespace ET.Server
             {
                 return;
             }
-
-            //移除之前的
-            for (int i = 30001; i < activityid; i++)
-            {
-                List<int> buffidsold = ActivityConfigCategory.Instance.GetBuffIds(i);
-                self.BuffRemoveList(buffidsold);
-            }
+            
 
             self.InitMaoXianJiaBuff();
         }
@@ -587,15 +581,6 @@ namespace ET.Server
             if (activityid == 0)
             {
                 return;
-            }
-
-            List<int> buffids = ActivityConfigCategory.Instance.GetBuffIds(activityid);
-            for (int i = 0; i < buffids.Count; i++)
-            {
-                BuffData buffData_2 = new BuffData();
-                buffData_2.SkillId = 67000278;
-                buffData_2.BuffId = buffids[i];
-                self.BuffFactory(buffData_2, unit, null);
             }
         }
 

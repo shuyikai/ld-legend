@@ -42,32 +42,6 @@ namespace ET
         }
 
         /// <summary>
-        /// 强化技能
-        /// </summary>
-        /// <param name="occ"></param>
-        /// <param name="skillId"></param>
-        /// <returns></returns>
-        public static bool IsQiangHuaSkill(int occ, int skillId)
-        {
-            int baseskill = SkillConfigCategory.Instance.GetInitSkill(skillId);
-            if (baseskill == 0)
-            {
-                return false;
-            }
-
-            int[] baseList = OccupationConfigCategory.Instance.Get(occ).BaseSkill;
-            for (int i = 0; i < baseList.Length; i++)
-            {
-                if (baseList[i] == baseskill)
-                {
-                    return true;
-                }
-            }
-           
-            return false;
-        }
-
-        /// <summary>
         /// 武器技能
         /// </summary>
         /// <param name="weapSkillId"></param>
@@ -88,16 +62,7 @@ namespace ET
             for (int i = 0; i < skillPros.Count; i++)
             {
                 List<KeyValuePairInt> equipSkillds = null;
-                SkillConfigCategory.Instance.EquipSkillList.TryGetValue(skillPros[i].SkillID, out equipSkillds);
-                if (equipSkillds == null)
-                {
-                    continue;
-                }
-                if (findIds.Contains(skillPros[i].SkillID))
-                {
-                    continue;
-                }
-
+               
                 for (int skillindex = 0; skillindex < equipSkillds.Count; skillindex++)
                 {
                     if (equipSkillds[skillindex].KeyId == oldskiull)
