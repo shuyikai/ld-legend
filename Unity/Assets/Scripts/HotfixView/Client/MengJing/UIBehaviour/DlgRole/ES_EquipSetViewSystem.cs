@@ -120,7 +120,6 @@ namespace ET.Client
                 esEquipItem.Refresh(equiplist[i], occ, itemOperateEnum, equiplist);
             }
 
-            self.Root().GetComponent<UIComponent>().GetDlgLogic<DlgRole>()?.OnUpdateRoleZodiac();
         }
 
         private static void RefreshEquip_2(this ES_EquipSet self, List<ItemInfo> equiplist, int occ, ItemOperateEnum itemOperateEnum)

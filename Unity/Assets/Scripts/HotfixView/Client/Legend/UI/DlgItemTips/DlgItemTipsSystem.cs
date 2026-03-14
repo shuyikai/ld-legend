@@ -234,12 +234,6 @@ namespace ET.Client
                 return;
             }
 
-            if (!dlgRole.View.ES_RoleGem.uiTransform.gameObject.activeSelf)
-            {
-                return;
-            }
-
-        
         }
 
         private static void OnPutBagButton(this DlgItemTips self)

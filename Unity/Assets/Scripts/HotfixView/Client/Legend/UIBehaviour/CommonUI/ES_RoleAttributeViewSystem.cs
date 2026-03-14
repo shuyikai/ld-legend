@@ -18,6 +18,13 @@ namespace ET.Client
 		{
 			self.DestroyWidget();
 		}
+
+		public static void ShowAttri(this ES_RoleAttribute self)
+		{
+			self.uiTransform.gameObject.SetActive(true);
+			
+			
+		}
 	}
 
 

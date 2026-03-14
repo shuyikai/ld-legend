@@ -18,6 +18,7 @@ namespace ET.Client
 			self.View.E_BagBtnButton.AddListener(self.OnClickBagButton);
 			self.View.E_TaskTeamSetBtnToggleGroup.AddListener(self.OnTaskTeamSetBtnToggle);
 			self.View.E_FunctionBtnButton.AddListener(self.OnFunctionButton);
+			self.View.E_JueSeBtnButton.AddListener(self.OnClickJueSeButton);
 			
 			self.InitMainHero(MapTypeEnum.MainCityScene);
 			self.AfterEnterScene(MapTypeEnum.MainCityScene);
@@ -116,7 +117,12 @@ namespace ET.Client
 		{
 			self.Root().GetComponent<UIComponent>().ShowWindowAsync(WindowID.WindowID_Bag).Coroutine();
 		}
-		
+
+		public static void OnClickJueSeButton(this DlgLdMain self)
+		{
+			self.Root().GetComponent<UIComponent>().ShowWindowAsync(WindowID.WindowID_Role).Coroutine();
+		}
+
 		public static void BeforeUnload(this DlgLdMain self)
 		{
 			ResourcesLoaderComponent resourcesLoaderComponent = self.Root().GetComponent<ResourcesLoaderComponent>();
