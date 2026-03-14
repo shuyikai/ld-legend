@@ -71,7 +71,7 @@ namespace ET.Client
 			string[] attrilist = attriinfo.Split("|");
 			int attrinumber = attrilist.Length;
 
-			if (self.SelectAttriItem < 0 || self.SelectAttriItem >= attrinumber)
+			if (self.SelectAttriItem < 0 || self.SelectAttriItem > attrinumber)
 			{
 				self.SelectAttriItem = 0;
 				return;
