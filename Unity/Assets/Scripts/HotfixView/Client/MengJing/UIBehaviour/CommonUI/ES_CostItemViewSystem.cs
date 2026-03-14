@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace ET.Client
@@ -18,23 +19,17 @@ namespace ET.Client
             self.DestroyWidget();
         }
 
-        public static void UpdateItem(this ES_CostItem self, int itemId, int itemNum, bool usercolor = false)
+        public static void UpdateItem(this ES_CostItem self, int itemId, int itemNum, bool showname)
         {
             BagComponentClient bagComponent = self.Root().GetComponent<BagComponentClient>();
             ItemConfig itemConfig = ItemConfigCategory.Instance.Get(itemId);
-
-            self.E_ItemNameText.text = itemConfig.Name;
-
-            if (usercolor)
-            {
-                self.E_ItemNameText.color = FunctionUI.QualityReturnColorDi(1);
-            }
-          
+            
+            self.E_ItemNameText.text = showname ? itemConfig.Name : String.Empty;
 
             //显示字
             using (zstring.Block())
             {
-                self.E_ItemNumText.text = zstring.Format("{0}/{1}", CommonViewHelper.NumToWString(bagComponent.GetItemNumber(itemId)),
+                self.E_ItemNumText.text = zstring.Format("({0}/{1})", CommonViewHelper.NumToWString(bagComponent.GetItemNumber(itemId)),
                     CommonViewHelper.NumToWString(itemNum));
             }
 

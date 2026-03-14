@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace ET
@@ -39,9 +40,14 @@ namespace ET
         {
             foreach ( EquipStrenghtConfig equipStrenghtConfig in this.GetAll().Values)
             {
+                if (equipStrenghtConfig.StrengthLv == 0)
+                {
+                    continue;
+                }
+
                 if (this.levelToquipStrenghtConfigs.ContainsKey(equipStrenghtConfig.StrengthLv))
                 {
-                    Log.Error($"stdmodeToequipStrenghtConfigs.ContainsKey(equipStrenghtConfig.StdMode): {equipStrenghtConfig.StdMode}");
+                    Log.Error($"stdmodeToequipStrenghtConfigs.ContainsKey(equipStrenghtConfig.StrengthLv): {equipStrenghtConfig.StdMode}");
                     continue; 
                 }
 
@@ -49,13 +55,23 @@ namespace ET
             }
         }
 
-        public EquipStrenghtConfig GetEquipStrenghtConfig(int stdmode)
+        public string GetEquipStrenghtAttr(int stdmode)
         {
             if (this.stdmodeToequipStrenghtConfigs.TryGetValue(stdmode, out EquipStrenghtConfig config))
             {
-                return null;
+                return config.Attribute;
             }
             Log.Error($"GetEquipStrenghtConfig: {stdmode}");
+            return string.Empty;
+        }
+        
+        public EquipStrenghtConfig GetLeveStrenghtConfig(int level)
+        {
+            if (this.levelToquipStrenghtConfigs.TryGetValue(level, out EquipStrenghtConfig config))
+            {
+                return config;
+            }
+            Log.Error($"GetEquipStrenghtConfig: {level}");
             return null;
         }
     }

@@ -25,7 +25,7 @@ namespace ET.Client
 		private static void UpdateBaoshiCaiiao(this DlgGemCombing self)
 		{
 			string[] costitem = ConfigData.GemCombineMaterial.Split(";");
-			self.View.ES_CostItem.UpdateItem(int.Parse(costitem[0]), int.Parse(costitem[1]));
+			self.View.ES_CostItem.UpdateItem(int.Parse(costitem[0]), int.Parse(costitem[1]), false);
 		}
 
 		private static void OnCloseButton(this DlgGemCombing self)

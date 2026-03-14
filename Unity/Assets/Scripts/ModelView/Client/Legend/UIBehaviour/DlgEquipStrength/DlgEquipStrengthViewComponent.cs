@@ -303,7 +303,7 @@ namespace ET.Client
 					this.m_E_AttriButtonlist = new Button[AttriButtonNumber];
 					for (int i = 0; i < AttriButtonNumber; i++)
 					{
-						this.m_E_AttriButtonlist[i] = UIFindHelper.FindDeepChild<UnityEngine.UI.Button>(this.uiTransform.gameObject, $"Content/EG_AttriSelect/E_AttriBtnItem_{i+1}");
+						this.m_E_AttriButtonlist[i] = UIFindHelper.FindDeepChild<UnityEngine.UI.Button>(this.uiTransform.gameObject, $"Content/EG_AttriSelect/Grid/E_AttriBtnItem_{i+1}");
 					}
 				}
 
@@ -351,7 +351,7 @@ namespace ET.Client
 		private UnityEngine.UI.Text m_E_PutTipText = null;
 		private const int AttriButtonNumber = 8;
 		private UnityEngine.UI.Image m_E_AttriImagedi = null;
-		private UnityEngine.UI.Button[] m_E_AttriButtonlist = new UnityEngine.UI.Button[AttriButtonNumber];
+		private UnityEngine.UI.Button[] m_E_AttriButtonlist = null;
 		public Transform uiTransform = null;
 	}
 }

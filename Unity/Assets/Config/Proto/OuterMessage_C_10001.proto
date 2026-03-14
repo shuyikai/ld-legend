@@ -1903,6 +1903,7 @@ message ItemInfoProto
 	int32 GemIDNew = 11;	//对应的宝石ID
 	string MakePlayer = 12;					//制作玩家名字
 	int32  BindState = 13;          //0未绑定  1已绑定
+	int32 StrengthLevel = 14;				//强化等级
 }
 
 //洗练项链

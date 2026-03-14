@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -62,21 +63,21 @@ namespace ET.Client
 			self.View.EG_AttriSelectRectTransform.gameObject.SetActive(!oldshow);
 			if (!oldshow)
 			{
-				self.UpdateAttributtonlist();
+				//self.UpdateAttributtonlist();
 			}
 		}
 
 		private static void UpdateAttributtonlist(this DlgEquipStrength self)
 		{
+			if (self.SelectEquipId == 0)
+			{
+				return;
+			}
+			
 			Button[] buttonlist = self.View.E_AttriButtonlist;
 			for (int i = 0; i < buttonlist.Length; i++)
 			{
 				buttonlist[i].gameObject.SetActive(false);
-			}
-
-			if (self.SelectEquipId == 0)
-			{
-				return;
 			}
 
 			BagComponentClient bagComponentClient = self.Root().GetComponent<BagComponentClient>();
@@ -85,8 +86,21 @@ namespace ET.Client
 			{
 				return;
 			}
-			
-			
+
+			EquipConfig equipConfig = EquipConfigCategory.Instance.Get(itemInfo.ItemID);
+			string strenghtConfig = EquipStrenghtConfigCategory.Instance.GetEquipStrenghtAttr(equipConfig.StdMode);
+			string[] strenghtlist = strenghtConfig.Split("|");
+			for (int i = 0; i < strenghtlist.Length; i++)
+			{
+				buttonlist[i].gameObject.SetActive(true);
+				Text buttontext = buttonlist[i].transform.Find("Text").GetComponent<Text>();
+				int numerictype = int.Parse(strenghtlist[0]);
+				buttontext.text = ItemViewHelp.GetAttributeName(numerictype);
+			}
+
+			int attriRow = Mathf.CeilToInt(strenghtlist.Length * 0.5f);
+			RectTransform rectTransform = self.View.E_AttriImagedi.GetComponent<RectTransform>();
+			rectTransform.sizeDelta = new(520f, attriRow * 80f + 90f);
 		}
 
 		private static async ETTask OnClickRefineButtion(this DlgEquipStrength self)
@@ -130,10 +144,11 @@ namespace ET.Client
 			self.View.E_BagItemsLoopVerticalScrollRect.SetVisible(true, allNumber);
 		}
 
-		
+
 		private static void UpdateSelect(this DlgEquipStrength self, ItemInfo bagInfo)
 		{
-
+			self.SelectEquipId = bagInfo.BagInfoID;
+			
 			for (int i = 0; i < self.ScrollItemCommonItems.Keys.Count - 1; i++)
 			{
 				Scroll_Item_CommonItem scrollItemCommonItem = self.ScrollItemCommonItems[i];
@@ -146,9 +161,41 @@ namespace ET.Client
 			self.View.ES_CommonItem.uiTransform.gameObject.SetActive(true);
 			self.View.E_PutTipText.gameObject.SetActive(false);
 			self.View.ES_CommonItem.UpdateItem(bagInfo, ItemOperateEnum.None);
-			
+
+			self.UpdateLeftInfo();
 		}
-		
+
+		private static void UpdateLeftInfo(this DlgEquipStrength self)
+		{
+			BagComponentClient bagComponentClient = self.Root().GetComponent<BagComponentClient>();
+			ItemInfo itemInfo = bagComponentClient.GetItemInfoByRoleAndbag( self.SelectEquipId);
+			if (itemInfo == null)
+			{
+				return;
+			}
+			
+			self.View.ES_CommonItem.UpdateItem(itemInfo, ItemOperateEnum.None);
+
+			EquipStrenghtConfig strenghtConfig = EquipStrenghtConfigCategory.Instance.GetLeveStrenghtConfig(itemInfo.StrengthLevel+1);
+
+			self.UpdateCostInfo(strenghtConfig);
+			self.UpdateAttributtonlist();
+		}
+
+		private static void UpdateCostInfo(this DlgEquipStrength self, EquipStrenghtConfig strenghtConfig )
+		{
+			string[] costitem = strenghtConfig.CostItem.Split(";");
+			self.View.ES_CostItem.UpdateItem(int.Parse(costitem[0]), int.Parse(costitem[1]), false);
+
+			using (zstring.Block())
+			{
+				string tip1 = ItemViewHelp.ReturnNumStr(strenghtConfig.CostJubin);
+				string tip2 = LanguageComponent.Instance.LoadLocalization("金币");
+				string etip = zstring.Format("+ {0}{1}", tip1, tip2);
+				self.View.E_CostGoldTxtText.text = etip;
+			}
+		}
+
 		private static void OnBagItemsRefresh(this DlgEquipStrength self, Transform transform, int index)
 		{
 			foreach (Scroll_Item_CommonItem item in self.ScrollItemCommonItems.Values)

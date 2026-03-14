@@ -3461,92 +3461,6 @@ namespace ET
         }
     }
 
-    // 道具操作
-    [MemoryPackable]
-    [Message(OuterMessage.C2M_ItemOperateRequest)]
-    [ResponseType(nameof(M2C_ItemOperateResponse))]
-    public partial class C2M_ItemOperateRequest : MessageObject, ILocationRequest
-    {
-        public static C2M_ItemOperateRequest Create(bool isFromPool = false)
-        {
-            return ObjectPool.Instance.Fetch(typeof(C2M_ItemOperateRequest), isFromPool) as C2M_ItemOperateRequest;
-        }
-
-        [MemoryPackOrder(89)]
-        public int RpcId { get; set; }
-
-        /// <summary>
-        /// 操作类型 1 背包使用  2 背包丢弃  3装备穿戴
-        /// </summary>
-        [MemoryPackOrder(0)]
-        public int OperateType { get; set; }
-
-        [MemoryPackOrder(1)]
-        public long OperateBagID { get; set; }
-
-        /// <summary>
-        /// 类型参数[穿戴饰品需要传位置]
-        /// </summary>
-        [MemoryPackOrder(2)]
-        public string OperatePar { get; set; }
-
-        public override void Dispose()
-        {
-            if (!this.IsFromPool)
-            {
-                return;
-            }
-
-            this.RpcId = default;
-            this.OperateType = default;
-            this.OperateBagID = default;
-            this.OperatePar = default;
-
-            ObjectPool.Instance.Recycle(this);
-        }
-    }
-
-    [MemoryPackable]
-    [Message(OuterMessage.M2C_ItemOperateResponse)]
-    public partial class M2C_ItemOperateResponse : MessageObject, ILocationResponse
-    {
-        public static M2C_ItemOperateResponse Create(bool isFromPool = false)
-        {
-            return ObjectPool.Instance.Fetch(typeof(M2C_ItemOperateResponse), isFromPool) as M2C_ItemOperateResponse;
-        }
-
-        [MemoryPackOrder(89)]
-        public int RpcId { get; set; }
-
-        [MemoryPackOrder(90)]
-        public string Message { get; set; }
-
-        [MemoryPackOrder(91)]
-        public int Error { get; set; }
-
-        [MemoryPackOrder(0)]
-        public string OperatePar { get; set; }
-
-        [MemoryPackOrder(1)]
-        public List<RewardItem> RewardList { get; set; } = new();
-
-        public override void Dispose()
-        {
-            if (!this.IsFromPool)
-            {
-                return;
-            }
-
-            this.RpcId = default;
-            this.Message = default;
-            this.Error = default;
-            this.OperatePar = default;
-            this.RewardList.Clear();
-
-            ObjectPool.Instance.Recycle(this);
-        }
-    }
-
     // 物品排序[通知服务器排序，暂时不需要返回]
     [MemoryPackable]
     [Message(OuterMessage.C2M_ItemSortRequest)]
@@ -8389,6 +8303,12 @@ namespace ET
         [MemoryPackOrder(12)]
         public int BindState { get; set; }
 
+        /// <summary>
+        /// 强化等级
+        /// </summary>
+        [MemoryPackOrder(13)]
+        public int StrengthLevel { get; set; }
+
         public override void Dispose()
         {
             if (!this.IsFromPool)
@@ -8409,6 +8329,7 @@ namespace ET
             this.GemIDNew = default;
             this.MakePlayer = default;
             this.BindState = default;
+            this.StrengthLevel = default;
 
             ObjectPool.Instance.Recycle(this);
         }
@@ -8699,6 +8620,92 @@ namespace ET
         }
     }
 
+    // 道具操作
+    [MemoryPackable]
+    [Message(OuterMessage.C2M_ItemOperateRequest)]
+    [ResponseType(nameof(M2C_ItemOperateResponse))]
+    public partial class C2M_ItemOperateRequest : MessageObject, ILocationRequest
+    {
+        public static C2M_ItemOperateRequest Create(bool isFromPool = false)
+        {
+            return ObjectPool.Instance.Fetch(typeof(C2M_ItemOperateRequest), isFromPool) as C2M_ItemOperateRequest;
+        }
+
+        [MemoryPackOrder(89)]
+        public int RpcId { get; set; }
+
+        /// <summary>
+        /// 操作类型 1 出售
+        /// </summary>
+        [MemoryPackOrder(0)]
+        public int OperateType { get; set; }
+
+        [MemoryPackOrder(1)]
+        public long OperateBagID { get; set; }
+
+        /// <summary>
+        /// 类型参数
+        /// </summary>
+        [MemoryPackOrder(2)]
+        public string OperatePar { get; set; }
+
+        public override void Dispose()
+        {
+            if (!this.IsFromPool)
+            {
+                return;
+            }
+
+            this.RpcId = default;
+            this.OperateType = default;
+            this.OperateBagID = default;
+            this.OperatePar = default;
+
+            ObjectPool.Instance.Recycle(this);
+        }
+    }
+
+    [MemoryPackable]
+    [Message(OuterMessage.M2C_ItemOperateResponse)]
+    public partial class M2C_ItemOperateResponse : MessageObject, ILocationResponse
+    {
+        public static M2C_ItemOperateResponse Create(bool isFromPool = false)
+        {
+            return ObjectPool.Instance.Fetch(typeof(M2C_ItemOperateResponse), isFromPool) as M2C_ItemOperateResponse;
+        }
+
+        [MemoryPackOrder(89)]
+        public int RpcId { get; set; }
+
+        [MemoryPackOrder(90)]
+        public string Message { get; set; }
+
+        [MemoryPackOrder(91)]
+        public int Error { get; set; }
+
+        [MemoryPackOrder(0)]
+        public string OperatePar { get; set; }
+
+        [MemoryPackOrder(1)]
+        public List<RewardItem> RewardList { get; set; } = new();
+
+        public override void Dispose()
+        {
+            if (!this.IsFromPool)
+            {
+                return;
+            }
+
+            this.RpcId = default;
+            this.Message = default;
+            this.Error = default;
+            this.OperatePar = default;
+            this.RewardList.Clear();
+
+            ObjectPool.Instance.Recycle(this);
+        }
+    }
+
     public static class OuterMessage
     {
         public const ushort HttpGetRouterResponse = 10002;
@@ -8788,142 +8795,142 @@ namespace ET
         public const ushort M2C_RoleBagUpdate = 10086;
         public const ushort C2M_PickItemRequest = 10087;
         public const ushort M2C_PickItemResponse = 10088;
-        public const ushort C2M_ItemOperateRequest = 10089;
-        public const ushort M2C_ItemOperateResponse = 10090;
-        public const ushort C2M_ItemSortRequest = 10091;
-        public const ushort C2M_ItemSplitRequest = 10092;
-        public const ushort M2C_ItemSplitResponse = 10093;
-        public const ushort SkillInfo = 10094;
-        public const ushort M2C_UnitNumericListUpdate = 10095;
-        public const ushort C2M_UserInfoInitRequest = 10096;
-        public const ushort M2C_UserInfoInitResponse = 10097;
-        public const ushort FriendInfo = 10098;
-        public const ushort C2F_FriendApplyReplyRequest = 10099;
-        public const ushort F2C_FriendApplyReplyResponse = 10100;
-        public const ushort C2F_FriendBlacklistRequest = 10101;
-        public const ushort F2C_FriendBlacklistResponse = 10102;
-        public const ushort C2F_FriendApplyRequest = 10103;
-        public const ushort F2C_FriendApplyResponse = 10104;
-        public const ushort C2F_FriendChatRead = 10105;
-        public const ushort F2C_FriendChatRead = 10106;
-        public const ushort C2F_FriendDeleteRequest = 10107;
-        public const ushort F2C_FriendDeleteResponse = 10108;
-        public const ushort C2F_FriendInfoRequest = 10109;
-        public const ushort F2C_FriendInfoResponse = 10110;
-        public const ushort C2Chat_GetChatRequest = 10111;
-        public const ushort Chat2C_GetChatResponse = 10112;
-        public const ushort C2C_SendChatRequest = 10113;
-        public const ushort C2C_SendChatResponse = 10114;
-        public const ushort M2C_SyncChatInfo = 10115;
-        public const ushort TaskPro = 10116;
-        public const ushort M2C_TaskUpdate = 10117;
-        public const ushort C2M_SkillSet = 10118;
-        public const ushort M2C_SkillSet = 10119;
-        public const ushort C2M_TaskCommitRequest = 10120;
-        public const ushort M2C_TaskCommitResponse = 10121;
-        public const ushort C2M_TaskGetRequest = 10122;
-        public const ushort M2C_TaskGetResponse = 10123;
-        public const ushort C2M_TaskGiveUpRequest = 10124;
-        public const ushort M2C_TaskGiveUpResponse = 10125;
-        public const ushort C2M_TaskInitRequest = 10126;
-        public const ushort M2C_TaskInitResponse = 10127;
-        public const ushort C2M_SkillInitRequest = 10128;
-        public const ushort M2C_SkillInitResponse = 10129;
-        public const ushort C2M_SkillInterruptRequest = 10130;
-        public const ushort M2C_SkillInterruptResult = 10131;
-        public const ushort C2M_SkillOperation = 10132;
-        public const ushort M2C_SkillOperation = 10133;
-        public const ushort C2M_SkillUp = 10134;
-        public const ushort M2C_SkillUp = 10135;
-        public const ushort M2C_UnitNumericUpdate = 10136;
-        public const ushort M2C_FriendApplyResult = 10137;
-        public const ushort C2M_UnitStateUpdate = 10138;
-        public const ushort M2C_UnitStateUpdate = 10139;
-        public const ushort M2C_UnitBuffUpdate = 10140;
-        public const ushort M2C_UnitBuffRemove = 10141;
-        public const ushort M2C_UnitBuffStatus = 10142;
-        public const ushort M2C_SkillSecondResult = 10143;
-        public const ushort TokenRecvive = 10144;
-        public const ushort C2M_StoreBuyRequest = 10145;
-        public const ushort M2C_StoreBuyResponse = 10146;
-        public const ushort M2C_HorseNoticeInfo = 10147;
-        public const ushort M2C_ZeroClock = 10148;
-        public const ushort UnionListItem = 10149;
-        public const ushort C2U_UnionListRequest = 10150;
-        public const ushort U2C_UnionListResponse = 10151;
-        public const ushort C2U_UnionApplyRequest = 10152;
-        public const ushort U2C_UnionApplyResponse = 10153;
-        public const ushort M2C_UnionApplyResult = 10154;
-        public const ushort C2U_UnionApplyListRequest = 10155;
-        public const ushort U2C_UnionApplyListResponse = 10156;
-        public const ushort C2U_UnionApplyReplyRequest = 10157;
-        public const ushort U2C_UnionApplyReplyResponse = 10158;
-        public const ushort C2U_UnionJingXuanRequest = 10159;
-        public const ushort U2C_UnionJingXuanResponse = 10160;
-        public const ushort C2U_UnionKickOutRequest = 10161;
-        public const ushort U2C_UnionKickOutResponse = 10162;
-        public const ushort C2U_UnionUpgradeRequest = 10163;
-        public const ushort U2C_UnionUpgradeResponse = 10164;
-        public const ushort C2U_UnionMyInfoRequest = 10165;
-        public const ushort U2C_UnionMyInfoResponse = 10166;
-        public const ushort C2U_UnionOperatateRequest = 10167;
-        public const ushort U2C_UnionOperatateResponse = 10168;
-        public const ushort C2U_UnionRaceInfoRequest = 10169;
-        public const ushort U2C_UnionRaceInfoResponse = 10170;
-        public const ushort C2M_ReceiveMailRequest = 10171;
-        public const ushort M2C_ReceiveMailResponse = 10172;
-        public const ushort C2E_ReceiveMailRequest = 10173;
-        public const ushort E2C_ReceiveMailResponse = 10174;
-        public const ushort C2E_GetAllMailRequest = 10175;
-        public const ushort E2C_GetAllMailResponse = 10176;
-        public const ushort C2M_GameSettingRequest = 10177;
-        public const ushort M2C_GameSettingResponse = 10178;
-        public const ushort C2M_GMCustomRequest = 10179;
-        public const ushort M2C_GMCustomResponse = 10180;
-        public const ushort C2M_GuideUpdateRequest = 10181;
-        public const ushort M2C_GuideUpdateResponse = 10182;
-        public const ushort C2M_ModifyNameRequest = 10183;
-        public const ushort M2C_ModifyNameResponse = 10184;
-        public const ushort C2M_ReddotReadRequest = 10185;
-        public const ushort M2C_ReddotReadResponse = 10186;
-        public const ushort C2M_RefreshUnitRequest = 10187;
-        public const ushort C2M_UnitInfoRequest = 10188;
-        public const ushort M2C_UnitInfoResponse = 10189;
-        public const ushort C2R_DBServerInfoRequest = 10190;
-        public const ushort R2C_DBServerInfoResponse = 10191;
-        public const ushort C2M_ActivityInfoRequest = 10192;
-        public const ushort M2C_ActivityInfoResponse = 10193;
-        public const ushort C2M_ActivityReceiveRequest = 10194;
-        public const ushort M2C_ActivityReceiveResponse = 10195;
-        public const ushort M2C_UpdateUserInfoMessage = 10196;
-        public const ushort Actor_SendReviveRequest = 10197;
-        public const ushort Actor_SendReviveResponse = 10198;
-        public const ushort C2M_HorseRideRequest = 10199;
-        public const ushort M2C_HorseRideResponse = 10200;
-        public const ushort C2M_HorseFightRequest = 10201;
-        public const ushort M2C_HorseFightResponse = 10202;
-        public const ushort TestServerInfoProto = 10203;
-        public const ushort C2M_SkillCmd = 10204;
-        public const ushort M2C_SkillCmd = 10205;
-        public const ushort M2C_UnitUseSkill = 10206;
-        public const ushort SkillSetInfo = 10207;
-        public const ushort M2C_SkillSetMessage = 10208;
-        public const ushort C2M_BagInitRequest = 10209;
-        public const ushort M2C_BagInitResponse = 10210;
-        public const ushort Actor_TransferRequest = 10211;
-        public const ushort Actor_TransferResponse = 10212;
-        public const ushort C2M_MedalExchangeRequest = 10213;
-        public const ushort M2C_MedalExchangeResponse = 10214;
-        public const ushort C2M_EquipWearRequest = 10215;
-        public const ushort M2C__EquipWearResponse = 10216;
-        public const ushort ItemInfoProto = 10217;
-        public const ushort C2M_EquipRefineRequest = 10218;
-        public const ushort M2C_EquipRefineResponse = 10219;
-        public const ushort C2M_EquipIdentifyRequest = 10220;
-        public const ushort M2C_EquipIdentifyResponse = 10221;
-        public const ushort C2M_GemCombingRequest = 10222;
-        public const ushort M2C_GemCombingResponse = 10223;
-        public const ushort C2M_GemInlayRequest = 10224;
-        public const ushort M2C_GemInlayResponse = 10225;
+        public const ushort C2M_ItemSortRequest = 10089;
+        public const ushort C2M_ItemSplitRequest = 10090;
+        public const ushort M2C_ItemSplitResponse = 10091;
+        public const ushort SkillInfo = 10092;
+        public const ushort M2C_UnitNumericListUpdate = 10093;
+        public const ushort C2M_UserInfoInitRequest = 10094;
+        public const ushort M2C_UserInfoInitResponse = 10095;
+        public const ushort FriendInfo = 10096;
+        public const ushort C2F_FriendApplyReplyRequest = 10097;
+        public const ushort F2C_FriendApplyReplyResponse = 10098;
+        public const ushort C2F_FriendBlacklistRequest = 10099;
+        public const ushort F2C_FriendBlacklistResponse = 10100;
+        public const ushort C2F_FriendApplyRequest = 10101;
+        public const ushort F2C_FriendApplyResponse = 10102;
+        public const ushort C2F_FriendChatRead = 10103;
+        public const ushort F2C_FriendChatRead = 10104;
+        public const ushort C2F_FriendDeleteRequest = 10105;
+        public const ushort F2C_FriendDeleteResponse = 10106;
+        public const ushort C2F_FriendInfoRequest = 10107;
+        public const ushort F2C_FriendInfoResponse = 10108;
+        public const ushort C2Chat_GetChatRequest = 10109;
+        public const ushort Chat2C_GetChatResponse = 10110;
+        public const ushort C2C_SendChatRequest = 10111;
+        public const ushort C2C_SendChatResponse = 10112;
+        public const ushort M2C_SyncChatInfo = 10113;
+        public const ushort TaskPro = 10114;
+        public const ushort M2C_TaskUpdate = 10115;
+        public const ushort C2M_SkillSet = 10116;
+        public const ushort M2C_SkillSet = 10117;
+        public const ushort C2M_TaskCommitRequest = 10118;
+        public const ushort M2C_TaskCommitResponse = 10119;
+        public const ushort C2M_TaskGetRequest = 10120;
+        public const ushort M2C_TaskGetResponse = 10121;
+        public const ushort C2M_TaskGiveUpRequest = 10122;
+        public const ushort M2C_TaskGiveUpResponse = 10123;
+        public const ushort C2M_TaskInitRequest = 10124;
+        public const ushort M2C_TaskInitResponse = 10125;
+        public const ushort C2M_SkillInitRequest = 10126;
+        public const ushort M2C_SkillInitResponse = 10127;
+        public const ushort C2M_SkillInterruptRequest = 10128;
+        public const ushort M2C_SkillInterruptResult = 10129;
+        public const ushort C2M_SkillOperation = 10130;
+        public const ushort M2C_SkillOperation = 10131;
+        public const ushort C2M_SkillUp = 10132;
+        public const ushort M2C_SkillUp = 10133;
+        public const ushort M2C_UnitNumericUpdate = 10134;
+        public const ushort M2C_FriendApplyResult = 10135;
+        public const ushort C2M_UnitStateUpdate = 10136;
+        public const ushort M2C_UnitStateUpdate = 10137;
+        public const ushort M2C_UnitBuffUpdate = 10138;
+        public const ushort M2C_UnitBuffRemove = 10139;
+        public const ushort M2C_UnitBuffStatus = 10140;
+        public const ushort M2C_SkillSecondResult = 10141;
+        public const ushort TokenRecvive = 10142;
+        public const ushort C2M_StoreBuyRequest = 10143;
+        public const ushort M2C_StoreBuyResponse = 10144;
+        public const ushort M2C_HorseNoticeInfo = 10145;
+        public const ushort M2C_ZeroClock = 10146;
+        public const ushort UnionListItem = 10147;
+        public const ushort C2U_UnionListRequest = 10148;
+        public const ushort U2C_UnionListResponse = 10149;
+        public const ushort C2U_UnionApplyRequest = 10150;
+        public const ushort U2C_UnionApplyResponse = 10151;
+        public const ushort M2C_UnionApplyResult = 10152;
+        public const ushort C2U_UnionApplyListRequest = 10153;
+        public const ushort U2C_UnionApplyListResponse = 10154;
+        public const ushort C2U_UnionApplyReplyRequest = 10155;
+        public const ushort U2C_UnionApplyReplyResponse = 10156;
+        public const ushort C2U_UnionJingXuanRequest = 10157;
+        public const ushort U2C_UnionJingXuanResponse = 10158;
+        public const ushort C2U_UnionKickOutRequest = 10159;
+        public const ushort U2C_UnionKickOutResponse = 10160;
+        public const ushort C2U_UnionUpgradeRequest = 10161;
+        public const ushort U2C_UnionUpgradeResponse = 10162;
+        public const ushort C2U_UnionMyInfoRequest = 10163;
+        public const ushort U2C_UnionMyInfoResponse = 10164;
+        public const ushort C2U_UnionOperatateRequest = 10165;
+        public const ushort U2C_UnionOperatateResponse = 10166;
+        public const ushort C2U_UnionRaceInfoRequest = 10167;
+        public const ushort U2C_UnionRaceInfoResponse = 10168;
+        public const ushort C2M_ReceiveMailRequest = 10169;
+        public const ushort M2C_ReceiveMailResponse = 10170;
+        public const ushort C2E_ReceiveMailRequest = 10171;
+        public const ushort E2C_ReceiveMailResponse = 10172;
+        public const ushort C2E_GetAllMailRequest = 10173;
+        public const ushort E2C_GetAllMailResponse = 10174;
+        public const ushort C2M_GameSettingRequest = 10175;
+        public const ushort M2C_GameSettingResponse = 10176;
+        public const ushort C2M_GMCustomRequest = 10177;
+        public const ushort M2C_GMCustomResponse = 10178;
+        public const ushort C2M_GuideUpdateRequest = 10179;
+        public const ushort M2C_GuideUpdateResponse = 10180;
+        public const ushort C2M_ModifyNameRequest = 10181;
+        public const ushort M2C_ModifyNameResponse = 10182;
+        public const ushort C2M_ReddotReadRequest = 10183;
+        public const ushort M2C_ReddotReadResponse = 10184;
+        public const ushort C2M_RefreshUnitRequest = 10185;
+        public const ushort C2M_UnitInfoRequest = 10186;
+        public const ushort M2C_UnitInfoResponse = 10187;
+        public const ushort C2R_DBServerInfoRequest = 10188;
+        public const ushort R2C_DBServerInfoResponse = 10189;
+        public const ushort C2M_ActivityInfoRequest = 10190;
+        public const ushort M2C_ActivityInfoResponse = 10191;
+        public const ushort C2M_ActivityReceiveRequest = 10192;
+        public const ushort M2C_ActivityReceiveResponse = 10193;
+        public const ushort M2C_UpdateUserInfoMessage = 10194;
+        public const ushort Actor_SendReviveRequest = 10195;
+        public const ushort Actor_SendReviveResponse = 10196;
+        public const ushort C2M_HorseRideRequest = 10197;
+        public const ushort M2C_HorseRideResponse = 10198;
+        public const ushort C2M_HorseFightRequest = 10199;
+        public const ushort M2C_HorseFightResponse = 10200;
+        public const ushort TestServerInfoProto = 10201;
+        public const ushort C2M_SkillCmd = 10202;
+        public const ushort M2C_SkillCmd = 10203;
+        public const ushort M2C_UnitUseSkill = 10204;
+        public const ushort SkillSetInfo = 10205;
+        public const ushort M2C_SkillSetMessage = 10206;
+        public const ushort C2M_BagInitRequest = 10207;
+        public const ushort M2C_BagInitResponse = 10208;
+        public const ushort Actor_TransferRequest = 10209;
+        public const ushort Actor_TransferResponse = 10210;
+        public const ushort C2M_MedalExchangeRequest = 10211;
+        public const ushort M2C_MedalExchangeResponse = 10212;
+        public const ushort C2M_EquipWearRequest = 10213;
+        public const ushort M2C__EquipWearResponse = 10214;
+        public const ushort ItemInfoProto = 10215;
+        public const ushort C2M_EquipRefineRequest = 10216;
+        public const ushort M2C_EquipRefineResponse = 10217;
+        public const ushort C2M_EquipIdentifyRequest = 10218;
+        public const ushort M2C_EquipIdentifyResponse = 10219;
+        public const ushort C2M_GemCombingRequest = 10220;
+        public const ushort M2C_GemCombingResponse = 10221;
+        public const ushort C2M_GemInlayRequest = 10222;
+        public const ushort M2C_GemInlayResponse = 10223;
+        public const ushort C2M_ItemOperateRequest = 10224;
+        public const ushort M2C_ItemOperateResponse = 10225;
     }
 }
